@@ -16,7 +16,7 @@ android {
 
     }
 
-  /*  buildTypes {
+  buildTypes {
         release {
             // true - 打开混淆
             minifyEnabled true
@@ -26,7 +26,7 @@ android {
             minifyEnabled = true
             consumerProguardFiles 'proguard-rules.pro'
         }
-    }*/
+    }
 
     compileOptions {
         sourceCompatibility = '1.8'
