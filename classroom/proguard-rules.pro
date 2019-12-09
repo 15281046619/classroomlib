@@ -95,7 +95,7 @@
 -keep class tv.danmaku.ijk.** { *; }
 -dontwarn tv.danmaku.ijk.**
 
--keep class com.xingwang.classroom.ClassRoomLibUtils{*; }
+-keep class com.xingwang.classroom.**{*; }
 
 -keep public class * extends android.view.View{
     *** get*();
