@@ -3,6 +3,8 @@ package com.xingwang.classroomlib;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.xingwang.classroom.ClassRoomLibUtils;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
