@@ -1,0 +1,2 @@
+include ':app', ':classroom-release'
+rootProject.name='classroomlib'
