@@ -1,0 +1,217 @@
+com.xingwang.classroom.http.HttpCallProgressBack
+com.xingwang.classroom.utils.HttpUtil$3
+com.xingwang.classroom.utils.Constants
+    public void <init>()
+com.xingwang.classroom.ClassRoomLibUtils
+    public void <init>()
+    public static void startDetilActivity(android.content.Context,int)
+    public static void startListActivity(android.content.Context)
+    public static void startListActivity(android.content.Context,java.lang.String)
+    public static void cleanAllCache(android.content.Context)
+    private static boolean deleteFileOrDirectory(java.io.File)
+com.xingwang.classroom.view.BaseBarrageAdapter
+    public void setData(java.util.List)
+com.xingwang.classroom.utils.GsonUtils$2
+com.xingwang.classroom.utils.GsonUtils$1
+com.xingwang.classroom.BuildConfig
+com.xingwang.classroom.utils.MyToast
+    public void <init>()
+    public static void myToast(android.content.Context,java.lang.String,int)
+    public static void cancleMyToast()
+com.xingwang.classroom.http.HttpUrls
+com.xingwang.classroom.utils.GsonUtils
+    private void <init>()
+    public static java.lang.String createGsonString(java.lang.Object)
+    public static java.lang.Object changeGsonToBean(java.lang.Object,java.lang.Class)
+    public static java.lang.Object changeGsonToBean(java.lang.String,java.lang.Class)
+    public static java.util.List changeGsonToList(java.lang.String,java.lang.Class)
+    public static java.util.List changeGsonToListMaps(java.lang.String)
+    public static java.util.Map changeGsonToMaps(java.lang.String)
+    public static java.lang.String getJsonValueByKey(java.lang.String,java.lang.String)
+com.xingwang.classroom.utils.StatusBarUtils
+    public void <init>()
+com.xingwang.classroom.utils.GsonUtils$3
+com.xingwang.classroom.view.DividerItemDecoration
+    public static final int HORIZONTAL_LIST
+    public static final int VERTICAL_LIST
+com.xingwang.classroom.adapter.BaseLoadMoreAdapter
+    public void setLoadState(int)
+    public int getLoadState()
+com.xingwang.classroom.utils.KeyBoardHelper
+    public void scrollView(android.view.ViewGroup,android.view.View,boolean)
+com.xingwang.classroom.utils.NoDoubleClickUtils
+    public void <init>()
+    public static void initLastClickTime()
+    private static final int SPACE_TIME
+com.xingwang.classroom.utils.SharedPreferenceUntils
+    public void <init>()
+    private static final java.lang.String saveName
+com.xingwang.classroom.utils.HttpUtil
+    public static void get(java.lang.String,com.xingwang.classroom.http.HttpCallBack)
+    public static void get(java.lang.String,java.lang.Class,com.xingwang.classroom.http.HttpCallBack)
+    public static void get(java.lang.String,java.util.HashMap,com.xingwang.classroom.http.HttpCallBack)
+    public static void get(java.lang.String,java.util.HashMap,java.lang.Class,com.xingwang.classroom.http.HttpCallBack)
+    public static void get(java.lang.String,java.util.HashMap,com.xingwang.classroom.http.HttpCallBack,java.lang.Object)
+    public static void post(java.lang.String,java.lang.Class,com.xingwang.classroom.http.HttpCallBack)
+    public static void post(java.lang.String,java.util.HashMap,com.xingwang.classroom.http.HttpCallBack)
+    public static void post(java.lang.String,java.util.HashMap,com.xingwang.classroom.http.HttpCallBack,java.lang.Object)
+    public static void upLoadFile(java.lang.String,java.lang.Object,java.util.HashMap,java.lang.Class,com.xingwang.classroom.http.HttpCallBack)
+    public static void upLoadFile(java.lang.String,java.util.HashMap,java.lang.Class,com.xingwang.classroom.http.HttpCallBack)
+    public static void post(java.lang.String,java.util.HashMap,java.lang.Class,com.xingwang.classroom.http.HttpCallBack)
+    private static okhttp3.Request getRequestForPostFile(java.lang.String,java.util.Map,java.lang.Object)
+    private static okhttp3.RequestBody createProgressRequestBody(okhttp3.MediaType,java.io.File,com.xingwang.classroom.http.HttpCallProgressBack)
+    public static void cancelAll()
+com.xingwang.classroom.ui.BaseLazyLoadFragment
+    public void requestPost(java.lang.String,java.util.HashMap,java.lang.Class,com.xingwang.classroom.http.HttpCallBack)
+com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener
+    public int getScollYDistance(android.support.v7.widget.RecyclerView)
+com.xingwang.classroom.utils.TimeUtil
+    public void <init>()
+    private static final long minute
+    private static final long hour
+    private static final long day
+    private static final long month
+    private static final long year
+com.xingwang.classroom.utils.LogUtil
+    public void <init>()
+com.xingwang.classroom.utils.CommentUtils
+    public void <init>()
+    public static void showSoftKeyboard(android.content.Context,android.widget.EditText)
+    public static void closeSoftKeyboard(android.app.Activity)
+    public static android.graphics.drawable.Drawable getWrappedDrawable(android.content.Context,int)
+    public static int getColor(android.content.Context,int)
+    public static void removeGlobalLayoutObserver(android.view.View,android.view.ViewTreeObserver$OnGlobalLayoutListener)
+    public static android.app.Activity getHostActivity(android.content.Context)
+    public static int dip2px(android.content.Context,float)
+    public static int px2dip(android.content.Context,float)
+    public static void hideBottomUIMenu(android.app.Activity)
+    private static synthetic void lambda$showSoftKeyboard$0(android.content.Context,android.widget.EditText)
+com.xingwang.classroom.utils.GlideUtils
+    public void <init>()
+com.xingwang.classroom.ui.BaseActivity
+    private java.lang.Boolean isShouldHideKeyboard(android.view.View,android.view.MotionEvent)
+    private void hideKeyboard(android.os.IBinder)
+com.xingwang.classroom.utils.ActivityManager
+    public java.util.Stack getActivityStack()
+    public android.app.Activity currentActivity()
+    public void finishActivity()
+    public void finishLastActivity()
+    public void finishActivity(java.lang.Class)
+    public boolean findActivity(java.lang.Class)
+    public void finishAllActivity()
+    public void appExit()
+com.xingwang.classroom.utils.Constants
+    static void <clinit>()
+com.xingwang.classroom.ui.ClassRoomHomeFragment$2
+    public void onSuccess(com.xingwang.classroom.bean.LectureListsBean)
+com.xingwang.classroom.utils.GlideImageLoader
+    public void displayImage(android.content.Context,java.lang.Object,android.widget.ImageView)
+com.xingwang.classroom.ClassRoomLibUtils
+    public static java.io.File getVideoCachePathFile(android.content.Context)
+    public static java.lang.String getVideoCachePath(android.content.Context)
+    public static int getScreenWidth(android.app.Activity)
+    public static int getScrrenHeight(android.app.Activity)
+    public static void loadAvatar(java.lang.String,int,android.widget.ImageView)
+    public static void loadAnimateAvatar(java.lang.String,android.widget.ImageView)
+    public static void putString(android.content.Context,java.lang.String,java.lang.String)
+    public static java.lang.String getString(android.content.Context,java.lang.String,java.lang.String)
+    public static long getStringToDate(java.lang.String,java.lang.String)
+    public static java.lang.String getTimeFormatText(java.lang.String)
+com.xingwang.classroom.utils.MyToast
+    static void <clinit>()
+com.xingwang.classroom.adapter.DetailAdapter
+    public void setOnDetailItemListener(com.xingwang.classroom.adapter.DetailAdapter$OnClickDetailItemListener)
+    public final android.text.SpannableString getSpannableStr(android.content.Context,com.xingwang.classroom.bean.CommentBean$DataBean$CommentsBean,int)
+com.xingwang.classroom.utils.GsonUtils
+    public static java.util.List changeGsonToSafeList(java.lang.String,java.lang.Class)
+    static void <clinit>()
+com.xingwang.classroom.utils.StatusBarUtils
+com.xingwang.classroom.view.DividerItemDecoration
+    public void setOrientation(int)
+    public void drawVertical(android.graphics.Canvas,android.support.v7.widget.RecyclerView)
+    public void drawHorizontal(android.graphics.Canvas,android.support.v7.widget.RecyclerView)
+com.xingwang.classroom.utils.AndroidBug5497Workaround
+    public static void assistActivity(android.app.Activity)
+    public static synthetic void access$000(com.xingwang.classroom.utils.AndroidBug5497Workaround)
+    public final int computeUsableHeight()
+com.xingwang.classroom.adapter.BaseLoadMoreAdapter
+    public void setLoadStateNoNotify(int)
+    public void setOnItemClickListener(com.xingwang.classroom.adapter.BaseLoadMoreAdapter$OnItemClickListener)
+    public final int TYPE_ITEM
+    public final int TYPE_FOOTER
+    public final int LOADING
+    public final int LOADING_COMPLETE
+    public final int LOADING_END
+com.xingwang.classroom.utils.KeyBoardHelper
+    public static synthetic android.app.Activity access$000(com.xingwang.classroom.utils.KeyBoardHelper)
+    public static synthetic int access$100(com.xingwang.classroom.utils.KeyBoardHelper)
+    public static synthetic int access$200(com.xingwang.classroom.utils.KeyBoardHelper)
+    public static synthetic com.xingwang.classroom.utils.KeyBoardHelper$OnKeyBoardStatusChangeListener access$300(com.xingwang.classroom.utils.KeyBoardHelper)
+    public static synthetic int access$202(com.xingwang.classroom.utils.KeyBoardHelper,int)
+    public void onCreate()
+    public void onDestroy()
+    public void setOnKeyBoardStatusChangeListener(com.xingwang.classroom.utils.KeyBoardHelper$OnKeyBoardStatusChangeListener)
+    public void openInputMethodManager(android.widget.EditText)
+    public void closeInputMethodManager()
+    public int statusBarHeight
+com.xingwang.classroom.utils.NoDoubleClickUtils
+com.xingwang.classroom.utils.SharedPreferenceUntils
+com.xingwang.classroom.utils.HttpUtil
+    public static void setAuth(java.lang.String)
+    public static void commonGet(okhttp3.Request,java.lang.Class,com.xingwang.classroom.http.HttpCallBack)
+    public static void commonPost(okhttp3.Request,java.lang.Class,com.xingwang.classroom.http.HttpCallBack)
+    public static okhttp3.Request getRequestForPost(java.lang.String,java.util.Map,java.lang.Object)
+    public static okhttp3.Request getRequestForGet(java.lang.String,java.util.HashMap,java.lang.Object)
+    public static synthetic android.os.Handler access$000()
+com.xingwang.classroom.ui.ClassRoomHomeFragment
+    public static com.xingwang.classroom.ui.ClassRoomHomeFragment getInstance(int,java.lang.String)
+    public final void stopRefreshAnimation()
+    public int position
+com.xingwang.classroom.ui.ClassRoomDetailActivity$3
+    public void onSuccess(com.xingwang.classroom.bean.FavoritBean)
+com.xingwang.classroom.http.ApiParams
+    public com.xingwang.classroom.http.ApiParams with(java.lang.String,java.lang.Object)
+com.xingwang.classroom.ui.BaseLazyLoadFragment
+    public android.content.Context mContext
+com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener
+    public int direction
+    public int scollorHeight
+    public int clickHeigth
+com.xingwang.classroom.ui.ClassRoomHomeActivity
+    public final java.util.List getTitleImages()
+    public final java.util.List getTitleDes()
+    public final void initTabLayout(com.xingwang.classroom.bean.CategoryBean)
+    public final void initSettingToolBarHeight()
+com.xingwang.classroom.ui.ClassRoomHomeActivity$1
+    public void onSuccess(com.xingwang.classroom.bean.ADGroupBean)
+com.xingwang.classroom.ui.ClassRoomHomeActivity$2
+    public void onSuccess(com.xingwang.classroom.bean.CategoryBean)
+com.xingwang.classroom.utils.TimeUtil
+com.xingwang.classroom.ui.ClassRoomDetailActivity
+    public final void initId()
+    public final void requestPermission()
+    public final void requestIsCollect()
+    public final void requestDetailData(int)
+    public final void fragmentNotifyDataSetChanged()
+    public final void showBarrage(com.xingwang.classroom.bean.CommentBean)
+com.xingwang.classroom.utils.LogUtil
+    public static void e(java.lang.String,java.lang.String)
+    public static void e(java.lang.Boolean,java.lang.String,java.lang.String)
+    public static void i(java.lang.String)
+    public static void i(java.lang.Boolean,java.lang.String,java.lang.String)
+com.xingwang.classroom.utils.CommentUtils
+com.xingwang.classroom.ui.ClassRoomDetailActivity$7
+    public void onSuccess(com.xingwang.classroom.bean.IsFavoritBean)
+com.xingwang.classroom.dialog.BottomADSheetDialog
+    public static com.xingwang.classroom.dialog.BottomADSheetDialog getInstance(java.lang.String,int,int,float)
+com.xingwang.classroom.adapter.DetailAdapter$BaseViewHolder
+    public final synthetic com.xingwang.classroom.adapter.DetailAdapter this$0
+com.xingwang.classroom.utils.GlideUtils
+com.xingwang.classroom.ui.ClassRoomDetailActivity$6
+    public void onSuccess(com.xingwang.classroom.bean.SendCommentBean)
+com.xingwang.classroom.ui.ClassRoomDetailActivity$9
+    public void onSuccess(com.xingwang.classroom.bean.CommentBean)
+com.xingwang.classroom.adapter.HomeAdapter$HomeViewHolder
+    public final synthetic com.xingwang.classroom.adapter.HomeAdapter this$0
+com.xingwang.classroom.ui.ClassRoomDetailActivity$8
+    public void onSuccess(com.xingwang.classroom.bean.DetailBean)

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xingwang.classroom"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="28" />
+
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序修改全局音频设置 -->
+
+
+    <!-- 网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 锁屏工作，防止休眠 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 悬浮窗 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 启用通知栏需使用 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 启用通知栏需使用 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application>
+        <activity
+            android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/AppThemeClassRoom" />
+        <activity
+            android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/AppThemeClassRoom"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="xingwang.host.pldetail"
+                    android:scheme="classroom" />
+            </intent-filter>
+        </activity>
+        <!-- 在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity -->
+        <activity
+            android:name="com.xingwang.classroom.ui.ClassRoomDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeClassRoom"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="xingwang.host.kcdetail"
+                    android:scheme="classroom" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="sp_15_classroom">15sp</dimen>
+    <dimen name="sp_16_classroom">16sp</dimen>
+    <dimen name="sp_14_classroom">14sp</dimen>
+    <dimen name="dp_200_classroom">200dp</dimen>
+    <dimen name="dp_300_classroom">300dp</dimen>
+    <dimen name="dp_15_classroom">15dp</dimen>
+    <dimen name="dp_5_classroom">5dp</dimen>
+    <dimen name="dp_250_classroom">250dp</dimen>
+    <dimen name="dp_100_classroom">100dp</dimen>
+    <dimen name="dp_80_classroom">80dp</dimen>
+    <dimen name="dp_120_classroom">120dp</dimen>
+    <dimen name="dp_10_classroom">10dp</dimen>
+    <dimen name="dp_93_classroom">93dp</dimen>
+    <dimen name="dp_1_classroom">1dp</dimen>
+</resources>
+

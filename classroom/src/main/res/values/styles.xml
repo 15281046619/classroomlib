@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+    <style name="AppThemeClassRoom" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryClassRoom</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkClassRoom</item>
+        <item name="colorAccent">@color/colorAccentClassRoom</item>
+        <item name="android:textColor">@color/textColorClassRoom</item>
+        <item name="android:textSize">@dimen/sp_15_classroom</item>
+
+
+        <!--禁止多点触控-->
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+    </style>
+    <style name="ToolbarStyleClassRoom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">?actionBarSize</item>
+        <item name="navigationIcon">@mipmap/ic_back_classroom</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/toolbarBgClassRoom</item>
+        <item name="android:textSize">@dimen/sp_16_classroom</item>
+        <item name="titleMargin">0dp</item>
+        <item name="contentInsetLeft">0dp</item>
+        <item name="contentInsetStart">0dp</item>
+    </style>
+
+    <style name="chatAvatarClassRoom" parent="Theme.AppCompat.Light">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:src">@drawable/empty_drawable</item>
+    </style>
+
+    <style name="DialogStyleClassRoom" parent="Theme.AppCompat.Light.Dialog" >
+        <!-- 窗口背景色 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否有覆盖-->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--进出动画-->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <!--全屏-->
+        <item name="android:windowFullscreen">false</item>
+    </style>
+</resources>

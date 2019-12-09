@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundClassRoom"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.xingwang.classroom.view.VpSwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipe_refresh_layout"
+        android:addStatesFromChildren="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:background="@android:color/transparent"
+                >
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    >
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        app:title_textsize="@dimen/sp_14_classroom"
+                        app:indicator_height="@dimen/dp_5_classroom"
+                        app:indicator_drawable_selected="@drawable/shape_home_img_select_classroom"
+                        app:indicator_drawable_unselected="@drawable/shape_home_img_sleect_false_classroom"
+                        app:indicator_width="@dimen/dp_15_classroom"
+                        android:background="@color/toolbarBgClassRoom"
+                        app:title_background="@android:color/transparent"
+                        app:title_textcolor="@android:color/white"
+                        android:layout_height="@dimen/dp_200_classroom"
+                        app:banner_layout="@layout/layout_banner_classroom"
+                        />
+                    <com.xingwang.classroom.view.CustomToolbar
+                        android:id="@+id/toolbar"
+                        app:layout_collapseMode="pin"
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        style="@style/ToolbarStyleClassRoom"
+                        >
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="10dp"
+                            android:id="@+id/iv_search"
+                            android:src="@mipmap/ic_ss_classroom"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_marginRight="12dp"
+                            />
+                    </com.xingwang.classroom.view.CustomToolbar>
+
+
+                </android.support.design.widget.CollapsingToolbarLayout>
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/toolbarBgClassRoom"
+                    app:tabIndicatorColor="@color/themeClassRoom"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="@color/themeClassRoom"
+                    app:tabMode="scrollable"
+
+                    app:tabTextColor="#fff"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+        </android.support.design.widget.CoordinatorLayout>
+    </com.xingwang.classroom.view.VpSwipeRefreshLayout>
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_16_classroom"
+        android:textStyle="bold"
+        android:background="@android:color/transparent"
+        android:text="@string/class_room_home_title_ClassRoom"/>
+</RelativeLayout>
+
+

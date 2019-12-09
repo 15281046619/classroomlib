@@ -1,0 +1,146 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.xingwang.classroom.test" >
+4
+5    <uses-sdk
+5-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:5:5-74
+6        android:minSdkVersion="17"
+6-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:5:15-41
+7        android:targetSdkVersion="28" />
+7-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:5:42-71
+8
+9    <instrumentation
+9-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:11:5-15:77
+10        android:name="android.support.test.runner.AndroidJUnitRunner"
+10-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:11:22-83
+11        android:functionalTest="false"
+11-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:14:22-52
+12        android:handleProfiling="false"
+12-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:13:22-53
+13        android:label="Tests for com.xingwang.classroom.test"
+13-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:15:22-75
+14        android:targetPackage="com.xingwang.classroom.test" />
+14-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:12:22-73
+15
+16    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序修改全局音频设置 -->
+16-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-67
+16-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:22-64
+17    <!-- 网络状态 -->
+18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 锁屏工作，防止休眠 -->
+18-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:5-79
+18-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:22-76
+19    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 悬浮窗 -->
+19-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:17:5-68
+19-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:17:22-65
+20    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 启用通知栏需使用 -->
+20-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:5-78
+20-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:22-75
+21    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 启用通知栏需使用 -->
+21-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:5-68
+21-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:22-65
+22    <uses-permission android:name="android.permission.CAMERA" />
+22-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:5-65
+22-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:22-62
+23    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+23-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:5-80
+23-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:22-77
+24    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+24-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:5-81
+24-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:22-78
+25
+26    <application
+26-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:7:5-9:19
+27        android:allowBackup="true"
+27-->[com.shuyu:gsyVideoPlayer-java:6.0.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\38d3b0590a33da0504881885ecb00321\gsyVideoPlayer-java-6.0.2\AndroidManifest.xml:12:9-35
+28        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+28-->[com.android.support:support-compat:28.0.0] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\f14724208b5bfeeef0d6bdefe649bca7\support-compat-28.0.0\AndroidManifest.xml:22:18-91
+29        android:debuggable="true"
+29-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:7:18-43
+30        android:label="@string/app_name"
+30-->[com.shuyu:gsyVideoPlayer-java:6.0.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\38d3b0590a33da0504881885ecb00321\gsyVideoPlayer-java-6.0.2\AndroidManifest.xml:13:9-41
+31        android:supportsRtl="true" >
+31-->[com.shuyu:gsyVideoPlayer-java:6.0.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\38d3b0590a33da0504881885ecb00321\gsyVideoPlayer-java-6.0.2\AndroidManifest.xml:14:9-35
+32        <uses-library android:name="android.test.runner" />
+32-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:8:9-60
+32-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2740616330078334463.xml:8:23-57
+33
+34        <activity
+34-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:28:9-31:56
+35            android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
+35-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:29:13-75
+36            android:configChanges="orientation|screenSize|keyboardHidden"
+36-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:13-74
+37            android:theme="@style/AppThemeClassRoom" />
+37-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:31:13-53
+38        <activity
+38-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:32:9-46:20
+39            android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"
+39-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:33:13-84
+40            android:configChanges="orientation|screenSize|keyboardHidden"
+40-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:13-74
+41            android:theme="@style/AppThemeClassRoom"
+41-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:13-53
+42            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" >
+42-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:13-85
+43            <intent-filter>
+43-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:13-45:29
+44                <action android:name="android.intent.action.VIEW" />
+44-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:17-69
+44-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:25-66
+45
+46                <category android:name="android.intent.category.DEFAULT" />
+46-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:17-76
+46-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:27-73
+47
+48                <data
+48-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:42:17-44:50
+49                    android:host="xingwang.host.pldetail"
+49-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:21-58
+50                    android:scheme="classroom" />
+50-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:44:21-47
+51            </intent-filter>
+52        </activity> <!-- 在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity -->
+53        <activity
+53-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:48:9-63:20
+54            android:name="com.xingwang.classroom.ui.ClassRoomDetailActivity"
+54-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:49:13-77
+55            android:configChanges="orientation|screenSize|keyboardHidden"
+55-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:50:13-74
+56            android:screenOrientation="portrait"
+56-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:51:13-49
+57            android:theme="@style/AppThemeClassRoom"
+57-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:52:13-53
+58            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" >
+58-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:53:13-85
+59            <intent-filter>
+59-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:54:13-62:29
+60                <action android:name="android.intent.action.VIEW" />
+60-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:17-69
+60-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:25-66
+61
+62                <category android:name="android.intent.category.DEFAULT" />
+62-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:17-76
+62-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:27-73
+63
+64                <data
+64-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:42:17-44:50
+65                    android:host="xingwang.host.kcdetail"
+65-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:21-58
+66                    android:scheme="classroom" />
+66-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:44:21-47
+67            </intent-filter>
+68        </activity>
+69
+70        <provider
+70-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:23:9-27:43
+71            android:name="android.arch.lifecycle.ProcessLifecycleOwnerInitializer"
+71-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:24:13-83
+72            android:authorities="com.xingwang.classroom.test.lifecycle-trojan"
+72-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:25:13-68
+73            android:exported="false"
+73-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:26:13-37
+74            android:multiprocess="true" />
+74-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:27:13-40
+75    </application>
+76
+77</manifest>

@@ -18,7 +18,13 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url 'https://jitpack.io' }
+        maven {
+            url "https://gitee.com/zhangmanji/beautydefinelibrary/raw/master"
+        }
+        maven {
+            url "https://gitee.com/zhangmanji/beautyreslibrary/raw/master"
+        }
     }
 }
 

@@ -1,2 +1,2 @@
-include ':app', ':classroom-release'
+include ':app', ':classroom-release', ':classroom'
 rootProject.name='classroomlib'
