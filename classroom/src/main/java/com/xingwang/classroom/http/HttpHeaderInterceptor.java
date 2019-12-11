@@ -21,8 +21,8 @@ public class HttpHeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
-       // String mAuth = BeautyDefine.getAccountDefine().getAuthStr();
-        String mAuth = "RAlUUlcOQ1BbUABTAlRWCQABDVEGXggEV1BUBQdQUFYDVwhWBg1XcUQVMXtODyo+VTd1IV4qdmA1cGEgYlNyYEBcNCIzbiRlIVV7dGYueWNYQ1VmdAF2clBUJydlNDd2RHp2cGUNdHdUEi58WlsvJUUeUCVKCA8WXw==";
+        String mAuth = BeautyDefine.getAccountDefine().getAuthStr();
+        //String mAuth = "RAlUUlcOQ1BbUABTAlRWCQABDVEGXggEV1BUBQdQUFYDVwhWBg1XcUQVMXtODyo+VTd1IV4qdmA1cGEgYlNyYEBcNCIzbiRlIVV7dGYueWNYQ1VmdAF2clBUJydlNDd2RHp2cGUNdHdUEi58WlsvJUUeUCVKCA8WXw==";
         if (!TextUtils.isEmpty(mAuth))
         builder.addHeader("Authorization",mAuth);
 

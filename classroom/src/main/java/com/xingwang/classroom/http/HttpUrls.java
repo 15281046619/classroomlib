@@ -6,11 +6,11 @@ package com.xingwang.classroom.http;
  * author:baiguiqiang
  */
 public class HttpUrls {
-  /*  private static final String URL_HOST="http://xwapp.xw518.com/";
-    private static final String URL_NAME="";*/
+    private static final String URL_HOST="http://xwapp.xw518.com/";
+    private static final String URL_NAME="";
 
-    private static final String URL_HOST="http://192.168.65.74/";
-    private static final String URL_NAME="xwapp/public/";
+    /*private static final String URL_HOST="http://192.168.65.74/";
+    private static final String URL_NAME="xwapp/public/";*/
 
     public static final String URL_GETAUTHSTR=URL_HOST+URL_NAME+"user/auth/getAuthstr";
     public static final String URL_CATEGORYS=URL_HOST+URL_NAME+"lecture/general/lecture/categorys";
@@ -28,4 +28,5 @@ public class HttpUrls {
     public static  String getChannel(int id){
         return "xwapp.zy.lecture.lecture_"+id+".new_comment";
     }
+    public static String CHANNEL_WS_URL ="subscribe.test.xw518.com:10002";
 }

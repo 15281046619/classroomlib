@@ -11,6 +11,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.LogUtil;
 
 import org.json.JSONObject;
@@ -64,7 +65,7 @@ public class WsManagerUtil {
                         .connectTimeout(10,TimeUnit.SECONDS)
                         .build())
                 .needReconnect(true)
-                .wsUrl("ws://crm.test.xw518.com:8282")
+                .wsUrl(HttpUrls.CHANNEL_WS_URL)
                 .build();
         wsManager.setWsStatusListener(mParentStatusListener);
         wsManager.startConnect();

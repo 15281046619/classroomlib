@@ -1,7 +1,5 @@
 package com.xingwang.classroom.ui;
 
-
-import com.xingwang.classroom.BuildConfig;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.utils.HttpUtil;
 
