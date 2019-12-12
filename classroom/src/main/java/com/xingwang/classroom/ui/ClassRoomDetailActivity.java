@@ -533,7 +533,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             @Override
             public void createSuccess(String response) {
                 super.createSuccess(response);
-                channel= HttpUrls.getChannel(mBean.getData().getLecture().getId());
+                channel= HttpUrls.CHANNEL+mBean.getData().getLecture().getId()+".new_comment";
                 WsManagerUtil.getInstance().subscribe(channel, new ChannelStatusListener() {
                     @Override
                     public void subscribeSuccess(String response) {

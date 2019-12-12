@@ -6,7 +6,7 @@ package com.xingwang.classroom.http;
  * author:baiguiqiang
  */
 public class HttpUrls {
-    private static final String URL_HOST="http://xwapp.xw518.com/";
+    private static final  String URL_HOST="http://zyapp.test.xw518.com";
     private static final String URL_NAME="";
 
     /*private static final String URL_HOST="http://192.168.65.74/";
@@ -23,10 +23,8 @@ public class HttpUrls {
     public static final String URL_ISFAVORITE=URL_HOST+URL_NAME+"favorite/user/api/isFavorite";
     public static final String URL_FAVORITE=URL_HOST+URL_NAME+"favorite/user/api/favorite";
     public static final String URL_UNFAVORITE=URL_HOST+URL_NAME+"favorite/user/api/unFavorite";
-    public static final String URL_SHARE="http://xwapp.xw518.com/page/share_lecture";//课程分享网页
-    //获取通道channel
-    public static  String getChannel(int id){
-        return "xwapp.zy.lecture.lecture_"+id+".new_comment";
-    }
+    public static final String URL_SHARE=URL_HOST+"page/share_lecture";//课程分享网页
+
+    public static final String CHANNEL="xwapp.zy.lecture.lecture_";//channel
     public static String CHANNEL_WS_URL ="subscribe.test.xw518.com:10002";
 }

@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
-
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -18,7 +16,6 @@ import java.io.IOException;
  * author:baiguiqiang
  */
 public class ClassRoomLibUtils {
-
     /**
      * 获取视频缓存文件夹
      * @param context
