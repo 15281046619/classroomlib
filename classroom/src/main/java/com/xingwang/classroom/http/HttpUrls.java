@@ -6,7 +6,7 @@ package com.xingwang.classroom.http;
  * author:baiguiqiang
  */
 public class HttpUrls {
-    private static final  String URL_HOST="http://zyapp.test.xw518.com";
+    private static final  String URL_HOST="http://zyapp.test.xw518.com/";
     private static final String URL_NAME="";
 
     /*private static final String URL_HOST="http://192.168.65.74/";
