@@ -609,12 +609,10 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     requestFailureShow(message);
                 }
                 isRequesting = false;
-
             }
 
             @Override
             public void onSuccess(CommentBean commentBean) {
-
                 if(commentBean.getData().getComments().size()<pageNum){
                     state=3;
                 }else

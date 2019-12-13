@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.xingwang.classroom.BuildConfig;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.utils.CommentUtils;
@@ -149,7 +150,6 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
                 }
                 View mRootView =  LayoutInflater.from( mBaseViewHolder.llCommentMore.getContext()).inflate(R.layout.item_detail_chider_footer_classroom,mBaseViewHolder.llCommentMore,false);
                 mRootView.setOnClickListener(v -> {
-
                     Uri uri = Uri.parse("classroom://"+activity.getApplicationInfo().packageName+".pldetail?div_id=0&lecture_id="+lectureId+"&bid="+mDatas.get(position).getId()+"");
                     Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                     activity.startActivity(intent);
