@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+
+import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
 import java.io.File;
@@ -16,6 +18,28 @@ import java.io.IOException;
  * author:baiguiqiang
  */
 public class ClassRoomLibUtils {
+    public static final String TYPE_ZY ="zy";
+    public static final String TYPE_JQ ="jq";
+    public static final String TYPE_SC ="sc";
+    public static final String TYPE_NY ="ny";
+
+    public static void initLib(String type){
+        switch (type){
+            case TYPE_ZY:
+                HttpUrls.URL_HOST ="http://zyapp.test.xw518.com/";
+                HttpUrls.CHANNEL ="xwapp.zy.lecture.lecture_";
+                break;
+            case TYPE_JQ:
+                break;
+            case TYPE_SC:
+                break;
+            case TYPE_NY:
+                break;
+                default:
+        }
+
+    }
+
     /**
      * 获取视频缓存文件夹
      * @param context
@@ -34,7 +58,7 @@ public class ClassRoomLibUtils {
      * @param id 课程id
      */
     public static void startDetailActivity(Context context,int id){
-       context.startActivity(ClassRoomDetailActivity.getIntent(context,id));
+        context.startActivity(ClassRoomDetailActivity.getIntent(context,id));
     }
     /**
      * 启动课程详情页面
@@ -43,7 +67,7 @@ public class ClassRoomLibUtils {
      *           只有点击取消了收藏才会返回
      */
     public static void startForResultDetailActivity(Activity activity, int id,int requestCode,int resultCode){
-            activity.startActivityForResult(ClassRoomDetailActivity.getIntent(activity,id,resultCode),requestCode);
+        activity.startActivityForResult(ClassRoomDetailActivity.getIntent(activity,id,resultCode),requestCode);
     }
 
     /**
@@ -55,7 +79,7 @@ public class ClassRoomLibUtils {
      * @param resultParameter 返回是否收藏参数名 在跳转activity种onActivityResult方法的intent获取该参数值 为boolean类型，表示是否收藏  只有点击取消了收藏才会返回
      */
     public static void startForResultDetailActivity(Activity activity, int id,int requestCode,int resultCode,String resultParameter){
-            activity.startActivityForResult(ClassRoomDetailActivity.getIntent(activity,id,resultCode,resultParameter),requestCode);
+        activity.startActivityForResult(ClassRoomDetailActivity.getIntent(activity,id,resultCode,resultParameter),requestCode);
     }
 
 
@@ -64,7 +88,7 @@ public class ClassRoomLibUtils {
      * @param context
      */
     public static void startListActivity(Context context){
-       context.startActivity(new Intent(context,ClassRoomHomeActivity.class));
+        context.startActivity(new Intent(context,ClassRoomHomeActivity.class));
     }
 
     /**
@@ -73,7 +97,7 @@ public class ClassRoomLibUtils {
      * @param type 分类名字
      */
     public static void startListActivity(Context context,String type){
-       context.startActivity(new Intent(context,ClassRoomHomeActivity.class).putExtra("type",type));
+        context.startActivity(new Intent(context,ClassRoomHomeActivity.class).putExtra("type",type));
     }
 
     /**
@@ -82,7 +106,7 @@ public class ClassRoomLibUtils {
      */
     public static void cleanAllCache(Context context){
         File mFile =getVideoCachePathFile(context);
-       deleteFileOrDirectory(mFile);
+        deleteFileOrDirectory(mFile);
     }
 
 

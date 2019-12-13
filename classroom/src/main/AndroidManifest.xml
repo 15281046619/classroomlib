@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data
                     android:scheme="classroom"
-                    android:host="xingwang.host.pldetail" />
+                    android:host="${applicationId}.pldetail" />
             </intent-filter>
         </activity>
         <!--在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity-->
@@ -42,7 +42,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data
                     android:scheme="classroom"
-                    android:host="xingwang.host.kcdetail" />
+                    android:host="${applicationId}.kcdetail" />
             </intent-filter>
         </activity>
 

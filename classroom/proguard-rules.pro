@@ -83,6 +83,8 @@
 -keep public class * extends android.app.Fragment
 -keep public class * extends android.view.view
 -keep public class com.android.vending.licensing.ILicensingService
+
+
 -keep class com.xingwang.classroom.bean.** {*;}
 
 #GSYVideoPlayer

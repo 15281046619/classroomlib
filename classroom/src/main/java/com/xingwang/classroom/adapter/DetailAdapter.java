@@ -150,7 +150,7 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
                 View mRootView =  LayoutInflater.from( mBaseViewHolder.llCommentMore.getContext()).inflate(R.layout.item_detail_chider_footer_classroom,mBaseViewHolder.llCommentMore,false);
                 mRootView.setOnClickListener(v -> {
 
-                    Uri uri = Uri.parse("classroom://xingwang.host.pldetail?div_id=0&lecture_id="+lectureId+"&bid="+mDatas.get(position).getId()+"");
+                    Uri uri = Uri.parse("classroom://"+activity.getApplicationInfo().packageName+".pldetail?div_id=0&lecture_id="+lectureId+"&bid="+mDatas.get(position).getId()+"");
                     Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                     activity.startActivity(intent);
 
