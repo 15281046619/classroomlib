@@ -156,10 +156,12 @@ public class WsManagerUtil {
             if (channelStatusListener!=null){
                 try{
                     JSONObject jsonObject=new JSONObject(text);
-                    if (jsonObject.getString("event").equals("Event.subscribe")){
+                    if (jsonObject.getString("event").equals("subscribe")){
                         channelStatusListener.subscribeSuccess(jsonObject.getString("data"));
-                    }else if (jsonObject.getString("event").equals("Event.unSubscribe")){
+                    }else if (jsonObject.getString("event").equals("unSubscribe")){
                         channelStatusListener.unSubscribeSuccess(jsonObject.getString("data"));
+                    }else {
+                        channelStatusListener.onMessage(text);
                     }
                 }catch (Exception e){
                     channelStatusListener.onMessage(text);
@@ -197,12 +199,12 @@ public class WsManagerUtil {
     };
     private void sendMessageSubscribe(String channel){
         if (wsManager!=null){
-            wsManager.sendMessage("{\"event\":\"Event.subscribe\",\"data\":{\"channel\":\""+channel+"\"}}");
+            wsManager.sendMessage("{\"event\":\"subscribe\",\"data\":\""+channel+"\"}");
         }
     }
     private void sendMessageUnSubscribe(String channel){
         if (wsManager!=null){
-            wsManager.sendMessage("{\"event\":\"Event.unSubscribe\",\"data\":{\"channel\":\""+channel+"\"}}");
+            wsManager.sendMessage("{\"event\":\"unSubscribe\",\"data\":\""+channel+"\"}");
         }
     }
 }

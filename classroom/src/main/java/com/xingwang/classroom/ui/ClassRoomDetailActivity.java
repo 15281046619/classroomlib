@@ -538,7 +538,6 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     @Override
                     public void subscribeSuccess(String response) {
                         super.subscribeSuccess(response);
-
                     }
 
                     @Override
@@ -560,11 +559,11 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     }
 
     private void handlerMessage(String message) {
-        try {
-            JSONObject jsonObject =new JSONObject(message);
+
+           // JSONObject jsonObject =new JSONObject(message);
             int curPosition = -1;
-            if (channel!=null&&channel.equals(jsonObject.getString("channel"))){
-                CommentBean.DataBean.CommentsBean mCommentBean = GsonUtils.changeGsonToBean(jsonObject.getString("content"), CommentBean.DataBean.CommentsBean.class);
+           // if (channel!=null&&channel.equals(jsonObject.getString("channel"))){
+                CommentBean.DataBean.CommentsBean mCommentBean = GsonUtils.changeGsonToBean(message, CommentBean.DataBean.CommentsBean.class);
                 if (mCommentBean.getBid()==0){//评论父级
                     mComments.add(0,mCommentBean);
                    Object tag = etContent.getTag();//当点击某个item，发送消息时候，突然来消息
@@ -597,11 +596,6 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                         }
                     }
                 });
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
     boolean isRequesting =false;
     void requestCommentListData(int requestType,int lastId) {
