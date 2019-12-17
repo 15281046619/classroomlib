@@ -567,7 +567,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                 CommentBean.DataBean.CommentsBean mCommentBean = GsonUtils.changeGsonToBean(jsonObject.getString("content"), CommentBean.DataBean.CommentsBean.class);
                 if (mCommentBean.getBid()==0){//评论父级
                     mComments.add(0,mCommentBean);
-                   Object tag = etContent.getTag();//当点击某个item，发送消息时候，突然来消息
+                   Object tag = etContent.getTag();//当点击某个item，发  送消息时候，突然来消息
                    if (tag!=null){
                        etContent.setTag((int)tag+1);
                    }

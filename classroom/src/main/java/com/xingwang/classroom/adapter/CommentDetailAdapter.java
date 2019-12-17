@@ -110,11 +110,9 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
                 mBaseViewHolder.ivSendComment.setVisibility(View.GONE);
                 mBaseViewHolder.tvBack.setVisibility(View.VISIBLE);
                 mBaseViewHolder.tvBack.setOnClickListener(v ->{
-                    if(ActivityManager.getInstance().findActivity(ClassRoomDetailActivity.class)){
-                        activity.finish();
-                    }else {
-                        ClassRoomLibUtils.startDetailActivity(activity,mDatas.get(0).getLecture_id());
-                    }
+                    ActivityManager.getInstance().finishActivity(ClassRoomDetailActivity.class);
+                    ClassRoomLibUtils.startDetailActivity(activity,mDatas.get(0).getLecture_id());
+                    activity.finish();
                 });
                 if (mDatas.get(position).isCurPosition()){
                         if (isShowAnimator){
