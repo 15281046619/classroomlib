@@ -18,7 +18,15 @@
 
         <activity android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/AppThemeClassRoom" />
+            android:theme="@style/AppThemeClassRoom" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="classroom"
+                    android:host="${applicationId}.kchome" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:configChanges="orientation|screenSize|keyboardHidden"

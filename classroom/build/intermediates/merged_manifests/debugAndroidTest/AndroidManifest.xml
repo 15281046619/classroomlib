@@ -34,7 +34,8 @@
         <activity
             android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/AppThemeClassRoom" />
+            android:theme="@style/AppThemeClassRoom" >
+        </activity>
         <activity
             android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -46,7 +47,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="xingwang.host.pldetail"
+                    android:host="com.xingwang.classroom.test.pldetail"
                     android:scheme="classroom" />
             </intent-filter>
         </activity> <!-- 在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity -->
@@ -62,7 +63,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="xingwang.host.kcdetail"
+                    android:host="com.xingwang.classroom.test.kcdetail"
                     android:scheme="classroom" />
             </intent-filter>
         </activity>

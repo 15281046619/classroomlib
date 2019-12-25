@@ -43,74 +43,73 @@
 25-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:16:22-78
 26
 27    <application>
-27-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:17:5-49:19
+27-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:17:5-51:19
 28        <activity
-28-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:19:9-21:56
+28-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:19:9-23:20
 29            android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
 29-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:19:19-81
 30            android:configChanges="orientation|screenSize|keyboardHidden"
 30-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:20:13-74
-31            android:theme="@style/AppThemeClassRoom" />
+31            android:theme="@style/AppThemeClassRoom" >
 31-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:21:13-53
-32        <activity
-32-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:22:9-33:20
-33            android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"
-33-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:22:19-90
-34            android:configChanges="orientation|screenSize|keyboardHidden"
-34-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:24:13-74
-35            android:theme="@style/AppThemeClassRoom"
-35-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:25:13-53
-36            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" >
-36-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:23:13-85
-37            <intent-filter>
-37-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:26:13-32:29
-38                <action android:name="android.intent.action.VIEW" />
-38-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:27:17-69
-38-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:27:25-66
-39
-40                <category android:name="android.intent.category.DEFAULT" />
-40-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:28:17-76
-40-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:28:27-73
-41
-42                <data
-42-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:29:17-31:61
-43                    android:host="xingwang.host.pldetail"
-43-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:31:21-58
-44                    android:scheme="classroom" />
-44-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:21-47
-45            </intent-filter>
-46        </activity>
-47        <!-- 在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity -->
-48        <activity
-48-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:35:9-47:20
-49            android:name="com.xingwang.classroom.ui.ClassRoomDetailActivity"
-49-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:35:19-83
-50            android:configChanges="orientation|screenSize|keyboardHidden"
-50-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:38:13-74
-51            android:screenOrientation="portrait"
-51-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:37:13-49
-52            android:theme="@style/AppThemeClassRoom"
-52-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:39:13-53
-53            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" >
-53-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:36:13-85
-54            <intent-filter>
-54-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:40:13-46:29
-55                <action android:name="android.intent.action.VIEW" />
-55-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:27:17-69
-55-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:27:25-66
-56
-57                <category android:name="android.intent.category.DEFAULT" />
-57-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:28:17-76
-57-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:28:27-73
-58
-59                <data
-59-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:29:17-31:61
-60                    android:host="xingwang.host.kcdetail"
-60-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:31:21-58
-61                    android:scheme="classroom" />
-61-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:21-47
-62            </intent-filter>
-63        </activity>
-64    </application>
-65
-66</manifest>
+32        </activity>
+33        <activity
+33-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:24:9-35:20
+34            android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"
+34-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:24:19-90
+35            android:configChanges="orientation|screenSize|keyboardHidden"
+35-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:26:13-74
+36            android:theme="@style/AppThemeClassRoom"
+36-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:27:13-53
+37            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" >
+37-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:25:13-85
+38            <intent-filter>
+39                <action android:name="android.intent.action.VIEW" />
+39-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:29:17-69
+39-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:29:25-66
+40
+41                <category android:name="android.intent.category.DEFAULT" />
+41-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:17-76
+41-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:27-73
+42
+43                <data
+43-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:31:17-33:64
+44                    android:host="dollar_openBracket_applicationId_closeBracket.pldetail"
+44-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:33:21-61
+45                    android:scheme="classroom" />
+45-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:32:21-47
+46            </intent-filter>
+47        </activity>
+48        <!-- 在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity -->
+49        <activity
+49-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:37:9-49:20
+50            android:name="com.xingwang.classroom.ui.ClassRoomDetailActivity"
+50-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:37:19-83
+51            android:configChanges="orientation|screenSize|keyboardHidden"
+51-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:40:13-74
+52            android:screenOrientation="portrait"
+52-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:39:13-49
+53            android:theme="@style/AppThemeClassRoom"
+53-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:41:13-53
+54            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" >
+54-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:38:13-85
+55            <intent-filter>
+56                <action android:name="android.intent.action.VIEW" />
+56-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:29:17-69
+56-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:29:25-66
+57
+58                <category android:name="android.intent.category.DEFAULT" />
+58-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:17-76
+58-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:27-73
+59
+60                <data
+60-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:31:17-33:64
+61                    android:host="dollar_openBracket_applicationId_closeBracket.kcdetail"
+61-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:33:21-61
+62                    android:scheme="classroom" />
+62-->D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:32:21-47
+63            </intent-filter>
+64        </activity>
+65    </application>
+66
+67</manifest>

@@ -81,7 +81,7 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
                 mBaseViewHolder.llVip.removeViewAt(1);
             }
             if (badge.contains("vip")&&mBaseViewHolder.llVip.getChildCount()==1){
-                mBaseViewHolder.llVip.addView(BeautyDefine.getBadgeUiFactoryDefine().getBadgeUiFactory().getBadgeViewForHt(activity,"vip",CommentUtils.dip2px(activity,13)));
+                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelViewForSi(activity,"vip",CommentUtils.dip2px(activity,12)));
             }
             if (!TextUtils.isEmpty(mDatas.get(position).getBody())){
                 mBaseViewHolder.tvContent.setVisibility(View.VISIBLE);

@@ -28,7 +28,8 @@
         <activity
             android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/AppThemeClassRoom" />
+            android:theme="@style/AppThemeClassRoom" >
+        </activity>
         <activity
             android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -40,7 +41,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="xingwang.host.pldetail"
+                    android:host="dollar_openBracket_applicationId_closeBracket.pldetail"
                     android:scheme="classroom" />
             </intent-filter>
         </activity>
@@ -57,7 +58,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="xingwang.host.kcdetail"
+                    android:host="dollar_openBracket_applicationId_closeBracket.kcdetail"
                     android:scheme="classroom" />
             </intent-filter>
         </activity>
