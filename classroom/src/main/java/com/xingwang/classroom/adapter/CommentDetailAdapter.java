@@ -77,7 +77,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
                 mBaseViewHolder.llVip.removeViewAt(1);
             }
             if (badge.contains("vip")&&mBaseViewHolder.llVip.getChildCount()==1){
-                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelViewForSi(activity,"vip",CommentUtils.dip2px(activity,12)));
+                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,"vip"));
             }
             mBaseViewHolder.tvDatetime.setText(TimeUtil.getTimeFormatText(mDatas.get(position).getPublish_time()));
             if (!TextUtils.isEmpty(mDatas.get(position).getBody())){
