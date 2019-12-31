@@ -79,7 +79,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
             if (!TextUtils.isEmpty(badge)&&mBaseViewHolder.llVip.getChildCount()==1){
                 String[] badges = badge.split(",");
                 for (int i=0;i<badges.length;i++)
-                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,badge));
+                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,badges[i]));
             }
             mBaseViewHolder.tvDatetime.setText(TimeUtil.getTimeFormatText(mDatas.get(position).getPublish_time()));
             if (!TextUtils.isEmpty(mDatas.get(position).getBody())){
