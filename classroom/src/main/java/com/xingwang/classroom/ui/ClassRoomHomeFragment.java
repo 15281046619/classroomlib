@@ -30,7 +30,6 @@ import java.util.List;
 public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
     private int pageNum =10;
     private RecyclerView recyclerview;
-  //  private int position;
     private String category;
     private List<LectureListsBean.DataBean> mData = new ArrayList<>();
     private HomeAdapter mAdapter;
@@ -51,8 +50,11 @@ public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
 
     @Override
     public void initData() {
-      //  position =getArguments().getInt("position");
-        category =getArguments().getString("category");
+        //  position =getArguments().getInt("position");
+        if(getArguments()!=null)
+            category =getArguments().getString("category");
+        else
+            category ="全部";
         if (getContext()!=null) {
             recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerview.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
@@ -72,7 +74,7 @@ public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
         ApiParams mApiParams = new ApiParams().with("num", pageNum).with("backward_div_id", id);
         if(!category.equals("全部"))
             mApiParams.with("category", category);
-         isRequesting =true;
+        isRequesting =true;
         requestGet(HttpUrls.URL_LISTS,mApiParams, LectureListsBean.class, new HttpCallBack<LectureListsBean>() {
             @Override
             public void onFailure(String message) {

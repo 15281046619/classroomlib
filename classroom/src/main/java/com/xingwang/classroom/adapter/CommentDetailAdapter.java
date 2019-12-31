@@ -64,20 +64,22 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
             GlideUtils.loadAvatar( BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth,mHeight,mDatas.get(position).getUser().getAvatar()),R.mipmap.default_teammate_avatar_classroom,mBaseViewHolder.ivAvatar);
             mBaseViewHolder.ivAvatar.setOnClickListener(v -> BeautyDefine.getOpenPageDefine(activity).toPersonal(mDatas.get(position).getUser().getId()));//跳转个人中心
             String badge =mDatas.get(position).getUser().getBadge();
-            if (mBaseViewHolder.rlGov.getChildCount()==2){
+           /* if (mBaseViewHolder.rlGov.getChildCount()==2){
                 mBaseViewHolder.rlGov.removeViewAt(1);
-            }
-            if (badge.contains("gov")&&mBaseViewHolder.rlGov.getChildCount()==1){
+            }*/
+            /*if (badge.contains("gov")&&mBaseViewHolder.rlGov.getChildCount()==1){
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 mBaseViewHolder.rlGov.addView(BeautyDefine.getBadgeUiFactoryDefine().getBadgeUiFactory().getBadgeView(activity,"gov"),layoutParams);
+            }*/
+            if (mBaseViewHolder.llVip.getChildCount()>1){
+                mBaseViewHolder.llVip.removeViews(1,mBaseViewHolder.llVip.getChildCount()-1);
             }
-            if (mBaseViewHolder.llVip.getChildCount()==2){
-                mBaseViewHolder.llVip.removeViewAt(1);
-            }
-            if (badge.contains("vip")&&mBaseViewHolder.llVip.getChildCount()==1){
-                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,"vip"));
+            if (!TextUtils.isEmpty(badge)&&mBaseViewHolder.llVip.getChildCount()==1){
+                String[] badges = badge.split(",");
+                for (int i=0;i<badges.length;i++)
+                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,badge));
             }
             mBaseViewHolder.tvDatetime.setText(TimeUtil.getTimeFormatText(mDatas.get(position).getPublish_time()));
             if (!TextUtils.isEmpty(mDatas.get(position).getBody())){
@@ -99,7 +101,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
                 mBaseViewHolder.ivSendComment.setVisibility(View.GONE);
                 mBaseViewHolder.llRoot.setOnClickListener(null);
             }else {
-                mBaseViewHolder.ivSendComment.setVisibility(View.VISIBLE);
+                mBaseViewHolder.ivSendComment.setVisibility(View.VISIBLE) ;
                 mBaseViewHolder.llRoot.setOnClickListener(v -> {
                     if (mOnClickDetailItem != null) {
                         mOnClickDetailItem.onClickItem(position, -1, 1);
@@ -170,16 +172,17 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
     RecyclerView.ViewHolder onBaseCreateViewHolder(View view,int viewType) {
         return new BaseViewHolder(view);
     }
+
     class MyCheckTextView extends ClickableSpan {
         private Context context;
         private int clickId;
-        public MyCheckTextView(Context context,int id) {
+         MyCheckTextView(Context context,int id) {
             this.context = context;
             this.clickId = id;
         }
 
         @Override
-        public void updateDrawState(TextPaint ds) {
+        public void updateDrawState(@NonNull TextPaint ds) {
             super.updateDrawState(ds);
             //设置文本的颜色
             ds.setColor(ContextCompat.getColor(context,R.color.themeClassRoom));
@@ -189,7 +192,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
 
         //点击事件，自由操作
         @Override
-        public void onClick(View widget) {
+        public void onClick(@NonNull View widget) {
             isClickAvatar = true;
             BeautyDefine.getOpenPageDefine(activity).toPersonal(clickId);
         }

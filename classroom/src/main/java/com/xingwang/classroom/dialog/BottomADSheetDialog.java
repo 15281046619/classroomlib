@@ -39,16 +39,21 @@ public class BottomADSheetDialog extends BaseDialog {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         Window window = dialog.getWindow();
-        WindowManager.LayoutParams layoutParams = window.getAttributes();
-        layoutParams.width =getArguments().getInt("mDialogWidth");
-        layoutParams.height =getArguments().getInt("mDialogHeight");
+        if (window!=null) {
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            if (getArguments()!=null) {
+                layoutParams.width = getArguments().getInt("mDialogWidth");
+                layoutParams.height = getArguments().getInt("mDialogHeight");
+                if (getArguments().getFloat("verticalMargin") == 0)
+                    layoutParams.gravity = Gravity.BOTTOM | Gravity.END;
+                else {
+                    layoutParams.gravity = Gravity.TOP | Gravity.END;
+                }
+            }
 
-        if ( getArguments().getFloat("verticalMargin")==0)
-            layoutParams.gravity = Gravity.BOTTOM|Gravity.RIGHT;
-        else {
-            layoutParams.gravity = Gravity.TOP | Gravity.RIGHT;
+
+            window.setAttributes(layoutParams);
         }
-        window.setAttributes(layoutParams);
         return dialog;
     }
 
@@ -60,6 +65,7 @@ public class BottomADSheetDialog extends BaseDialog {
         rlAd.setOnClickListener(v -> dismissDialog());
         findViewById(R.id.iv_close_ad).setOnClickListener(v -> dismissDialog());
         ImageView ivAda =findViewById(R.id.iv_ad);
+        if (getArguments()!=null)
         GlideUtils.loadAnimateAvatar(getArguments().getString("imgurl"),ivAda);
         ivAda.setOnClickListener(v -> {
             if (callback1!=null){

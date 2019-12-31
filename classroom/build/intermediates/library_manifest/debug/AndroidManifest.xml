@@ -29,6 +29,15 @@
             android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="${applicationId}.kchome"
+                    android:scheme="classroom" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"

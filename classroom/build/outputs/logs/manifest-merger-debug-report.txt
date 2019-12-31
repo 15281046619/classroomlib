@@ -1,23 +1,23 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-52:12
-INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-52:12
-INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-52:12
-INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-52:12
-INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-52:12
-INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-52:12
-INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-52:12
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-58:12
+INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-58:12
+INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-58:12
+INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-58:12
+INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-58:12
+INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-58:12
+INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-58:12
 	package
 		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:2:5-37
 		INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml
 		INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-52:12
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-58:12
 		INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-52:12
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:1-58:12
 		INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:1:11-69
@@ -54,55 +54,57 @@ ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:16:
 	android:name
 		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:16:22-78
 application
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:17:5-51:19
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:17:5-57:19
 activity#com.xingwang.classroom.ui.ClassRoomHomeActivity
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:19:9-23:20
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:19:9-29:20
 	android:configChanges
 		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:20:13-74
 	android:theme
 		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:21:13-53
 	android:name
 		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:19:19-81
-activity#com.xingwang.classroom.ui.ClassRoomCommentDetailActivity
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:24:9-35:20
-	android:windowSoftInputMode
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:25:13-85
-	android:configChanges
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:26:13-74
-	android:theme
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:27:13-53
-	android:name
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:24:19-90
-intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.DEFAULT+data:host:${applicationId}.pldetail+data:scheme:classroom
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:28:13-34:29
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.DEFAULT+data:host:${applicationId}.kchome+data:scheme:classroom
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:22:13-28:29
 action#android.intent.action.VIEW
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:29:17-69
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:23:17-69
 	android:name
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:29:25-66
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:23:25-66
 category#android.intent.category.DEFAULT
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:17-76
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:24:17-76
 	android:name
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:27-73
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:24:27-73
 data
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:31:17-33:64
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:25:17-27:62
 	android:host
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:33:21-61
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:27:21-59
 	android:scheme
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:32:21-47
-activity#com.xingwang.classroom.ui.ClassRoomDetailActivity
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:37:9-49:20
-	android:screenOrientation
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:39:13-49
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:26:21-47
+activity#com.xingwang.classroom.ui.ClassRoomCommentDetailActivity
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:9-41:20
 	android:windowSoftInputMode
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:38:13-85
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:31:13-85
 	android:configChanges
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:40:13-74
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:32:13-74
 	android:theme
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:41:13-53
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:33:13-53
 	android:name
-		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:37:19-83
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:30:19-90
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.DEFAULT+data:host:${applicationId}.pldetail+data:scheme:classroom
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:34:13-40:29
+activity#com.xingwang.classroom.ui.ClassRoomDetailActivity
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:43:9-55:20
+	android:screenOrientation
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:45:13-49
+	android:windowSoftInputMode
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:44:13-85
+	android:configChanges
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:46:13-74
+	android:theme
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:47:13-53
+	android:name
+		ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:43:19-83
 intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.DEFAULT+data:host:${applicationId}.kcdetail+data:scheme:classroom
-ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:42:13-48:29
+ADDED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml:48:13-54:29
 uses-sdk
 INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\androidpro\classroomlib\classroom\src\main\AndroidManifest.xml

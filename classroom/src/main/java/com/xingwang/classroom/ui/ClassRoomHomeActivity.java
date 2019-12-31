@@ -173,7 +173,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-             }
+            }
         });
     }
 
