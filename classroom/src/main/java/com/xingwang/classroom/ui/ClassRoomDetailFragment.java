@@ -37,8 +37,11 @@ public class ClassRoomDetailFragment extends BaseLazyLoadFragment {
     }
     public void upDateShow(DetailBean mBean){
         if (mBean!=null&&mBean.getData().getLecture()!=null) {
+            if (tvTitle!=null)
             tvTitle.setText(mBean.getData().getLecture().getTitle());
+            if (tvSum!=null)
             tvSum.setText(mBean.getData().getLecture().getClick() + "次学习");
+            if (tvContent!=null)
             RichText.from(mBean.getData().getLecture().getBody()).imageClick((imageUrls, position) ->
                     BeautyDefine.getImagePreviewDefine(getActivity()).showImagePreview(imageUrls, position)).into(tvContent);
         }

@@ -64,15 +64,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
             GlideUtils.loadAvatar( BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth,mHeight,mDatas.get(position).getUser().getAvatar()),R.mipmap.default_teammate_avatar_classroom,mBaseViewHolder.ivAvatar);
             mBaseViewHolder.ivAvatar.setOnClickListener(v -> BeautyDefine.getOpenPageDefine(activity).toPersonal(mDatas.get(position).getUser().getId()));//跳转个人中心
             String badge =mDatas.get(position).getUser().getBadge();
-           /* if (mBaseViewHolder.rlGov.getChildCount()==2){
-                mBaseViewHolder.rlGov.removeViewAt(1);
-            }*/
-            /*if (badge.contains("gov")&&mBaseViewHolder.rlGov.getChildCount()==1){
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                mBaseViewHolder.rlGov.addView(BeautyDefine.getBadgeUiFactoryDefine().getBadgeUiFactory().getBadgeView(activity,"gov"),layoutParams);
-            }*/
+
             if (mBaseViewHolder.llVip.getChildCount()>1){
                 mBaseViewHolder.llVip.removeViews(1,mBaseViewHolder.llVip.getChildCount()-1);
             }

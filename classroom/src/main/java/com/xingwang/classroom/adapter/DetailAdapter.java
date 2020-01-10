@@ -68,18 +68,10 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
             mBaseViewHolder.ivAvatar.setOnClickListener(v -> BeautyDefine.getOpenPageDefine(activity).toPersonal(mDatas.get(position).getUser().getId()));//跳转个人中心
             mBaseViewHolder.tvDatetime.setText(TimeUtil.getTimeFormatText(mDatas.get(position).getPublish_time()));
             String badge =mDatas.get(position).getUser().getBadge();
-        /*    if (mBaseViewHolder.rlGov.getChildCount()==2){
-                mBaseViewHolder.rlGov.removeViewAt(1);
-            }
-            if (badge.contains("gov")&&mBaseViewHolder.rlGov.getChildCount()==1){
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                mBaseViewHolder.rlGov.addView(BeautyDefine.getBadgeUiFactoryDefine().getBadgeUiFactory().getBadgeView(activity,"gov"),layoutParams);
-            }*/
+
             if (mBaseViewHolder.llVip.getChildCount()>1){
-                mBaseViewHolder.llVip.removeViews(1,mBaseViewHolder.llVip.getChildCount()-1);
-            }
+            mBaseViewHolder.llVip.removeViews(1,mBaseViewHolder.llVip.getChildCount()-1);
+        }
 
             if (!TextUtils.isEmpty(badge)&&mBaseViewHolder.llVip.getChildCount()==1){
                 String[] badges = badge.split(",");
@@ -186,6 +178,7 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
         String mShowName = mItem.getUser().getshowName();
         String mShowToCustomer = mItem.getTo_user().getshowName();
         SpannableString spannableString;
+
         if (!TextUtils.isEmpty(mItem.getBody())){
             if (homeId==0||mItem.getPid()==homeId){
                 spannableString = new SpannableString(mShowName+"："+mItem.getBody());

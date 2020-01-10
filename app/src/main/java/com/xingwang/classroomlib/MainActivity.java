@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       ClassRoomLibUtils.startListActivity(this,"栏目");
+        ClassRoomLibUtils.startListActivity(this,"栏目");
 
     }
 }
