@@ -24,7 +24,15 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application>
+    <!-- tencent x5添加 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <application
+        android:name="com.xingwang.classroom.MyApplication"
+        android:hardwareAccelerated="true" >
         <activity
             android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -58,7 +66,7 @@
         <activity
             android:name="com.xingwang.classroom.ui.ClassRoomDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:theme="@style/AppThemeClassRoom"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" >
             <intent-filter>
@@ -71,6 +79,12 @@
                     android:scheme="classroom" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:label="dexopt"
+            android:process=":dexopt" >
+        </service>
     </application>
 
 </manifest>

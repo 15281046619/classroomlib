@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
+import com.tencent.smtt.sdk.QbSdk;
+import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.HomeViewpagerAdapter;
 import com.xingwang.classroom.bean.ADGroupBean;
@@ -69,6 +71,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initViews();
         initSettingToolBarHeight();
         initSettingAppBarListener();
@@ -111,7 +114,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
                 @Override
                 public void onSuccess(CategoryBean categoryBean) {
 
-                    categoryBean.getData().add(0, "全部");
+                    categoryBean.getData().add(0, new CategoryBean.DataBean(-1,"全部"));
                     initTabLayout(categoryBean);
 
                 }
@@ -141,15 +144,18 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
     private int initPos =0;
     private void initTabLayout(CategoryBean categoryBean) {
         String type =getIntent().getStringExtra("type");
-
+        Uri uri = getIntent().getData();
+        if (uri != null) {
+            type = uri.getQueryParameter("type");
+        }
         mFragments =new ArrayList<>();
         tabLayout.removeAllTabs();
         for (int i=0;i<categoryBean.getData().size();i++) {
-            if (!TextUtils.isEmpty(type)&& categoryBean.getData().get(i).equals(type)&&initPos==0){
+            if (!TextUtils.isEmpty(type)&& (categoryBean.getData().get(i).getId()+"").equals(type)&&initPos==0){
                 initPos =i;
             }
-            mFragments.add(ClassRoomHomeFragment.getInstance(i,categoryBean.getData().get(i)));
-            tabLayout.addTab(tabLayout.newTab().setText(categoryBean.getData().get(i)));
+            mFragments.add(ClassRoomHomeFragment.getInstance(i,categoryBean.getData().get(i).getId()+""));
+            tabLayout.addTab(tabLayout.newTab().setText(categoryBean.getData().get(i).getTitle()));
         }
         HomeViewpagerAdapter mViewPagerAdapter = new HomeViewpagerAdapter(getSupportFragmentManager(), mFragments,categoryBean.getData());
         viewpager.setAdapter(mViewPagerAdapter);
@@ -167,9 +173,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
         banner.setOnBannerListener(position -> {
             if(mTitleImages!=null) {
                 try {
-                    Uri uri = Uri.parse(mTitleImages.get(position).getUri());
-                    Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-                    startActivity(intent);
+                    ClassRoomLibUtils.startActivityForUri(ClassRoomHomeActivity.this,mTitleImages.get(position).getUri());
                 }catch (Exception e){
                     e.printStackTrace();
                 }

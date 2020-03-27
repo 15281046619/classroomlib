@@ -45,6 +45,16 @@ public class LectureListsBean extends CommonEntity {
         private String ad;
         private int click;
         private int state;
+        private String type;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
         private String video_src;
         private int top;
         private String publish_time;

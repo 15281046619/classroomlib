@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_bright">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/class_room_home_title_ClassRoom"
+    android:layout_centerInParent="true"
+    android:textSize="@dimen/sp_16_classroom"
+    android:textStyle="bold"
+
+    android:background="@android:color/transparent"
+    />
+
+
+</RelativeLayout>

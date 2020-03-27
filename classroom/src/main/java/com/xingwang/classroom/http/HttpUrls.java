@@ -13,7 +13,7 @@ public class HttpUrls {
     private static final String URL_NAME="xwapp/public/";*/
 
     public static final String URL_GETAUTHSTR=URL_HOST+URL_NAME+"user/auth/getAuthstr";
-    public static final String URL_CATEGORYS=URL_HOST+URL_NAME+"lecture/general/lecture/categorys";
+    public static final String URL_CATEGORYS=URL_HOST+URL_NAME+"lecture/general/category/lists";
     public static final String URL_AD_LISTS=URL_HOST+URL_NAME+"ad/general/ad/lists";
     public static final String URL_LISTS=URL_HOST+URL_NAME+"lecture/general/lecture/lists";
     public static final String URL_DETAIL=URL_HOST+URL_NAME+"lecture/general/lecture/detail";

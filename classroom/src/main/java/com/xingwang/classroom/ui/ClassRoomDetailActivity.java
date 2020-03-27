@@ -3,9 +3,13 @@ package com.xingwang.classroom.ui;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,10 +21,22 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+
+
+import android.webkit.WebChromeClient;
+
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
@@ -35,6 +51,8 @@ import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.TbsListener;
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.DetailBarrageAdapter;
@@ -56,7 +74,7 @@ import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.KeyBoardHelper;
 
 
-
+import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
@@ -68,11 +86,21 @@ import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
 import com.xingwreslib.beautyreslibrary.CourseFavoriteInfo;
 import com.xingwreslib.beautyreslibrary.CourseFavoriteLiveData;
+import com.ycbjie.webviewlib.InterWebListener;
+import com.ycbjie.webviewlib.ProgressWebView;
+import com.ycbjie.webviewlib.VideoWebListener;
+import com.ycbjie.webviewlib.WebProgress;
+import com.ycbjie.webviewlib.X5WebChromeClient;
+import com.ycbjie.webviewlib.X5WebUtils;
+import com.ycbjie.webviewlib.X5WebView;
+import com.ycbjie.webviewlib.X5WebViewClient;
+import com.ycbjie.webviewlib.X5WvWebView;
 
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -92,6 +120,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private EditText etContent;
     private ImageView ivPic,ivComment;
     private DetailBarrageAdapter mBarrageAdapter;
+    private LinearLayout layoutTopTpLink;
     private Fragment[] mFragments = new Fragment[]{new ClassRoomDetailFragment(),new ClassRoomCommentFragment()};
     private int curPos =0;
     private boolean isPlay=false;
@@ -110,6 +139,11 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private boolean isClickPic = false;
     public View viewDot;
     private String channel;
+    private X5WebView webView;
+    private boolean isloadVideo =true;//是不是加载视频 ，不是就是网页直播
+    private FrameLayout flameLayout;
+    private ImageView icCollectTpLink,icShapeTalink,backTpLink;
+
     public static Intent getIntent(Context context, int id) {
         Intent intent = new Intent(context, ClassRoomDetailActivity.class);
         intent.putExtra("id", id);
@@ -129,23 +163,32 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         AndroidBug5497Workaround.assistActivity(this);
+
         mKeyBoardHelper =new KeyBoardHelper(this);
         mKeyBoardHelper.onCreate();
         mVideoPlayer =  findViewById(R.id.video_track);
+        webView =  findViewById(R.id.webview);
+        flameLayout =  findViewById(R.id.flameLayout);
         btSend =  findViewById(R.id.bt_send);
         cblBarrage =  findViewById(R.id.cbl_barrage);
         etContent =  findViewById(R.id.et_content);
+
         ivPic =  findViewById(R.id.iv_pic);
         ivComment =  findViewById(R.id.iv_comment);
         viewDot =  findViewById(R.id.view_dot);
+        icCollectTpLink =  findViewById(R.id.iv_collect_tplink);
+        icShapeTalink =  findViewById(R.id.iv_shape_tplink);
+        backTpLink =  findViewById(R.id.back_tplink);
+        layoutTopTpLink =  findViewById(R.id.layout_top_tplink);
         initId();
-        mVideoPlayer.setFocusableInTouchMode(true);
-        mVideoPlayer.requestFocus();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            ((LinearLayout.LayoutParams) mVideoPlayer.getLayoutParams()).setMargins(0,StatusBarUtils.getStatusHeight(this),0,0);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ((LinearLayout.LayoutParams) mVideoPlayer.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
+            ((LinearLayout.LayoutParams) flameLayout.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
+        }
         setCurFragment(0,false,true);
 
         ivPic.setOnClickListener(v ->{
@@ -205,7 +248,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     }
 
     private void  initVideoPlay(String url){
-
+        flameLayout.setVisibility(View.GONE);
+        mVideoPlayer.setVisibility(View.VISIBLE);
         if (orientationUtils==null) {
             //外部辅助的旋转，帮助全屏
             orientationUtils = new OrientationUtils(this, mVideoPlayer);
@@ -277,18 +321,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             });
             mVideoPlayer.startPlayLogic();
-            ivComment.setOnClickListener(v -> {
-                if (!NoDoubleClickUtils.isDoubleClick()) {//不能连续点击后
-                    if (curPos == 0) {
-                        setCurFragment(1, false, false);
-                    } else{
-                        setCurFragment(0, true, false);
-                    }
-                }
-            });
         }
     }
     private void showBottomDialog(ADBean adBean) {
@@ -483,9 +517,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     }
 
     private void initRequestData() {
-
         requestIsCollect();
-
     }
 
     private void requestIsCollect() {
@@ -502,13 +534,15 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                             mVideoPlayer.getCollectView().setVisibility(View.VISIBLE);
                             mVideoPlayer.getCollectView().setSelected(isCollect);
                         }
+                        icCollectTpLink.setVisibility(View.VISIBLE);
+                        icCollectTpLink.setSelected(isCollect);
                         requestDetailData(Constants.LOAD_DATA_TYPE_INIT);
                     }
                 });
 
     }
 
-
+    private String mTitle;
     private void requestDetailData(int requestType) {
         requestGet(HttpUrls.URL_DETAIL,new ApiParams().with("id",mId),
                 DetailBean.class,new HttpCallBack<DetailBean>() {
@@ -518,15 +552,177 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     }
                     @Override
                     public void onSuccess(DetailBean mBean) {
-                        initVideoPlay(mBean.getData().getLecture().getVideo_src());
+                        mTitle=  mBean.getData().getLecture().getTitle();
+                        if (mBean.getData().getLecture().getType().equals("video")) {//视频
+                            initVideoPlay(mBean.getData().getLecture().getContent());
+                        }else {//加载网页
+                            isloadVideo= false;
+                            initWebView(mBean.getData().getLecture().getContent());
+                        }
+                        ivComment.setOnClickListener(v -> {
+                            if (!NoDoubleClickUtils.isDoubleClick()) {//不能连续点击后
+                                if (curPos == 0) {
+                                    setCurFragment(1, false, false);
+                                } else{
+                                    setCurFragment(0, true, false);
+                                }
+                            }
+                        });
+
+                        etContent.setFocusable(true);
+                        etContent.setFocusableInTouchMode(true);
                         ((ClassRoomDetailFragment)mFragments[0]).upDateShow(mBean);
                         mAdbeans = GsonUtils.changeGsonToSafeList(mBean.getData().getLecture().getAd(),ADBean.class);
                         ClassRoomDetailActivity.this.mBean = mBean;
-                        requestSubscribe();
-                        requestCommentListData(requestType,Integer.MAX_VALUE);
+                        requestSubscribe();//长连接监听评论
+                        requestCommentListData(requestType,Integer.MAX_VALUE);//请求评论信息
                     }
                 });
     }
+    private X5WebChromeClient x5WebChromeClient;
+    private X5WebViewClient x5WebViewClient;
+    private WebProgress progress;
+    private void initWebView(String content) {
+        QbSdk.setDownloadWithoutWifi(true);
+        showWebView(content);
+    }
+    int mScreenWidth = 1280;
+    private void showWebView(String content){
+        mScreenWidth = CommentUtils.getScreenWidth(this);
+        icCollectTpLink.setOnClickListener(v -> goCollect(v));
+        icShapeTalink.setOnClickListener(v -> goShape(v));
+        backTpLink.setOnClickListener(v -> finish());
+       flameLayout.setVisibility(View.VISIBLE);
+        mVideoPlayer.setVisibility(View.GONE);
+        setWebViewHeight(false);
+        progress = findViewById(R.id.progress1);
+        progress.show();
+        progress.setColor(this.getResources().getColor(R.color.colorAccentClassRoom));
+
+        webView.loadUrl(content);
+        if ( webView.getX5WebViewExtension()!=null){
+            SharedPreferenceUntils.saveX5State(this,true);
+        }
+
+        x5WebChromeClient = webView.getX5WebChromeClient();
+        x5WebViewClient = webView.getX5WebViewClient();
+        x5WebChromeClient.setWebListener(interWebListener);
+        x5WebViewClient.setWebListener(interWebListener);
+        //设置是否自定义视频视图
+        webView.setShowCustomVideo(false);
+        x5WebChromeClient.setVideoWebListener(new VideoWebListener() {
+            @Override
+            public void showVideoFullView() {
+                //视频全频播放时监听
+
+            }
+
+            @Override
+            public void hindVideoFullView() {
+                //隐藏全频播放，也就是正常播放视频
+                setWebViewHeight(true);
+            }
+
+            @Override
+            public void showWebView() {
+                //显示webView
+            }
+
+            @Override
+            public void hindWebView() {
+                //隐藏webView
+            }
+        });
+    }
+    private void setWebViewHeight(boolean isFullViewToNormal){
+
+        flameLayout.getLayoutParams().height = mScreenWidth;
+        webView.getLayoutParams().height =flameLayout.getLayoutParams().height;
+        //视频与下部分有黑边
+        int topHeight;
+        if (isFullViewToNormal){
+            topHeight =210;
+        }else {
+            topHeight =200;
+        }
+        ((RelativeLayout.LayoutParams) findViewById(R.id.rl_head).getLayoutParams()).topMargin =-topHeight*mScreenWidth/1080;
+    }
+    private InterWebListener interWebListener = new InterWebListener() {
+        @Override
+        public void hindProgressBar() {
+            progress.hide();
+        }
+
+        @Override
+        public void showErrorView(@X5WebUtils.ErrorType int type) {
+            switch (type){
+                //没有网络
+                case X5WebUtils.ErrorMode.NO_NET:
+                    break;
+                //404，网页无法打开
+                case X5WebUtils.ErrorMode.STATE_404:
+
+                    break;
+                //onReceivedError，请求网络出现error
+                case X5WebUtils.ErrorMode.RECEIVED_ERROR:
+
+                    break;
+                //在加载资源时通知主机应用程序发生SSL错误
+                case X5WebUtils.ErrorMode.SSL_ERROR:
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void startProgress(int newProgress) {
+            progress.setWebProgress(newProgress);
+            if (newProgress>=70){
+
+                webView.loadUrl("javascript:$('#header').remove();$('#videoSign').remove();$('#footer').remove();$('title').text('"+mTitle+"');" );
+                     //   " $('#videoOutline').css({ 'width': window.screen.width + 'px' });" ;
+                   /*     "$('#player').play().css({'width': '100%', 'height':'100%','autoplay':'autoplay'});"+
+                        " $('#videoOutline').css({'width': '100%', 'height':'100%','display':'flex','justifyContent':'center','alignItems':'center'})");*/
+
+            }
+        }
+
+        @Override
+        public void showTitle(String title) {
+        }
+    };
+
+    public void handleFinish() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        } else {
+            finish();
+        }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (!isloadVideo) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //全屏播放退出全屏
+                if (x5WebChromeClient != null && x5WebChromeClient.inCustomView()) {
+                    x5WebChromeClient.hideCustomView();
+                    return true;
+                    //返回网页上一页
+                } else if (webView.canGoBack()) {
+                    webView.goBack();
+                    return true;
+                    //退出网页
+                } else {
+                    handleFinish();
+                }
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 
     void requestSubscribe(){
         WsManagerUtil.getInstance().onCreate(this, new ChannelStatusListener() {
@@ -567,10 +763,10 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                 CommentBean.DataBean.CommentsBean mCommentBean = GsonUtils.changeGsonToBean(jsonObject.getString("content"), CommentBean.DataBean.CommentsBean.class);
                 if (mCommentBean.getBid()==0){//评论父级
                     mComments.add(0,mCommentBean);
-                   Object tag = etContent.getTag();//当点击某个item，发  送消息时候，突然来消息
-                   if (tag!=null){
-                       etContent.setTag((int)tag+1);
-                   }
+                    Object tag = etContent.getTag();//当点击某个item，发  送消息时候，突然来消息
+                    if (tag!=null){
+                        etContent.setTag((int)tag+1);
+                    }
                     curPosition =0;
                 }else{
                     for (int i=0;i<mComments.size();i++){
@@ -656,11 +852,13 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     @Override
     public void onBackPressed() {
-        if (orientationUtils != null) {
-            orientationUtils.backToProtVideo();
-        }
-        if (GSYVideoManager.backFromWindowFull(this)) {
-            return;
+        if (isloadVideo) {
+            if (orientationUtils != null) {
+                orientationUtils.backToProtVideo();
+            }
+            if (GSYVideoManager.backFromWindowFull(this)) {
+                return;
+            }
         }
         if (curPos==1){
             setCurFragment(0, false, false);
@@ -685,10 +883,14 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private boolean isPlaying = false;
     @Override
     protected void onPause() {
-        isPlaying = mVideoPlayer.getGSYVideoManager().isPlaying();
-        mVideoPlayer.getCurrentPlayer().onVideoPause();
-        if (mVideoPlayer!=null){
-            SharedPreferenceUntils.putString(this,"playposition"+mId, mVideoPlayer.getCurrentPositionWhenPlaying()+"");
+        if (isloadVideo) {
+            isPlaying = mVideoPlayer.getGSYVideoManager().isPlaying();
+            mVideoPlayer.getCurrentPlayer().onVideoPause();
+            if (mVideoPlayer != null) {
+                SharedPreferenceUntils.putString(this, "playposition" + mId, mVideoPlayer.getCurrentPositionWhenPlaying() + "");
+            }
+        }else {
+
         }
         super.onPause();
 
@@ -697,8 +899,11 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     @Override
     protected void onResume() {
-        if (isPlaying)
+        if (isloadVideo&&isPlaying)
             mVideoPlayer.getCurrentPlayer().onVideoResume(false);
+        else {
+
+        }
         super.onResume();
         isPause = false;
     }
@@ -707,17 +912,39 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     protected void onDestroy() {
         WsManagerUtil.getInstance().onDestroy(null);
         super.onDestroy();
-        if (isPlay) {
-            mVideoPlayer.getCurrentPlayer().release();
-        }
-        if (orientationUtils != null)
-            orientationUtils.releaseListener();
-        if (mKeyBoardHelper!=null){
-            mKeyBoardHelper.onDestroy();
+        if (isloadVideo) {
+            if (isPlay) {
+                mVideoPlayer.getCurrentPlayer().release();
+            }
+            if (orientationUtils != null)
+                orientationUtils.releaseListener();
+            if (mKeyBoardHelper != null) {
+                mKeyBoardHelper.onDestroy();
+            }
+        }else {
+            webViewDestroy();
         }
         cblBarrage.onDestroy();
     }
-
+    private  void  webViewDestroy(){
+        if (x5WebChromeClient!=null){
+            x5WebChromeClient.removeVideoView();
+        }
+        //有音频播放的web页面的销毁逻辑
+        //在关闭了Activity时，如果Webview的音乐或视频，还在播放。就必须销毁Webview
+        //但是注意：webview调用destory时,webview仍绑定在Activity上
+        //这是由于自定义webview构建时传入了该Activity的context对象
+        //因此需要先从父容器中移除webview,然后再销毁webview:
+        if (webView != null) {
+            ViewGroup parent = (ViewGroup) webView.getParent();
+            if (parent != null) {
+                parent.removeView(webView);
+            }
+            webView.removeAllViews();
+            webView.destroy();
+            webView = null;
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -730,9 +957,11 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        //如果旋转了就全屏
-        if (isPlay && !isPause) {
-            mVideoPlayer.onConfigurationChanged(this, newConfig, orientationUtils, true, true);
+        if (isloadVideo) {
+            //如果旋转了就全屏
+            if (isloadVideo && isPlay && !isPause) {
+                mVideoPlayer.onConfigurationChanged(this, newConfig, orientationUtils, true, true);
+            }
         }
     }
 

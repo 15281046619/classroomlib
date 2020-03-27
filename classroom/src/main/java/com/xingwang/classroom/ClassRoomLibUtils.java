@@ -3,11 +3,17 @@ package com.xingwang.classroom;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
+import android.support.v4.app.FragmentActivity;
 
+import com.xingwang.classroom.dialog.CenterQuiteDialog;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
+import com.xingwang.classroom.utils.CommentUtils;
+import com.xingwang.classroom.utils.SharedPreferenceUntils;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -18,6 +24,7 @@ import java.io.IOException;
  * author:baiguiqiang
  */
 public class ClassRoomLibUtils {
+
     public static final String TYPE_ZY ="zy";
     public static final String TYPE_JQ ="jq";
     public static final String TYPE_SC ="sc";
@@ -35,7 +42,7 @@ public class ClassRoomLibUtils {
                 break;
             case TYPE_NY:
                 break;
-                default:
+            default:
         }
 
     }
@@ -52,13 +59,25 @@ public class ClassRoomLibUtils {
         }
         return  file;
     }
+
     /**
      * 启动课程详情页面
-     * @param context 当前页面的context
      * @param id 课程id
      */
-    public static void startDetailActivity(Context context,int id){
-        context.startActivity(ClassRoomDetailActivity.getIntent(context,id));
+    public static void startDetailActivity(FragmentActivity activity,int id){
+        startDetailActivityType(activity,id,"video");
+    }
+
+    public static void startDetailActivityType(FragmentActivity activity,int id,String type){
+        if (type.equals("tplink")) {//直播 判断x5内核是否加载完成
+            if (!SharedPreferenceUntils.getX5IsInstallFinish(activity)){//没有加载完成提示用户
+                CenterQuiteDialog centerQuiteDialog =   new CenterQuiteDialog();
+                centerQuiteDialog.setCallback(integer ->  activity.startActivity(ClassRoomDetailActivity.getIntent(activity,id)));
+                centerQuiteDialog.showDialog(activity.getSupportFragmentManager());
+                return;
+            }
+        }
+        activity.startActivity(ClassRoomDetailActivity.getIntent(activity,id));
     }
     /**
      * 启动课程详情页面
@@ -66,10 +85,26 @@ public class ClassRoomLibUtils {
      * @param id 课程id
      *           只有点击取消了收藏才会返回
      */
-    public static void startForResultDetailActivity(Activity activity, int id,int requestCode,int resultCode){
+    public static void startForResultDetailActivity(FragmentActivity activity, int id,int requestCode,int resultCode){
+        startForResultDetailActivityType(activity,id,requestCode,resultCode,"video");
+    }
+    /**
+     * 启动课程详情页面 有判断是否直播
+     * @param activity 当前页面的activity
+     * @param id 课程id
+     *           只有点击取消了收藏才会返回
+     */
+    public static void startForResultDetailActivityType(FragmentActivity activity, int id,int requestCode,int resultCode,String type){
+        if (type.equals("tplink")) {//直播 判断x5内核是否加载完成
+            if (!SharedPreferenceUntils.getX5IsInstallFinish(activity)){//没有加载完成提示用户
+                CenterQuiteDialog centerQuiteDialog =   new CenterQuiteDialog();
+                centerQuiteDialog.setCallback(integer -> activity.startActivityForResult(ClassRoomDetailActivity.getIntent(activity,id,resultCode),requestCode));
+                centerQuiteDialog.showDialog(activity.getSupportFragmentManager());
+                return;
+            }
+        }
         activity.startActivityForResult(ClassRoomDetailActivity.getIntent(activity,id,resultCode),requestCode);
     }
-
     /**
      * 启动课程详情页面
      * @param activity
@@ -78,10 +113,45 @@ public class ClassRoomLibUtils {
      * @param resultCode  结果code
      * @param resultParameter 返回是否收藏参数名 在跳转activity种onActivityResult方法的intent获取该参数值 为boolean类型，表示是否收藏  只有点击取消了收藏才会返回
      */
-    public static void startForResultDetailActivity(Activity activity, int id,int requestCode,int resultCode,String resultParameter){
+    public static void startForResultDetailActivity(FragmentActivity activity, int id,int requestCode,int resultCode,String resultParameter){
+        startForResultDetailActivityType(activity,id,requestCode,resultCode,resultParameter,"video");
+    }
+    /**
+     * 启动课程详情页面 判断了type是直播的
+     * @param activity
+     * @param id
+     * @param requestCode 请求code
+     * @param resultCode  结果code
+     * @param resultParameter 返回是否收藏参数名 在跳转activity种onActivityResult方法的intent获取该参数值 为boolean类型，表示是否收藏  只有点击取消了收藏才会返回
+     */
+    public static void startForResultDetailActivityType(FragmentActivity activity, int id,int requestCode,int resultCode,String resultParameter,String type){
+        if (type.equals("tplink")) {//直播 判断x5内核是否加载完成
+            if (!SharedPreferenceUntils.getX5IsInstallFinish(activity)){//没有加载完成提示用户
+                CenterQuiteDialog centerQuiteDialog =   new CenterQuiteDialog();
+                centerQuiteDialog.setCallback(integer ->  activity.startActivityForResult(ClassRoomDetailActivity.getIntent(activity,id,resultCode,resultParameter),requestCode));
+                centerQuiteDialog.showDialog(activity.getSupportFragmentManager());
+                return;
+            }
+        }
         activity.startActivityForResult(ClassRoomDetailActivity.getIntent(activity,id,resultCode,resultParameter),requestCode);
     }
 
+    /**
+     *
+     * uri方式打开activity 判断了是不是直播课程
+     * @param activity
+     * @param url
+     */
+    public static void startActivityForUri(FragmentActivity activity,String url){
+        if (url.contains("classroom://com.xingw.zyapp.kcdetail")&&url.contains("tplink")){
+                String id=  CommentUtils.getParamByUrl(url,"id");
+                startDetailActivityType(activity,id==null?0:Integer.parseInt(id),"tplink");
+        }else {
+            Uri mRui = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, mRui);
+            activity.startActivity(intent);
+        }
+    }
 
     /**
      * 启动课程主页

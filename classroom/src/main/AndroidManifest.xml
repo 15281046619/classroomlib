@@ -14,7 +14,16 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <application>
+
+    <!--tencent x5添加-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <application android:hardwareAccelerated="true"
+        android:name=".MyApplication"
+        >
 
         <activity android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -42,7 +51,7 @@
         <!--在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity-->
         <activity android:name="com.xingwang.classroom.ui.ClassRoomDetailActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
-            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
@@ -53,6 +62,10 @@
                     android:host="${applicationId}.kcdetail" />
             </intent-filter>
         </activity>
-
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:label="dexopt"
+            android:process=":dexopt" >
+        </service>
     </application>
 </manifest>

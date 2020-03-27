@@ -1,8 +1,10 @@
 package com.xingwang.classroom.bean;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 import com.xingwang.classroom.http.CommonEntity;
-
+import com.xingwang.classroom.utils.GsonUtils;
 
 
 /**
@@ -64,9 +66,37 @@ public class DetailBean extends CommonEntity {
             private String ad;
             private int click;
             private int state;
-            private String video_src;
+
             private int top;
             private String publish_time;
+            private String type;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            private String content;
+
+
+
+            public String getContent() {
+                try {
+                    if (!TextUtils.isEmpty(content))
+                        return GsonUtils.changeGsonToBean(content,ContentBean.class).getSrc();
+                    else return  "";
+                }catch (Exception e){
+                    return content;
+                }
+
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
 
             public int getId() {
                 return id;
@@ -132,13 +162,7 @@ public class DetailBean extends CommonEntity {
                 this.state = state;
             }
 
-            public String getVideo_src() {
-                return video_src;
-            }
 
-            public void setVideo_src(String video_src) {
-                this.video_src = video_src;
-            }
 
             public int getTop() {
                 return top;
@@ -155,6 +179,17 @@ public class DetailBean extends CommonEntity {
             public void setPublish_time(String publish_time) {
                 this.publish_time = publish_time;
             }
+        }
+    }
+    class ContentBean{
+        private String src;
+
+        public String getSrc() {
+            return src;
+        }
+
+        public void setSrc(String src) {
+            this.src = src;
         }
     }
 }

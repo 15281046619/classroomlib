@@ -39,6 +39,9 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CommentUtils {
     public static void showSoftKeyboard(final Context context, final EditText editText) {
 
@@ -161,4 +164,25 @@ public class CommentUtils {
         objectAnimator.start();
 
     }
+    /**
+     * 获取指定url中的某个参数
+     * @param url
+     * @param name
+     * @return
+     */
+    public static String getParamByUrl(String url, String name) {
+        url += "&";
+        String pattern = "(\\?|&){1}#{0,1}" + name + "=[a-zA-Z0-9]*(&{1})";
+
+        Pattern r = Pattern.compile(pattern);
+
+        Matcher m = r.matcher(url);
+        if (m.find( )) {
+            System.out.println(m.group(0));
+            return m.group(0).split("=")[1].replace("&", "");
+        } else {
+            return null;
+        }
+    }
+
 }

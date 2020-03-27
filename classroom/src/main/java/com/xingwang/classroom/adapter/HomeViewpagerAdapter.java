@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.xingwang.classroom.bean.CategoryBean;
+
 import java.util.List;
 
 /**
@@ -14,8 +16,8 @@ import java.util.List;
  */
 public class HomeViewpagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
-    private List<String> titles;
-    public HomeViewpagerAdapter(FragmentManager fm,List<Fragment> fragments,List<String> titles) {
+    private List<CategoryBean.DataBean> titles;
+    public HomeViewpagerAdapter(FragmentManager fm,List<Fragment> fragments,List<CategoryBean.DataBean> titles) {
         super(fm);
         this.fragments = fragments;
         this.titles = titles;
@@ -34,6 +36,6 @@ public class HomeViewpagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles.get(position);
+        return titles.get(position).getTitle();
     }
 }

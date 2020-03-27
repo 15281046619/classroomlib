@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_top_tplink"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_alignParentTop="true"
+    android:layout_toEndOf="@+id/back_tiny"
+    android:layout_toRightOf="@+id/back_tiny"
+    android:background="@drawable/video_title_bg"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/back_tplink"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:paddingLeft="10dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_back_classroom" />
+
+    <TextView
+        android:id="@+id/title_tplink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/iv_collect_tplink"
+        android:src="@drawable/select_collect_classroom"
+        android:paddingLeft="12dp"
+        android:visibility="gone"
+        android:paddingRight="12dp"/>
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/iv_shape_tplink"
+        android:src="@mipmap/ic_fx_classroom"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"/>
+</LinearLayout>

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -44,7 +45,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
     private boolean isClickAvatar = false;
     private int mWidth,mHeight;
     private boolean isShowAnimator = true;//只显示一次
-    public CommentDetailAdapter(List<CommentBean.DataBean.CommentsBean> mData, String curId, Activity activity) {
+    public CommentDetailAdapter(List<CommentBean.DataBean.CommentsBean> mData, String curId, FragmentActivity activity) {
         super(mData);
         if (!TextUtils.isEmpty(curId))
             this.curId = Integer.parseInt(curId);
@@ -105,7 +106,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
                 mBaseViewHolder.tvBack.setVisibility(View.VISIBLE);
                 mBaseViewHolder.tvBack.setOnClickListener(v ->{
                     ActivityManager.getInstance().finishActivity(ClassRoomDetailActivity.class);
-                    ClassRoomLibUtils.startDetailActivity(activity,mDatas.get(0).getLecture_id());
+                    ClassRoomLibUtils.startDetailActivity((FragmentActivity) activity,mDatas.get(0).getLecture_id());
                     activity.finish();
                 });
                 if (mDatas.get(position).isCurPosition()){
