@@ -7,15 +7,26 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 
+import com.tencent.smtt.export.external.TbsCoreSettings;
+import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.TbsListener;
+import com.xingwang.classroom.bean.X5InstallSuccessBean;
 import com.xingwang.classroom.dialog.CenterQuiteDialog;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
 import com.xingwang.classroom.utils.CommentUtils;
+import com.xingwang.classroom.utils.LogUtil;
+import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
+import com.ycbjie.webviewlib.X5LogUtils;
+import com.ycbjie.webviewlib.X5WebUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * 外部应用工具类
@@ -30,7 +41,11 @@ public class ClassRoomLibUtils {
     public static final String TYPE_SC ="sc";
     public static final String TYPE_NY ="ny";
 
-    public static void initLib(String type){
+    /**
+     * 在application
+     * @param type
+     */
+    public static void initLib(Context context,String type){
         switch (type){
             case TYPE_ZY:
                 HttpUrls.URL_HOST ="http://zyapp.test.xw518.com/";
@@ -44,7 +59,44 @@ public class ClassRoomLibUtils {
                 break;
             default:
         }
+        if(!QbSdk.isTbsCoreInited()) {
+            HashMap map = new HashMap();
+            map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
+            map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
+            QbSdk.initTbsSettings(map);
+            X5WebUtils.init(context);
+            X5LogUtils.setIsLog(false);
+            QbSdk.setTbsListener(new TbsListener(){
 
+                @Override
+                public void onDownloadFinish(int i) {
+                    EventBus.getDefault().post(new X5InstallSuccessBean(0,i));
+                    LogUtil.e("TAG","onDownloadFinish"+i);
+                }
+
+                @Override
+                public void onInstallFinish(int i) {
+                    LogUtil.e("TAG","onInstallFinish"+i);
+                    if (i == 232){//经过测试232 是最后一次收到的状态{
+                        SharedPreferenceUntils.saveX5State(context,true);
+                        EventBus.getDefault().post(new X5InstallSuccessBean(1,100));
+                        MyToast.myToast(context,"安装x5内核成功");
+                    }else {
+                        EventBus.getDefault().post(new X5InstallSuccessBean(1,0));
+                    }
+                }
+
+                @Override
+                public void onDownloadProgress(int i) {
+                    EventBus.getDefault().post(new X5InstallSuccessBean(0,i));
+                    LogUtil.e("TAG","onDownloadProgress"+i);
+                    MyToast.myToast(context,"正在后台下载安装x5内核");
+                }
+            });
+
+        }else {
+            SharedPreferenceUntils.saveX5State(context,true);
+        }
     }
 
     /**

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="true" android:drawable="@mipmap/ic_qxsc_classroom"></item>
-    <item  android:drawable="@mipmap/ic_sc_classroom"></item>
-</selector>
