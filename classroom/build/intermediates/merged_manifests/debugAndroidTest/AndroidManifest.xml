@@ -83,6 +83,12 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:label="dexopt"
+            android:process=":dexopt" >
+        </service>
+
         <provider
             android:name="android.arch.lifecycle.ProcessLifecycleOwnerInitializer"
             android:authorities="com.xingwang.classroom.test.lifecycle-trojan"

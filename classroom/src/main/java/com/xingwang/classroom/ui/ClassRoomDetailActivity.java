@@ -40,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.ShareResultCallBack;
@@ -392,9 +393,12 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     public void requestDangerousPermissions(String[] permissions, int requestCode) {
         if (checkDangerousPermissions(permissions)){
             imagePickerDefine =BeautyDefine.getImagePickerDefine(ClassRoomDetailActivity.this);
-            imagePickerDefine.showSinglePicker(list -> {
+
+
+            imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
                 if (list!=null&&list.size()>0)
-                    goUploadPic(list.get(0));});
+                    goUploadPic(list.get(0));
+            });
             return;
         }
         ActivityCompat.requestPermissions(this, permissions, requestCode);
@@ -426,8 +430,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                 }
             }
             imagePickerDefine = BeautyDefine.getImagePickerDefine(ClassRoomDetailActivity.this);
-            imagePickerDefine.showSinglePicker(list -> {
-                if (list != null && list.size() > 0)
+            imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
+                if (list!=null&&list.size()>0)
                     goUploadPic(list.get(0));
             });
         }

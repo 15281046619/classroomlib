@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         setContentView(R.layout.activity_main);
        ClassRoomLibUtils.startListActivity(this,"栏目");
 
-
         // html5WebView = new Html5WebView(this);
         // html5WebView =findViewById(R.id.layout_web_container);
         // attachWebContainer();

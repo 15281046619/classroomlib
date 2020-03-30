@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.UploadResultCallBack;
@@ -142,7 +143,8 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     public void requestDangerousPermissions(String[] permissions, int requestCode) {
         if (checkDangerousPermissions(permissions)){
             imagePickerDefine =BeautyDefine.getImagePickerDefine(ClassRoomCommentDetailActivity.this);
-            imagePickerDefine.showSinglePicker(list -> {
+
+            imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
                 if (list!=null&&list.size()>0)
                     goUploadPic(list.get(0));
             });
@@ -197,7 +199,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
                     }
                 }
                 imagePickerDefine =BeautyDefine.getImagePickerDefine(ClassRoomCommentDetailActivity.this);
-                imagePickerDefine.showSinglePicker(list -> {
+                imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
                     if (list!=null&&list.size()>0)
                         goUploadPic(list.get(0));
                 });

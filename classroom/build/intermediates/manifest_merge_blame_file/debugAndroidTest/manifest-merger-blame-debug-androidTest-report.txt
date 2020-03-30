@@ -3,24 +3,24 @@
 3    package="com.xingwang.classroom.test" >
 4
 5    <uses-sdk
-5-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:5:5-74
+5-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:5:5-74
 6        android:minSdkVersion="17"
-6-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:5:15-41
+6-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:5:15-41
 7        android:targetSdkVersion="28" />
-7-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:5:42-71
+7-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:5:42-71
 8
 9    <instrumentation
-9-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:11:5-15:77
+9-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:11:5-15:77
 10        android:name="android.support.test.runner.AndroidJUnitRunner"
-10-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:11:22-83
+10-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:11:22-83
 11        android:functionalTest="false"
-11-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:14:22-52
+11-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:14:22-52
 12        android:handleProfiling="false"
-12-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:13:22-53
+12-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:13:22-53
 13        android:label="Tests for com.xingwang.classroom.test"
-13-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:15:22-75
+13-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:15:22-75
 14        android:targetPackage="com.xingwang.classroom.test" />
-14-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:12:22-73
+14-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:12:22-73
 15
 16    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序修改全局音频设置 -->
 16-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-67
@@ -61,7 +61,7 @@
 28-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:15:22-73
 29
 30    <application
-30-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:7:5-9:19
+30-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:7:5-9:19
 31        android:name="com.xingwang.classroom.MyApplication"
 31-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:9-60
 32        android:allowBackup="true"
@@ -69,7 +69,7 @@
 33        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
 33-->[com.android.support:support-compat:28.0.0] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\f14724208b5bfeeef0d6bdefe649bca7\support-compat-28.0.0\AndroidManifest.xml:22:18-91
 34        android:debuggable="true"
-34-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:7:18-43
+34-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:7:18-43
 35        android:hardwareAccelerated="true"
 35-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:9-43
 36        android:label="@string/app_name"
@@ -77,8 +77,8 @@
 37        android:supportsRtl="true" >
 37-->[com.shuyu:gsyVideoPlayer-java:6.0.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\38d3b0590a33da0504881885ecb00321\gsyVideoPlayer-java-6.0.2\AndroidManifest.xml:14:9-35
 38        <uses-library android:name="android.test.runner" />
-38-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:8:9-60
-38-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1676610599394761303.xml:8:23-57
+38-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:8:9-60
+38-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:8:23-57
 39
 40        <activity
 40-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:9-49:20
@@ -165,74 +165,84 @@
 83            </intent-filter>
 84        </activity>
 85
-86        <provider
-86-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:23:9-27:43
-87            android:name="android.arch.lifecycle.ProcessLifecycleOwnerInitializer"
-87-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:24:13-83
-88            android:authorities="com.xingwang.classroom.test.lifecycle-trojan"
-88-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:25:13-68
-89            android:exported="false"
-89-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:26:13-37
-90            android:multiprocess="true" />
-90-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:27:13-40
+86        <service
+86-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:83:9-87:19
+87            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+87-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:84:13-90
+88            android:label="dexopt"
+88-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:85:13-35
+89            android:process=":dexopt" >
+89-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:86:13-38
+90        </service>
 91
-92        <activity
-92-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:20:9-31:20
-93            android:name="com.tencent.smtt.sdk.VideoActivity"
-93-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:21:13-62
-94            android:alwaysRetainTaskState="true"
-94-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:22:13-49
-95            android:configChanges="orientation|screenSize|keyboardHidden"
-95-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:23:13-74
-96            android:exported="false"
-96-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:24:13-37
-97            android:launchMode="singleTask" >
-97-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:25:13-44
-98            <intent-filter>
-98-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:26:13-30:29
-99                <action android:name="com.tencent.smtt.tbs.video.PLAY" />
-99-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:27:17-74
-99-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:27:25-71
-100
-101                <category android:name="android.intent.category.DEFAULT" />
-101-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:17-76
-101-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:27-73
-102            </intent-filter>
-103        </activity>
-104        <activity
-104-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:32:9-49:20
-105            android:name="com.ycbjie.webviewlib.X5WebViewActivity"
-105-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:33:13-67
-106            android:configChanges="orientation|screenSize"
-106-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:34:13-59
-107            android:hardwareAccelerated="true"
-107-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:35:13-47
-108            android:launchMode="singleTask"
-108-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:36:13-44
-109            android:screenOrientation="portrait"
-109-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:37:13-49
-110            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-110-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:38:13-69
-111
-112            <!-- 需要添加下面的intent-filter配置 -->
-113            <intent-filter>
-113-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:41:13-48:29
-114                <action android:name="android.intent.action.VIEW" />
-114-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:41:17-69
-114-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:41:25-66
-115
-116                <category android:name="android.intent.category.DEFAULT" />
-116-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:17-76
-116-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:27-73
-117                <category android:name="android.intent.category.BROWSABLE" />
-117-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:45:17-78
-117-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:45:27-75
-118                <!-- 使用http，则只能打开http开头的网页 -->
-119                <data android:scheme="https" />
-119-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:45:17-47:50
-119-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:47:21-47
-120            </intent-filter>
-121        </activity>
-122    </application>
-123
-124</manifest>
+92        <provider
+92-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:23:9-27:43
+93            android:name="android.arch.lifecycle.ProcessLifecycleOwnerInitializer"
+93-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:24:13-83
+94            android:authorities="com.xingwang.classroom.test.lifecycle-trojan"
+94-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:25:13-68
+95            android:exported="false"
+95-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:26:13-37
+96            android:multiprocess="true" />
+96-->[android.arch.lifecycle:extensions:1.1.1] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\4248c72111b6a9be638f2e89dcd4903c\extensions-1.1.1\AndroidManifest.xml:27:13-40
+97
+98        <activity
+98-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:20:9-31:20
+99            android:name="com.tencent.smtt.sdk.VideoActivity"
+99-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:21:13-62
+100            android:alwaysRetainTaskState="true"
+100-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:22:13-49
+101            android:configChanges="orientation|screenSize|keyboardHidden"
+101-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:23:13-74
+102            android:exported="false"
+102-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:24:13-37
+103            android:launchMode="singleTask" >
+103-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:25:13-44
+104            <intent-filter>
+104-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:26:13-30:29
+105                <action android:name="com.tencent.smtt.tbs.video.PLAY" />
+105-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:27:17-74
+105-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:27:25-71
+106
+107                <category android:name="android.intent.category.DEFAULT" />
+107-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:17-76
+107-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:27-73
+108            </intent-filter>
+109        </activity>
+110        <activity
+110-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:32:9-49:20
+111            android:name="com.ycbjie.webviewlib.X5WebViewActivity"
+111-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:33:13-67
+112            android:configChanges="orientation|screenSize"
+112-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:34:13-59
+113            android:hardwareAccelerated="true"
+113-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:35:13-47
+114            android:launchMode="singleTask"
+114-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:36:13-44
+115            android:screenOrientation="portrait"
+115-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:37:13-49
+116            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+116-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:38:13-69
+117
+118            <!-- 需要添加下面的intent-filter配置 -->
+119            <intent-filter>
+119-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:41:13-48:29
+120                <action android:name="android.intent.action.VIEW" />
+120-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:41:17-69
+120-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:41:25-66
+121
+122                <category android:name="android.intent.category.DEFAULT" />
+122-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:17-76
+122-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:27-73
+123                <category android:name="android.intent.category.BROWSABLE" />
+123-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:45:17-78
+123-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:45:27-75
+124                <!-- 使用http，则只能打开http开头的网页 -->
+125                <data android:scheme="https" />
+125-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:45:17-47:50
+125-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:47:21-47
+126            </intent-filter>
+127        </activity>
+128    </application>
+129
+130</manifest>

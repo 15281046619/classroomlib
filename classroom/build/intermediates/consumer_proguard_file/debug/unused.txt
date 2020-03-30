@@ -324,6 +324,7 @@ com.shuyu.gsyvideoplayer.listener.GSYMediaPlayerListener
     public abstract void onVideoResume(boolean)
 com.shuyu.gsyvideoplayer.render.effect.DuotoneEffect
 com.ycbjie.webviewlib.X5WebUtils$ErrorType
+com.xingwreslib.beautyreslibrary.GroupNameInfo
 com.bumptech.glide.load.engine.cache.MemorySizeCalculator
     private static final java.lang.String TAG
     static final int BYTES_PER_ARGB_8888_PIXEL
@@ -560,6 +561,7 @@ com.google.android.exoplayer2.extractor.mp4.Atom
     public static final int LONG_HEADER_SIZE
     public static final int DEFINES_LARGE_SIZE
     public static final int EXTENDS_TO_END_SIZE
+com.xingwreslib.beautyreslibrary.GroupNameLiveData
 android.support.design.resources.TextAppearance
     private static final java.lang.String TAG
     private static final int TYPEFACE_SANS
@@ -2456,6 +2458,7 @@ org.greenrobot.eventbus.util.ErrorDialogManager$SupportManagerFragment
 org.junit.internal.runners.model.EachTestNotifier
 android.support.v7.widget.helper.ItemTouchHelper$Callback
 org.bouncycastle.crypto.generators.DESKeyGenerator
+com.xingwreslib.beautyreslibrary.BeautyVideoCacheSer
 org.bouncycastle.jcajce.provider.symmetric.DESede$Mappings
 android.support.v7.app.AppCompatDelegate$NightMode
 org.bouncycastle.jcajce.provider.digest.SHA384$KeyGenerator
@@ -2949,8 +2952,8 @@ com.google.android.exoplayer2.upstream.cache.CacheUtil
     private void <init>()
     public static final int DEFAULT_BUFFER_SIZE_BYTES
 com.beautydefinelibrary.ImagePickerDefine
-    public abstract void showMultiplePicker(java.util.ArrayList,com.beautydefinelibrary.ImagePickerCallBack)
-    public abstract void showMultiplePicker(int,java.util.ArrayList,com.beautydefinelibrary.ImagePickerCallBack)
+    public abstract void showMultiplePicker(java.util.ArrayList,boolean,com.beautydefinelibrary.ImagePickerCallBack)
+    public abstract void showMultiplePicker(int,java.util.ArrayList,boolean,com.beautydefinelibrary.ImagePickerCallBack)
     public abstract void showAvtarPicker(com.beautydefinelibrary.ImagePickerCallBack)
 org.bouncycastle.asn1.x509.UserNotice
 com.danikula.videocache.file.FileCache
@@ -3090,6 +3093,7 @@ com.shuyu.gsyvideoplayer.render.effect.CrossProcessEffect
 org.bouncycastle.jcajce.provider.symmetric.AES$AlgParamGen
 org.bouncycastle.jcajce.provider.asymmetric.rsa.DigestSignatureSpi$SHA256
 org.bouncycastle.jcajce.provider.symmetric.HC128$Base
+com.xingwreslib.beautyreslibrary.GroupDissolveLiveData
 com.google.android.exoplayer2.ui.TrackSelectionView
     public static android.util.Pair getDialog(android.app.Activity,java.lang.CharSequence,com.google.android.exoplayer2.trackselection.DefaultTrackSelector,int)
     private void applySelection()
@@ -6084,7 +6088,7 @@ org.bouncycastle.crypto.util.PrivateKeyFactory
 org.hamcrest.core.IsCollectionContaining
 android.support.v4.os.BuildCompat
 com.beautydefinelibrary.ImagePickerCallBack
-    public abstract void onResult(java.util.List)
+    public abstract void onResult(java.util.List,com.beautydefinelibrary.ImagePickerDefine$MediaType,java.util.List)
 android.arch.lifecycle.LiveData$AlwaysActiveObserver
 org.junit.rules.ErrorCollector
 android.support.v4.view.accessibility.AccessibilityNodeInfoCompat
@@ -7204,6 +7208,7 @@ com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection$Factory
     public void <init>(com.google.android.exoplayer2.upstream.BandwidthMeter)
     public void <init>(int,int,int,float)
     public void <init>(com.google.android.exoplayer2.upstream.BandwidthMeter,int,int,int,float)
+com.xingwreslib.beautyreslibrary.GroupDissolveInfo
 android.support.v4.widget.ImageViewCompat
     private void <init>()
 org.bouncycastle.jcajce.provider.asymmetric.util.ECUtil
@@ -10593,6 +10598,7 @@ android.support.v4.view.ViewCompat$FocusRelativeDirection
 org.bouncycastle.asn1.cmp.POPODecKeyRespContent
 org.bouncycastle.crypto.kems.ECIESKeyEncapsulation
 org.bouncycastle.jcajce.provider.symmetric.ARC4$PBEWithSHAAnd128Bit
+com.xingwreslib.beautyreslibrary.GroupMemsLiveData
 org.bouncycastle.jce.MultiCertStoreParameters
 org.bouncycastle.apache.bzip2.CBZip2OutputStream$1
 org.junit.experimental.theories.Theories$TheoryAnchor
@@ -12066,8 +12072,8 @@ com.zzhoujay.richtext.ig.AbstractImageLoader
     private static final java.lang.String TAG
 org.bouncycastle.asn1.cms.EncryptedData
 com.beautydefinelibrary.BeautyDefine$6
-    public void showMultiplePicker(java.util.ArrayList,com.beautydefinelibrary.ImagePickerCallBack)
-    public void showMultiplePicker(int,java.util.ArrayList,com.beautydefinelibrary.ImagePickerCallBack)
+    public void showMultiplePicker(java.util.ArrayList,boolean,com.beautydefinelibrary.ImagePickerCallBack)
+    public void showMultiplePicker(int,java.util.ArrayList,boolean,com.beautydefinelibrary.ImagePickerCallBack)
     public void showAvtarPicker(com.beautydefinelibrary.ImagePickerCallBack)
 com.google.android.exoplayer2.offline.DownloadAction$Deserializer
 org.bouncycastle.crypto.tls.UserMappingType
@@ -13492,6 +13498,7 @@ android.support.design.widget.FloatingActionButtonImpl
     private static final float SHOW_OPACITY
     private static final float SHOW_SCALE
     private static final float SHOW_ICON_SCALE
+com.xingwreslib.beautyreslibrary.GroupMemsInfo
 com.google.android.exoplayer2.extractor.mkv.EbmlReaderOutput$ElementType
 org.bouncycastle.pqc.crypto.DigestingMessageSigner
 org.bouncycastle.asn1.cmp.CertStatus
@@ -14127,6 +14134,7 @@ org.bouncycastle.jcajce.provider.asymmetric.util.DSABase
 com.google.android.exoplayer2.drm.FrameworkMediaDrm
 android.support.transition.Styleable$ArcMotion
 org.bouncycastle.asn1.eac.PublicKeyDataObject
+com.xingwreslib.beautyreslibrary.GroupMemsInfo$Mem
 com.google.android.exoplayer2.offline.DownloadManager
     public varargs void <init>(com.google.android.exoplayer2.upstream.cache.Cache,com.google.android.exoplayer2.upstream.DataSource$Factory,java.io.File,com.google.android.exoplayer2.offline.DownloadAction$Deserializer[])
     public varargs void <init>(com.google.android.exoplayer2.offline.DownloaderConstructorHelper,java.io.File,com.google.android.exoplayer2.offline.DownloadAction$Deserializer[])
@@ -14431,8 +14439,6 @@ com.google.gson.internal.bind.TreeTypeAdapter$GsonContextImpl
     public final synthetic com.google.gson.internal.bind.TreeTypeAdapter this$0
 com.ycbjie.slide.SlideAnimLayout
     public com.ycbjie.slide.SlideAnimLayout$onScrollStatusListener listener
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$ATSk25QIHp1ort3l050XT8kr1Hs
-    public final void onResult(java.util.List)
 com.google.android.exoplayer2.scheduler.RequirementsWatcher$CapabilityValidatedCallback
 com.google.gson.internal.ConstructorConstructor$4
     public final synthetic com.google.gson.internal.ConstructorConstructor this$0
@@ -14490,8 +14496,8 @@ com.bumptech.glide.DrawableTypeRequest
     public final com.bumptech.glide.load.model.ModelLoader fileDescriptorModelLoader
     public final com.bumptech.glide.RequestManager$OptionsApplier optionsApplier
 com.xingwang.classroom.ui.ClassRoomDetailActivity
-    public synthetic void lambda$onRequestPermissionsResult$9$ClassRoomDetailActivity(java.util.List)
-    public synthetic void lambda$requestDangerousPermissions$8$ClassRoomDetailActivity(java.util.List)
+    public synthetic void lambda$requestDangerousPermissions$8$ClassRoomDetailActivity(java.util.List,com.beautydefinelibrary.ImagePickerDefine$MediaType,java.util.List)
+    public synthetic void lambda$onRequestPermissionsResult$9$ClassRoomDetailActivity(java.util.List,com.beautydefinelibrary.ImagePickerDefine$MediaType,java.util.List)
 com.beautydefinelibrary.LifeListenerFragment$LifeListener
 com.google.android.exoplayer2.extractor.ts.Ac3Extractor
     public static final com.google.android.exoplayer2.extractor.ExtractorsFactory FACTORY
@@ -14729,14 +14735,14 @@ okhttp3.CipherSuite
     public static final okhttp3.CipherSuite TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384
     public static final okhttp3.CipherSuite TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA
     public static final okhttp3.CipherSuite TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$z2rFlQg-8FgiIP_IllG1AV_bHjw
-    public final void onResult(java.util.List)
 com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1
     public final synthetic com.google.gson.internal.bind.ReflectiveTypeAdapterFactory this$0
 com.google.android.exoplayer2.trackselection.TrackSelection$Factory
     public varargs abstract com.google.android.exoplayer2.trackselection.TrackSelection createTrackSelection(com.google.android.exoplayer2.source.TrackGroup,com.google.android.exoplayer2.upstream.BandwidthMeter,int[])
 android.support.constraint.ConstraintLayout$LayoutParams
     public float dimensionRatioValue
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$E9IxTeU0jMlYwuB8EZvlH3vpbok
+    public final void onResult(java.util.List,com.beautydefinelibrary.ImagePickerDefine$MediaType,java.util.List)
 com.bumptech.glide.load.engine.bitmap_recycle.LruBitmapPool
     public final int initialMaxSize
 android.support.design.internal.TextScale$1
@@ -14864,6 +14870,8 @@ com.google.android.exoplayer2.upstream.LoadErrorHandlingPolicy
     public abstract long getRetryDelayMsFor(int,long,java.io.IOException,int)
     public abstract int getMinimumLoadableRetryCount(int)
 com.google.gson.internal.bind.ObjectTypeAdapter$2
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$A8taLQ9cquaGF7xnUWHcBpp22D0
+    public final void onResult(java.util.List,com.beautydefinelibrary.ImagePickerDefine$MediaType,java.util.List)
 com.youth.banner.transformer.ZoomInTransformer
 com.google.android.exoplayer2.extractor.ogg.OggExtractor
     public static final com.google.android.exoplayer2.extractor.ExtractorsFactory FACTORY
@@ -14934,6 +14942,7 @@ com.zzhoujay.markdown.parser.TagFinder
     public abstract int findCount(int,com.zzhoujay.markdown.parser.Line,int)
 android.support.v4.view.ActionProvider$SubUiVisibilityListener
     public abstract void onSubUiVisibilityChanged(boolean)
+com.beautydefinelibrary.ImagePickerDefine$MediaType
 android.support.transition.ChangeClipBounds$1
     public final synthetic android.support.transition.ChangeClipBounds this$0
 com.zzhoujay.richtext.ig.AbstractImageLoader$1
@@ -15078,8 +15087,8 @@ android.support.transition.Visibility$1
 com.google.android.exoplayer2.ui.PlayerControlView$VisibilityListener
     public abstract void onVisibilityChange(int)
 tv.danmaku.ijk.media.exo2.demo.EventLogger
-    public synthetic void onDrmSessionAcquired()
     public synthetic void onDrmSessionReleased()
+    public synthetic void onDrmSessionAcquired()
 com.bumptech.glide.load.engine.cache.DiskCache$Factory
     public abstract com.bumptech.glide.load.engine.cache.DiskCache build()
 com.beautydefinelibrary.LabelUiFactory
@@ -15255,6 +15264,8 @@ com.google.android.exoplayer2.extractor.ogg.OggPageHeader
 android.support.v4.app.FragmentManagerImpl
     public static final android.view.animation.Interpolator ACCELERATE_QUINT
     public static final android.view.animation.Interpolator ACCELERATE_CUBIC
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$Z5MxerHygEm_5sOR0qMlM9xsT2I
+    public final void onResult(java.util.List,com.beautydefinelibrary.ImagePickerDefine$MediaType,java.util.List)
 android.support.transition.ChangeBounds$7
     public final synthetic android.support.transition.ChangeBounds this$0
 com.bumptech.glide.request.RequestListener
@@ -15480,8 +15491,6 @@ com.google.android.exoplayer2.upstream.BandwidthMeter
     public abstract void removeEventListener(com.google.android.exoplayer2.upstream.BandwidthMeter$EventListener)
 android.support.v4.text.TextDirectionHeuristicCompat
     public abstract boolean isRtl(java.lang.CharSequence,int,int)
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$4O97aHOpLB0oHWNge21a8jnFdNE
-    public final void onResult(java.util.List)
 android.support.v7.widget.RecyclerView$LayoutManager$LayoutPrefetchRegistry
     public abstract void addPosition(int,int)
 android.support.design.resources.TextAppearanceConfig
@@ -15640,8 +15649,6 @@ com.bumptech.glide.util.LruCache
     public final int initialMaxSize
 com.transitionseverywhere.utils.ReflectionUtils
     public static final java.lang.Object[] TWO_OBJECTS_ARRAY
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$FRA5FNvwPaGilHAonZp1_eAhITs
-    public final void onResult(java.util.List)
 android.support.v4.view.accessibility.AccessibilityManagerCompat$TouchExplorationStateChangeListener
     public abstract void onTouchExplorationStateChanged(boolean)
 android.support.v7.view.menu.ListMenuItemView
@@ -16068,8 +16075,8 @@ com.bumptech.glide.load.resource.bitmap.Downsampler
     public static final com.bumptech.glide.load.resource.bitmap.Downsampler AT_MOST
     public static final com.bumptech.glide.load.resource.bitmap.Downsampler NONE
 com.xingwang.classroom.ui.ClassRoomCommentDetailActivity
-    public synthetic void lambda$requestDangerousPermissions$3$ClassRoomCommentDetailActivity(java.util.List)
-    public synthetic void lambda$onRequestPermissionsResult$4$ClassRoomCommentDetailActivity(java.util.List)
+    public synthetic void lambda$requestDangerousPermissions$3$ClassRoomCommentDetailActivity(java.util.List,com.beautydefinelibrary.ImagePickerDefine$MediaType,java.util.List)
+    public synthetic void lambda$onRequestPermissionsResult$4$ClassRoomCommentDetailActivity(java.util.List,com.beautydefinelibrary.ImagePickerDefine$MediaType,java.util.List)
 okhttp3.internal.http2.PushObserver
     public abstract boolean onRequest(int,java.util.List)
     public abstract boolean onHeaders(int,java.util.List,boolean)
@@ -16085,6 +16092,8 @@ com.google.android.exoplayer2.upstream.DataSink$Factory
     public abstract com.google.android.exoplayer2.upstream.DataSink createDataSink()
 com.google.android.exoplayer2.extractor.mp4.FragmentedMp4Extractor
     public static final com.google.android.exoplayer2.extractor.ExtractorsFactory FACTORY
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$KTtNvZZab2Yt-ylFsDNxeFT_IIs
+    public final void onResult(java.util.List,com.beautydefinelibrary.ImagePickerDefine$MediaType,java.util.List)
 com.youth.banner.transformer.DefaultTransformer
 com.transitionseverywhere.ChangeTransform$GhostListener
     public android.graphics.Matrix mEndMatrix

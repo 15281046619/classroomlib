@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.utils.GlideUtils;
@@ -24,6 +25,7 @@ public class DetailBarrageAdapter extends BaseBarrageAdapter<CommentBean.DataBea
     }
     @Override
     public View getView(ViewGroup viewGroup, int position) {
+
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_custom_barrage_view_classroom, viewGroup, false);
         CommentBean.DataBean.CommentsBean mData = mLists.get(position);
         TextView tvContent=  view.findViewById(R.id.tv_content);

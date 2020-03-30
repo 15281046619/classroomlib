@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.68
 # min_api: 17
-# pg_map_id: f9178cb
+# pg_map_id: 3dc3be9
 MTT.ThirdAppInfoNew -> MTT.ThirdAppInfoNew:
     60:61:void <init>() -> <init>
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
@@ -18965,7 +18965,7 @@ com.beautydefinelibrary.BeautyDefine$6 -> c.a.a$g:
     143:143:void <init>(android.support.v7.app.AppCompatActivity) -> <init>
     146:146:void init() -> a
     150:150:void onActivityResultHanlder(int,int,android.content.Intent) -> a
-    164:165:void showSinglePicker(com.beautydefinelibrary.ImagePickerCallBack) -> a
+    164:165:void showSinglePicker(boolean,com.beautydefinelibrary.ImagePickerCallBack) -> a
 com.beautydefinelibrary.BeautyDefine$8 -> c.a.a$h:
     211:211:void <init>() -> <init>
     214:214:com.beautydefinelibrary.LabelUiFactory getLabelUiFactory() -> a
@@ -18985,9 +18985,9 @@ com.beautydefinelibrary.ImagePickerDefine -> c.a.d:
     15:15:void <init>() -> <init>
     void init() -> a
     void onActivityResultHanlder(int,int,android.content.Intent) -> a
-    void showSinglePicker(com.beautydefinelibrary.ImagePickerCallBack) -> a
+    void showSinglePicker(boolean,com.beautydefinelibrary.ImagePickerCallBack) -> a
     15:15:java.lang.Object clone() -> clone
-    31:31:com.beautydefinelibrary.ImagePickerDefine clone() -> clone
+    32:32:com.beautydefinelibrary.ImagePickerDefine clone() -> clone
 com.beautydefinelibrary.ImagePickerImpl -> c.a.e:
     12:13:void <init>() -> <init>
     16:17:void setContext(android.support.v7.app.AppCompatActivity) -> a
@@ -39213,9 +39213,9 @@ com.xingwang.classroom.adapter.DetailAdapter$MyCheckTextView -> com.xingwang.cla
     230:232:void onClick(android.view.View) -> onClick
     220:225:void updateDrawState(android.text.TextPaint) -> updateDrawState
 com.xingwang.classroom.adapter.DetailBarrageAdapter -> com.xingwang.classroom.adapter.DetailBarrageAdapter:
-    23:24:void <init>(java.util.List) -> <init>
-    37:37:int getShowSum() -> getShowSum
-    27:32:android.view.View getView(android.view.ViewGroup,int) -> getView
+    24:25:void <init>(java.util.List) -> <init>
+    39:39:int getShowSum() -> getShowSum
+    29:34:android.view.View getView(android.view.ViewGroup,int) -> getView
 com.xingwang.classroom.adapter.HomeAdapter -> com.xingwang.classroom.adapter.HomeAdapter:
     23:24:void <init>(java.util.List) -> <init>
     45:45:int getViewLayout(int) -> getViewLayout
@@ -39494,23 +39494,23 @@ com.xingwang.classroom.http.HttpHeaderInterceptor -> com.xingwang.classroom.http
 com.xingwang.classroom.http.HttpUrls -> com.xingwang.classroom.http.HttpUrls:
     9:29:void <clinit>() -> <clinit>
     8:8:void <init>() -> <init>
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$4O97aHOpLB0oHWNge21a8jnFdNE -> c.i.a.f.a:
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$J-Eb-VcnEO-CwJav6Dfd02d9Yqs -> c.i.a.f.a:
     com.xingwang.classroom.ui.ClassRoomCommentDetailActivity f$0 -> a
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$J-Eb-VcnEO-CwJav6Dfd02d9Yqs -> c.i.a.f.b:
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$K6Hac4fUQh4lMKKiLaI0o1qc5o4 -> c.i.a.f.b:
     com.xingwang.classroom.ui.ClassRoomCommentDetailActivity f$0 -> a
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$K6Hac4fUQh4lMKKiLaI0o1qc5o4 -> c.i.a.f.c:
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$KTtNvZZab2Yt-ylFsDNxeFT_IIs -> c.i.a.f.c:
     com.xingwang.classroom.ui.ClassRoomCommentDetailActivity f$0 -> a
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$a72Foekkh0NprEeI-2Dx9rH50ME -> c.i.a.f.d:
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$Z5MxerHygEm_5sOR0qMlM9xsT2I -> c.i.a.f.d:
     com.xingwang.classroom.ui.ClassRoomCommentDetailActivity f$0 -> a
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$abDeE4TzbyfIPS3OxxI1BPtHoT4 -> c.i.a.f.e:
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$a72Foekkh0NprEeI-2Dx9rH50ME -> c.i.a.f.e:
+    com.xingwang.classroom.ui.ClassRoomCommentDetailActivity f$0 -> a
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$abDeE4TzbyfIPS3OxxI1BPtHoT4 -> c.i.a.f.f:
     android.widget.TextView f$2 -> d
     com.xingwang.classroom.view.CustomProgressBar f$1 -> c
     com.xingwang.classroom.ui.ClassRoomCommentDetailActivity f$0 -> a
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$rr4lAZ4Yob55hQYXLcNyszJBgRk -> c.i.a.f.f:
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$rr4lAZ4Yob55hQYXLcNyszJBgRk -> c.i.a.f.g:
     com.xingwang.classroom.ui.ClassRoomCommentDetailActivity f$0 -> a
     void onRefresh() -> a
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentDetailActivity$z2rFlQg-8FgiIP_IllG1AV_bHjw -> c.i.a.f.g:
-    com.xingwang.classroom.ui.ClassRoomCommentDetailActivity f$0 -> a
 com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentFragment$Qap6vEO9jzv9AJVWnCTsYN220qk -> c.i.a.f.h:
     com.xingwang.classroom.ui.ClassRoomCommentFragment f$0 -> a
 com.xingwang.classroom.ui.-$$Lambda$ClassRoomCommentFragment$WxNvnnUZ4HZO8pblk-B-ZLGBAiM -> c.i.a.f.i:
@@ -39527,14 +39527,14 @@ com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$8$NWPFB39M3Y1r3PjHqc
 com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$8BzAxNofQv4n03J_ueWqlch9o0E -> c.i.a.f.m:
     com.xingwang.classroom.ui.ClassRoomDetailActivity f$0 -> a
     void onProgress(int,int,int,int) -> a
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$ADwr-ZX_TWtQyZy7OxyXqjaaTYw -> c.i.a.f.n:
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$A8taLQ9cquaGF7xnUWHcBpp22D0 -> c.i.a.f.n:
     com.xingwang.classroom.ui.ClassRoomDetailActivity f$0 -> a
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$ATSk25QIHp1ort3l050XT8kr1Hs -> c.i.a.f.o:
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$ADwr-ZX_TWtQyZy7OxyXqjaaTYw -> c.i.a.f.o:
     com.xingwang.classroom.ui.ClassRoomDetailActivity f$0 -> a
 com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$BBO-iRWL9ZrTW1ja7EjY3C49s8w -> c.i.a.f.p:
     com.xingwang.classroom.ui.ClassRoomDetailActivity f$0 -> a
     void onClick(android.view.View,boolean) -> a
-com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$FRA5FNvwPaGilHAonZp1_eAhITs -> c.i.a.f.q:
+com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$E9IxTeU0jMlYwuB8EZvlH3vpbok -> c.i.a.f.q:
     com.xingwang.classroom.ui.ClassRoomDetailActivity f$0 -> a
 com.xingwang.classroom.ui.-$$Lambda$ClassRoomDetailActivity$Fe41fi5AX6XhuOtB_zuu-LoE_mk -> c.i.a.f.r:
     com.xingwang.classroom.bean.ADBean f$1 -> b
@@ -39600,80 +39600,80 @@ com.xingwang.classroom.ui.BaseNetActivity -> com.xingwang.classroom.ui.BaseNetAc
     18:19:void requestGet(java.lang.String,java.util.HashMap,java.lang.Class,com.xingwang.classroom.http.HttpCallBack) -> requestGet
     21:22:void requestPost(java.lang.String,java.util.HashMap,java.lang.Class,com.xingwang.classroom.http.HttpCallBack) -> requestPost
 com.xingwang.classroom.ui.ClassRoomCommentDetailActivity -> com.xingwang.classroom.ui.ClassRoomCommentDetailActivity:
-    60:424:void <init>() -> <init>
-    342:350:void OnKeyBoardChanged(boolean,int) -> OnKeyBoardChanged
-    107:107:void lambda$initListener$0(android.view.View) -> a
-    285:289:void lambda$initSwipeRefresh$5() -> a
-    418:421:void lambda$requestFailureShow$6(com.xingwang.classroom.view.CustomProgressBar,android.widget.TextView,android.view.View) -> a
-    60:60:android.widget.EditText access$000(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$000
-    60:60:android.widget.TextView access$100(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$100
-    60:60:java.lang.String access$1000(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$1000
-    60:60:void access$1100(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,int,java.lang.String) -> access$1100
-    60:60:void access$1200(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$1200
-    60:60:int access$1300(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$1300
-    60:60:android.widget.ImageView access$200(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$200
-    60:60:void access$300(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$300
-    60:60:int access$400(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$400
-    60:60:int access$402(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,int) -> access$402
-    60:60:java.util.List access$500(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$500
-    60:60:boolean access$602(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,boolean) -> access$602
-    60:60:com.xingwang.classroom.utils.KeyBoardHelper access$700(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$700
-    60:60:void access$800(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,java.lang.String) -> access$800
-    60:60:java.lang.String access$900(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$900
-    110:110:void lambda$initListener$1(android.view.View) -> b
-    112:114:void lambda$initListener$2(android.view.View) -> c
-    178:187:boolean checkDangerousPermissions(java.lang.String[]) -> checkDangerousPermissions
-    362:411:void getData(int,java.lang.String) -> getData
-    209:267:void goSendComment() -> goSendComment
-    155:170:void goUploadPic(java.lang.String) -> goUploadPic
-    434:450:void initAdapter() -> initAdapter
-    315:329:void initDivIdData() -> initDivIdData
-    270:280:void initIntentData() -> initIntentData
-    106:137:void initListener() -> initListener
-    292:312:void initRequestData() -> initRequestData
-    283:290:void initSwipeRefresh() -> initSwipeRefresh
-    332:338:void initView() -> initView
-    80:80:int layoutResId() -> layoutResId
-    84:89:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    454:459:void onClickItem(int,int,int) -> onClickItem
-    92:103:void onCreate(android.os.Bundle) -> onCreate
-    353:358:void onDestroy() -> onDestroy
-    191:206:void onRequestPermissionsResult(int,java.lang.String[],int[]) -> onRequestPermissionsResult
-    143:152:void requestDangerousPermissions(java.lang.String[],int) -> requestDangerousPermissions
-    413:422:void requestFailureShow(java.lang.String) -> requestFailureShow
-    140:141:void requestPermission() -> requestPermission
+    61:426:void <init>() -> <init>
+    344:352:void OnKeyBoardChanged(boolean,int) -> OnKeyBoardChanged
+    108:108:void lambda$initListener$0(android.view.View) -> a
+    287:291:void lambda$initSwipeRefresh$5() -> a
+    420:423:void lambda$requestFailureShow$6(com.xingwang.classroom.view.CustomProgressBar,android.widget.TextView,android.view.View) -> a
+    61:61:android.widget.EditText access$000(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$000
+    61:61:android.widget.TextView access$100(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$100
+    61:61:java.lang.String access$1000(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$1000
+    61:61:void access$1100(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,int,java.lang.String) -> access$1100
+    61:61:void access$1200(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$1200
+    61:61:int access$1300(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$1300
+    61:61:android.widget.ImageView access$200(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$200
+    61:61:void access$300(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$300
+    61:61:int access$400(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$400
+    61:61:int access$402(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,int) -> access$402
+    61:61:java.util.List access$500(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$500
+    61:61:boolean access$602(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,boolean) -> access$602
+    61:61:com.xingwang.classroom.utils.KeyBoardHelper access$700(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$700
+    61:61:void access$800(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,java.lang.String) -> access$800
+    61:61:java.lang.String access$900(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> access$900
+    111:111:void lambda$initListener$1(android.view.View) -> b
+    113:115:void lambda$initListener$2(android.view.View) -> c
+    180:189:boolean checkDangerousPermissions(java.lang.String[]) -> checkDangerousPermissions
+    364:413:void getData(int,java.lang.String) -> getData
+    211:269:void goSendComment() -> goSendComment
+    157:172:void goUploadPic(java.lang.String) -> goUploadPic
+    436:452:void initAdapter() -> initAdapter
+    317:331:void initDivIdData() -> initDivIdData
+    272:282:void initIntentData() -> initIntentData
+    107:138:void initListener() -> initListener
+    294:314:void initRequestData() -> initRequestData
+    285:292:void initSwipeRefresh() -> initSwipeRefresh
+    334:340:void initView() -> initView
+    81:81:int layoutResId() -> layoutResId
+    85:90:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    456:461:void onClickItem(int,int,int) -> onClickItem
+    93:104:void onCreate(android.os.Bundle) -> onCreate
+    355:360:void onDestroy() -> onDestroy
+    193:208:void onRequestPermissionsResult(int,java.lang.String[],int[]) -> onRequestPermissionsResult
+    144:154:void requestDangerousPermissions(java.lang.String[],int) -> requestDangerousPermissions
+    415:424:void requestFailureShow(java.lang.String) -> requestFailureShow
+    141:142:void requestPermission() -> requestPermission
 com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$1 -> com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$1:
-    115:115:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
-    128:135:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    119:119:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    124:124:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
+    116:116:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
+    129:136:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    120:120:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
+    125:125:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
 com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$2 -> com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$2:
-    156:156:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
-    166:168:void onFailure() -> onFailure
-    160:162:void onSucceed(java.lang.String[]) -> onSucceed
+    158:158:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
+    168:170:void onFailure() -> onFailure
+    162:164:void onSucceed(java.lang.String[]) -> onSucceed
 com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$3 -> com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$3:
-    222:222:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,java.lang.String,java.lang.Object) -> <init>
-    226:230:void onFailure(java.lang.String) -> onFailure
-    222:222:void onSuccess(java.lang.Object) -> onSuccess
-    234:265:void onSuccess(com.xingwang.classroom.bean.SendCommentBean) -> onSuccess
+    224:224:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,java.lang.String,java.lang.Object) -> <init>
+    228:232:void onFailure(java.lang.String) -> onFailure
+    224:224:void onSuccess(java.lang.Object) -> onSuccess
+    236:267:void onSuccess(com.xingwang.classroom.bean.SendCommentBean) -> onSuccess
 com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$4 -> com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$4:
-    292:292:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
-    296:297:void onFailure(java.lang.String) -> onFailure
-    292:292:void onSuccess(java.lang.Object) -> onSuccess
-    301:310:void onSuccess(com.xingwang.classroom.bean.CommentDetailBean) -> onSuccess
+    294:294:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
+    298:299:void onFailure(java.lang.String) -> onFailure
+    294:294:void onSuccess(java.lang.Object) -> onSuccess
+    303:312:void onSuccess(com.xingwang.classroom.bean.CommentDetailBean) -> onSuccess
 com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$5 -> com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$5:
-    315:315:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
-    319:320:void onFailure(java.lang.String) -> onFailure
-    315:315:void onSuccess(java.lang.Object) -> onSuccess
-    324:327:void onSuccess(com.xingwang.classroom.bean.CommentDetailBean) -> onSuccess
+    317:317:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
+    321:322:void onFailure(java.lang.String) -> onFailure
+    317:317:void onSuccess(java.lang.Object) -> onSuccess
+    326:329:void onSuccess(com.xingwang.classroom.bean.CommentDetailBean) -> onSuccess
 com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$6 -> com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$6:
-    375:375:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,int) -> <init>
-    379:383:void onFailure(java.lang.String) -> onFailure
-    375:375:void onSuccess(java.lang.Object) -> onSuccess
-    387:408:void onSuccess(com.xingwang.classroom.bean.CommentBean) -> onSuccess
+    377:377:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity,int) -> <init>
+    381:385:void onFailure(java.lang.String) -> onFailure
+    377:377:void onSuccess(java.lang.Object) -> onSuccess
+    389:410:void onSuccess(com.xingwang.classroom.bean.CommentBean) -> onSuccess
 com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$7 -> com.xingwang.classroom.ui.ClassRoomCommentDetailActivity$7:
-    424:424:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
-    427:429:void onLoadMore() -> onLoadMore
+    426:426:void <init>(com.xingwang.classroom.ui.ClassRoomCommentDetailActivity) -> <init>
+    429:431:void onLoadMore() -> onLoadMore
 com.xingwang.classroom.ui.ClassRoomCommentFragment -> com.xingwang.classroom.ui.ClassRoomCommentFragment:
     28:146:void <init>() -> <init>
     41:51:boolean lambda$initView$0(android.view.View,android.view.MotionEvent) -> a
@@ -39690,155 +39690,155 @@ com.xingwang.classroom.ui.ClassRoomCommentFragment$1 -> com.xingwang.classroom.u
     70:70:void <init>(com.xingwang.classroom.ui.ClassRoomCommentFragment) -> <init>
     73:76:void onLoadMore() -> onLoadMore
 com.xingwang.classroom.ui.ClassRoomDetailActivity -> com.xingwang.classroom.ui.ClassRoomDetailActivity:
-    116:883:void <init>() -> <init>
-    1005:1013:void OnKeyBoardChanged(boolean,int) -> OnKeyBoardChanged
-    260:260:void lambda$initVideoPlay$3(android.view.View) -> a
-    281:291:void lambda$initVideoPlay$4(int,int,int,int) -> a
-    309:313:void lambda$initVideoPlay$5(android.view.View,boolean) -> a
-    341:341:void lambda$showBottomDialog$7(com.xingwang.classroom.bean.ADBean,java.lang.Integer) -> a
-    785:795:void lambda$handlerMessage$13(com.xingwang.classroom.bean.CommentBean$DataBean$CommentsBean,int) -> a
-    878:881:void lambda$requestFailureShow$14(com.xingwang.classroom.view.CustomProgressBar,android.widget.TextView,android.view.View) -> a
-    116:116:android.widget.EditText access$000(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$000
-    116:116:android.widget.TextView access$100(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$100
-    116:116:com.xingwang.classroom.view.LandLayoutVideo access$1000(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1000
-    116:116:android.widget.ImageView access$1100(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1100
-    116:116:void access$1200(com.xingwang.classroom.ui.ClassRoomDetailActivity,int) -> access$1200
-    116:116:java.lang.String access$1300(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1300
-    116:116:java.lang.String access$1302(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$1302
-    116:116:void access$1400(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$1400
-    116:116:boolean access$1502(com.xingwang.classroom.ui.ClassRoomDetailActivity,boolean) -> access$1502
-    116:116:void access$1600(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$1600
-    116:116:android.support.v4.app.Fragment[] access$1700(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1700
-    116:116:java.util.List access$1802(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.util.List) -> access$1802
-    116:116:com.xingwang.classroom.bean.DetailBean access$1900(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1900
-    116:116:com.xingwang.classroom.bean.DetailBean access$1902(com.xingwang.classroom.ui.ClassRoomDetailActivity,com.xingwang.classroom.bean.DetailBean) -> access$1902
-    116:116:android.widget.ImageView access$200(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$200
-    116:116:int access$2000(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2000
-    116:116:void access$2100(com.xingwang.classroom.ui.ClassRoomDetailActivity,boolean) -> access$2100
-    116:116:com.ycbjie.webviewlib.WebProgress access$2200(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2200
-    116:116:com.ycbjie.webviewlib.X5WebView access$2300(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2300
-    116:116:java.lang.String access$2400(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2400
-    116:116:java.lang.String access$2402(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$2402
-    116:116:void access$2500(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$2500
-    116:116:int access$2600(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2600
-    116:116:void access$2700(com.xingwang.classroom.ui.ClassRoomDetailActivity,com.xingwang.classroom.bean.CommentBean) -> access$2700
-    116:116:void access$2800(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2800
-    116:116:android.widget.ImageView access$300(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$300
-    116:116:boolean access$402(com.xingwang.classroom.ui.ClassRoomDetailActivity,boolean) -> access$402
-    116:116:void access$500(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$500
-    116:116:boolean access$602(com.xingwang.classroom.ui.ClassRoomDetailActivity,boolean) -> access$602
-    116:116:int access$702(com.xingwang.classroom.ui.ClassRoomDetailActivity,int) -> access$702
-    116:116:com.xingwang.classroom.utils.KeyBoardHelper access$800(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$800
-    116:116:void access$900(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$900
-    318:324:void lambda$initVideoPlay$6(android.view.View) -> b
-    195:197:void lambda$onCreate$0(android.view.View) -> c
-    407:416:boolean checkDangerousPermissions(java.lang.String[]) -> checkDangerousPermissions
-    200:202:void lambda$onCreate$1(android.view.View) -> d
-    203:203:void lambda$onCreate$2(android.view.View) -> e
-    592:592:void lambda$showWebView$10(android.view.View) -> f
-    840:844:void fragmentNotifyDataSetChanged() -> fragmentNotifyDataSetChanged
-    593:593:void lambda$showWebView$11(android.view.View) -> g
-    148:150:android.content.Intent getIntent(android.content.Context,int) -> getIntent
-    153:153:android.content.Intent getIntent(android.content.Context,int,int) -> getIntent
-    156:156:android.content.Intent getIntent(android.content.Context,int,int,java.lang.String) -> getIntent
-    352:367:void goCollect(android.view.View) -> goCollect
-    462:517:void goSendComment() -> goSendComment
-    370:388:void goShape(android.view.View) -> goShape
-    441:456:void goUploadPic(java.lang.String) -> goUploadPic
-    594:594:void lambda$showWebView$12(android.view.View) -> h
-    698:703:void handleFinish() -> handleFinish
-    760:801:void handlerMessage(java.lang.String) -> handlerMessage
-    238:248:void initId() -> initId
-    520:521:void initRequestData() -> initRequestData
-    251:327:void initVideoPlay(java.lang.String) -> initVideoPlay
-    586:588:void initWebView(java.lang.String) -> initWebView
-    161:161:int layoutResId() -> layoutResId
-    950:955:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    855:869:void onBackPressed() -> onBackPressed
-    959:966:void onConfigurationChanged(android.content.res.Configuration) -> onConfigurationChanged
-    167:232:void onCreate(android.os.Bundle) -> onCreate
-    913:928:void onDestroy() -> onDestroy
-    706:722:boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
-    886:898:void onPause() -> onPause
-    421:434:void onRequestPermissionsResult(int,java.lang.String[],int[]) -> onRequestPermissionsResult
-    902:909:void onResume() -> onResume
-    804:838:void requestCommentListData(int,int) -> requestCommentListData
-    393:401:void requestDangerousPermissions(java.lang.String[],int) -> requestDangerousPermissions
-    547:581:void requestDetailData(int) -> requestDetailData
-    873:882:void requestFailureShow(java.lang.String) -> requestFailureShow
-    524:543:void requestIsCollect() -> requestIsCollect
-    390:391:void requestPermission() -> requestPermission
-    728:756:void requestSubscribe() -> requestSubscribe
-    969:988:void setCurFragment(int,boolean,boolean) -> setCurFragment
-    639:649:void setWebViewHeight(boolean) -> setWebViewHeight
-    847:851:void showBarrage(com.xingwang.classroom.bean.CommentBean) -> showBarrage
-    329:344:void showBottomDialog(com.xingwang.classroom.bean.ADBean) -> showBottomDialog
-    991:1001:void showCommentPid(int,int) -> showCommentPid
-    591:636:void showWebView(java.lang.String) -> showWebView
-    930:947:void webViewDestroy() -> webViewDestroy
+    117:887:void <init>() -> <init>
+    1009:1017:void OnKeyBoardChanged(boolean,int) -> OnKeyBoardChanged
+    261:261:void lambda$initVideoPlay$3(android.view.View) -> a
+    282:292:void lambda$initVideoPlay$4(int,int,int,int) -> a
+    310:314:void lambda$initVideoPlay$5(android.view.View,boolean) -> a
+    342:342:void lambda$showBottomDialog$7(com.xingwang.classroom.bean.ADBean,java.lang.Integer) -> a
+    789:799:void lambda$handlerMessage$13(com.xingwang.classroom.bean.CommentBean$DataBean$CommentsBean,int) -> a
+    882:885:void lambda$requestFailureShow$14(com.xingwang.classroom.view.CustomProgressBar,android.widget.TextView,android.view.View) -> a
+    117:117:android.widget.EditText access$000(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$000
+    117:117:android.widget.TextView access$100(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$100
+    117:117:com.xingwang.classroom.view.LandLayoutVideo access$1000(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1000
+    117:117:android.widget.ImageView access$1100(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1100
+    117:117:void access$1200(com.xingwang.classroom.ui.ClassRoomDetailActivity,int) -> access$1200
+    117:117:java.lang.String access$1300(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1300
+    117:117:java.lang.String access$1302(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$1302
+    117:117:void access$1400(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$1400
+    117:117:boolean access$1502(com.xingwang.classroom.ui.ClassRoomDetailActivity,boolean) -> access$1502
+    117:117:void access$1600(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$1600
+    117:117:android.support.v4.app.Fragment[] access$1700(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1700
+    117:117:java.util.List access$1802(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.util.List) -> access$1802
+    117:117:com.xingwang.classroom.bean.DetailBean access$1900(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$1900
+    117:117:com.xingwang.classroom.bean.DetailBean access$1902(com.xingwang.classroom.ui.ClassRoomDetailActivity,com.xingwang.classroom.bean.DetailBean) -> access$1902
+    117:117:android.widget.ImageView access$200(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$200
+    117:117:int access$2000(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2000
+    117:117:void access$2100(com.xingwang.classroom.ui.ClassRoomDetailActivity,boolean) -> access$2100
+    117:117:com.ycbjie.webviewlib.WebProgress access$2200(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2200
+    117:117:com.ycbjie.webviewlib.X5WebView access$2300(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2300
+    117:117:java.lang.String access$2400(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2400
+    117:117:java.lang.String access$2402(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$2402
+    117:117:void access$2500(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$2500
+    117:117:int access$2600(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2600
+    117:117:void access$2700(com.xingwang.classroom.ui.ClassRoomDetailActivity,com.xingwang.classroom.bean.CommentBean) -> access$2700
+    117:117:void access$2800(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$2800
+    117:117:android.widget.ImageView access$300(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$300
+    117:117:boolean access$402(com.xingwang.classroom.ui.ClassRoomDetailActivity,boolean) -> access$402
+    117:117:void access$500(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$500
+    117:117:boolean access$602(com.xingwang.classroom.ui.ClassRoomDetailActivity,boolean) -> access$602
+    117:117:int access$702(com.xingwang.classroom.ui.ClassRoomDetailActivity,int) -> access$702
+    117:117:com.xingwang.classroom.utils.KeyBoardHelper access$800(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> access$800
+    117:117:void access$900(com.xingwang.classroom.ui.ClassRoomDetailActivity,java.lang.String) -> access$900
+    319:325:void lambda$initVideoPlay$6(android.view.View) -> b
+    196:198:void lambda$onCreate$0(android.view.View) -> c
+    411:420:boolean checkDangerousPermissions(java.lang.String[]) -> checkDangerousPermissions
+    201:203:void lambda$onCreate$1(android.view.View) -> d
+    204:204:void lambda$onCreate$2(android.view.View) -> e
+    596:596:void lambda$showWebView$10(android.view.View) -> f
+    844:848:void fragmentNotifyDataSetChanged() -> fragmentNotifyDataSetChanged
+    597:597:void lambda$showWebView$11(android.view.View) -> g
+    149:151:android.content.Intent getIntent(android.content.Context,int) -> getIntent
+    154:154:android.content.Intent getIntent(android.content.Context,int,int) -> getIntent
+    157:157:android.content.Intent getIntent(android.content.Context,int,int,java.lang.String) -> getIntent
+    353:368:void goCollect(android.view.View) -> goCollect
+    466:521:void goSendComment() -> goSendComment
+    371:389:void goShape(android.view.View) -> goShape
+    445:460:void goUploadPic(java.lang.String) -> goUploadPic
+    598:598:void lambda$showWebView$12(android.view.View) -> h
+    702:707:void handleFinish() -> handleFinish
+    764:805:void handlerMessage(java.lang.String) -> handlerMessage
+    239:249:void initId() -> initId
+    524:525:void initRequestData() -> initRequestData
+    252:328:void initVideoPlay(java.lang.String) -> initVideoPlay
+    590:592:void initWebView(java.lang.String) -> initWebView
+    162:162:int layoutResId() -> layoutResId
+    954:959:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    859:873:void onBackPressed() -> onBackPressed
+    963:970:void onConfigurationChanged(android.content.res.Configuration) -> onConfigurationChanged
+    168:233:void onCreate(android.os.Bundle) -> onCreate
+    917:932:void onDestroy() -> onDestroy
+    710:726:boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    890:902:void onPause() -> onPause
+    425:438:void onRequestPermissionsResult(int,java.lang.String[],int[]) -> onRequestPermissionsResult
+    906:913:void onResume() -> onResume
+    808:842:void requestCommentListData(int,int) -> requestCommentListData
+    394:405:void requestDangerousPermissions(java.lang.String[],int) -> requestDangerousPermissions
+    551:585:void requestDetailData(int) -> requestDetailData
+    877:886:void requestFailureShow(java.lang.String) -> requestFailureShow
+    528:547:void requestIsCollect() -> requestIsCollect
+    391:392:void requestPermission() -> requestPermission
+    732:760:void requestSubscribe() -> requestSubscribe
+    973:992:void setCurFragment(int,boolean,boolean) -> setCurFragment
+    643:653:void setWebViewHeight(boolean) -> setWebViewHeight
+    851:855:void showBarrage(com.xingwang.classroom.bean.CommentBean) -> showBarrage
+    330:345:void showBottomDialog(com.xingwang.classroom.bean.ADBean) -> showBottomDialog
+    995:1005:void showCommentPid(int,int) -> showCommentPid
+    595:640:void showWebView(java.lang.String) -> showWebView
+    934:951:void webViewDestroy() -> webViewDestroy
 com.xingwang.classroom.ui.ClassRoomDetailActivity$1 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$1:
-    204:204:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
-    217:226:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    208:208:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    213:213:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
+    205:205:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
+    218:227:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    209:209:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
+    214:214:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
 com.xingwang.classroom.ui.ClassRoomDetailActivity$10 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$10:
-    650:650:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
-    653:654:void hindProgressBar() -> hindProgressBar
-    658:677:void showErrorView(int) -> showErrorView
-    694:694:void showTitle(java.lang.String) -> showTitle
-    681:690:void startProgress(int) -> startProgress
+    654:654:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
+    657:658:void hindProgressBar() -> hindProgressBar
+    662:681:void showErrorView(int) -> showErrorView
+    698:698:void showTitle(java.lang.String) -> showTitle
+    685:694:void startProgress(int) -> startProgress
 com.xingwang.classroom.ui.ClassRoomDetailActivity$11 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$11:
-    728:728:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
-    731:754:void createSuccess(java.lang.String) -> createSuccess
+    732:732:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
+    735:758:void createSuccess(java.lang.String) -> createSuccess
 com.xingwang.classroom.ui.ClassRoomDetailActivity$11$1 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$11$1:
-    733:733:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity$11) -> <init>
-    748:752:void onFailure(int,java.lang.String) -> onFailure
-    742:744:void onMessage(java.lang.String) -> onMessage
-    736:738:void subscribeSuccess(java.lang.String) -> subscribeSuccess
+    737:737:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity$11) -> <init>
+    752:756:void onFailure(int,java.lang.String) -> onFailure
+    746:748:void onMessage(java.lang.String) -> onMessage
+    740:742:void subscribeSuccess(java.lang.String) -> subscribeSuccess
 com.xingwang.classroom.ui.ClassRoomDetailActivity$12 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$12:
-    806:806:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity,int) -> <init>
-    810:815:void onFailure(java.lang.String) -> onFailure
-    806:806:void onSuccess(java.lang.Object) -> onSuccess
-    820:836:void onSuccess(com.xingwang.classroom.bean.CommentBean) -> onSuccess
+    810:810:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity,int) -> <init>
+    814:819:void onFailure(java.lang.String) -> onFailure
+    810:810:void onSuccess(java.lang.Object) -> onSuccess
+    824:840:void onSuccess(com.xingwang.classroom.bean.CommentBean) -> onSuccess
 com.xingwang.classroom.ui.ClassRoomDetailActivity$2 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$2:
-    292:292:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
-    295:299:void onPrepared(java.lang.String,java.lang.Object[]) -> onPrepared
-    303:307:void onQuitFullscreen(java.lang.String,java.lang.Object[]) -> onQuitFullscreen
+    293:293:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
+    296:300:void onPrepared(java.lang.String,java.lang.Object[]) -> onPrepared
+    304:308:void onQuitFullscreen(java.lang.String,java.lang.Object[]) -> onQuitFullscreen
 com.xingwang.classroom.ui.ClassRoomDetailActivity$3 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$3:
-    353:353:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity,android.view.View) -> <init>
-    356:357:void onFailure(java.lang.String) -> onFailure
-    353:353:void onSuccess(java.lang.Object) -> onSuccess
-    360:364:void onSuccess(com.xingwang.classroom.bean.FavoritBean) -> onSuccess
+    354:354:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity,android.view.View) -> <init>
+    357:358:void onFailure(java.lang.String) -> onFailure
+    354:354:void onSuccess(java.lang.Object) -> onSuccess
+    361:365:void onSuccess(com.xingwang.classroom.bean.FavoritBean) -> onSuccess
 com.xingwang.classroom.ui.ClassRoomDetailActivity$4 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$4:
-    375:375:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
-    384:385:void onFailure(java.lang.String) -> onFailure
-    381:381:void onSucceed() -> onSucceed
+    376:376:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
+    385:386:void onFailure(java.lang.String) -> onFailure
+    382:382:void onSucceed() -> onSucceed
 com.xingwang.classroom.ui.ClassRoomDetailActivity$5 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$5:
-    442:442:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
-    452:454:void onFailure() -> onFailure
-    446:448:void onSucceed(java.lang.String[]) -> onSucceed
+    446:446:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
+    456:458:void onFailure() -> onFailure
+    450:452:void onSucceed(java.lang.String[]) -> onSucceed
 com.xingwang.classroom.ui.ClassRoomDetailActivity$6 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$6:
-    489:489:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
-    493:497:void onFailure(java.lang.String) -> onFailure
-    489:489:void onSuccess(java.lang.Object) -> onSuccess
-    501:514:void onSuccess(com.xingwang.classroom.bean.SendCommentBean) -> onSuccess
+    493:493:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
+    497:501:void onFailure(java.lang.String) -> onFailure
+    493:493:void onSuccess(java.lang.Object) -> onSuccess
+    505:518:void onSuccess(com.xingwang.classroom.bean.SendCommentBean) -> onSuccess
 com.xingwang.classroom.ui.ClassRoomDetailActivity$7 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$7:
-    525:525:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
-    528:529:void onFailure(java.lang.String) -> onFailure
-    525:525:void onSuccess(java.lang.Object) -> onSuccess
-    532:540:void onSuccess(com.xingwang.classroom.bean.IsFavoritBean) -> onSuccess
+    529:529:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
+    532:533:void onFailure(java.lang.String) -> onFailure
+    529:529:void onSuccess(java.lang.Object) -> onSuccess
+    536:544:void onSuccess(com.xingwang.classroom.bean.IsFavoritBean) -> onSuccess
 com.xingwang.classroom.ui.ClassRoomDetailActivity$8 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$8:
-    548:548:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity,int) -> <init>
-    563:570:void lambda$onSuccess$0(android.view.View) -> a
-    551:552:void onFailure(java.lang.String) -> onFailure
-    548:548:void onSuccess(java.lang.Object) -> onSuccess
-    555:579:void onSuccess(com.xingwang.classroom.bean.DetailBean) -> onSuccess
+    552:552:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity,int) -> <init>
+    567:574:void lambda$onSuccess$0(android.view.View) -> a
+    555:556:void onFailure(java.lang.String) -> onFailure
+    552:552:void onSuccess(java.lang.Object) -> onSuccess
+    559:583:void onSuccess(com.xingwang.classroom.bean.DetailBean) -> onSuccess
 com.xingwang.classroom.ui.ClassRoomDetailActivity$9 -> com.xingwang.classroom.ui.ClassRoomDetailActivity$9:
-    613:613:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
-    623:624:void hindVideoFullView() -> hindVideoFullView
-    634:634:void hindWebView() -> hindWebView
-    618:618:void showVideoFullView() -> showVideoFullView
-    629:629:void showWebView() -> showWebView
+    617:617:void <init>(com.xingwang.classroom.ui.ClassRoomDetailActivity) -> <init>
+    627:628:void hindVideoFullView() -> hindVideoFullView
+    638:638:void hindWebView() -> hindWebView
+    622:622:void showVideoFullView() -> showVideoFullView
+    633:633:void showWebView() -> showWebView
 com.xingwang.classroom.ui.ClassRoomDetailFragment -> com.xingwang.classroom.ui.ClassRoomDetailFragment:
     20:20:void <init>() -> <init>
     46:46:void lambda$upDateShow$0(java.util.List,int) -> a
@@ -40351,19 +40351,19 @@ com.xingwang.classroom.ws.listener.IWsCallBack -> com.xingwang.classroom.ws.list
     13:13:void onRequestStart() -> onRequestStart
 com.xingwang.classroomlib.MainActivity -> com.xingwang.classroomlib.MainActivity:
     24:28:void <init>() -> <init>
-    31:42:void onCreate(android.os.Bundle) -> onCreate
-    129:130:void onDestroy() -> onDestroy
-    172:172:void onHideCustomView() -> onHideCustomView
-    146:147:void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
-    162:162:void onPageLoading(android.webkit.WebView,int) -> onPageLoading
-    152:152:void onPageStarted(android.webkit.WebView,java.lang.String) -> onPageStarted
-    108:111:void onPause() -> onPause
-    142:142:void onReceiveError(android.webkit.WebView,int,java.lang.String,java.lang.String) -> onReceiveError
-    137:137:void onReceiveTitle(android.webkit.WebView,java.lang.String) -> onReceiveTitle
-    157:157:void onReceiverSSLError(android.webkit.WebView,android.webkit.SslErrorHandler,android.net.http.SslError) -> onReceiverSSLError
-    115:118:void onResume() -> onResume
-    177:177:void onScroll(int,int) -> onScroll
-    167:167:void onShowCustomView(android.view.View,android.webkit.WebChromeClient$CustomViewCallback) -> onShowCustomView
+    31:41:void onCreate(android.os.Bundle) -> onCreate
+    128:129:void onDestroy() -> onDestroy
+    171:171:void onHideCustomView() -> onHideCustomView
+    145:146:void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
+    161:161:void onPageLoading(android.webkit.WebView,int) -> onPageLoading
+    151:151:void onPageStarted(android.webkit.WebView,java.lang.String) -> onPageStarted
+    107:110:void onPause() -> onPause
+    141:141:void onReceiveError(android.webkit.WebView,int,java.lang.String,java.lang.String) -> onReceiveError
+    136:136:void onReceiveTitle(android.webkit.WebView,java.lang.String) -> onReceiveTitle
+    156:156:void onReceiverSSLError(android.webkit.WebView,android.webkit.SslErrorHandler,android.net.http.SslError) -> onReceiverSSLError
+    114:117:void onResume() -> onResume
+    176:176:void onScroll(int,int) -> onScroll
+    166:166:void onShowCustomView(android.view.View,android.webkit.WebChromeClient$CustomViewCallback) -> onShowCustomView
 com.xingwang.classroomlib.MyApplication -> com.xingwang.classroomlib.MyApplication:
     14:14:void <init>() -> <init>
     25:27:void attachBaseContext(android.content.Context) -> attachBaseContext
@@ -40460,26 +40460,26 @@ com.xingwreslib.beautyreslibrary.R$anim -> com.xingwreslib.beautyreslibrary.R$an
 com.xingwreslib.beautyreslibrary.R$attr -> com.xingwreslib.beautyreslibrary.R$attr:
     29:29:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$bool -> com.xingwreslib.beautyreslibrary.R$bool:
-    305:305:void <init>() -> <init>
+    340:340:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$color -> com.xingwreslib.beautyreslibrary.R$color:
-    312:312:void <init>() -> <init>
+    347:347:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$dimen -> com.xingwreslib.beautyreslibrary.R$dimen:
-    422:422:void <init>() -> <init>
+    459:459:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$drawable -> com.xingwreslib.beautyreslibrary.R$drawable:
-    540:540:void <init>() -> <init>
+    581:581:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$id -> com.xingwreslib.beautyreslibrary.R$id:
-    656:656:void <init>() -> <init>
+    729:729:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$integer -> com.xingwreslib.beautyreslibrary.R$integer:
-    765:765:void <init>() -> <init>
+    886:886:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$layout -> com.xingwreslib.beautyreslibrary.R$layout:
-    774:774:void <init>() -> <init>
+    895:895:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$string -> com.xingwreslib.beautyreslibrary.R$string:
-    816:816:void <init>() -> <init>
+    945:945:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$style -> com.xingwreslib.beautyreslibrary.R$style:
-    862:862:void <init>() -> <init>
+    998:998:void <init>() -> <init>
 com.xingwreslib.beautyreslibrary.R$styleable -> com.xingwreslib.beautyreslibrary.R$styleable:
-    1217:1672:void <clinit>() -> <clinit>
-    1215:1215:void <init>() -> <init>
+    1356:1861:void <clinit>() -> <clinit>
+    1354:1354:void <init>() -> <init>
 com.ycbjie.slide.LoggerUtils -> c.k.a.a:
     boolean isLog -> a
     16:16:void <clinit>() -> <clinit>
