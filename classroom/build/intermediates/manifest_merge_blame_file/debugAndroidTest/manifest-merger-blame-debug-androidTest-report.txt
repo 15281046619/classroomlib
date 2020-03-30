@@ -3,24 +3,24 @@
 3    package="com.xingwang.classroom.test" >
 4
 5    <uses-sdk
-5-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:5:5-74
+5-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:5:5-74
 6        android:minSdkVersion="17"
-6-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:5:15-41
+6-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:5:15-41
 7        android:targetSdkVersion="28" />
-7-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:5:42-71
+7-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:5:42-71
 8
 9    <instrumentation
-9-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:11:5-15:77
+9-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:11:5-15:77
 10        android:name="android.support.test.runner.AndroidJUnitRunner"
-10-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:11:22-83
+10-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:11:22-83
 11        android:functionalTest="false"
-11-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:14:22-52
+11-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:14:22-52
 12        android:handleProfiling="false"
-12-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:13:22-53
+12-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:13:22-53
 13        android:label="Tests for com.xingwang.classroom.test"
-13-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:15:22-75
+13-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:15:22-75
 14        android:targetPackage="com.xingwang.classroom.test" />
-14-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:12:22-73
+14-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:12:22-73
 15
 16    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序修改全局音频设置 -->
 16-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-67
@@ -61,7 +61,7 @@
 28-->[cn.yc:WebViewLib:1.2.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\3155a146009169795d66516ac5d15fc2\WebViewLib-1.2.2\AndroidManifest.xml:15:22-73
 29
 30    <application
-30-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:7:5-9:19
+30-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:7:5-9:19
 31        android:name="com.xingwang.classroom.MyApplication"
 31-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:9-60
 32        android:allowBackup="true"
@@ -69,7 +69,7 @@
 33        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
 33-->[com.android.support:support-compat:28.0.0] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\f14724208b5bfeeef0d6bdefe649bca7\support-compat-28.0.0\AndroidManifest.xml:22:18-91
 34        android:debuggable="true"
-34-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:7:18-43
+34-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:7:18-43
 35        android:hardwareAccelerated="true"
 35-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:9-43
 36        android:label="@string/app_name"
@@ -77,8 +77,8 @@
 37        android:supportsRtl="true" >
 37-->[com.shuyu:gsyVideoPlayer-java:6.0.2] C:\Users\BGQ\.gradle\caches\transforms-2\files-2.1\38d3b0590a33da0504881885ecb00321\gsyVideoPlayer-java-6.0.2\AndroidManifest.xml:14:9-35
 38        <uses-library android:name="android.test.runner" />
-38-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:8:9-60
-38-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger469702212499252227.xml:8:23-57
+38-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:8:9-60
+38-->D:\androidpro\classroomlib\classroom\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger9104935741178628178.xml:8:23-57
 39
 40        <activity
 40-->[__tested_artifact__::classroom] D:\androidpro\classroomlib\classroom\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:9-49:20
