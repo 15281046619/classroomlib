@@ -19,11 +19,11 @@ android {
   buildTypes {
         release {
             // true - 打开混淆
-            minifyEnabled false
+            minifyEnabled true
             consumerProguardFiles 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled = false
+            minifyEnabled = true
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
