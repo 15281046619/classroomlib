@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
 import com.tencent.smtt.export.external.TbsCoreSettings;
@@ -59,44 +60,57 @@ public class ClassRoomLibUtils {
                 break;
             default:
         }
-        if(!QbSdk.isTbsCoreInited()) {
-            HashMap map = new HashMap();
-            map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
-            map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
-            QbSdk.initTbsSettings(map);
-            X5WebUtils.init(context);
-            X5LogUtils.setIsLog(false);
-            QbSdk.setTbsListener(new TbsListener(){
 
-                @Override
-                public void onDownloadFinish(int i) {
-                    EventBus.getDefault().post(new X5InstallSuccessBean(0,i));
-                    LogUtil.e("TAG","onDownloadFinish"+i);
+        HashMap map = new HashMap();
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
+        QbSdk.initTbsSettings(map);
+        //1.确认您的App为非X86架构，x86架构无法发起内核下载
+        //2.确认您的APN为wifi。由于非wifi下内核下载可能会消耗用户流量，建议提示用户。如果在非wifi下仍需要下载内核，请使用QbSdk.setDownloadWithoutWifi(true)接口
+        QbSdk.setDownloadWithoutWifi(true);
+        X5WebUtils.init(context);
+        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+            @Override
+            public void onViewInitFinished(boolean arg0) {
+                //x5內核初始化完成的回调，为true表示x5内核加载成功
+                //否则表示x5内核加载失败，会自动切换到系统内核。
+                if (!SharedPreferenceUntils.getX5IsInstallFinish(context)&&arg0)
+                      SharedPreferenceUntils.saveX5State(context, true);
+                LogUtil.e("TAG","内核加载"+arg0);
+            }
+
+            @Override
+            public void onCoreInitFinished() {
+            }
+        };
+        //x5内核初始化接口
+        QbSdk.initX5Environment(context,  cb);
+        X5LogUtils.setIsLog(false);
+        QbSdk.setTbsListener(new TbsListener(){
+
+            @Override
+            public void onDownloadFinish(int i) {
+
+            }
+
+            @Override
+            public void onInstallFinish(int i) {
+                if (i == 232){//经过测试232 是最后一次收到的状态{
+                    SharedPreferenceUntils.saveX5State(context,true);
+                    EventBus.getDefault().post(new X5InstallSuccessBean(1,100));
+                    MyToast.myToast(context,"安装x5内核成功");
+                }else {
+                    EventBus.getDefault().post(new X5InstallSuccessBean(1,0));
                 }
+            }
 
-                @Override
-                public void onInstallFinish(int i) {
-                    LogUtil.e("TAG","onInstallFinish"+i);
-                    if (i == 232){//经过测试232 是最后一次收到的状态{
-                        SharedPreferenceUntils.saveX5State(context,true);
-                        EventBus.getDefault().post(new X5InstallSuccessBean(1,100));
-                        MyToast.myToast(context,"安装x5内核成功");
-                    }else {
-                        EventBus.getDefault().post(new X5InstallSuccessBean(1,0));
-                    }
-                }
+            @Override
+            public void onDownloadProgress(int i) {
+                EventBus.getDefault().post(new X5InstallSuccessBean(0,i));
+                MyToast.myToast(context,"正在后台下载安装x5内核");
+            }
+        });
 
-                @Override
-                public void onDownloadProgress(int i) {
-                    EventBus.getDefault().post(new X5InstallSuccessBean(0,i));
-                    LogUtil.e("TAG","onDownloadProgress"+i);
-                    MyToast.myToast(context,"正在后台下载安装x5内核");
-                }
-            });
-
-        }else {
-            SharedPreferenceUntils.saveX5State(context,true);
-        }
     }
 
     /**
@@ -196,8 +210,8 @@ public class ClassRoomLibUtils {
      */
     public static void startActivityForUri(FragmentActivity activity,String url){
         if (url.contains("classroom://com.xingw.zyapp.kcdetail")&&url.contains("tplink")){
-                String id=  CommentUtils.getParamByUrl(url,"id");
-                startDetailActivityType(activity,id==null?0:Integer.parseInt(id),"tplink");
+            String id=  CommentUtils.getParamByUrl(url,"id");
+            startDetailActivityType(activity,id==null?0:Integer.parseInt(id),"tplink");
         }else {
             Uri mRui = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, mRui);

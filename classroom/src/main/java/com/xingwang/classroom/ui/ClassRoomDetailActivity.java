@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.ImagePickerCallBack;
@@ -64,9 +65,11 @@ import com.xingwang.classroom.bean.FavoritBean;
 import com.xingwang.classroom.bean.IsFavoritBean;
 import com.xingwang.classroom.bean.SendCommentBean;
 import com.xingwang.classroom.dialog.BottomADSheetDialog;
+import com.xingwang.classroom.dialog.CenterDefineDialog;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
+import com.xingwang.classroom.utils.ActivityManager;
 import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
@@ -587,7 +590,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private X5WebViewClient x5WebViewClient;
     private WebProgress progress;
     private void initWebView(String content) {
-        QbSdk.setDownloadWithoutWifi(true);
+       // QbSdk.setDownloadWithoutWifi(true);
         showWebView(content);
     }
     int mScreenWidth = 1280;
@@ -605,16 +608,39 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
         webView.loadUrl(content);
         if ( webView.getX5WebViewExtension()!=null){
+            Bundle data = new Bundle();
+            data.putBoolean("standardFullScreen", true);// true表示标准全屏，false表示X5全屏；不设置默认false，
+            data.putBoolean("supportLiteWnd", false);// false：关闭小窗；true：开启小窗；不设置默认true，
+            data.putInt("DefaultVideoScreen", 1);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
+            webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
             SharedPreferenceUntils.saveX5State(this,true);
+        }else {
+            SharedPreferenceUntils.saveX5State(this,false);
+            CenterDefineDialog mDialog = CenterDefineDialog.getInstance("x5内核安装失败，播放异常,关闭应用重试");
+            mDialog .setCallback(integer -> {
+                try {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }catch (Exception e){
+                    try {
+                        System.exit(0);
+                    }catch (Exception e1){
+                        e1.printStackTrace();
+                    }
+                }
+            });
+            mDialog.showDialog(getSupportFragmentManager());
         }
 
         x5WebChromeClient = webView.getX5WebChromeClient();
         x5WebViewClient = webView.getX5WebViewClient();
+
+
         x5WebChromeClient.setWebListener(interWebListener);
         x5WebViewClient.setWebListener(interWebListener);
         //设置是否自定义视频视图
         webView.setShowCustomVideo(false);
         x5WebChromeClient.setVideoWebListener(new VideoWebListener() {
+
             @Override
             public void showVideoFullView() {
                 //视频全频播放时监听

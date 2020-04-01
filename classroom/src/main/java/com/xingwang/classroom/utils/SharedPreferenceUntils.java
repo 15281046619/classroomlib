@@ -34,11 +34,11 @@ public class SharedPreferenceUntils {
       if (state.equals("1")){
           return true;
       }else {
-          if (QbSdk.isTbsCoreInited()){
+         /* if (QbSdk.isTbsCoreInited()){
               return  true;
-          }else {
+          }else {*/
               return false;
-          }
+         /* }*/
       }
     }
 }
