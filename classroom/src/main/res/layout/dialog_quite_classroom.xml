@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/dp_15_classroom"
-        android:text="警告"
+        android:text="温馨提示"
         android:gravity="center"
         android:textColor="@color/textColorClassRoom"
         android:textStyle="bold"

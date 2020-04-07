@@ -615,7 +615,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
             SharedPreferenceUntils.saveX5State(this,true);
         }else {
-            SharedPreferenceUntils.saveX5State(this,false);
+          //  SharedPreferenceUntils.saveX5State(this,false);
             CenterDefineDialog mDialog = CenterDefineDialog.getInstance("x5内核安装失败，播放异常,关闭应用重试");
             mDialog .setCallback(integer -> {
                 try {

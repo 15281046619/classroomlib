@@ -2,5 +2,5 @@
     <string name="app_name_ClassRoom">classroom</string>
     <string name="class_room_home_title_ClassRoom">养殖课堂</string>
     <string name="class_room_quite_ClassRoom">
-        1.X5内核还未安装成功，强制进入将出现播放异常\n2.该警告将会在x5内核安装成功后,自动关闭\n3.如果一直没有安装成功，可以卸载app重新安装进入即可</string>
+       1.尚未安装直播所需插件，强制进入可能出现播放异常\n2.该提示将在直播插件安装成功后,自动关闭\n3.如果一直未安装成功，可以卸载app重新安装进入即可</string>
 </resources>

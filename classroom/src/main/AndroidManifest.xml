@@ -26,10 +26,12 @@
 
         <activity android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="true"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <data
                     android:scheme="classroom"
                     android:host="${applicationId}.kchome" />
@@ -37,10 +39,12 @@
         </activity>
         <activity android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:exported="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT" />
                 <data
                     android:scheme="classroom"
@@ -48,13 +52,16 @@
             </intent-filter>
         </activity>
         <!--在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity-->
+        <!--   android:exported="true"   是否允许外部调用-->
         <activity android:name="com.xingwang.classroom.ui.ClassRoomDetailActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:hardwareAccelerated="true"
+            android:exported="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT" />
                 <data
                     android:scheme="classroom"
