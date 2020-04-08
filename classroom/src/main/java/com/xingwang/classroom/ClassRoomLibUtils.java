@@ -1,11 +1,10 @@
 package com.xingwang.classroom;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.Handler;
+
 import android.support.v4.app.FragmentActivity;
 
 import com.tencent.smtt.export.external.TbsCoreSettings;
@@ -68,7 +67,8 @@ public class ClassRoomLibUtils {
         //1.确认您的App为非X86架构，x86架构无法发起内核下载
         //2.确认您的APN为wifi。由于非wifi下内核下载可能会消耗用户流量，建议提示用户。如果在非wifi下仍需要下载内核，请使用QbSdk.setDownloadWithoutWifi(true)接口
         QbSdk.setDownloadWithoutWifi(true);
-        X5WebUtils.init(context);
+      //  X5WebUtils.init(context);
+
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
             @Override
             public void onViewInitFinished(boolean arg0) {
