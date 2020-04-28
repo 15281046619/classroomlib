@@ -22,9 +22,10 @@ public class HttpHeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
         String mAuth = BeautyDefine.getAccountDefine().getAuthStr();
-      //  String mAuth = "FQIGBQcPFQFTUVAFCAcHUFRTV1ZTAwEDBQNWCAQCUgZdBUJSBV4IJwIRfiUyEX8xZGF5fF5xIXRpZmwnCSw/JxJZYnZ0DXxzSndwZVR/JS5mSVU2J046cRF8IDUnZWwhZ1VjJlAMLDcGKTN8DhoreRY2KWpXZ31lCFl5NHRxcng3Wys1VxJUaXJdIHkGRnZgB3p2MSR6bmE2BX00YydjJg4VfXY1CXlxJQ93IjJALSIJCjsuT1xKRwM=";
+        //String mAuth = "FQIGCgUPFQwDUwQDWwYFUwJbBVACAwMEVlFSCQdVAgYBBRcEAFQJMAIvfzlHVW8lZHl4f2R2NmAJeXgiaQUWJwJGdnZzLGB1ZAR0f31CJTNleFA1Vm8iZDIAACAwUGU2YF11ImEIMitxJgN9VR0CewZOMH9XCmBwb2d3Nkp5eXgwWy4lJztjelR3I29fd3h9B25WMDBxdXclPHclWV5mJxgOcXYPWWR2BAZbOQRHBiJUAjgiaSQ9IU8WVG9bSg8RTg==";
+        //  String mAuth = "wQDWwYFUwJbBVACAwMEVlFSCQdVAgYBBRcEAFQJMAIvfzlHVW8lZHl4f2R2NmAJeXgiaQUWJwJGdnZzLGB1ZAR0f31CJTNleFA1Vm8iZDIAACAwUGU2YF11ImEIMitxJgN9VR0CewZOMH9XCmBwb2d3Nkp5eXgwWy4lJztjelR3I29fd3h9B25WMDBxdXclPHclWV5mJxgOcXYPWWR2BAZbOQRHBiJUAjgiaSQ9IU8WVG9bSg8RTg==";
         if (!TextUtils.isEmpty(mAuth))
-        builder.addHeader("Authorization",mAuth);
+            builder.addHeader("Authorization",mAuth);
 
         return chain.proceed(builder.build());
     }

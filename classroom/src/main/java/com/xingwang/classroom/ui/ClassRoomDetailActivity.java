@@ -111,6 +111,10 @@ import java.util.List;
 
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 
+import static com.shuyu.gsyvideoplayer.utils.GSYVideoType.SCREEN_MATCH_FULL;
+import static com.shuyu.gsyvideoplayer.utils.GSYVideoType.SCREEN_TYPE_16_9;
+import static com.shuyu.gsyvideoplayer.utils.GSYVideoType.SCREEN_TYPE_FULL;
+
 
 /**
  * Date:2019/8/22
@@ -267,6 +271,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             //exo缓存模式，支持m3u8，只支持exo
             // CacheFactory.setCacheManager(ExoPlayerCacheManager.class);
             GSYVideoType.setRenderType(GSYVideoType.GLSURFACE);
+
             String mPlayPosition = SharedPreferenceUntils.getString(this, "playposition" + mId, "0");
             gsyVideoOption.setIsTouchWiget(true)
                     .setIsTouchWigetFull(true)

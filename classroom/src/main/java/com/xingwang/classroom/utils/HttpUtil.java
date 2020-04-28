@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import com.beautydefinelibrary.BeautyDefine;
 import com.google.gson.Gson;
 import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
@@ -12,6 +13,7 @@ import com.xingwang.classroom.http.HttpCallProgressBack;
 import com.xingwang.classroom.http.HttpHeaderInterceptor;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -202,7 +204,13 @@ public class HttpUtil {
                     JSONObject jsonObject =new JSONObject(mDatas);
                     if (jsonObject.getInt("status")!=1){
                         String message =jsonObject.getString("message");
-                        mainHandler.post(() ->  callBack.onFailure(message));
+                        if ("invalid token".equals(jsonObject.getString("code"))) {
+                            mainHandler.post(() -> callBack.onFailure("权限认证失败，请重新登录账号"));
+                            ActivityManager.getInstance().finishAllActivity();
+                            BeautyDefine.getAccountDefine().controlReLogin();
+                        }
+                        else
+                            mainHandler.post(() ->  callBack.onFailure(message));
                     }else {
                         final T json = new Gson().fromJson(mDatas, cls);
                         if (callBack != null && mainHandler != null && json != null) {
@@ -256,6 +264,12 @@ public class HttpUtil {
                         JSONObject jsonObject =new JSONObject(mData);
                         if (jsonObject.getInt("status")!=1){
                             String message =jsonObject.getString("message");
+                            if ("invalid token".equals(jsonObject.getString("code"))) {
+                                mainHandler.post(() -> callBack.onFailure("权限认证失败，请重新登录账号"));
+                                ActivityManager.getInstance().finishAllActivity();
+                                BeautyDefine.getAccountDefine().controlReLogin();
+                            }
+                            else
                             mainHandler.post(() ->  callBack.onFailure(message));
                         }else {
                             LogUtil.i("onSuccess:" + mData, HttpUtil.class);
