@@ -56,10 +56,9 @@ public class CustomToolbar extends Toolbar {
         titleView.setGravity(Gravity.CENTER);
         Toolbar.LayoutParams titleLayoutParams = new Toolbar.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT );
         titleLayoutParams.gravity = Gravity.CENTER;
-        titleLayoutParams.leftMargin =40;
-        titleLayoutParams.rightMargin = 40;
         addView(titleView,titleLayoutParams);
         statHeight = StatusBarUtils.getStatusHeight(context);
+
 
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

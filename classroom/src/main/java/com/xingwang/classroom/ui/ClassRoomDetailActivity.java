@@ -256,6 +256,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     }
 
     private void  initVideoPlay(String url){
+        url ="rtmp://live.xw518.com/test/1";
         flameLayout.setVisibility(View.GONE);
         mVideoPlayer.setVisibility(View.VISIBLE);
         if (orientationUtils==null) {

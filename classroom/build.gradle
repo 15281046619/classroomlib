@@ -53,7 +53,7 @@ dependencies {
     //implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'
     implementation 'com.shuyu:GSYVideoPlayer-exo2:6.0.2'
    // implementation 'com.danikula:videocache:2.7.1'
-   /* implementation 'com.shuyu:gsyVideoPlayer-armv5:6.0.2'
+   /*implementation 'com.shuyu:gsyVideoPlayer-armv5:6.0.2'
     implementation 'com.shuyu:gsyVideoPlayer-armv7a:6.0.2'
     implementation 'com.shuyu:gsyVideoPlayer-arm64:6.0.2'
     implementation 'com.shuyu:gsyVideoPlayer-x64:6.0.2'
