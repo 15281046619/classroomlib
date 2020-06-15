@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#151723"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <com.xingwang.classroom.view.EmptyControlVideo
+        android:id="@+id/video_track"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200_classroom"
+        android:animateLayoutChanges="true"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+     />
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/ivBG"
+        android:scaleType="fitXY"
+        android:animateLayoutChanges="true"
+        android:src="@mipmap/icon_live_bg_classroom"
+        android:layout_height="match_parent"/>
+</android.support.constraint.ConstraintLayout>

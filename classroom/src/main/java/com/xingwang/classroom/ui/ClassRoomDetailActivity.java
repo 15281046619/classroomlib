@@ -51,6 +51,8 @@ import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
+import com.shuyu.gsyvideoplayer.render.effect.GaussianBlurEffect;
+import com.shuyu.gsyvideoplayer.render.view.GSYVideoGLView;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.tencent.smtt.sdk.QbSdk;
@@ -69,7 +71,6 @@ import com.xingwang.classroom.dialog.CenterDefineDialog;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
-import com.xingwang.classroom.utils.ActivityManager;
 import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
@@ -78,7 +79,6 @@ import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.KeyBoardHelper;
 
 
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
@@ -91,29 +91,23 @@ import com.xingwang.classroom.ws.WsManagerUtil;
 import com.xingwreslib.beautyreslibrary.CourseFavoriteInfo;
 import com.xingwreslib.beautyreslibrary.CourseFavoriteLiveData;
 import com.ycbjie.webviewlib.InterWebListener;
-import com.ycbjie.webviewlib.ProgressWebView;
 import com.ycbjie.webviewlib.VideoWebListener;
 import com.ycbjie.webviewlib.WebProgress;
 import com.ycbjie.webviewlib.X5WebChromeClient;
 import com.ycbjie.webviewlib.X5WebUtils;
 import com.ycbjie.webviewlib.X5WebView;
 import com.ycbjie.webviewlib.X5WebViewClient;
-import com.ycbjie.webviewlib.X5WvWebView;
 
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 
-import static com.shuyu.gsyvideoplayer.utils.GSYVideoType.SCREEN_MATCH_FULL;
-import static com.shuyu.gsyvideoplayer.utils.GSYVideoType.SCREEN_TYPE_16_9;
-import static com.shuyu.gsyvideoplayer.utils.GSYVideoType.SCREEN_TYPE_FULL;
 
 
 /**
@@ -254,9 +248,9 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             mId =Integer.parseInt(actionData);
 
     }
-
+    private boolean isScreen = false;//竖屏 全屏
     private void  initVideoPlay(String url){
-        url ="rtmp://live.xw518.com/test/1";
+        // url ="rtmp://live.xw518.com/test/1";
         flameLayout.setVisibility(View.GONE);
         mVideoPlayer.setVisibility(View.VISIBLE);
         if (orientationUtils==null) {
@@ -273,6 +267,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             // CacheFactory.setCacheManager(ExoPlayerCacheManager.class);
             GSYVideoType.setRenderType(GSYVideoType.GLSURFACE);
 
+
             String mPlayPosition = SharedPreferenceUntils.getString(this, "playposition" + mId, "0");
             gsyVideoOption.setIsTouchWiget(true)
                     .setIsTouchWigetFull(true)
@@ -282,6 +277,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     .setShowFullAnimation(false)
                     .setNeedLockFull(true)
                     .setUrl(url)
+
+                    .setNeedShowWifiTip(true)
                     .setDismissControlTime(5000)
                     .setSeekOnStart(Long.parseLong(mPlayPosition))
                     .setCacheWithPlay(true)
@@ -306,6 +303,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                             //开始播放了才能旋转和全屏
                             orientationUtils.setEnable(true);
                             isPlay = true;
+
+
                         }
 
                         @Override
@@ -323,18 +322,37 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             }).build(mVideoPlayer);
 
             mVideoPlayer.getFullscreenButton().setOnClickListener(v -> {
-                try {// 可能出现java.lang.IllegalStateException at android.media.MediaPlayer.getVideoHeight(Native Method)
-                    //直接横屏
-                    orientationUtils.resolveByClick();
-                    //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
-                    mVideoPlayer.startWindowFullscreen(ClassRoomDetailActivity.this, true, true);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (!mVideoPlayer.isGetVideoSize())//获取到 视频宽高才能全屏
+                    return;
+                if (mVideoPlayer.isVerticalVideo()) {
+                    if (isScreen) {
+                        mVideoPlayer.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.dp_200_classroom);
+                     //   setNavigationBarColor(android.R.color.white);
+                    }else {
+                        mVideoPlayer.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+                     //   setNavigationBarColor(android.R.color.black);
+                    }
+                    isScreen =!isScreen;
+                }
+                else {
+                    try {// 可能出现java.lang.IllegalStateException at android.media.MediaPlayer.getVideoHeight(Native Method)
+                        //直接横屏
+                        orientationUtils.resolveByClick();
+                        //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+                        mVideoPlayer.startWindowFullscreen(ClassRoomDetailActivity.this, true, true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             mVideoPlayer.startPlayLogic();
         }
     }
+
+
+
+
+
     private void showBottomDialog(ADBean adBean) {
         int mWidth = CommentUtils.getScreenWidth(this);
         int mHeight = CommentUtils.getScrrenHeight(this);
@@ -402,8 +420,6 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     public void requestDangerousPermissions(String[] permissions, int requestCode) {
         if (checkDangerousPermissions(permissions)){
             imagePickerDefine =BeautyDefine.getImagePickerDefine(ClassRoomDetailActivity.this);
-
-
             imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
                 if (list!=null&&list.size()>0)
                     goUploadPic(list.get(0));
@@ -596,7 +612,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private X5WebViewClient x5WebViewClient;
     private WebProgress progress;
     private void initWebView(String content) {
-       // QbSdk.setDownloadWithoutWifi(true);
+        // QbSdk.setDownloadWithoutWifi(true);
         showWebView(content);
     }
     int mScreenWidth = 1280;
@@ -605,7 +621,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         icCollectTpLink.setOnClickListener(v -> goCollect(v));
         icShapeTalink.setOnClickListener(v -> goShape(v));
         backTpLink.setOnClickListener(v -> finish());
-       flameLayout.setVisibility(View.VISIBLE);
+        flameLayout.setVisibility(View.VISIBLE);
         mVideoPlayer.setVisibility(View.GONE);
         setWebViewHeight(false);
         progress = findViewById(R.id.progress1);
@@ -621,7 +637,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
             SharedPreferenceUntils.saveX5State(this,true);
         }else {
-          //  SharedPreferenceUntils.saveX5State(this,false);
+            //  SharedPreferenceUntils.saveX5State(this,false);
             CenterDefineDialog mDialog = CenterDefineDialog.getInstance("x5内核安装失败，播放异常,关闭应用重试");
             mDialog .setCallback(integer -> {
                 try {
@@ -718,7 +734,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             if (newProgress>=70){
 
                 webView.loadUrl("javascript:$('#header').remove();$('#videoSign').remove();$('#footer').remove();$('title').text('"+mTitle+"');" );
-                     //   " $('#videoOutline').css({ 'width': window.screen.width + 'px' });" ;
+                //   " $('#videoOutline').css({ 'width': window.screen.width + 'px' });" ;
                    /*     "$('#player').play().css({'width': '100%', 'height':'100%','autoplay':'autoplay'});"+
                         " $('#videoOutline').css({'width': '100%', 'height':'100%','display':'flex','justifyContent':'center','alignItems':'center'})");*/
 
@@ -888,19 +904,27 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     @Override
     public void onBackPressed() {
-        if (isloadVideo) {
-            if (orientationUtils != null) {
-                orientationUtils.backToProtVideo();
-            }
-            if (GSYVideoManager.backFromWindowFull(this)) {
-                return;
-            }
-        }
         if (curPos==1){
             setCurFragment(0, false, false);
             return;
         }
+        if (isloadVideo){
+            if ( mVideoPlayer.isVerticalVideo()&&isScreen) {
+                mVideoPlayer.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.dp_200_classroom);
+               // setNavigationBarColor(android.R.color.white);
+                isScreen =!isScreen;
+                return;
+            }
+            if (orientationUtils != null) {
+                orientationUtils.backToProtVideo();
+            }
 
+            if (GSYVideoManager.backFromWindowFull(this)) {
+                return;
+            }
+
+
+        }
         super.onBackPressed();
     }
 
@@ -948,38 +972,33 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     protected void onDestroy() {
         WsManagerUtil.getInstance().onDestroy(null);
         super.onDestroy();
-        if (isloadVideo) {
-            if (isPlay) {
-                mVideoPlayer.getCurrentPlayer().release();
-            }
-            if (orientationUtils != null)
-                orientationUtils.releaseListener();
-            if (mKeyBoardHelper != null) {
-                mKeyBoardHelper.onDestroy();
-            }
-        }else {
-            webViewDestroy();
+        if (isPlay) {
+            mVideoPlayer.getCurrentPlayer().release();
         }
+        if (orientationUtils != null)
+            orientationUtils.releaseListener();
+        if (mKeyBoardHelper != null) {
+            mKeyBoardHelper.onDestroy();
+        }
+        webViewDestroy();
         cblBarrage.onDestroy();
     }
     private  void  webViewDestroy(){
-        if (x5WebChromeClient!=null){
-            x5WebChromeClient.removeVideoView();
-        }
-        //有音频播放的web页面的销毁逻辑
-        //在关闭了Activity时，如果Webview的音乐或视频，还在播放。就必须销毁Webview
-        //但是注意：webview调用destory时,webview仍绑定在Activity上
-        //这是由于自定义webview构建时传入了该Activity的context对象
-        //因此需要先从父容器中移除webview,然后再销毁webview:
-        if (webView != null) {
-            ViewGroup parent = (ViewGroup) webView.getParent();
-            if (parent != null) {
-                parent.removeView(webView);
+        if (x5WebChromeClient!=null)
+            //有音频播放的web页面的销毁逻辑
+            //在关闭了Activity时，如果Webview的音乐或视频，还在播放。就必须销毁Webview
+            //但是注意：webview调用destory时,webview仍绑定在Activity上
+            //这是由于自定义webview构建时传入了该Activity的context对象
+            //因此需要先从父容器中移除webview,然后再销毁webview:
+            if (webView != null) {
+                ViewGroup parent = (ViewGroup) webView.getParent();
+                if (parent != null) {
+                    parent.removeView(webView);
+                }
+                webView.removeAllViews();
+                webView.destroy();
+                webView = null;
             }
-            webView.removeAllViews();
-            webView.destroy();
-            webView = null;
-        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

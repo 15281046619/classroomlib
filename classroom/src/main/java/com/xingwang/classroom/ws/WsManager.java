@@ -60,8 +60,10 @@ public class WsManager implements IWsManager {
         @Override
         public void run() {
             sendMessage("");//发送空消息保持连接
-            mHandlerSendMessage.removeCallbacks(mSendMessageRunnable);
-            mHandlerSendMessage.postDelayed(mSendMessageRunnable,delayedTime);
+           if (mHandlerSendMessage!=null) {
+               mHandlerSendMessage.removeCallbacks(mSendMessageRunnable);
+               mHandlerSendMessage.postDelayed(mSendMessageRunnable, delayedTime);
+           }
             if (!isSendRequest){
                 tryReconnect();
             }
@@ -415,8 +417,10 @@ public class WsManager implements IWsManager {
             if (isSend){
                 checkConnected();
                  //发送消息后移除定时消息，从新
-                mHandlerSendMessage.removeCallbacks(mSendMessageRunnable);
-                mHandlerSendMessage.postDelayed(mSendMessageRunnable,delayedTime);
+                if (mHandlerSendMessage!=null) {
+                    mHandlerSendMessage.removeCallbacks(mSendMessageRunnable);
+                    mHandlerSendMessage.postDelayed(mSendMessageRunnable, delayedTime);
+                }
             }else {
                 //发送消息失败，尝试重连
                 tryReconnect();

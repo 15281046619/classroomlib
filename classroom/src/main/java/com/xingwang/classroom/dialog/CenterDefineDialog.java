@@ -59,7 +59,6 @@ public class CenterDefineDialog extends BaseDialog {
 
     @Override
     public void dismissDialog() {
-
         super.dismissDialog();
     }
 

@@ -44,8 +44,6 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
 
     public LandLayoutVideo(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-
     }
 
   /*  @Override
@@ -62,14 +60,15 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
         if (getContext()==null){
             return R.layout.sample_video_normal_classroom;
         }
+        if (getContext() instanceof ClassRoomDetailActivity) {
+            ClassRoomDetailActivity classRoomDetailActivity = (ClassRoomDetailActivity) getContext();
 
-        ClassRoomDetailActivity classRoomDetailActivity = (ClassRoomDetailActivity) getContext();
-
-        if (classRoomDetailActivity.orientationUtils==null){
-            return R.layout.sample_video_normal_classroom;
-        }
-        if (classRoomDetailActivity.orientationUtils.getScreenType()== ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-            return R.layout.sample_video_land_classroom;
+            if (classRoomDetailActivity.orientationUtils == null) {
+                return R.layout.sample_video_normal_classroom;
+            }
+            if (classRoomDetailActivity.orientationUtils.getScreenType() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                return R.layout.sample_video_land_classroom;
+            }
         }
         return R.layout.sample_video_normal_classroom;
     }
@@ -120,24 +119,34 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
     }
 
     @Override
+    public boolean isVerticalVideo() {
+        return super.isVerticalVideo();
+    }
+    //获取到视频的宽高
+    public boolean isGetVideoSize(){
+       return getCurrentVideoHeight()>0&&getCurrentVideoWidth()>0;
+    }
+    @Override
     protected void initInflate(Context context) {
         super.initInflate(context);
         if (context==null){
             return;
         }
-        ClassRoomDetailActivity classRoomDetailActivity = (ClassRoomDetailActivity) getContext();
-        ivShape =findViewById(R.id.iv_shape);
-        ivCollect =findViewById(R.id.iv_collect);
-        rlAd =findViewById(R.id.rl_ad);
-        ivCollect.setSelected(classRoomDetailActivity.isCollect);
-        ivShape.setOnClickListener(v -> {
-            classRoomDetailActivity.goShape(v);
-        });
-        ivCollect.setOnClickListener(v -> {
-            classRoomDetailActivity.goCollect(v);
-        });
-        if (mProgressBar!=null)
-            mProgressBar.setEnabled(false);
+        if (getContext() instanceof  ClassRoomDetailActivity) {
+            ClassRoomDetailActivity classRoomDetailActivity = (ClassRoomDetailActivity) getContext();
+            ivShape = findViewById(R.id.iv_shape);
+            ivCollect = findViewById(R.id.iv_collect);
+            rlAd = findViewById(R.id.rl_ad);
+            ivCollect.setSelected(classRoomDetailActivity.isCollect);
+            ivShape.setOnClickListener(v -> {
+                classRoomDetailActivity.goShape(v);
+            });
+            ivCollect.setOnClickListener(v -> {
+                classRoomDetailActivity.goCollect(v);
+            });
+            if (mProgressBar != null)
+                mProgressBar.setEnabled(false);
+        }
     }
 
     /**

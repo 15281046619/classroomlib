@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 
+import com.xingwang.classroom.R;
 import com.xingwang.classroom.utils.ActivityManager;
 import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 
@@ -43,7 +46,11 @@ abstract class BaseActivity extends AppCompatActivity {
         outState.putBoolean("isClean",true);
         super.onSaveInstanceState(outState);
     }
-
+    protected void setNavigationBarColor( @ColorRes int id) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, id));
+        }
+    }
     /*  @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {  //把操作放在用户点击的时候

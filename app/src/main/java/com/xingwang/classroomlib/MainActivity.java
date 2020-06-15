@@ -1,6 +1,7 @@
 package com.xingwang.classroomlib;
 
 
+import android.content.Intent;
 import android.net.http.SslError;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.webkit.WebView;
 
 
 import com.xingwang.classroom.ClassRoomLibUtils;
+import com.xingwang.classroom.ui.LiveDetailActivity;
 import com.xingwang.classroomlib.html.WebViewDelegate;
 
 
@@ -24,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       ClassRoomLibUtils.startListActivity(this,"栏目");
-
+        ClassRoomLibUtils.startListActivity(this,"栏目");
+        startActivity(new Intent(this, LiveDetailActivity.class));
 
     }
 

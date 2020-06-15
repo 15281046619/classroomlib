@@ -3,23 +3,19 @@ package com.xingwang.classroom.dialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.tencent.smtt.sdk.QbSdk;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.X5InstallSuccessBean;
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
-import com.ycbjie.webviewlib.WebProgress;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 
 public class CenterQuiteDialog extends BaseDialog {

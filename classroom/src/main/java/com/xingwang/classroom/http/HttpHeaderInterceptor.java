@@ -21,9 +21,8 @@ public class HttpHeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
-        //String mAuth = BeautyDefine.getAccountDefine().getAuthStr();
-        String mAuth = "FQIGCgUPFQwDUwQDWwYFUwJbBVACAwMEVlFSCQdVAgYBBRcEAFQJMAIvfzlHVW8lZHl4f2R2NmAJeXgiaQUWJwJGdnZzLGB1ZAR0f31CJTNleFA1Vm8iZDIAACAwUGU2YF11ImEIMitxJgN9VR0CewZOMH9XCmBwb2d3Nkp5eXgwWy4lJztjelR3I29fd3h9B25WMDBxdXclPHclWV5mJxgOcXYPWWR2BAZbOQRHBiJUAjgiaSQ9IU8WVG9bSg8RTg==";
-          //String mAuth = "wQDWwYFUwJbBVACAwMEVlFSCQdVAgYBBRcEAFQJMAIvfzlHVW8lZHl4f2R2NmAJeXgiaQUWJwJGdnZzLGB1ZAR0f31CJTNleFA1Vm8iZDIAACAwUGU2YF11ImEIMitxJgN9VR0CewZOMH9XCmBwb2d3Nkp5eXgwWy4lJztjelR3I29fd3h9B25WMDBxdXclPHclWV5mJxgOcXYPWWR2BAZbOQRHBiJUAjgiaSQ9IU8WVG9bSg8RTg==";
+        String mAuth = BeautyDefine.getAccountDefine().getAuthStr();
+       // String mAuth = "FQIGCgUPFQwDUwQDWwYFUwJbBVACAwMEVlFSCQdVAgYBBRcEAFQJMAIvfzlHVW8lZHl4f2R2NmAJeXgiaQUWJwJGdnZzLGB1ZAR0f31CJTNleFA1Vm8iZDIAACAwUGU2YF11ImEIMitxJgN9VR0CewZOMH9XCmBwb2d3Nkp5eXgwWy4lJztjelR3I29fd3h9B25WMDBxdXclPHclWV5mJxgOcXYPWWR2BAZbOQRHBiJUAjgiaSQ9IU8WVG9bSg8RTg==";
         if (!TextUtils.isEmpty(mAuth))
             builder.addHeader("Authorization",mAuth);
 

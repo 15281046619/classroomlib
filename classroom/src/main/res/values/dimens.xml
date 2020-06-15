@@ -15,5 +15,7 @@
     <dimen name="dp_10_classroom">10dp</dimen>
     <dimen name="dp_93_classroom">93dp</dimen>
     <dimen name="dp_1_classroom">1dp</dimen>
+
+    <dimen name="dp__classroom">1dp</dimen>
 </resources>
 
