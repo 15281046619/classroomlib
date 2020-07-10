@@ -76,6 +76,14 @@
             android:theme="@style/AppThemeClassRoom" >
 
         </activity>
+        <activity android:name="com.xingwang.classroom.ui.LiveWebActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:hardwareAccelerated="true"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/AppThemeClassRoom" >
+
+        </activity>
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"

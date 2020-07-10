@@ -27,4 +27,5 @@ public class HttpUrls {
 
     public static  String CHANNEL="xwapp.zy.lecture.lecture_";//channel
     public static String CHANNEL_WS_URL ="ws://subscribe.test.xw518.com:10002";
+
 }

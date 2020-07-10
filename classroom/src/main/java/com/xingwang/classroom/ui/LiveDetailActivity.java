@@ -2,42 +2,20 @@ package com.xingwang.classroom.ui;
 
 
 import android.annotation.TargetApi;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.transition.Transition;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
-import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
-import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
-import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
-import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.bean.ADBean;
 import com.xingwang.classroom.listener.OnTransitionListener;
-import com.xingwang.classroom.utils.CommentUtils;
-import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.view.EmptyControlVideo;
-import com.xingwang.classroom.view.LandLayoutVideo;
-
-import java.util.Iterator;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 
 /**
@@ -50,8 +28,6 @@ public class LiveDetailActivity extends BaseNetActivity {
     private EmptyControlVideo mVideoPlayer;
     public OrientationUtils orientationUtils;
     private boolean isTransition =true;
-
-
     private Transition transition;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

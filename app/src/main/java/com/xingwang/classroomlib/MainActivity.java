@@ -13,7 +13,8 @@ import android.webkit.WebView;
 
 
 import com.xingwang.classroom.ClassRoomLibUtils;
-import com.xingwang.classroom.ui.LiveDetailActivity;
+
+import com.xingwang.classroom.ui.LiveWebActivity;
 import com.xingwang.classroomlib.html.WebViewDelegate;
 
 
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ClassRoomLibUtils.startListActivity(this,"栏目");
-        startActivity(new Intent(this, LiveDetailActivity.class));
+        startActivity(new Intent(this, LiveWebActivity.class));
 
     }
 

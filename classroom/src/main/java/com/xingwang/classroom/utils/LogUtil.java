@@ -6,7 +6,7 @@ import android.util.Log;
  * log工具类
  */
 public class LogUtil {
-    private static Boolean isOpenLog = false;
+    private static Boolean isOpenLog = true;
     public static void e(String mTag,String mContent){
         e(isOpenLog,mTag,mContent);
     }
