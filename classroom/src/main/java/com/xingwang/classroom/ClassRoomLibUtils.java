@@ -15,6 +15,7 @@ import com.xingwang.classroom.dialog.CenterQuiteDialog;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
+import com.xingwang.classroom.ui.LiveWebActivity;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
@@ -234,6 +235,16 @@ public class ClassRoomLibUtils {
      */
     public static void startListActivity(Context context,String type){
         context.startActivity(new Intent(context,ClassRoomHomeActivity.class).putExtra("type",type));
+    }
+
+    /**
+     *
+     * @param context
+     * @param url
+     * @param isProduct 是否是产品， 如果是产品就会有咨询按钮
+     */
+    public static void startWebActivity(Context context,String url,boolean isProduct,String title){
+        context.startActivity(new Intent(context, LiveWebActivity.class).putExtra("url",url).putExtra("isProduct",isProduct).putExtra("title",title));
     }
 
     /**

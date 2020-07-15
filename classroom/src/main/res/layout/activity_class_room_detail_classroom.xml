@@ -109,10 +109,22 @@
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="35dp"
+                    android:id="@+id/iv_product"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:visibility="gone"
+                    android:paddingBottom="5dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_shangpin_classroom"/>
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="35dp"
                     android:id="@+id/iv_pic"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
+                    android:layout_toRightOf="@+id/iv_product"
                     android:paddingBottom="5dp"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/ic_tp_classroom"/>

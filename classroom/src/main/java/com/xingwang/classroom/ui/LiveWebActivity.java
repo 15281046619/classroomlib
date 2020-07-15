@@ -1,9 +1,14 @@
 package com.xingwang.classroom.ui;
 
+import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.tencent.smtt.sdk.WebSettings;
@@ -27,22 +32,26 @@ public class LiveWebActivity extends BaseNetActivity {
     private X5WebView webView;
     private X5WebChromeClient x5WebChromeClient;
     private WebProgress progress;
-
+    private CustomToolbar customToolbar;
+    private FloatingActionButton fab;
     @Override
     protected int layoutResId() {
         return R.layout.activity_live_web;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         webView = findViewById(R.id.webview);
-        ((CustomToolbar)(findViewById(R.id.toolbar))).setNavigationOnClickListener(v -> finish());
+        customToolbar = findViewById(R.id.toolbar);
+        fab = findViewById(R.id.fab);
+        fab.setVisibility(getIntent().getBooleanExtra("isProduct",false)? View.VISIBLE:View.GONE);
+        customToolbar.setNavigationOnClickListener(v -> finish());
+        customToolbar.setText(getIntent().getStringExtra("title"));
         progress = findViewById(R.id.progress1);
         progress.show();
         progress.setColor(this.getResources().getColor(R.color.colorAccentClassRoom));
-
-
 
         if ( webView.getX5WebViewExtension()!=null){
             Bundle data = new Bundle();
@@ -68,12 +77,24 @@ public class LiveWebActivity extends BaseNetActivity {
             mDialog.showDialog(getSupportFragmentManager());
         }
         setWebViewSetting();
+
         x5WebChromeClient = webView.getX5WebChromeClient();
         x5WebChromeClient.setWebListener(interWebListener);
         webView.getX5WebViewClient().setWebListener(interWebListener);
         webView.setShowCustomVideo(false);
-        webView.loadUrl("http://xielei.test.xw518.com/zyapp.test.xw518.com/public/zhibo");
-
+        webView.loadUrl(getIntent().getStringExtra("url"));
+        fab.setOnClickListener(v -> {
+            try {
+                Intent intent = new Intent(this,Class.forName("com.mainlibrary.home.mine.mine.privatechat.PrivateChatActivity"));
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(Intent.EXTRA_TEXT,getIntent().getStringExtra("url"));
+                startActivity(intent);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
     }
     private void setWebViewSetting(){
         WebSettings websettings = webView.getSettings();
@@ -87,20 +108,20 @@ public class LiveWebActivity extends BaseNetActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                //全屏播放退出全屏
-                if (x5WebChromeClient != null && x5WebChromeClient.inCustomView()) {
-                    x5WebChromeClient.hideCustomView();
-                    return true;
-                    //返回网页上一页
-                } else if (webView.canGoBack()) {
-                    webView.goBack();
-                    return true;
-                    //退出网页
-                } else {
-                    handleFinish();
-                }
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //全屏播放退出全屏
+            if (x5WebChromeClient != null && x5WebChromeClient.inCustomView()) {
+                x5WebChromeClient.hideCustomView();
+                return true;
+                //返回网页上一页
+            } else if (webView.canGoBack()) {
+                webView.goBack();
+                return true;
+                //退出网页
+            } else {
+                handleFinish();
             }
+        }
         return super.onKeyDown(keyCode, event);
     }
     public void handleFinish() {
@@ -142,14 +163,14 @@ public class LiveWebActivity extends BaseNetActivity {
         @Override
         public void startProgress(int newProgress) {
             progress.setWebProgress(newProgress);
-            String auth ="Yt7daGui/arohoSc7Kzgam07KF+iDO9M66EzpWTxN3TEx0xNj2D1iVbjfAOv6d6qL8Q+u1nYd/ZAOWCUboPvoARJACwvFGC3tNIW8ABySss=";
-            if (newProgress>=70){
+        /*        String auth ="Yt7daGui/arohoSc7Kzgam07KF+iDO9M66EzpWTxN3TEx0xNj2D1iVbjfAOv6d6qL8Q+u1nYd/ZAOWCUboPvoARJACwvFGC3tNIW8ABySss=";
+       if (newProgress>=70){
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                     webView.evaluateJavascript("window.localStorage.setItem('authstrLogin','" + auth + "');",null);
                 } else
                     webView.loadUrl("javascript:localStorage.setItem('authstrLogin','"+ auth +"');");
 
-            }
+            }*/
         }
 
         @Override

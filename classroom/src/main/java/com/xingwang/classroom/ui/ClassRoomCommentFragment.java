@@ -92,9 +92,7 @@ public class ClassRoomCommentFragment extends BaseLazyLoadFragment implements De
             mActivity = (ClassRoomDetailActivity) getActivity();
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         initAdapter();
-
     }
     public void initAdapter(){
         if (mAdapter==null) {
@@ -130,8 +128,7 @@ public class ClassRoomCommentFragment extends BaseLazyLoadFragment implements De
                     else
                         mRecyclerView.scrollToPosition(position);
                 }
-            }
-            else if (mActivity!=null) {
+            }else if (mActivity!=null) {
                 mActivity.viewDot.setVisibility(View.VISIBLE);
             }
         }

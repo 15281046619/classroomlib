@@ -1,15 +1,12 @@
 package com.xingwang.classroom.ui;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.PixelFormat;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,26 +19,17 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
-
-import android.webkit.WebChromeClient;
-
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.beautydefinelibrary.BeautyDefine;
-import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.ShareResultCallBack;
@@ -51,12 +39,8 @@ import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
-import com.shuyu.gsyvideoplayer.render.effect.GaussianBlurEffect;
-import com.shuyu.gsyvideoplayer.render.view.GSYVideoGLView;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
-import com.tencent.smtt.sdk.QbSdk;
-import com.tencent.smtt.sdk.TbsListener;
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.DetailBarrageAdapter;
@@ -120,7 +104,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     public OrientationUtils orientationUtils;
     private TextView btSend;
     private EditText etContent;
-    private ImageView ivPic,ivComment;
+    private ImageView ivPic,ivComment,ivProduct;
     private DetailBarrageAdapter mBarrageAdapter;
     private LinearLayout layoutTopTpLink;
     private Fragment[] mFragments = new Fragment[]{new ClassRoomDetailFragment(),new ClassRoomCommentFragment()};
@@ -179,6 +163,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         etContent =  findViewById(R.id.et_content);
 
         ivPic =  findViewById(R.id.iv_pic);
+        ivProduct =  findViewById(R.id.iv_product);
         ivComment =  findViewById(R.id.iv_comment);
         viewDot =  findViewById(R.id.view_dot);
         icCollectTpLink =  findViewById(R.id.iv_collect_tplink);
@@ -197,7 +182,17 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             isClickPic =true;
             requestPermission();
         });
-
+        ivProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAdbeans!=null&&mAdbeans.size()>0) {
+                    ClassRoomLibUtils.startWebActivity(ClassRoomDetailActivity.this,
+                            //mAdbeans.get(0).getBody().getLink()
+                            "http://www.baidu.com"
+                            ,true,"产品详情");
+                }
+            }
+        });
         cblBarrage.setOnClickListener(v -> {
             if (!NoDoubleClickUtils.isDoubleClick()) {//不能连续点击后
                 setCurFragment(1, false, false);
@@ -220,10 +215,12 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     btSend.setVisibility(View.GONE);
                     ivComment.setVisibility(View.VISIBLE);
                     ivPic.setVisibility(View.VISIBLE);
+                    ivProduct.setVisibility(View.VISIBLE);
                 }else {
                     btSend.setVisibility(View.VISIBLE);
                     ivComment.setVisibility(View.GONE);
                     ivPic.setVisibility(View.GONE);
+                    ivProduct.setVisibility(View.GONE);
                 }
             }
         });
@@ -285,7 +282,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     .setCachePath(ClassRoomLibUtils.getVideoCachePathFile(this))
                     .setLooping(true)
                     .setGSYVideoProgressListener((progress, secProgress, currentPosition, duration) -> {
-                        if (mAdbeans != null && mAdbeans.size() > 0) {
+                        /*if (mAdbeans != null && mAdbeans.size() > 0) {
                             Iterator<ADBean> mIterator = mAdbeans.iterator();
                             while (mIterator.hasNext()) {
                                 ADBean adBean = mIterator.next();
@@ -294,7 +291,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                                     mIterator.remove();
                                 }
                             }
-                        }
+                        }*/
                     })
                     .setVideoAllCallBack(new GSYSampleCallBack() {
                         @Override
@@ -602,6 +599,9 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                         etContent.setFocusableInTouchMode(true);
                         ((ClassRoomDetailFragment)mFragments[0]).upDateShow(mBean);
                         mAdbeans = GsonUtils.changeGsonToSafeList(mBean.getData().getLecture().getAd(),ADBean.class);
+                        if (mAdbeans!=null&&mAdbeans.size()>0){
+                            ivProduct.setVisibility(View.VISIBLE);
+                        }
                         ClassRoomDetailActivity.this.mBean = mBean;
                         requestSubscribe();//长连接监听评论
                         requestCommentListData(requestType,Integer.MAX_VALUE);//请求评论信息
