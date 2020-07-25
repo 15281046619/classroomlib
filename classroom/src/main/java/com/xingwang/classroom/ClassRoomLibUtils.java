@@ -51,7 +51,7 @@ public class ClassRoomLibUtils {
                 HttpUrls.URL_HOST ="http://zyapp.app.xw518.com/";
                 // HttpUrls.URL_HOST ="http://zyapp.test.xw518.com/";
                 HttpUrls.CHANNEL ="xwapp.zy.lecture.lecture_";
-                HttpUrls.CHANNEL_WS_URL ="ws://subscribe.app.xw518.com:10101";
+                HttpUrls.CHANNEL_WS_URL ="ws://zyapp.app.xw518.com:10101";
                 break;
             case TYPE_JQ:
                 break;
@@ -60,6 +60,7 @@ public class ClassRoomLibUtils {
             case TYPE_NY:
                 HttpUrls.URL_HOST ="http://nyapp.app.xw518.com/";
                 HttpUrls.CHANNEL_WS_URL="ws://nyapp.app.xw518.com:10101";
+                HttpUrls.CHANNEL ="nyapp.zy.lecture.lecture_";
                 break;
             default:
         }
