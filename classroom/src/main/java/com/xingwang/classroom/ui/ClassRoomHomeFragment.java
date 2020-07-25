@@ -12,20 +12,16 @@ import com.xingwang.classroom.R;
 
 import com.xingwang.classroom.adapter.HomeAdapter;
 import com.xingwang.classroom.bean.LectureListsBean;
-import com.xingwang.classroom.dialog.BottomADSheetDialog;
-import com.xingwang.classroom.dialog.CenterQuiteDialog;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.MyToast;
-import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.view.DividerItemDecoration;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Date:2019/8/21
@@ -80,7 +76,7 @@ public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
         if(!category.equals("-1"))
             mApiParams.with("category_id", category);
         isRequesting =true;
-        requestGet(HttpUrls.URL_LISTS,mApiParams, LectureListsBean.class, new HttpCallBack<LectureListsBean>() {
+        requestGet(HttpUrls.URL_LISTS(),mApiParams, LectureListsBean.class, new HttpCallBack<LectureListsBean>() {
             @Override
             public void onFailure(String message) {
                 if (loadDataTypeInit!=Constants.LOAD_DATA_TYPE_MORE){
@@ -95,10 +91,8 @@ public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
                 if (loadDataTypeInit!=Constants.LOAD_DATA_TYPE_MORE){
                     stopRefreshAnimation();
                     mData.clear();
-                    mData.addAll(lectureListsBean.getData());
-                }else {
-                    mData.addAll(lectureListsBean.getData());
                 }
+                mData.addAll(lectureListsBean.getData());
                 if(lectureListsBean.getData().size()<pageNum){
                     initAdapter(3);
                 }else
@@ -118,9 +112,7 @@ public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
         if (mAdapter==null) {
             mAdapter = new HomeAdapter(mData);
             mAdapter.setLoadStateNoNotify(state);
-            mAdapter.setOnItemClickListener((view, position) ->  {
-                ClassRoomLibUtils.startDetailActivityType(getActivity(), mData.get(position).getId(),mData.get(position).getType());
-            });
+            mAdapter.setOnItemClickListener((view, position) -> ClassRoomLibUtils.startDetailActivityType(getActivity(), mData.get(position).getId(),mData.get(position).getType()));
             recyclerview.setAdapter(mAdapter);
         }else {
             mAdapter.setLoadStateNoNotify(state);

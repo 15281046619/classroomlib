@@ -36,7 +36,6 @@ import java.util.HashMap;
  * author:baiguiqiang
  */
 public class ClassRoomLibUtils {
-
     public static final String TYPE_ZY ="zy";
     public static final String TYPE_JQ ="jq";
     public static final String TYPE_SC ="sc";
@@ -49,14 +48,18 @@ public class ClassRoomLibUtils {
     public static void initLib(Context context,String type){
         switch (type){
             case TYPE_ZY:
-                HttpUrls.URL_HOST ="http://zyapp.test.xw518.com/";
+                HttpUrls.URL_HOST ="http://zyapp.app.xw518.com/";
+                // HttpUrls.URL_HOST ="http://zyapp.test.xw518.com/";
                 HttpUrls.CHANNEL ="xwapp.zy.lecture.lecture_";
+                HttpUrls.CHANNEL_WS_URL ="ws://subscribe.app.xw518.com:10101";
                 break;
             case TYPE_JQ:
                 break;
             case TYPE_SC:
                 break;
             case TYPE_NY:
+                HttpUrls.URL_HOST ="http://nyapp.app.xw518.com/";
+                HttpUrls.CHANNEL_WS_URL="ws://nyapp.app.xw518.com:10101";
                 break;
             default:
         }
@@ -239,12 +242,19 @@ public class ClassRoomLibUtils {
 
     /**
      *
-     * @param context
+     * @param activity
      * @param url
      * @param isProduct 是否是产品， 如果是产品就会有咨询按钮
      */
-    public static void startWebActivity(Context context,String url,boolean isProduct,String title){
-        context.startActivity(new Intent(context, LiveWebActivity.class).putExtra("url",url).putExtra("isProduct",isProduct).putExtra("title",title));
+    public static void startWebActivity(FragmentActivity activity,String url,boolean isProduct,String title){
+        if (!SharedPreferenceUntils.getX5IsInstallFinish(activity)){//没有加载完成提示用户
+            CenterQuiteDialog centerQuiteDialog =   new CenterQuiteDialog();
+            centerQuiteDialog.setCallback(integer ->     activity.startActivity(new Intent(activity, LiveWebActivity.class).putExtra("url",url).putExtra("isProduct",isProduct).putExtra("title",title)));
+
+            centerQuiteDialog.showDialog(activity.getSupportFragmentManager());
+            return;
+        }
+        activity.startActivity(new Intent(activity, LiveWebActivity.class).putExtra("url",url).putExtra("isProduct",isProduct).putExtra("title",title));
     }
 
     /**

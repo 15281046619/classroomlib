@@ -6,5 +6,6 @@
         <attr name="android:textSize" format="dimension"/>
         <attr name="divColor" format="color"/>
         <attr name="fitWindow" format="boolean"/>
+        <attr name="isCleanStatHeight" format="boolean"/>
     </declare-styleable>
 </resources>

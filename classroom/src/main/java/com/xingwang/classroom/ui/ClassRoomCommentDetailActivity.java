@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
-import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.UploadResultCallBack;
@@ -38,16 +37,12 @@ import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.KeyBoardHelper;
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.TimeUtil;
 import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
-import com.xingwang.classroom.ws.ChannelStatusListener;
-import com.xingwang.classroom.ws.WsManagerUtil;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +70,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     private ImagePickerDefine imagePickerDefine;
     private  final String[] PERMISSIONS = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,};
+            Manifest.permission.CAMERA};
     @Override
     protected int layoutResId() {
         return R.layout.activity_comment_detail_classrooom;
@@ -173,8 +168,8 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
 
     /**
      * 检查是否已被授权危险权限
-     * @param permissions
-     * @return
+     * @param permissions w
+     * @return w
      */
     public boolean checkDangerousPermissions(String[] permissions) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -190,20 +185,18 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 100:
-                for (int grantResult:grantResults){
-                    if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                        MyToast.myToast(getApplicationContext(),"你拒绝了该权限");
-                        return;
-                    }
+        if (requestCode == 100) {
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    MyToast.myToast(getApplicationContext(), "你拒绝了该权限");
+                    return;
                 }
-                imagePickerDefine =BeautyDefine.getImagePickerDefine(ClassRoomCommentDetailActivity.this);
-                imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
-                    if (list!=null&&list.size()>0)
-                        goUploadPic(list.get(0));
-                });
-                break;
+            }
+            imagePickerDefine = BeautyDefine.getImagePickerDefine(ClassRoomCommentDetailActivity.this);
+            imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
+                if (list != null && list.size() > 0)
+                    goUploadPic(list.get(0));
+            });
         }
     }
 
@@ -221,7 +214,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
             mApiParams.with("pid",mComments.get((Integer) mPos).getId()+"");
         }
         HttpUtil.cancelTag(this);
-        requestPost(HttpUrls.URL_PUBLISH,mApiParams, SendCommentBean.class,new HttpCallBack<SendCommentBean>() {
+        requestPost(HttpUrls.URL_PUBLISH(),mApiParams, SendCommentBean.class,new HttpCallBack<SendCommentBean>() {
 
             @Override
             public void onFailure(String message) {
@@ -291,7 +284,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
         });
     }
     private void initRequestData() {
-        requestGet(HttpUrls.URL_COMMENTDETAIL,new ApiParams().with("id",mBid.equals("0")?mDivId:mBid), CommentDetailBean.class,new HttpCallBack<CommentDetailBean>() {
+        requestGet(HttpUrls.URL_COMMENTDETAIL(),new ApiParams().with("id",mBid.equals("0")?mDivId:mBid), CommentDetailBean.class,new HttpCallBack<CommentDetailBean>() {
 
             @Override
             public void onFailure(String message) {
@@ -314,7 +307,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     }
 
     private void initDivIdData() {
-        requestGet(HttpUrls.URL_COMMENTDETAIL,new ApiParams().with("id",mDivId), CommentDetailBean.class,new HttpCallBack<CommentDetailBean>() {
+        requestGet(HttpUrls.URL_COMMENTDETAIL(),new ApiParams().with("id",mDivId), CommentDetailBean.class,new HttpCallBack<CommentDetailBean>() {
 
             @Override
             public void onFailure(String message) {
@@ -374,7 +367,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
             }else {
                 mApiParams.with("forward_div_id", id);
             }
-            requestGet(HttpUrls.URL_COMMENTLIST, mApiParams, CommentBean.class, new HttpCallBack<CommentBean>() {
+            requestGet(HttpUrls.URL_COMMENTLIST(), mApiParams, CommentBean.class, new HttpCallBack<CommentBean>() {
 
                 @Override
                 public void onFailure(String message) {
@@ -396,7 +389,6 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
                     if (requestType == Constants.LOAD_DATA_TYPE_INIT) {
                         findViewById(R.id.rl_empty).setVisibility(View.GONE);
                         mComments.addAll(commentBean.getData().getComments());
-                        initAdapter();
                     } else {
                         if (requestType == Constants.LOAD_DATA_TYPE_REFRESH) {
                             for (int i = 0; i <= commentBean.getData().getComments().size() - 1; i++) {
@@ -404,8 +396,8 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
                             }
                         } else
                             mComments.addAll(commentBean.getData().getComments());
-                        initAdapter();
                     }
+                    initAdapter();
                     isRequesting =false;
                 }
             });

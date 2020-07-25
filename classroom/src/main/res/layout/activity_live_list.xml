@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.xingwang.classroom.view.CustomToolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarStyleClassRoom"
+        android:text="直播列表"
+        />
+
+    <com.xingwang.classroom.view.VpSwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/swipeRefreshLayout"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:layout_below="@+id/tv_title"
+            android:id="@+id/recyclerView"/>
+    </com.xingwang.classroom.view.VpSwipeRefreshLayout>
+
+
+</RelativeLayout>

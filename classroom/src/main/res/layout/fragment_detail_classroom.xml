@@ -6,11 +6,14 @@
     >
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:textSize="@dimen/sp_16_classroom"
-        android:paddingLeft="10dp"
+        android:paddingLeft="@dimen/dp_10_classroom"
+        android:paddingTop="@dimen/dp_5_classroom"
+        android:paddingBottom="@dimen/dp_5_classroom"
         android:gravity="center_vertical"
         android:id="@+id/tv_title"
+        android:text="233232433333333333333333333333333333333444444444444443"
         android:textColor="@android:color/black"
         android:textStyle="bold"/>
     <View

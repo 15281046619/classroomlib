@@ -1,10 +1,13 @@
 package com.xingwang.classroom.view;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +16,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.LinearLayout;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.xingwang.classroom.R;
@@ -43,6 +47,7 @@ public class CustomToolbar extends Toolbar {
         int  mTextColor = typeArray.getColor(R.styleable.classroom_CustomToolbar_android_textColor, Color.WHITE);
         float mTextSize = typeArray.getDimensionPixelSize(R.styleable.classroom_CustomToolbar_android_textSize,16);
         int divColor = typeArray.getColor(R.styleable.classroom_CustomToolbar_divColor,Color.TRANSPARENT);
+        boolean isCleanTop = typeArray.getBoolean(R.styleable.classroom_CustomToolbar_isCleanStatHeight,false);
         typeArray.recycle();
         titleView = new TextView(context);
         titleView.setText(mText);
@@ -58,7 +63,9 @@ public class CustomToolbar extends Toolbar {
         titleLayoutParams.gravity = Gravity.CENTER;
         addView(titleView,titleLayoutParams);
         statHeight = StatusBarUtils.getStatusHeight(context);
-
+        if (isCleanTop){
+            statHeight=0;
+        }
 
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -74,9 +81,18 @@ public class CustomToolbar extends Toolbar {
         titleView.setText(title);
     }
 
+
     public void setText(@StringRes int title){
         titleView.setText( title);
     }
+
+    public void setTextColor( ColorStateList color){
+        titleView.setTextColor(color);
+    }
+    public TextView getText(){
+       return titleView;
+    }
+
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

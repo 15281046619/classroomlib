@@ -8,10 +8,13 @@
         android:layout_height="40dp">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="全部评论"
             android:paddingLeft="10dp"
+            android:paddingTop="@dimen/dp_5_classroom"
+            android:paddingBottom="@dimen/dp_5_classroom"
             android:gravity="center"
+            android:layout_centerVertical="true"
             android:textSize="@dimen/sp_16_classroom"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -24,6 +27,7 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:src="@mipmap/ic_gb_classroom"
+            android:layout_centerVertical="true"
             android:padding="10dp"/>
     </RelativeLayout>
     <View android:layout_width="match_parent"

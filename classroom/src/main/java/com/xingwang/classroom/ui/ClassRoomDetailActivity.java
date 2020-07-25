@@ -87,7 +87,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
@@ -106,7 +105,6 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private EditText etContent;
     private ImageView ivPic,ivComment,ivProduct;
     private DetailBarrageAdapter mBarrageAdapter;
-    private LinearLayout layoutTopTpLink;
     private Fragment[] mFragments = new Fragment[]{new ClassRoomDetailFragment(),new ClassRoomCommentFragment()};
     private int curPos =0;
     private boolean isPlay=false;
@@ -126,7 +124,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     public View viewDot;
     private String channel;
     private X5WebView webView;
-    private boolean isloadVideo =true;//是不是加载视频 ，不是就是网页直播
+    private boolean isLoadVideo =true;//是不是加载视频 ，不是就是网页直播
     private FrameLayout flameLayout;
     private ImageView icCollectTpLink,icShapeTalink,backTpLink;
 
@@ -169,7 +167,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         icCollectTpLink =  findViewById(R.id.iv_collect_tplink);
         icShapeTalink =  findViewById(R.id.iv_shape_tplink);
         backTpLink =  findViewById(R.id.back_tplink);
-        layoutTopTpLink =  findViewById(R.id.layout_top_tplink);
+        LinearLayout layoutTopTpLink = findViewById(R.id.layout_top_tplink);
         initId();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -182,15 +180,11 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             isClickPic =true;
             requestPermission();
         });
-        ivProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mAdbeans!=null&&mAdbeans.size()>0) {
-                    ClassRoomLibUtils.startWebActivity(ClassRoomDetailActivity.this,
-                            //mAdbeans.get(0).getBody().getLink()
-                            "http://www.baidu.com"
-                            ,true,"产品详情");
-                }
+        ivProduct.setOnClickListener(v -> {
+            if (mAdbeans!=null&&mAdbeans.size()>0) {
+                ClassRoomLibUtils.startWebActivity(ClassRoomDetailActivity.this,
+                        mAdbeans.get(0).getBody().getLink()
+                        ,true,"产品详情");
             }
         });
         cblBarrage.setOnClickListener(v -> {
@@ -370,11 +364,11 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     private  final String[] PERMISSIONS = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,};
+            Manifest.permission.CAMERA};
 
     public void goCollect(View view){
 
-        requestPost(isCollect?HttpUrls.URL_UNFAVORITE:HttpUrls.URL_FAVORITE,new ApiParams().with("relation_id",mId+"").with("type","lecture"),
+        requestPost(isCollect?HttpUrls.URL_UNFAVORITE():HttpUrls.URL_FAVORITE(),new ApiParams().with("relation_id",mId+"").with("type","lecture"),
                 FavoritBean.class,new HttpCallBack<FavoritBean>() {
                     @Override
                     public void onFailure(String message) {
@@ -396,7 +390,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             ArrayList<String> mPics = new ArrayList<>();
             mPics.add(mBean.getData().getLecture().getThumb());
             String regMatchTag = "<[^>]*>";
-            BeautyDefine.getShareDefine(this).share(HttpUrls.URL_SHARE+"?id="+mBean.getData().getLecture().getId(),mPics,mBean.getData().getLecture().getTitle(),
+            BeautyDefine.getShareDefine(this).share(HttpUrls.URL_SHARE()+"?id="+mBean.getData().getLecture().getId(),mPics,mBean.getData().getLecture().getTitle(),
                     mBean.getData().getLecture().getBody().replaceAll(regMatchTag,""),new ShareResultCallBack(){
 
                         @Override
@@ -512,7 +506,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             }
         }
         HttpUtil.cancelTag(this);
-        requestPost(HttpUrls.URL_PUBLISH,mApiParams, SendCommentBean.class,new HttpCallBack<SendCommentBean>() {
+        requestPost(HttpUrls.URL_PUBLISH(),mApiParams, SendCommentBean.class,new HttpCallBack<SendCommentBean>() {
 
             @Override
             public void onFailure(String message) {
@@ -547,7 +541,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     }
 
     private void requestIsCollect() {
-        requestGet(HttpUrls.URL_ISFAVORITE,new ApiParams().with("relation_id",mId).with("type","lecture"),
+        requestGet(HttpUrls.URL_ISFAVORITE(),new ApiParams().with("relation_id",mId).with("type","lecture"),
                 IsFavoritBean.class,new HttpCallBack<IsFavoritBean>() {
                     @Override
                     public void onFailure(String message) {
@@ -570,7 +564,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     private String mTitle;
     private void requestDetailData(int requestType) {
-        requestGet(HttpUrls.URL_DETAIL,new ApiParams().with("id",mId),
+        requestGet(HttpUrls.URL_DETAIL(),new ApiParams().with("id",mId),
                 DetailBean.class,new HttpCallBack<DetailBean>() {
                     @Override
                     public void onFailure(String message) {
@@ -582,7 +576,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                         if (mBean.getData().getLecture().getType().equals("video")) {//视频
                             initVideoPlay(mBean.getData().getLecture().getContent());
                         }else {//加载网页
-                            isloadVideo= false;
+                            isLoadVideo= false;
                             initWebView(mBean.getData().getLecture().getContent());
                         }
                         ivComment.setOnClickListener(v -> {
@@ -599,7 +593,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                         etContent.setFocusableInTouchMode(true);
                         ((ClassRoomDetailFragment)mFragments[0]).upDateShow(mBean);
                         mAdbeans = GsonUtils.changeGsonToSafeList(mBean.getData().getLecture().getAd(),ADBean.class);
-                        if (mAdbeans!=null&&mAdbeans.size()>0){
+                        if (mAdbeans.size() > 0){
                             ivProduct.setVisibility(View.VISIBLE);
                         }
                         ClassRoomDetailActivity.this.mBean = mBean;
@@ -618,8 +612,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     int mScreenWidth = 1280;
     private void showWebView(String content){
         mScreenWidth = CommentUtils.getScreenWidth(this);
-        icCollectTpLink.setOnClickListener(v -> goCollect(v));
-        icShapeTalink.setOnClickListener(v -> goShape(v));
+        icCollectTpLink.setOnClickListener(this::goCollect);
+        icShapeTalink.setOnClickListener(this::goShape);
         backTpLink.setOnClickListener(v -> finish());
         flameLayout.setVisibility(View.VISIBLE);
         mVideoPlayer.setVisibility(View.GONE);
@@ -755,7 +749,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (!isloadVideo) {
+        if (!isLoadVideo) {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 //全屏播放退出全屏
                 if (x5WebChromeClient != null && x5WebChromeClient.inCustomView()) {
@@ -854,7 +848,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     boolean isRequesting =false;
     void requestCommentListData(int requestType,int lastId) {
         isRequesting = true;
-        requestGet(HttpUrls.URL_COMMENTLIST,new ApiParams().with("lecture_id",mId)
+        requestGet(HttpUrls.URL_COMMENTLIST(),new ApiParams().with("lecture_id",mId)
                 .with("num", pageNum).with("backward_div_id",lastId), CommentBean.class,new HttpCallBack<CommentBean>() {
 
             @Override
@@ -908,7 +902,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             setCurFragment(0, false, false);
             return;
         }
-        if (isloadVideo){
+        if (isLoadVideo){
             if ( mVideoPlayer.isVerticalVideo()&&isScreen) {
                 mVideoPlayer.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.dp_200_classroom);
                // setNavigationBarColor(android.R.color.white);
@@ -943,14 +937,12 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private boolean isPlaying = false;
     @Override
     protected void onPause() {
-        if (isloadVideo) {
+        if (isLoadVideo) {
             isPlaying = mVideoPlayer.getGSYVideoManager().isPlaying();
             mVideoPlayer.getCurrentPlayer().onVideoPause();
             if (mVideoPlayer != null) {
                 SharedPreferenceUntils.putString(this, "playposition" + mId, mVideoPlayer.getCurrentPositionWhenPlaying() + "");
             }
-        }else {
-
         }
         super.onPause();
 
@@ -959,11 +951,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     @Override
     protected void onResume() {
-        if (isloadVideo&&isPlaying)
+        if (isLoadVideo&&isPlaying)
             mVideoPlayer.getCurrentPlayer().onVideoResume(false);
-        else {
-
-        }
         super.onResume();
         isPause = false;
     }
@@ -1012,9 +1001,9 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (isloadVideo) {
+        if (isLoadVideo) {
             //如果旋转了就全屏
-            if (isloadVideo && isPlay && !isPause) {
+            if (isPlay && !isPause) {
                 mVideoPlayer.onConfigurationChanged(this, newConfig, orientationUtils, true, true);
             }
         }

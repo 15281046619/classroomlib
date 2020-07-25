@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
-import com.tencent.smtt.sdk.QbSdk;
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.HomeViewpagerAdapter;
@@ -80,7 +79,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
     }
 
     private void goRequestData(int type){
-        requestGet(HttpUrls.URL_AD_LISTS,new ApiParams().with("group", "课程推荐"), ADGroupBean.class, new HttpCallBack<ADGroupBean>() {
+        requestGet(HttpUrls.URL_AD_LISTS(),new ApiParams().with("group", "课程推荐"), ADGroupBean.class, new HttpCallBack<ADGroupBean>() {
 
             @Override
             public void onFailure(String message) {
@@ -102,7 +101,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
             ClassRoomHomeFragment mFragment = (ClassRoomHomeFragment) mFragments.get(viewpager.getCurrentItem());
             mFragment.requestHttpData(type,Integer.MAX_VALUE);
         }else
-            requestGet(HttpUrls.URL_CATEGORYS, new ApiParams(), CategoryBean.class, new HttpCallBack<CategoryBean>() {
+            requestGet(HttpUrls.URL_CATEGORYS(), new ApiParams(), CategoryBean.class, new HttpCallBack<CategoryBean>() {
                 @Override
                 public void onFailure(String message) {
                     swipeRefreshLayout.setRefreshing(false);
