@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/BGClassRoom"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,13 +12,25 @@
         android:minHeight="200dp"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-        <com.xingwang.classroom.view.LandLayoutVideo
-            android:id="@+id/video_track"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200_classroom"
-            android:visibility="gone"
-            android:animateLayoutChanges="true"
-            />
+            android:id="@+id/rlVideoRoot"
+            android:layout_height="wrap_content">
+            <com.xingwang.classroom.view.LandLayoutVideo
+                android:id="@+id/video_track"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_200_classroom"
+                android:visibility="gone"
+                android:animateLayoutChanges="true"
+                />
+            <com.xingwang.classroom.view.ImageWidthHeightView
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:id="@+id/ivThumb"
+                android:visibility="gone"
+                app:widthToHeightSum="1.43"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:id="@+id/flameLayout"
@@ -35,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"/>
         </FrameLayout>
+
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"

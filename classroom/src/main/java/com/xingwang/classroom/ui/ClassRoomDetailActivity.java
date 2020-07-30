@@ -16,9 +16,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -58,6 +60,7 @@ import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
+import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.GsonUtils;
 import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.KeyBoardHelper;
@@ -69,6 +72,7 @@ import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.utils.StatusBarUtils;
 import com.xingwang.classroom.view.CustomBarrageLayout;
 import com.xingwang.classroom.view.CustomProgressBar;
+import com.xingwang.classroom.view.ImageWidthHeightView;
 import com.xingwang.classroom.view.LandLayoutVideo;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
@@ -104,6 +108,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private TextView btSend;
     private EditText etContent;
     private ImageView ivPic,ivComment,ivProduct;
+    private RelativeLayout rlVideoRoot;
     private DetailBarrageAdapter mBarrageAdapter;
     private Fragment[] mFragments = new Fragment[]{new ClassRoomDetailFragment(),new ClassRoomCommentFragment()};
     private int curPos =0;
@@ -117,6 +122,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     public int mId;
     private int clickChild=-1;
     private ImagePickerDefine imagePickerDefine;
+    private ImageWidthHeightView ivThumb;
     private List<ADBean> mAdbeans;
     private DetailBean mBean;
     public boolean isCollect = false;
@@ -159,6 +165,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         btSend =  findViewById(R.id.bt_send);
         cblBarrage =  findViewById(R.id.cbl_barrage);
         etContent =  findViewById(R.id.et_content);
+        ivThumb =  findViewById(R.id.ivThumb);
+        rlVideoRoot =  findViewById(R.id.rlVideoRoot);
 
         ivPic =  findViewById(R.id.iv_pic);
         ivProduct =  findViewById(R.id.iv_product);
@@ -171,7 +179,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         initId();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ((LinearLayout.LayoutParams) mVideoPlayer.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
+            ((LinearLayout.LayoutParams) rlVideoRoot.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
+          //  ((LinearLayout.LayoutParams) ivThumb.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
             ((LinearLayout.LayoutParams) flameLayout.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
         }
         setCurFragment(0,false,true);
@@ -240,10 +249,10 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     }
     private boolean isScreen = false;//竖屏 全屏
-    private void  initVideoPlay(String url){
+    private void  initVideoPlay(String url,String thumb){
         // url ="rtmp://live.xw518.com/test/1";
         flameLayout.setVisibility(View.GONE);
-        mVideoPlayer.setVisibility(View.VISIBLE);
+
         if (orientationUtils==null) {
             //外部辅助的旋转，帮助全屏
             orientationUtils = new OrientationUtils(this, mVideoPlayer);
@@ -260,6 +269,15 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
 
             String mPlayPosition = SharedPreferenceUntils.getString(this, "playposition" + mId, "0");
+
+
+
+            if (TextUtils.isEmpty(url)){
+                ivThumb.setVisibility(View.VISIBLE);
+                GlideUtils.loadAvatar(thumb,ivThumb);
+            }else {
+                mVideoPlayer.setVisibility(View.VISIBLE);
+            }
             gsyVideoOption.setIsTouchWiget(true)
                     .setIsTouchWigetFull(true)
                     .setRotateViewAuto(false)
@@ -268,7 +286,6 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     .setShowFullAnimation(false)
                     .setNeedLockFull(true)
                     .setUrl(url)
-
                     .setNeedShowWifiTip(true)
                     .setDismissControlTime(5000)
                     .setSeekOnStart(Long.parseLong(mPlayPosition))
@@ -294,8 +311,6 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                             //开始播放了才能旋转和全屏
                             orientationUtils.setEnable(true);
                             isPlay = true;
-
-
                         }
 
                         @Override
@@ -318,10 +333,10 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                 if (mVideoPlayer.isVerticalVideo()) {
                     if (isScreen) {
                         mVideoPlayer.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.dp_200_classroom);
-                     //   setNavigationBarColor(android.R.color.white);
+                        //   setNavigationBarColor(android.R.color.white);
                     }else {
                         mVideoPlayer.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-                     //   setNavigationBarColor(android.R.color.black);
+                        //   setNavigationBarColor(android.R.color.black);
                     }
                     isScreen =!isScreen;
                 }
@@ -337,9 +352,9 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                 }
             });
             mVideoPlayer.startPlayLogic();
+
         }
     }
-
 
 
 
@@ -574,7 +589,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     public void onSuccess(DetailBean mBean) {
                         mTitle=  mBean.getData().getLecture().getTitle();
                         if (mBean.getData().getLecture().getType().equals("video")) {//视频
-                            initVideoPlay(mBean.getData().getLecture().getContent());
+                            initVideoPlay(mBean.getData().getLecture().getContent(),mBean.getData().getLecture().getThumb());
                         }else {//加载网页
                             isLoadVideo= false;
                             initWebView(mBean.getData().getLecture().getContent());
@@ -616,7 +631,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         icShapeTalink.setOnClickListener(this::goShape);
         backTpLink.setOnClickListener(v -> finish());
         flameLayout.setVisibility(View.VISIBLE);
-        mVideoPlayer.setVisibility(View.GONE);
+        //mVideoPlayer.setVisibility(View.GONE);
+        rlVideoRoot.setVisibility(View.GONE);
         setWebViewHeight(false);
         progress = findViewById(R.id.progress1);
         progress.show();
@@ -905,7 +921,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         if (isLoadVideo){
             if ( mVideoPlayer.isVerticalVideo()&&isScreen) {
                 mVideoPlayer.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.dp_200_classroom);
-               // setNavigationBarColor(android.R.color.white);
+                // setNavigationBarColor(android.R.color.white);
                 isScreen =!isScreen;
                 return;
             }

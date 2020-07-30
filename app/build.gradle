@@ -15,8 +15,30 @@ android {
             abiFilters"armeabi","armeabi-v7a，'x86', 'mips'"
 
         }
-    }
 
+
+    }
+    flavorDimensions "default"
+    productFlavors {
+        kuan {
+            dimension "default"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "kuan"]
+
+        }
+        xiaomi {
+            dimension "default"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        qh360 {
+            dimension "default"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qh360"]
+        }
+        baidu {
+            dimension "default"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+        }
+
+    }
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'

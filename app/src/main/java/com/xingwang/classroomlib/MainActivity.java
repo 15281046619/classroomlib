@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         setContentView(R.layout.activity_main);
         ClassRoomLibUtils.startListActivity(this,"栏目");
        // startActivity(new Intent(this, LiveWebActivity.class));
-        startActivity(new Intent(this, LiveListActivity.class));
+        //startActivity(new Intent(this, LiveListActivity.class));
 
     }
 

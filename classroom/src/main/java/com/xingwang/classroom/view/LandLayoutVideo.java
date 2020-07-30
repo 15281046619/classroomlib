@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
+import com.xingwang.classroom.utils.LogUtil;
 
 
 /**
@@ -29,6 +31,7 @@ import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 public class LandLayoutVideo extends StandardGSYVideoPlayer  {
 
     private ImageView ivShape,ivCollect;
+    private RelativeLayout thumb;
     private RelativeLayout rlAd;
 
     /**
@@ -137,6 +140,7 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
             ivShape = findViewById(R.id.iv_shape);
             ivCollect = findViewById(R.id.iv_collect);
             rlAd = findViewById(R.id.rl_ad);
+            thumb = findViewById(R.id.thumb);
             ivCollect.setSelected(classRoomDetailActivity.isCollect);
             ivShape.setOnClickListener(v -> {
                 classRoomDetailActivity.goShape(v);
@@ -148,7 +152,13 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
                 mProgressBar.setEnabled(false);
         }
     }
-
+    public void setThumb(ImageView imageView){
+        if (imageView!=null&&thumb!=null){
+            thumb.removeAllViews();
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            thumb.addView(imageView,new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+        }
+    }
     /**
      * 不使用滑动改变进度
      * @param deltaX

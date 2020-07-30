@@ -10,9 +10,11 @@
     <color name="toolbarBgClassRoom">#222132</color>
     <color name="yellowClassRoom">#FFFF00</color>
     <color name="SwipeRefreshLayoutClassRoom">#FFC400</color>
-    <color name="themeClassRoom">#0058bd</color>
+   <!-- <color name="themeClassRoom">#0058bd</color>-->
+    <color name="themeClassRoom">@color/reslib_colorPrimary</color>
     <color name="BGClassRoom">#f2f2f2</color>
     <color name="BGPressedClassRoom">#DBD6D6</color>
     <color name="CurPositionClassRoom">#E4DCC0</color>
     <color name="textColor1ClassRoom">#3A3A3A</color>
+    <color name="yellowDarkClassRoom">#FFF12D</color>
 </resources>

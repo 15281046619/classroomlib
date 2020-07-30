@@ -8,4 +8,9 @@
         <attr name="fitWindow" format="boolean"/>
         <attr name="isCleanStatHeight" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="CustomImage">
+        <attr name="byWidthToHeight" format="boolean"/>
+        <attr name="widthToHeightSum" format="float"/>
+
+    </declare-styleable>
 </resources>
