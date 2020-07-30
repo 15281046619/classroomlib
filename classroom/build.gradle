@@ -82,7 +82,7 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'//解决播放器编译报错
     implementation 'com.beautydefinelibrary:beautydefinelibrary:1.2.14'
     //implementation 'com.beautyreslibrary:beautyreslibrary:1.1.9'//有implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'库
-    implementation 'com.beautyreslibrary:zy:1.0.1'//有implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'库
+    implementation 'com.beautyreslibrary:zy:1.0.3'//有implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'库
     /*_kuanImplementation 'com.beautyreslibrary:yy:1.0.6'
     _xiaomiImplementation 'com.beautyreslibrary:zy:1.0.1'
     _qh360ReleaseImplementation 'com.beautyreslibrary:ny:1.0.1'
