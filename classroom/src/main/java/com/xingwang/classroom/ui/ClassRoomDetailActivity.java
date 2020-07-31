@@ -840,6 +840,9 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                             break;
                         }
                     }
+                    if (curPosition==-1){
+                        mComments.add(0,mCommentBean);
+                    }
                 }
 
                 int finalCurPosition = curPosition;

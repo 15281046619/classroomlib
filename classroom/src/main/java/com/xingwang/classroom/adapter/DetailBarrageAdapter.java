@@ -39,6 +39,7 @@ public class DetailBarrageAdapter extends BaseBarrageAdapter<CommentBean.DataBea
             tvContent.setTextColor(ContextCompat.getColor(viewGroup.getContext(),android.R.color.white));
         }
         tvContent.setText(mBadge);
+        tvContent.setSelected(true);
         tvContent.append(TextUtils.isEmpty(mData.getBody())?"[图片]":mData.getBody());
         GlideUtils.loadAvatar(mData.getUser().getAvatar(),R.mipmap.default_teammate_avatar_classroom,view.findViewById(R.id.iv_avatar));
         return view;

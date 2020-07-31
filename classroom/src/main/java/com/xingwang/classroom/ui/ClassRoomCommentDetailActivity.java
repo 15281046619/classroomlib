@@ -81,7 +81,6 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
         if (imagePickerDefine != null) {
             imagePickerDefine.onActivityResultHanlder(requestCode, resultCode, data);
         }
-
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
