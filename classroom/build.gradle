@@ -96,4 +96,6 @@ dependencies {
 
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
 
+
+
 }

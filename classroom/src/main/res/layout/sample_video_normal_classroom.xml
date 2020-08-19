@@ -23,7 +23,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="#000000"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter" >
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/layout_bottom"
@@ -70,11 +71,11 @@
 
         <ImageView
             android:id="@+id/fullscreen"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:paddingRight="16dp"
-            android:paddingLeft="16dp"
-            android:scaleType="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="16dp"
+            android:padding="8dp"
+            android:scaleType="fitXY"
             android:src="@drawable/video_enlarge"/>
     </LinearLayout>
 
@@ -110,7 +111,12 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical" />
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/ivThumbBg"
+        android:visibility="gone"
+        android:layout_height="match_parent"/>
 
     <ImageView
         android:id="@+id/small_close"

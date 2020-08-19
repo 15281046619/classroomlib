@@ -105,7 +105,6 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
                 @Override
                 public void onFailure(String message) {
                     swipeRefreshLayout.setRefreshing(false);
-
                     MyToast.myToast(getApplicationContext(),message);
                 }
 
@@ -149,14 +148,16 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
         }
         mFragments =new ArrayList<>();
         tabLayout.removeAllTabs();
+        ArrayList<String> mTitles =new ArrayList<>();
         for (int i=0;i<categoryBean.getData().size();i++) {
             if (!TextUtils.isEmpty(type)&& (categoryBean.getData().get(i).getId()+"").equals(type)&&initPos==0){
                 initPos =i;
             }
             mFragments.add(ClassRoomHomeFragment.getInstance(i,categoryBean.getData().get(i).getId()+""));
+            mTitles.add(categoryBean.getData().get(i).getTitle());
             tabLayout.addTab(tabLayout.newTab().setText(categoryBean.getData().get(i).getTitle()));
         }
-        HomeViewpagerAdapter mViewPagerAdapter = new HomeViewpagerAdapter(getSupportFragmentManager(), mFragments,categoryBean.getData());
+        HomeViewpagerAdapter mViewPagerAdapter = new HomeViewpagerAdapter(getSupportFragmentManager(), mFragments,mTitles);
         viewpager.setAdapter(mViewPagerAdapter);
         tabLayout.setupWithViewPager(viewpager);
         viewpager.setCurrentItem(initPos);

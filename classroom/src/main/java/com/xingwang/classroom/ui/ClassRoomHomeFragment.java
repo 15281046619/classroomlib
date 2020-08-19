@@ -51,7 +51,6 @@ public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
 
     @Override
     public void initData() {
-        //  position =getArguments().getInt("position");
         if(getArguments()!=null)
             category =getArguments().getString("category");
         else

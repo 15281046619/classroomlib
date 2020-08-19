@@ -17,4 +17,5 @@
     <color name="CurPositionClassRoom">#E4DCC0</color>
     <color name="textColor1ClassRoom">#3A3A3A</color>
     <color name="yellowDarkClassRoom">#FFF12D</color>
+    <color name="black">#000000</color>
 </resources>

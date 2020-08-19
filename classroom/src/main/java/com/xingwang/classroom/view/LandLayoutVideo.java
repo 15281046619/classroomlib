@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -21,6 +23,7 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
+import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.LogUtil;
 
 
@@ -31,7 +34,7 @@ import com.xingwang.classroom.utils.LogUtil;
 public class LandLayoutVideo extends StandardGSYVideoPlayer  {
 
     private ImageView ivShape,ivCollect;
-    private RelativeLayout thumb;
+   // private ImageView ivBgThumb;
     private RelativeLayout rlAd;
 
     /**
@@ -80,7 +83,13 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
-
+    public void showThumbBg(String url){
+        findViewById(R.id.ivThumbBg).setVisibility(VISIBLE);
+        GlideUtils.loadAvatar(url,findViewById(R.id.ivThumbBg));
+    }
+    public void goneThumbBg(){
+        findViewById(R.id.ivThumbBg).setVisibility(GONE);
+    }
     @Override
     protected void init(Context context) {
         super.init(context);
@@ -107,6 +116,7 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
                         super.onLongPress(e);
                     }
                 });
+
             }
         });
     }
@@ -120,7 +130,9 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
 
         }
     }
-
+   /* public ImageView getBgThumb(){
+        return ivBgThumb;
+    }*/
     @Override
     public boolean isVerticalVideo() {
         return super.isVerticalVideo();
@@ -140,7 +152,7 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
             ivShape = findViewById(R.id.iv_shape);
             ivCollect = findViewById(R.id.iv_collect);
             rlAd = findViewById(R.id.rl_ad);
-            thumb = findViewById(R.id.thumb);
+
             ivCollect.setSelected(classRoomDetailActivity.isCollect);
             ivShape.setOnClickListener(v -> {
                 classRoomDetailActivity.goShape(v);
@@ -152,20 +164,18 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
                 mProgressBar.setEnabled(false);
         }
     }
-    public void setThumb(ImageView imageView){
+   /* public void setThumb(ImageView imageView){
         if (imageView!=null&&thumb!=null){
-            thumb.removeAllViews();
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            thumb.addView(imageView,new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+           *//* thumb.removeAllViews();
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            thumb.setVisibility(VISIBLE);
+            thumb.addView(imageView,new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));*//*
+            thumb.setVisibility(VISIBLE);
+            setThumbImageView(imageView);
         }
-    }
+    }*/
     /**
      * 不使用滑动改变进度
-     * @param deltaX
-     * @param seekTime
-     * @param seekTimePosition
-     * @param totalTime
-     * @param totalTimeDuration
      */
     /*@Override
     protected void showProgressDialog(float deltaX, String seekTime, int seekTimePosition, String totalTime, int totalTimeDuration) {

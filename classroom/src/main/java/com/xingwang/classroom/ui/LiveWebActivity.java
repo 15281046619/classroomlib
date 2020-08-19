@@ -1,7 +1,6 @@
 package com.xingwang.classroom.ui;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,7 +35,7 @@ public class LiveWebActivity extends BaseNetActivity {
     private FloatingActionButton fab;
     @Override
     protected int layoutResId() {
-        return R.layout.activity_live_web;
+        return R.layout.activity_live_web_classroom;
     }
 
     @SuppressLint("RestrictedApi")
@@ -163,14 +162,6 @@ public class LiveWebActivity extends BaseNetActivity {
         @Override
         public void startProgress(int newProgress) {
             progress.setWebProgress(newProgress);
-        /*        String auth ="Yt7daGui/arohoSc7Kzgam07KF+iDO9M66EzpWTxN3TEx0xNj2D1iVbjfAOv6d6qL8Q+u1nYd/ZAOWCUboPvoARJACwvFGC3tNIW8ABySss=";
-       if (newProgress>=70){
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    webView.evaluateJavascript("window.localStorage.setItem('authstrLogin','" + auth + "');",null);
-                } else
-                    webView.loadUrl("javascript:localStorage.setItem('authstrLogin','"+ auth +"');");
-
-            }*/
         }
 
         @Override

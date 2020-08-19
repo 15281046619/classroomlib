@@ -66,6 +66,7 @@ import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.KeyBoardHelper;
 
 
+import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
@@ -122,7 +123,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     public int mId;
     private int clickChild=-1;
     private ImagePickerDefine imagePickerDefine;
-    private ImageWidthHeightView ivThumb;
+  //  private ImageWidthHeightView ivThumb;
     private List<ADBean> mAdbeans;
     private DetailBean mBean;
     public boolean isCollect = false;
@@ -133,7 +134,9 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private boolean isLoadVideo =true;//是不是加载视频 ，不是就是网页直播
     private FrameLayout flameLayout;
     private ImageView icCollectTpLink,icShapeTalink,backTpLink;
-
+    private boolean isScreen = false;//竖屏 全屏
+    private int mVideoHeight ;//默认720*1280分辨率
+  //  private boolean isInitViewHeight = false;//videoView高度通过计算视频源宽高比计算得来
     public static Intent getIntent(Context context, int id) {
         Intent intent = new Intent(context, ClassRoomDetailActivity.class);
         intent.putExtra("id", id);
@@ -165,7 +168,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         btSend =  findViewById(R.id.bt_send);
         cblBarrage =  findViewById(R.id.cbl_barrage);
         etContent =  findViewById(R.id.et_content);
-        ivThumb =  findViewById(R.id.ivThumb);
+       // ivThumb =  findViewById(R.id.ivThumb);
         rlVideoRoot =  findViewById(R.id.rlVideoRoot);
 
         ivPic =  findViewById(R.id.iv_pic);
@@ -175,14 +178,16 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         icCollectTpLink =  findViewById(R.id.iv_collect_tplink);
         icShapeTalink =  findViewById(R.id.iv_shape_tplink);
         backTpLink =  findViewById(R.id.back_tplink);
-        LinearLayout layoutTopTpLink = findViewById(R.id.layout_top_tplink);
+
         initId();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ((LinearLayout.LayoutParams) rlVideoRoot.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
-          //  ((LinearLayout.LayoutParams) ivThumb.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
             ((LinearLayout.LayoutParams) flameLayout.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
         }
+        mVideoHeight = CommentUtils.getScreenWidth(this)*720/1280;
+        mVideoPlayer.getLayoutParams().height =mVideoHeight;
+        rlVideoRoot.setMinimumHeight(mVideoHeight);
         setCurFragment(0,false,true);
 
         ivPic.setOnClickListener(v ->{
@@ -248,7 +253,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             mId =Integer.parseInt(actionData);
 
     }
-    private boolean isScreen = false;//竖屏 全屏
+
+
     private void  initVideoPlay(String url,String thumb){
         // url ="rtmp://live.xw518.com/test/1";
         flameLayout.setVisibility(View.GONE);
@@ -269,15 +275,10 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
 
             String mPlayPosition = SharedPreferenceUntils.getString(this, "playposition" + mId, "0");
-
-
-
             if (TextUtils.isEmpty(url)){
-                ivThumb.setVisibility(View.VISIBLE);
-                GlideUtils.loadAvatar(thumb,ivThumb);
-            }else {
-                mVideoPlayer.setVisibility(View.VISIBLE);
+                mVideoPlayer.showThumbBg(thumb);
             }
+            mVideoPlayer.setVisibility(View.VISIBLE);
             gsyVideoOption.setIsTouchWiget(true)
                     .setIsTouchWigetFull(true)
                     .setRotateViewAuto(false)
@@ -293,15 +294,12 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     .setCachePath(ClassRoomLibUtils.getVideoCachePathFile(this))
                     .setLooping(true)
                     .setGSYVideoProgressListener((progress, secProgress, currentPosition, duration) -> {
-                        /*if (mAdbeans != null && mAdbeans.size() > 0) {
-                            Iterator<ADBean> mIterator = mAdbeans.iterator();
-                            while (mIterator.hasNext()) {
-                                ADBean adBean = mIterator.next();
-                                if (adBean.getTime().equals(currentPosition / 1000 + "") && adBean.getType().equals("image")) {
-                                    showBottomDialog(adBean);
-                                    mIterator.remove();
-                                }
-                            }
+                       /* if (mVideoPlayer.isInPlayingState()&&(mVideoPlayer.getBgThumb().getVisibility()==View.VISIBLE)){
+
+                        }*/
+                       /* if (mVideoPlayer.isGetVideoSize()&&!isInitViewHeight&&!mVideoPlayer.isVerticalVideo()){
+                            isInitViewHeight = true;
+                           mVideoPlayer.getLayoutParams().height = CommentUtils.getScreenWidth(this)*mVideoPlayer.getCurrentVideoHeight()/mVideoPlayer.getCurrentVideoWidth();
                         }*/
                     })
                     .setVideoAllCallBack(new GSYSampleCallBack() {
@@ -311,6 +309,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                             //开始播放了才能旋转和全屏
                             orientationUtils.setEnable(true);
                             isPlay = true;
+                           // mVideoPlayer.getBgThumb().setVisibility(View.GONE);
                         }
 
                         @Override
@@ -332,16 +331,16 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     return;
                 if (mVideoPlayer.isVerticalVideo()) {
                     if (isScreen) {
-                        mVideoPlayer.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.dp_200_classroom);
-                        //   setNavigationBarColor(android.R.color.white);
+                        mVideoPlayer.getLayoutParams().height = mVideoHeight;
                     }else {
                         mVideoPlayer.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-                        //   setNavigationBarColor(android.R.color.black);
                     }
                     isScreen =!isScreen;
                 }
                 else {
-                    try {// 可能出现java.lang.IllegalStateException at android.media.MediaPlayer.getVideoHeight(Native Method)
+                    try {
+
+                        // 可能出现java.lang.IllegalStateException at android.media.MediaPlayer.getVideoHeight(Native Method)
                         //直接横屏
                         orientationUtils.resolveByClick();
                         //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
@@ -823,7 +822,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             int curPosition = -1;
             if (channel!=null&&channel.equals(jsonObject.getString("channel"))){
                 CommentBean.DataBean.CommentsBean mCommentBean = GsonUtils.changeGsonToBean(jsonObject.getString("content"), CommentBean.DataBean.CommentsBean.class);
-                if (mCommentBean.getBid()==0){//评论父级
+                if (mCommentBean.getPid()==0){//评论父级 这里之前是bid==0 修改为pid 2020.8.5
                     mComments.add(0,mCommentBean);
                     Object tag = etContent.getTag();//当点击某个item，发  送消息时候，突然来消息
                     if (tag!=null){
@@ -876,7 +875,6 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     requestFailureShow(message);
                 }
                 isRequesting = false;
-
             }
 
             @Override
@@ -923,7 +921,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         }
         if (isLoadVideo){
             if ( mVideoPlayer.isVerticalVideo()&&isScreen) {
-                mVideoPlayer.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.dp_200_classroom);
+                mVideoPlayer.getLayoutParams().height = mVideoHeight;
                 // setNavigationBarColor(android.R.color.white);
                 isScreen =!isScreen;
                 return;

@@ -164,7 +164,12 @@ public class WsManagerUtil {
                         channelStatusListener.onMessage(text);
                     }
                 }catch (Exception e){
-                    channelStatusListener.onMessage(text);
+                    try {
+                        channelStatusListener.onMessage(text);
+                    }catch (Exception e1){
+
+                    }
+
                 }
             }
         }

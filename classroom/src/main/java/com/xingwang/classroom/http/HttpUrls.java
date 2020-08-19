@@ -44,6 +44,10 @@ public class HttpUrls {
     public static final String URL_UNFAVORITE(){
         return URL_HOST+URL_NAME+"favorite/user/api/unFavorite";
     }
+
+    public static final String URL_LIVE_LISTS(){
+      return  URL_HOST+URL_NAME+"live/home/live/lists";
+    }
     public static final String URL_SHARE(){
         return URL_HOST+"page/share_lecture";//课程分享网页
     }

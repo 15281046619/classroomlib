@@ -55,8 +55,8 @@
         <!--   android:exported="true"   是否允许外部调用-->
         <activity android:name="com.xingwang.classroom.ui.ClassRoomDetailActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
-            android:hardwareAccelerated="true"
             android:exported="true"
+            android:hardwareAccelerated="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>

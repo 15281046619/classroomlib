@@ -17,5 +17,8 @@
     <dimen name="dp_1_classroom">1dp</dimen>
 
     <dimen name="dp__classroom">1dp</dimen>
+    <dimen name="dp_2_classroom">2dp</dimen>
+    <dimen name="sp_12_classroom">12sp</dimen>
+    <dimen name="dp_12_classroom">12dp</dimen>
 </resources>
 

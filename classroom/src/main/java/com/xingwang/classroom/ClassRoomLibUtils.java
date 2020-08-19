@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Environment;
 
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 
 import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.sdk.QbSdk;
@@ -15,8 +16,11 @@ import com.xingwang.classroom.dialog.CenterQuiteDialog;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
+import com.xingwang.classroom.ui.LiveDetailActivity;
 import com.xingwang.classroom.ui.LiveWebActivity;
+import com.xingwang.classroom.utils.ActivityUtil;
 import com.xingwang.classroom.utils.CommentUtils;
+import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
@@ -240,6 +244,17 @@ public class ClassRoomLibUtils {
     public static void startListActivity(Context context,String type){
         context.startActivity(new Intent(context,ClassRoomHomeActivity.class).putExtra("type",type));
     }
+    /**
+     *
+
+     */
+    public static void startLiveDetailActivity(FragmentActivity activity,String id,Boolean isLive){
+        activity.startActivity(new Intent(activity, LiveDetailActivity.class).putExtra("id",id).putExtra(Constants.EXTRA_IS_LIVE,isLive));
+    }
+ /*   public static void startLiveDetailActivity(FragmentActivity activity, String id, String thumb, View view){
+        ActivityUtil.startTransitionAnimationActivity(activity,new Intent(activity, LiveDetailActivity.class).putExtra("id",id).putExtra("thumb",thumb),
+                view,activity.getResources().getString(R.string.share_str_ClassRoom));
+    }*/
 
     /**
      *

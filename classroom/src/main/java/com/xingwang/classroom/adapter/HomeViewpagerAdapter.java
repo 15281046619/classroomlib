@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class HomeViewpagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
-    private List<CategoryBean.DataBean> titles;
-    public HomeViewpagerAdapter(FragmentManager fm,List<Fragment> fragments,List<CategoryBean.DataBean> titles) {
+    private List<String> titles;
+    public HomeViewpagerAdapter(FragmentManager fm,List<Fragment> fragments,List<String> titles) {
         super(fm);
         this.fragments = fragments;
         this.titles = titles;
@@ -36,6 +36,6 @@ public class HomeViewpagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles.get(position).getTitle();
+        return titles.get(position);
     }
 }

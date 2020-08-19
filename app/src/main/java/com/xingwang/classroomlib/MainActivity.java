@@ -14,11 +14,15 @@ import android.webkit.WebView;
 
 import com.xingwang.classroom.ClassRoomLibUtils;
 
+import com.xingwang.classroom.ui.ClassRoomHomeActivity;
 import com.xingwang.classroom.ui.LiveListActivity;
 import com.xingwang.classroom.ui.LiveWebActivity;
+import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroomlib.html.WebViewDelegate;
 
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 
 public class MainActivity extends AppCompatActivity implements WebViewDelegate {
@@ -29,7 +33,28 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ClassRoomLibUtils.startListActivity(this,"栏目");
-       // startActivity(new Intent(this, LiveWebActivity.class));
+
+
+        try {
+            ClassRoomLibUtils.startActivityForUri(this,"xingw://com.xingw.zyapp/openpage/webbrowser?url=http://zyapp.app.xw518.com/zhibo/#/index?id=224");
+            //ClassRoomLibUtils.startWebActivity(this,"http://zyapp.app.xw518.com/zhibo/#/index?id=221",false,"测试");
+          //  ClassRoomLibUtils.startWebActivity(this,URLDecoder.decode("http%3a%2f%2fzyapp.app.xw518.com%2fzhibo%2f%23%2findex%3fid%3d224", "UTF-8"),false,"测试");
+            /*String url = new String("http%3a%2f%2fzyapp.app.xw518.com%2fzhibo%2f%23%2findex%3fid%3d224".getBytes(), "UTF-8");
+            url = URLDecoder.decode(url, "UTF-8");
+            */
+            LogUtil.i(URLDecoder.decode("http://zyapp.app.xw518.com/zhibo/#/index?id=224", "UTF-8"));
+
+           // ClassRoomLibUtils.startWebActivity(this,url,false,"测试");
+
+            //ClassRoomLibUtils.startWebActivity(this,"http%3a%2f%2fzyapp.app.xw518.com%2fpage%2fshare_article%3fid%3d1230",false,"测试");
+
+            //LogUtil.i(URLEncoder.encode("http://zyapp.app.xw518.com/zhibo/#/index?id=224", "utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        // ClassRoomLibUtils.startWebActivity(this,"http%3a%2f%2fzyapp.app.xw518.com%2fpage%2fshare_article%3fid%3d1230",false,"测试");
+
+        // startActivity(new Intent(this, LiveWebActivity.class));
         //startActivity(new Intent(this, LiveListActivity.class));
 
     }
