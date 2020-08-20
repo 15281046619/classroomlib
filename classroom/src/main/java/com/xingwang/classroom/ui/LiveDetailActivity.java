@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +19,9 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.transition.Transition;
 
+import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
@@ -31,15 +34,31 @@ import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.HomeViewpagerAdapter;
 
+import com.xingwang.classroom.bean.LiveDetailBean;
+import com.xingwang.classroom.bean.LiveIsSubscribeBean;
+import com.xingwang.classroom.bean.LiveListBean;
+import com.xingwang.classroom.bean.OnlineCountBean;
+import com.xingwang.classroom.bean.PlayInfoBean;
+import com.xingwang.classroom.bean.VodListBean;
+import com.xingwang.classroom.http.ApiParams;
+import com.xingwang.classroom.http.HttpCallBack;
+import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.listener.OnTransitionListener;
+import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
+import com.xingwang.classroom.utils.LogUtil;
+import com.xingwang.classroom.utils.MyToast;
+import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.utils.StatusBarUtils;
+import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.EmptyControlVideo;
 
 import java.util.Arrays;
 
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
+
+import static com.xingwang.classroom.http.HttpUrls.URL_ZHI_BO;
 
 /**
  * Date:2020/6/2
@@ -48,6 +67,7 @@ import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
  */
 public class LiveDetailActivity extends BaseNetActivity {
     private EmptyControlVideo mVideoPlayer;
+    private TextView tvVote,tvTime;
     public OrientationUtils orientationUtils;
     private boolean isTransition =true;
     private Transition transition;
@@ -55,25 +75,190 @@ public class LiveDetailActivity extends BaseNetActivity {
     private int mVideoHeight ;//默认720*1280分辨率
     private  TabLayout tabLayout;
     private  ViewPager viewPager;
+    private String mId;//直播id
+    private LiveDetailBean mLiveDetailBean;//直播详情接口获取数据
+    private VodListBean mVodListBean;
+    private int curPlayVodPos =0;//当前播放录播视频得第几个
+    private Handler mHandler = new Handler();
+    private long mTime = 0;
+    private boolean isPlay =false;
+    private boolean isPause;
+    private Runnable mDownRunnable=new Runnable() {
+        @Override
+        public void run() {
+            mTime -= 1;
+            if (mTime>0){
+                tvTime.setText(sToHMS(mTime));
+                mHandler.postDelayed(this,1000);
+            }else{
+                mHandler.removeCallbacks(this);
+                tvTime.setText("直播即将开始");
+                mVideoPlayer.startPlayLogic();
+            }
+        }
+    };
+    private Runnable mOnlineCountRunnable=new Runnable() {//每隔10s刷新一次在线人数查询
+        @Override
+        public void run() {
+            getOnlineCount();
+            mHandler.postDelayed(this,10000);
+        }
+    };
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         isLive =getIntent().getBooleanExtra(Constants.EXTRA_IS_LIVE,true);
         super.onCreate(savedInstanceState);
         setNavigationBarColor(android.R.color.black);
-
+        mId = getIntent().getStringExtra("id");
         initView();
         initData();
     }
 
     private void initData() {
-        initVideoPlay("");
+        getLiveDetail();
+    }
+    private void getLiveDetail(){
+        requestGet(HttpUrls.URL_LIVE_DETAIL(),new ApiParams().with("id",mId),
+                LiveDetailBean.class, new HttpCallBack<LiveDetailBean>() {
+
+                    @Override
+                    public void onFailure(String message) {
+                        requestFailureShow(message);
+                    }
+
+                    @Override
+                    public void onSuccess(LiveDetailBean liveDetailBean) {
+                        mLiveDetailBean =liveDetailBean;
+                        getIsSubscribe();
+                        mHandler.post(mOnlineCountRunnable);
+                    }
+                });
     }
 
+    /**
+     * 获取是否关注
+     */
+    private void getIsSubscribe(){
+        requestGet(HttpUrls.URL_LIVE_IS_SUBSCRIBE(),new ApiParams().with("id",mId),
+                LiveIsSubscribeBean.class, new HttpCallBack<LiveIsSubscribeBean>() {
+
+                    @Override
+                    public void onFailure(String message) {
+                        requestFailureShow(message);
+                    }
+
+                    @Override
+                    public void onSuccess(LiveIsSubscribeBean mLiveIsSubScribeBean) {
+                        if (isLive){
+                            findViewById(R.id.rl_empty).setVisibility(View.GONE);
+                            showUi(mLiveIsSubScribeBean,URL_ZHI_BO+mLiveDetailBean.getData().getLive().getAlias()+".m3u8");
+                        }else {
+                            getVodList(mLiveIsSubScribeBean);
+                        }
+                    }
+                });
+    }
+    /**
+     * 获取录播地址
+     */
+    private void getVodList(LiveIsSubscribeBean mLiveIsSubScribeBean){
+        requestGet(HttpUrls.URL_LIVE_VOD_LIST(),new ApiParams().with("live_id",mId),
+                VodListBean.class, new HttpCallBack<VodListBean>() {
+
+                    @Override
+                    public void onFailure(String message) {
+                        requestFailureShow(message);
+                    }
+
+                    @Override
+                    public void onSuccess(VodListBean mVodListBean) {
+                        LiveDetailActivity.this.mVodListBean = mVodListBean;
+                        // findViewById(R.id.rl_empty).setVisibility(View.GONE);
+                        getPlayInfo(mLiveIsSubScribeBean,mVodListBean.getData().getLiveRecordVideoList().getLiveRecordVideo().get(curPlayVodPos).getVideo().getVideoId());
+                    }
+                });
+
+    }
+    /**
+     * 获取录播地址详情
+     */
+    private void getPlayInfo(LiveIsSubscribeBean mLiveIsSubScribeBean,String mVideoId){
+        requestGet(HttpUrls.URL_LIVE_PLAY_INFO(),new ApiParams().with("video_id",mVideoId),
+                PlayInfoBean.class, new HttpCallBack<PlayInfoBean>() {
+
+                    @Override
+                    public void onFailure(String message) {
+                        requestFailureShow(message);
+                    }
+
+                    @Override
+                    public void onSuccess(PlayInfoBean mVodListBean) {
+                        findViewById(R.id.rl_empty).setVisibility(View.GONE);
+
+                        showUi(mLiveIsSubScribeBean,  mVodListBean.getData().getPlayInfoList().getPlayInfo().get(0).getPlayURL());
+                    }
+                });
+
+    }
+
+    /**
+     * 获得在线人数
+     */
+    private void getOnlineCount() {
+        if (mLiveDetailBean!=null)
+            requestGet(HttpUrls.URL_LIVE_ONLINE_COUNT(),new ApiParams().with("live_id",mLiveDetailBean.getData().getLive().getId()),
+                    OnlineCountBean.class, new HttpCallBack<OnlineCountBean>() {
+
+                        @Override
+                        public void onFailure(String message) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(OnlineCountBean mVodListBean) {
+                            mVideoPlayer.showOnlineCount(mVodListBean.getData());
+                        }
+                    });
+    }
+
+    /**
+     * 初始化显示界面
+     * @param lectureListsBean
+     * @param url
+     */
+    private void showUi(LiveIsSubscribeBean lectureListsBean,String url) {
+        if (lectureListsBean.getData().isSubscribe()){
+            tvVote.setText("已关注");
+        }else {
+            tvVote.setText("+");
+            tvVote.setOnClickListener(v -> {
+
+            });
+        }
+        initVideoPlay(url);
+        initTabLayout();
+    }
+  /*  private void getCommentList(int loadDataTypeInit) {
+        requestGet(HttpUrls.URL_LIVE_DETAIL(),new ApiParams().with("id",getIntent().getStringExtra("id")),
+                LiveDetailBean.class, new HttpCallBack<LiveDetailBean>() {
+
+                    @Override
+                    public void onFailure(String message) {
+                        requestFailureShow(message);
+                    }
+
+                    @Override
+                    public void onSuccess(LiveDetailBean lectureListsBean) {
+                        findViewById(R.id.rl_empty).setVisibility(View.GONE);
+                        getCommentList(Constants.LOAD_DATA_TYPE_INIT);
+                    }
+                });
+    }*/
+
     private void  initVideoPlay(String url){
-        if (isLive)
-            url ="http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8";
-        else
-            url ="https://xw518app.oss-cn-beijing.aliyuncs.com/2020/04/27/090431_App6.mp4";
+
         // PlayerFactory.setPlayManager(Exo2PlayerManager.class);//使用系统解码器全屏切换会卡顿黑屏
         //mVideoPlayer.setUp(url, true, "");
         //过渡动画
@@ -102,7 +287,7 @@ public class LiveDetailActivity extends BaseNetActivity {
                     .setDismissControlTime(5000)
                     .setCacheWithPlay(true)
                     .setCachePath(ClassRoomLibUtils.getVideoCachePathFile(this))
-                    .setLooping(true)
+                    .setLooping(false)
                     .setGSYVideoProgressListener((progress, secProgress, currentPosition, duration) -> {
                   /*      if (mVideoPlayer.isGetVideoSize()&&!isInitViewHeight&&!mVideoPlayer.isVerticalVideo()){
                             isInitViewHeight = true;
@@ -115,6 +300,17 @@ public class LiveDetailActivity extends BaseNetActivity {
                             super.onPrepared(url, objects);
                             //开始播放了才能旋转和全屏
                             orientationUtils.setEnable(true);
+                            isPlay = true;
+                            if (isLive) {
+                                mVideoPlayer.goneThumbBg();
+                                tvTime.setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onAutoComplete(String url, Object... objects) {
+                            super.onAutoComplete(url, objects);
+                            MyToast.myLongToast(LiveDetailActivity.this,"onAutoComplete");
                         }
 
                         @Override
@@ -146,8 +342,15 @@ public class LiveDetailActivity extends BaseNetActivity {
                     e.printStackTrace();
                 }
             });
+            if (isLive&&(System.currentTimeMillis()/1000<mLiveDetailBean.getData().getLive().getStart_time())) {//开始播放前
+                mVideoPlayer.showThumbBg(mLiveDetailBean.getData().getLive().getCover());
+                tvTime.setVisibility(View.VISIBLE);
+                mTime = mLiveDetailBean.getData().getLive().getStart_time()-System.currentTimeMillis()/1000;
+                mHandler.post(mDownRunnable);
 
-            mVideoPlayer.startPlayLogic();
+            }else {
+                mVideoPlayer.startPlayLogic();
+            }
         }
     }
 
@@ -161,7 +364,9 @@ public class LiveDetailActivity extends BaseNetActivity {
             mVideoPlayer.startPlayLogic();
         }
     }
-
+    private String sToHMS(long m){
+        return "距离直播还有"+m/86400+"天"+(m % 86400 / 3600) + "时" + m % 86400 % 3600 / 60 + "分" + m % 60+"秒";
+    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private boolean addTransitionListener() {
@@ -183,29 +388,61 @@ public class LiveDetailActivity extends BaseNetActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mVideoPlayer.release();
+
+        if (mHandler!=null&&mDownRunnable!=null)
+            mHandler.removeCallbacks(mDownRunnable);
+        if (isPlay) {
+            mVideoPlayer.getCurrentPlayer().release();
+        }
         if (orientationUtils != null)
             orientationUtils.releaseListener();
+
     }
 
     @Override
-    public void onBackPressed() {
-        //释放所有
-        mVideoPlayer.setVideoAllCallBack(null);
-        GSYVideoManager.releaseAllVideos();
-        if (isTransition && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            super.onBackPressed();
-        } else {
-            new Handler().postDelayed(() -> {
-                finish();
-                overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-            }, 500);
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        //如果旋转了就全屏
+        if (isPlay && !isPause) {
+            mVideoPlayer.onConfigurationChanged(this, newConfig, orientationUtils, true, true);
         }
     }
+    @Override
+    public void onBackPressed() {
+        if (orientationUtils != null) {
+            orientationUtils.backToProtVideo();
+        }
 
+        if (GSYVideoManager.backFromWindowFull(this)) {
+            return;
+        }
+        super.onBackPressed();
+    }
+    private boolean isPlaying = false;
+    @Override
+    protected void onPause() {
+
+        isPlaying = mVideoPlayer.getGSYVideoManager().isPlaying();
+        mVideoPlayer.getCurrentPlayer().onVideoPause();
+       /* if (mVideoPlayer != null) {
+            SharedPreferenceUntils.putString(this, "playposition" + mId, mVideoPlayer.getCurrentPositionWhenPlaying() + "");
+        }*/
+        super.onPause();
+        isPause = true;
+    }
+    @Override
+    protected void onResume() {
+        if (isPlaying)
+            mVideoPlayer.getCurrentPlayer().onVideoResume(false);
+        super.onResume();
+        isPause = false;
+    }
     private void initView() {
-
+        AndroidBug5497Workaround.assistActivity(this);
         tabLayout =findViewById(R.id.tabLayout);
+        tvTime =findViewById(R.id.tvTime);
+        tvVote =findViewById(R.id.tvVote);
         viewPager =findViewById(R.id.viewPager);
         mVideoPlayer = findViewById(R.id.video_track);
         //  RelativeLayout rlTime = findViewById(R.id.rlTime);
@@ -216,7 +453,7 @@ public class LiveDetailActivity extends BaseNetActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             rlVideoRoot.setPadding(0, StatusBarUtils.getStatusHeight(this), 0, 0);
         }
-        initTabLayout();
+
     /*
         TextView tvTime = findViewById(R.id.tvTime);
         AnimatorSet animatorSetsuofang = new AnimatorSet();//组合动画
@@ -255,17 +492,30 @@ public class LiveDetailActivity extends BaseNetActivity {
             }
         });*/
     }
-    private Fragment[] mArrayLists ={LiveChatFragment.getInstance("1"),LiveDesFragment.getInstance("tt"),LiveGoodListFragment.getInstance("ee")};
+    private Fragment[] mArrayLists ;
     private String[] mTitle ={"现场互动","直播介绍","产品列表"};
     private void initTabLayout() {
-
+        mArrayLists =new  Fragment[]{
+                LiveChatFragment.getInstance(String.valueOf(mLiveDetailBean.getData().getLive().getId()),
+                        mLiveDetailBean.getData().getLive().getFixed_state()==1?mLiveDetailBean.getData().getLive().getFixed_str():""),
+                LiveDesFragment.getInstance("tt"),LiveGoodListFragment.getInstance("ee")};
         tabLayout.removeAllTabs();
         HomeViewpagerAdapter mViewPagerAdapter = new HomeViewpagerAdapter(getSupportFragmentManager(), Arrays.asList(mArrayLists), Arrays.asList(mTitle));
         viewPager.setAdapter(mViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-      //  viewpager.setCurrentItem(initPos);
+        //  viewpager.setCurrentItem(initPos);
     }
-
+    private void requestFailureShow(String error){
+        TextView tvMsg = findViewById(R.id.tv_msg);
+        tvMsg.setText(error);
+        CustomProgressBar progressbar = findViewById(R.id.progressbar);
+        progressbar .setVisibility(View.GONE);
+        findViewById(R.id.rl_empty).setOnClickListener(v -> {
+            progressbar.setVisibility(View.VISIBLE);
+            tvMsg.setText("加载中...");
+            initData();
+        });
+    }
     @Override
     protected int layoutResId() {
         return R.layout.activity_live_detail_classromm;

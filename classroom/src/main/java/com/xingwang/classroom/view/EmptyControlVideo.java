@@ -3,10 +3,12 @@ package com.xingwang.classroom.view;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.ui.LiveDetailActivity;
+import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.LogUtil;
 
 /**
@@ -16,6 +18,8 @@ import com.xingwang.classroom.utils.LogUtil;
 
 public class EmptyControlVideo extends StandardGSYVideoPlayer {
     private boolean isLive = true;
+    private long onlineCount=-1;//在线人数
+    private TextView tvSum;
     public EmptyControlVideo(Context context, Boolean fullFlag) {
         super(context, fullFlag);
     }
@@ -49,7 +53,6 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
         return getNormalLiveOrVideoLayout();
     }
     private int  getNormalLiveOrVideoLayout(){
-        LogUtil.i("TAG",isLive+"getNormalLiveOrVideoLayout");
         if (isLive){
             return R.layout.empty_control_live_normal_classroom;
         }else {
@@ -57,22 +60,41 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
         }
     }
     private int  getLandLiveOrVideoLayout(){
-        LogUtil.i("TAG",isLive+"getLandLiveOrVideoLayout");
+
         if (isLive){
             return R.layout.empty_control_live_land_classroom;
         }else {
             return R.layout.empty_control_video_land_classroom;
         }
     }
-
+    public void showThumbBg(String url){
+        findViewById(R.id.ivThumbBg).setVisibility(VISIBLE);
+        GlideUtils.loadAvatar(url,findViewById(R.id.ivThumbBg));
+    }
+    public void goneThumbBg(){
+        findViewById(R.id.ivThumbBg).setVisibility(GONE);
+    }
     @Override
     protected void init(Context context) {
+        if (context==null){
+            return;
+        }
         if (context instanceof LiveDetailActivity){
             isLive =((LiveDetailActivity)context).isLive;
         }
         super.init(context);
+        tvSum= findViewById(R.id.tvSum);
+        showOnlineCount(onlineCount);
     }
-
+    //显示在线人数
+    public void showOnlineCount(long count){
+        onlineCount =count;
+        LogUtil.i(onlineCount+"");
+        if (onlineCount!=-1){
+            tvSum.setVisibility(VISIBLE);
+            tvSum.setText(String.valueOf(onlineCount*10+System.currentTimeMillis()%10));
+        }
+    }
     @Override
     protected void touchSurfaceMoveFullLogic(float absDeltaX, float absDeltaY) {
         super.touchSurfaceMoveFullLogic(absDeltaX, absDeltaY);

@@ -3,25 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
+    android:paddingBottom="@dimen/dp_5_classroom"
     android:id="@+id/ll_root"
     android:background="@drawable/select_item_bg_classroom"
     android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="43dp"
-        android:layout_height="43dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/rl_gov"
         android:layout_marginRight="5dp" >
-    <com.xingwang.classroom.view.CircularImage
-        android:id="@+id/iv_avatar"
-        style="@style/chatAvatarClassRoom"
-       />
+        <com.xingwang.classroom.view.CircularImage
+            android:id="@+id/iv_avatar"
+            style="@style/chatAvatarClassRoom"
+            />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10_classroom"
+        android:layout_marginTop="@dimen/dp_5_classroom"
         android:orientation="vertical">
 
         <LinearLayout
@@ -30,7 +31,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:id="@+id/ll_vip"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
@@ -64,39 +65,5 @@
                 />
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:paddingRight="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="@color/GrayClassRoom"
-                android:id="@+id/tv_datetime"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_centerVertical="true"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_back"
-                android:textSize="12sp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:visibility="gone"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/themeClassRoom"
-                android:text="查看原课程"/>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_height="20dp"
-                android:id="@+id/iv_send_comment"
-                android:src="@mipmap/ic_fspl_classroom"
-                android:layout_alignParentRight="true"/>
-        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

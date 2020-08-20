@@ -48,14 +48,31 @@ public class HttpUrls {
     public static final String URL_LIVE_LISTS(){
       return  URL_HOST+URL_NAME+"live/home/live/lists";
     }
+    public static final String URL_LIVE_DETAIL(){
+      return  URL_HOST+URL_NAME+"live/home/live/detail";
+    }
+    public static final String URL_LIVE_IS_SUBSCRIBE(){
+      return  URL_HOST+URL_NAME+"live/user/live/isSubscribe";
+    }
+    public static final String URL_LIVE_VOD_LIST(){
+      return  URL_HOST+URL_NAME+"live/home/live/vodList";
+    }
+    public static final String URL_LIVE_PLAY_INFO(){
+      return  URL_HOST+URL_NAME+"live/home/live/playInfo";
+    }
+    public static final String URL_LIVE_ONLINE_COUNT(){
+      return  URL_HOST+URL_NAME+"live/home/live/onlineCount";
+    }
+    public static final String URL_LIVE_CHAT_LISTS(){
+      return  URL_HOST+URL_NAME+"live/home/chat/lists";
+    }
     public static final String URL_SHARE(){
         return URL_HOST+"page/share_lecture";//课程分享网页
     }
 
     public static String CHANNEL="zyapp.lecture.lecture_";//channel
-    //public static String CHANNEL="xwapp.zy.lecture.lecture_";//channel
     public static String CHANNEL_WS_URL ="ws://subscribe.app.xw518.com:10101";
-    //public static String CHANNEL_WS_URL ="ws://subscribe.test.xw518.com:10002";
+    public static String URL_ZHI_BO ="http://zhibo.xw518.com/zhibo/";//直播地址
 
     //public static final String URL_LIVE_LISTS="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/home/live/lists";
 }

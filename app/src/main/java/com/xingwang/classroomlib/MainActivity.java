@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
 
 
         try {
-            ClassRoomLibUtils.startActivityForUri(this,"xingw://com.xingw.zyapp/openpage/webbrowser?url=http://zyapp.app.xw518.com/zhibo/#/index?id=224");
-            //ClassRoomLibUtils.startWebActivity(this,"http://zyapp.app.xw518.com/zhibo/#/index?id=221",false,"测试");
+           // ClassRoomLibUtils.startActivityForUri(this,"xingw://com.xingw.zyapp/openpage/webbrowser?url=http://zyapp.app.xw518.com/zhibo/#/index?id=224");
+           // ClassRoomLibUtils.startWebActivity(this,"http://zyapp.app.xw518.com/zhibo/#/index?id=221",false,"测试");
           //  ClassRoomLibUtils.startWebActivity(this,URLDecoder.decode("http%3a%2f%2fzyapp.app.xw518.com%2fzhibo%2f%23%2findex%3fid%3d224", "UTF-8"),false,"测试");
             /*String url = new String("http%3a%2f%2fzyapp.app.xw518.com%2fzhibo%2f%23%2findex%3fid%3d224".getBytes(), "UTF-8");
             url = URLDecoder.decode(url, "UTF-8");
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         // ClassRoomLibUtils.startWebActivity(this,"http%3a%2f%2fzyapp.app.xw518.com%2fpage%2fshare_article%3fid%3d1230",false,"测试");
 
         // startActivity(new Intent(this, LiveWebActivity.class));
-        //startActivity(new Intent(this, LiveListActivity.class));
+        startActivity(new Intent(this, LiveListActivity.class));
 
     }
 

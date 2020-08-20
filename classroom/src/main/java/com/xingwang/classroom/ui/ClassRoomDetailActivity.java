@@ -66,14 +66,12 @@ import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.KeyBoardHelper;
 
 
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.utils.StatusBarUtils;
 import com.xingwang.classroom.view.CustomBarrageLayout;
 import com.xingwang.classroom.view.CustomProgressBar;
-import com.xingwang.classroom.view.ImageWidthHeightView;
 import com.xingwang.classroom.view.LandLayoutVideo;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
@@ -223,7 +221,10 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     btSend.setVisibility(View.GONE);
                     ivComment.setVisibility(View.VISIBLE);
                     ivPic.setVisibility(View.VISIBLE);
-                    ivProduct.setVisibility(View.VISIBLE);
+                    if (mAdbeans!=null&&mAdbeans.size() > 0){
+                        ivProduct.setVisibility(View.VISIBLE);
+                    }
+
                 }else {
                     btSend.setVisibility(View.VISIBLE);
                     ivComment.setVisibility(View.GONE);

@@ -43,18 +43,27 @@ public class LiveListBean extends CommonEntity {
 
         private int id;
         private int category_id;
+        private String alias;
         private String title;
         private String body;
         private String cover;
         private int start_time;
-        private int is_end;
+        private int is_end;//1:未结束 2:已结束
         private String speaker;
         private int state;
         private int click;
         private int guest_count;
-        private int fixed_state;
+        private int fixed_state; //固顶状态 1固顶 2不固顶
         private String fixed_str;
         private int chat_count;
+
+        public String getAlias() {
+            return alias;
+        }
+
+        public void setAlias(String alias) {
+            this.alias = alias;
+        }
 
         public int getId() {
             return id;

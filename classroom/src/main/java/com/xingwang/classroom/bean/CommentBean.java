@@ -53,6 +53,7 @@ public class CommentBean extends CommonEntity {
              * sub_comments : []
              * user : {"id":8,"nickname":null,"avatar":null,"team_id":null,"fullname":null,"remark":null,"create_time":"2019-05-14 09:17:48","product_line":null,"phone":"15281046619","area":null}
              */
+
             public CommentsBean(int id,String body,String pics,int user_id,String publish_time,UserBean user,UserBean to_user){
                 this.body =body;
                 this.id = id;
