@@ -207,7 +207,7 @@ public class HttpUtil {
                         if ("invalid token".equals(jsonObject.getString("code"))) {
                             mainHandler.post(() -> callBack.onFailure("权限认证失败，请重新登录账号"));
                             ActivityManager.getInstance().finishAllActivity();
-                            BeautyDefine.getAccountDefine().controlReLogin();
+                            //BeautyDefine.getAccountDefine().controlReLogin();
                         }
                         else
                             mainHandler.post(() ->  callBack.onFailure(message));
@@ -267,7 +267,7 @@ public class HttpUtil {
                             if ("invalid token".equals(jsonObject.getString("code"))) {
                                 mainHandler.post(() -> callBack.onFailure("权限认证失败，请重新登录账号"));
                                 ActivityManager.getInstance().finishAllActivity();
-                                BeautyDefine.getAccountDefine().controlReLogin();
+                               // BeautyDefine.getAccountDefine().controlReLogin();
                             }
                             else
                             mainHandler.post(() ->  callBack.onFailure(message));

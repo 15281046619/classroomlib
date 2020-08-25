@@ -7,6 +7,8 @@ package com.xingwang.classroom.utils;
  */
 public class Constants {
 
+    public static String DATA ="data";
+
     public static int LOAD_DATA_TYPE_INIT =1;
     public static int LOAD_DATA_TYPE_MORE =2;
     public static int LOAD_DATA_TYPE_REFRESH =3;

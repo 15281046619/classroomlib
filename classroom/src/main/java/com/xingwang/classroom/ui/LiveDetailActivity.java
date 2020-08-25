@@ -575,7 +575,7 @@ public class LiveDetailActivity extends BaseNetActivity {
         mArrayLists =new  Fragment[]{
                 LiveChatFragment.getInstance(String.valueOf(mLiveDetailBean.getData().getLive().getId()),
                         mLiveDetailBean.getData().getLive().getFixed_state()==1?mLiveDetailBean.getData().getLive().getFixed_str():""),
-                LiveDesFragment.getInstance("tt"),LiveGoodListFragment.getInstance("ee")};
+                LiveDesFragment.getInstance(mLiveDetailBean.getData().getLive().getBody()),LiveGoodListFragment.getInstance(mId)};
         tabLayout.removeAllTabs();
         HomeViewpagerAdapter mViewPagerAdapter = new HomeViewpagerAdapter(getSupportFragmentManager(), Arrays.asList(mArrayLists), Arrays.asList(mTitle));
         viewPager.setAdapter(mViewPagerAdapter);

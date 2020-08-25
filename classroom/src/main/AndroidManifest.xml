@@ -99,6 +99,14 @@
             android:theme="@style/AppThemeClassRoom" >
 
         </activity>
+
+        <activity android:name=".ui.OrderActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateAlwaysHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/AppThemeClassRoom">
+
+        </activity>
+
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"

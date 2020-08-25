@@ -72,4 +72,48 @@
         <!--全屏-->
         <item name="android:windowFullscreen">false</item>
     </style>
+
+    <style name="viewLineClassRoom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/BGClassRoom</item>
+    </style>
+
+    <style name="OrderUserInfoPLineClassRoom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/dp_10_classroom</item>
+        <item name="android:background">@drawable/order_bg_classroom</item>
+    </style>
+
+    <style name="OrderUserInfoCLineClassRoom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_25_classroom</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!--  android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:textSize="@dimen/sp_13_classroom"
+                    android:background="@null"
+                    android:maxLines="1"
+                    android:textCursorDrawable="@null"-->
+    <style name="OrderUserInfoTvClassRoom">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">@dimen/sp_14_classroom</item>
+    </style>
+
+    <style name="OrderUserInfEtClassRoom">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:textSize">@dimen/sp_13_classroom</item>
+        <item name="android:background">@null</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
 </resources>

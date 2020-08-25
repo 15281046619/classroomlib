@@ -28,7 +28,7 @@ import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
  * Time;13:58
  * author:baiguiqiang
  */
-abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     protected abstract int layoutResId();
 
