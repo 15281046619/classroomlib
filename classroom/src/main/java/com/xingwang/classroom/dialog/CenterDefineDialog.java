@@ -78,8 +78,9 @@ public class CenterDefineDialog extends BaseDialog {
         });
     }
 
-    public void setCallback(Callback1<Integer> callback1 ){
+    public CenterDefineDialog setCallback(Callback1<Integer> callback1 ){
         this.callback1 = callback1;
+        return this;
     }
     public  interface Callback1<T> {
         void run(T t);

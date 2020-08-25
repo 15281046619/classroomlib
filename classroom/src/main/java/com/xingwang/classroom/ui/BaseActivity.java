@@ -19,6 +19,8 @@ import android.widget.EditText;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.utils.ActivityManager;
+import com.xingwang.classroom.utils.LogUtil;
+
 import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 
 /**
@@ -68,7 +70,8 @@ abstract class BaseActivity extends AppCompatActivity {
 
      * @return
      */
-    private Boolean isShouldHideKeyboard(View v,MotionEvent  event) {
+    public Boolean isShouldHideKeyboard(View v,MotionEvent  event) {
+
         if (v instanceof EditText) {  //判断得到的焦点控件是否包含EditText
             int[] l = new int[]{0, 0};
             v.getLocationInWindow(l);
@@ -87,7 +90,7 @@ abstract class BaseActivity extends AppCompatActivity {
      * 获取InputMethodManager，隐藏软键盘
 
      */
-    private void hideKeyboard(IBinder token) {
+    public void hideKeyboard(IBinder token) {
         if (token != null) {
             InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);

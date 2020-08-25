@@ -2,6 +2,7 @@ package com.xingwang.classroomlib;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,9 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
             url = URLDecoder.decode(url, "UTF-8");
             */
             LogUtil.i(URLDecoder.decode("http://zyapp.app.xw518.com/zhibo/#/index?id=224", "UTF-8"));
-
+            /*Uri uri = Uri.parse("classroom://"+getApplicationInfo().packageName+".zbdetail?id=224");
+            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+             startActivity(intent);*/
            // ClassRoomLibUtils.startWebActivity(this,url,false,"测试");
 
             //ClassRoomLibUtils.startWebActivity(this,"http%3a%2f%2fzyapp.app.xw518.com%2fpage%2fshare_article%3fid%3d1230",false,"测试");
@@ -52,9 +55,7 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        // ClassRoomLibUtils.startWebActivity(this,"http%3a%2f%2fzyapp.app.xw518.com%2fpage%2fshare_article%3fid%3d1230",false,"测试");
 
-        // startActivity(new Intent(this, LiveWebActivity.class));
         startActivity(new Intent(this, LiveListActivity.class));
 
     }

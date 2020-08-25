@@ -1,6 +1,7 @@
 package com.xingwang.classroom.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.view.View;
@@ -134,5 +135,31 @@ public class KeyBoardHelper {
     }
     }
 
+    /**
+     * 动态显示软键盘
+     *
+     * @param view 视图
+     */
+    public static void showSoftInput(Context context,final View view) {
+        view.setFocusable(true);
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
+        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+    }
+
+    /**
+     * 动态隐藏软键盘
+     *
+     * @param activity activity
+     */
+    public static void hideSoftInput(final Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view == null) view = new View(activity);
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
 }

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,20 +28,33 @@ import java.util.List;
  * Time;15:32
  * author:baiguiqiang
  */
-public class LiveChatAdapter extends BaseLoadMoreAdapter<LiveChatListBean.DataBean.ItemsBean> {
+public class LiveChatAdapter extends RecyclerView.Adapter<LiveChatAdapter.LiveChatViwHolder> {
+    private ArrayList<LiveChatListBean.DataBean.ItemsBean> mDatas =new ArrayList<>();
     private Activity activity;
     private int mWidth,mHeight;
-    public LiveChatAdapter(List<LiveChatListBean.DataBean.ItemsBean> mDatas, FragmentActivity activity) {
-        super(mDatas);
+    public LiveChatAdapter( FragmentActivity activity) {
+
         this.activity =activity;
         mWidth = CommentUtils.dip2px(activity,110);
         mHeight = CommentUtils.dip2px(activity,90);
     }
+    public ArrayList<LiveChatListBean.DataBean.ItemsBean> getData(){
+        return mDatas;
+    }
+    public void AddData(ArrayList<LiveChatListBean.DataBean.ItemsBean> mDatas){
+        this.mDatas.addAll(mDatas);
+    }
+
+
+    @NonNull
+    @Override
+    public LiveChatAdapter.LiveChatViwHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        return new LiveChatViwHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_live_chat,viewGroup,false));
+    }
 
     @Override
-    void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        if (viewHolder instanceof LiveChatViwHolder){
-            LiveChatViwHolder mBaseViewHolder = (LiveChatViwHolder) viewHolder;
+    public void onBindViewHolder(@NonNull LiveChatViwHolder mBaseViewHolder, int position) {
+
             mBaseViewHolder.tvName.setText(mDatas.get(position).getUser().getNickname());
             GlideUtils.loadAvatar( BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth,mHeight,mDatas.get(position).getUser().getAvatar())
                     ,R.mipmap.default_teammate_avatar_classroom,mBaseViewHolder.ivAvatar);
@@ -70,17 +84,13 @@ public class LiveChatAdapter extends BaseLoadMoreAdapter<LiveChatListBean.DataBe
                     BeautyDefine.getImagePreviewDefine(activity).showImagePreview(mLists,0);
                 });
             }
-        }
+
     }
 
-    @Override
-    RecyclerView.ViewHolder onBaseCreateViewHolder(View view, int viewType) {
-        return new LiveChatViwHolder(view);
-    }
 
     @Override
-    int getViewLayout(int viewType) {
-        return R.layout.item_live_chat;
+    public int getItemCount() {
+        return mDatas.size();
     }
 
     class LiveChatViwHolder extends RecyclerView.ViewHolder{

@@ -55,21 +55,24 @@ public class WsManagerUtil {
      * @param context
      */
     public void onCreate(Context context,ChannelStatusListener channelStatusListener){
-
-        wsManager = new WsManager.Builder(context)
-                .client(new OkHttpClient().newBuilder()
-                        .pingInterval(10, TimeUnit.SECONDS)
-                        .retryOnConnectionFailure(true)
-                        .readTimeout(10, TimeUnit.SECONDS)
-                        .writeTimeout(10,TimeUnit.SECONDS)
-                        .connectTimeout(10,TimeUnit.SECONDS)
-                        .build())
-                .needReconnect(true)
-                .wsUrl(HttpUrls.CHANNEL_WS_URL)
-                .build();
-        wsManager.setWsStatusListener(mParentStatusListener);
-        wsManager.startConnect();
         this.channelStatusListener = channelStatusListener;
+        if (wsManager==null) {
+            wsManager = new WsManager.Builder(context)
+                    .client(new OkHttpClient().newBuilder()
+                            .pingInterval(10, TimeUnit.SECONDS)
+                            .retryOnConnectionFailure(true)
+                            .readTimeout(10, TimeUnit.SECONDS)
+                            .writeTimeout(10, TimeUnit.SECONDS)
+                            .connectTimeout(10, TimeUnit.SECONDS)
+                            .build())
+                    .needReconnect(true)
+                    .wsUrl(HttpUrls.CHANNEL_WS_URL)
+                    .build();
+            wsManager.setWsStatusListener(mParentStatusListener);
+            wsManager.startConnect();
+        }else {
+            wsManager.tryReconnect();
+        }
         initNetworkChangeListener(context);
 
     }

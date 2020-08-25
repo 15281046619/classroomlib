@@ -4,7 +4,9 @@ package com.xingwang.classroom.ui;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
@@ -16,17 +18,22 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.transition.Transition;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.google.android.exoplayer2.SeekParameters;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
+import com.shuyu.gsyvideoplayer.model.VideoOptionModel;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
@@ -36,10 +43,10 @@ import com.xingwang.classroom.adapter.HomeViewpagerAdapter;
 
 import com.xingwang.classroom.bean.LiveDetailBean;
 import com.xingwang.classroom.bean.LiveIsSubscribeBean;
-import com.xingwang.classroom.bean.LiveListBean;
 import com.xingwang.classroom.bean.OnlineCountBean;
 import com.xingwang.classroom.bean.PlayInfoBean;
 import com.xingwang.classroom.bean.VodListBean;
+import com.xingwang.classroom.dialog.CenterDefineDialog;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
@@ -47,16 +54,18 @@ import com.xingwang.classroom.listener.OnTransitionListener;
 import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.LogUtil;
+import com.xingwang.classroom.utils.KeyBoardHelper;
 import com.xingwang.classroom.utils.MyToast;
-import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.utils.StatusBarUtils;
 import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.EmptyControlVideo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 import static com.xingwang.classroom.http.HttpUrls.URL_ZHI_BO;
 
@@ -83,6 +92,8 @@ public class LiveDetailActivity extends BaseNetActivity {
     private long mTime = 0;
     private boolean isPlay =false;
     private boolean isPause;
+    public long onlineCount=-1;//在线人数
+
     private Runnable mDownRunnable=new Runnable() {
         @Override
         public void run() {
@@ -91,9 +102,14 @@ public class LiveDetailActivity extends BaseNetActivity {
                 tvTime.setText(sToHMS(mTime));
                 mHandler.postDelayed(this,1000);
             }else{
+                setResult(100);//直播正在开始回调给列表
                 mHandler.removeCallbacks(this);
                 tvTime.setText("直播即将开始");
                 mVideoPlayer.startPlayLogic();
+                if (isLive) {
+                    mVideoPlayer.goneThumbBg();
+                    tvTime.setVisibility(View.GONE);
+                }
             }
         }
     };
@@ -111,11 +127,23 @@ public class LiveDetailActivity extends BaseNetActivity {
         isLive =getIntent().getBooleanExtra(Constants.EXTRA_IS_LIVE,true);
         super.onCreate(savedInstanceState);
         setNavigationBarColor(android.R.color.black);
-        mId = getIntent().getStringExtra("id");
+        //mId = getIntent().getStringExtra("id");
+        initId();
         initView();
         initData();
     }
-
+    /**
+     * 获取上个页面传过来的id
+     */
+    private void initId() {
+        Intent intent =getIntent();
+        mId =intent.getStringExtra("id");
+        Uri uri = intent.getData();
+        if (uri == null) {
+            return;
+        }
+        mId = uri.getQueryParameter("id");
+    }
     private void initData() {
         getLiveDetail();
     }
@@ -131,12 +159,24 @@ public class LiveDetailActivity extends BaseNetActivity {
                     @Override
                     public void onSuccess(LiveDetailBean liveDetailBean) {
                         mLiveDetailBean =liveDetailBean;
+                        if (liveDetailBean.getData().getLive().getIs_end()==2&&isLive){//参数是直播但是获取到数据直播已经结束了 只能重新
+                            liveEnd();
+                            return;
+                        }
                         getIsSubscribe();
                         mHandler.post(mOnlineCountRunnable);
+
                     }
                 });
     }
-
+    public void liveEnd(){
+        tvTime.setVisibility(View.VISIBLE);
+        tvTime.setText("直播已经结束");
+        CenterDefineDialog.getInstance("直播已经结束,是否查看回放视频").setCallback(integer -> {
+            ClassRoomLibUtils.startLiveDetailActivity(LiveDetailActivity.this,mId,false);
+            finish();
+        }).showDialog(getSupportFragmentManager());
+    }
     /**
      * 获取是否关注
      */
@@ -218,7 +258,8 @@ public class LiveDetailActivity extends BaseNetActivity {
 
                         @Override
                         public void onSuccess(OnlineCountBean mVodListBean) {
-                            mVideoPlayer.showOnlineCount(mVodListBean.getData());
+                            onlineCount =mVodListBean.getData();
+                            ((EmptyControlVideo)mVideoPlayer.getCurrentPlayer()).showOnlineCount(mVodListBean.getData());
                         }
                     });
     }
@@ -268,7 +309,11 @@ public class LiveDetailActivity extends BaseNetActivity {
             orientationUtils = new OrientationUtils(this, mVideoPlayer);
             //初始化不打开外部的旋转
             orientationUtils.setEnable(false);
-
+            //尝试降低倍数 视频声音画面不同步
+            VideoOptionModel videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 30);
+            List<VideoOptionModel> list = new ArrayList<>();
+            list.add(videoOptionModel);
+            GSYVideoManager.instance().setOptionModelList(list);
 
             mVideoPlayer.getBackButton().setOnClickListener(v -> onBackPressed());
             GSYVideoOptionBuilder gsyVideoOption = new GSYVideoOptionBuilder();
@@ -289,6 +334,7 @@ public class LiveDetailActivity extends BaseNetActivity {
                     .setCachePath(ClassRoomLibUtils.getVideoCachePathFile(this))
                     .setLooping(false)
                     .setGSYVideoProgressListener((progress, secProgress, currentPosition, duration) -> {
+
                   /*      if (mVideoPlayer.isGetVideoSize()&&!isInitViewHeight&&!mVideoPlayer.isVerticalVideo()){
                             isInitViewHeight = true;
                             mVideoPlayer.getLayoutParams().height = CommentUtils.getScreenWidth(this)*mVideoPlayer.getCurrentVideoHeight()/mVideoPlayer.getCurrentVideoWidth();
@@ -301,10 +347,12 @@ public class LiveDetailActivity extends BaseNetActivity {
                             //开始播放了才能旋转和全屏
                             orientationUtils.setEnable(true);
                             isPlay = true;
-                            if (isLive) {
+                            //隐藏图片动作写到这可能出现倒计时结束，直播还没开启 播放错误得样子
+                         /*   if (isLive) {
                                 mVideoPlayer.goneThumbBg();
                                 tvTime.setVisibility(View.GONE);
-                            }
+                            }*/
+
                         }
 
                         @Override
@@ -342,12 +390,12 @@ public class LiveDetailActivity extends BaseNetActivity {
                     e.printStackTrace();
                 }
             });
-            if (isLive&&(System.currentTimeMillis()/1000<mLiveDetailBean.getData().getLive().getStart_time())) {//开始播放前
+         if (isLive&&(System.currentTimeMillis()/1000<mLiveDetailBean.getData().getLive().getStart_time())) {//开始播放前
+            if (mLiveDetailBean.getData().getLive().getCover()!=null)
                 mVideoPlayer.showThumbBg(mLiveDetailBean.getData().getLive().getCover());
                 tvTime.setVisibility(View.VISIBLE);
                 mTime = mLiveDetailBean.getData().getLive().getStart_time()-System.currentTimeMillis()/1000;
                 mHandler.post(mDownRunnable);
-
             }else {
                 mVideoPlayer.startPlayLogic();
             }
@@ -391,6 +439,8 @@ public class LiveDetailActivity extends BaseNetActivity {
 
         if (mHandler!=null&&mDownRunnable!=null)
             mHandler.removeCallbacks(mDownRunnable);
+        if (mHandler!=null&&mOnlineCountRunnable!=null)
+            mHandler.removeCallbacks(mOnlineCountRunnable);
         if (isPlay) {
             mVideoPlayer.getCurrentPlayer().release();
         }
@@ -438,12 +488,17 @@ public class LiveDetailActivity extends BaseNetActivity {
         super.onResume();
         isPause = false;
     }
+
+
+
+    @SuppressLint("ClickableViewAccessibility")
     private void initView() {
         AndroidBug5497Workaround.assistActivity(this);
         tabLayout =findViewById(R.id.tabLayout);
         tvTime =findViewById(R.id.tvTime);
         tvVote =findViewById(R.id.tvVote);
         viewPager =findViewById(R.id.viewPager);
+        viewPager.setOffscreenPageLimit(3);
         mVideoPlayer = findViewById(R.id.video_track);
         //  RelativeLayout rlTime = findViewById(R.id.rlTime);
         mVideoHeight = CommentUtils.getScreenWidth(this)*720/1280;
@@ -516,6 +571,18 @@ public class LiveDetailActivity extends BaseNetActivity {
             initData();
         });
     }
+   @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {  //把操作放在用户点击的时候
+            View v = getCurrentFocus();    //得到当前页面的焦点,ps:有输入框的页面焦点一般会被输入框占据
+            if (isShouldHideKeyboard(v, event)) { //判断用户点击的是否是输入框以外的区域
+                hideKeyboard(v.getWindowToken()) ;  //收起键盘
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+
     @Override
     protected int layoutResId() {
         return R.layout.activity_live_detail_classromm;

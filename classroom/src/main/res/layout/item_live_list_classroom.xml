@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
             android:id="@+id/ivThumb"
-            app:widthToHeightSum="1.40"
+            app:widthToHeightSum="1.77"
             android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/tvState"

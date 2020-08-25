@@ -39,6 +39,8 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -199,4 +201,18 @@ public class CommentUtils {
         return cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_MOBILE;
     }
 
+    /**
+     * 转换成标准格式 怕出现中文
+     * @param url
+     * @return
+     */
+    public static String urlDecode(String url){
+
+        try {
+            return   URLDecoder.decode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return url;
+        }
+    }
 }

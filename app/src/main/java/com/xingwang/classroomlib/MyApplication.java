@@ -19,6 +19,7 @@ public class MyApplication extends Application {
         ClassRoomLibUtils.initLib(this,ClassRoomLibUtils.TYPE_ZY);
         //    X5WebUtils.init(this);
         //  X5LogUtils.setIsLog(true);
+
     }
 
     @Override

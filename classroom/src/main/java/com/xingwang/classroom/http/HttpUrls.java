@@ -66,11 +66,15 @@ public class HttpUrls {
     public static final String URL_LIVE_CHAT_LISTS(){
       return  URL_HOST+URL_NAME+"live/home/chat/lists";
     }
+    public static final String URL_LIVE_CHAT_SEND(){
+      return  URL_HOST+URL_NAME+"live/user/chat/send";
+    }
     public static final String URL_SHARE(){
         return URL_HOST+"page/share_lecture";//课程分享网页
     }
 
     public static String CHANNEL="zyapp.lecture.lecture_";//channel
+    public static String LIVE_CHANNEL="zyapp.live.";//直播channel
     public static String CHANNEL_WS_URL ="ws://subscribe.app.xw518.com:10101";
     public static String URL_ZHI_BO ="http://zhibo.xw518.com/zhibo/";//直播地址
 

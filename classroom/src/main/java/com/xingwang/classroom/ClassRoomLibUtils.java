@@ -53,9 +53,11 @@ public class ClassRoomLibUtils {
         switch (type){
             case TYPE_ZY:
                 HttpUrls.URL_HOST ="http://zyapp.app.xw518.com/";
-                // HttpUrls.URL_HOST ="http://zyapp.test.xw518.com/";
+               // HttpUrls.URL_HOST ="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/";//测试地址
                 HttpUrls.CHANNEL ="zyapp.lecture.lecture_";
                 HttpUrls.CHANNEL_WS_URL ="ws://zyapp.app.xw518.com:10101";
+                HttpUrls.LIVE_CHANNEL ="zyapp.live.";
+
                 break;
             case TYPE_JQ:
                 break;
@@ -256,6 +258,16 @@ public class ClassRoomLibUtils {
                 view,activity.getResources().getString(R.string.share_str_ClassRoom));
     }*/
 
+    /**
+     * 返回码100 正在直播 返回码 101直播结束
+     * @param activity
+     * @param id
+     * @param isLive
+     * @param requestCode
+     */
+ public static void startForResultLiveDetailActivity(FragmentActivity activity,String id,Boolean isLive,int requestCode){
+     activity.startActivityForResult(new Intent(activity, LiveDetailActivity.class).putExtra("id",id).putExtra(Constants.EXTRA_IS_LIVE,isLive),requestCode);
+ }
     /**
      *
      * @param activity
