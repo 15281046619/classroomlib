@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
     android:layout_height="match_parent">
-    <RelativeLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:id="@+id/rlTop"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10_classroom"
         android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@mipmap/ic_xtxx"
+            android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
-
+    </LinearLayout>-->
+    <TextView
+        android:layout_width="match_parent"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textColor="#ff4081"
+        android:layout_margin="@dimen/dp_10_classroom"
+        android:drawableLeft="@mipmap/ic_xtxx"
+        android:id="@+id/tvFixed"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:drawablePadding="@dimen/dp_5_classroom"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:layout_height="wrap_content"/>
     <com.xingwang.classroom.view.VpSwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_below="@+id/rlTop"
         android:layout_above="@+id/rl_bottom"
         android:id="@+id/swipeRefreshLayout"
@@ -24,7 +44,6 @@
             android:fadeScrollbars="true"
             android:clickable="true"
             android:focusable="true"
-
             android:overScrollMode="ifContentScrolls"
             android:layout_height="wrap_content"
             />
@@ -85,4 +104,4 @@
     </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

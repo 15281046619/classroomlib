@@ -54,6 +54,9 @@ public class HttpUrls {
     public static final String URL_LIVE_IS_SUBSCRIBE(){
       return  URL_HOST+URL_NAME+"live/user/live/isSubscribe";
     }
+    public static final String URL_LIVE_SUBSCRIBE(){
+      return  URL_HOST+URL_NAME+"live/user/live/subscribe";
+    }
     public static final String URL_LIVE_VOD_LIST(){
       return  URL_HOST+URL_NAME+"live/home/live/vodList";
     }

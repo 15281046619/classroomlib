@@ -88,8 +88,6 @@ public abstract class BaseLazyLoadFragment extends Fragment {
 
     //do something
     protected void onInvisible() {
-
-
     }
 
     public abstract View initView(LayoutInflater inflater, ViewGroup container,

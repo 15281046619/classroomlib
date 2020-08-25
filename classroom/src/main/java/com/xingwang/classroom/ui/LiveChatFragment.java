@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -49,13 +50,13 @@ import java.util.List;
 public class LiveChatFragment extends BaseLazyLoadFragment {
     private VpSwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-    // private ArrayList<LiveChatListBean.DataBean.ItemsBean> mData =new ArrayList<>();
     private LiveChatAdapter mAdapter;
     private int maxSum =10;
     private String channel;
-    private TextView btSend;
+    private TextView btSend,tvFixed;
     private ImageView ivPic;
     private EditText etContent;
+
 
     public static LiveChatFragment getInstance(String id,String fixedStr){
         LiveChatFragment mFragment = new LiveChatFragment();
@@ -69,9 +70,14 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_live_chat,container,false);
+
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         btSend = view.findViewById(R.id.bt_send);
         ivPic = view.findViewById(R.id.iv_pic);
+
+        tvFixed = view.findViewById(R.id.tvFixed);
+
+        setFixed(getArguments().getString("fixedStr"));
         etContent = view.findViewById(R.id.et_content);
         recyclerView = view.findViewById(R.id.recyclerView);
         mLinearLayout = new LinearLayoutManager(getActivity());
@@ -83,6 +89,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
             if (mAdapter!=null&&mAdapter.getData().size()>0)
                 requestData(Constants.LOAD_DATA_TYPE_MORE,mAdapter.getData().get(0).getId());
         });
+
         requestSubscribe();
         //底部布局弹出,聊天列表上滑
         recyclerView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
@@ -103,7 +110,15 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
 
         return view;
     }
-
+    private void setFixed(String content){
+        if (!TextUtils.isEmpty(content)) {
+            tvFixed.setText(Html.fromHtml(content));
+            tvFixed.setVisibility(View.VISIBLE);
+            tvFixed.setSelected(true);
+        }else {
+            tvFixed.setVisibility(View.GONE);
+        }
+    }
     /**
      * 长连接 评论
      */
@@ -148,6 +163,14 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
         }catch (Exception e){
 
         }
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getActivity()!=null)
+            KeyBoardHelper.hideSoftInput(getActivity());
     }
 
     /**

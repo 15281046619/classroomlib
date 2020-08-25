@@ -29,6 +29,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.OpenPageDefine;
 import com.google.android.exoplayer2.SeekParameters;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
@@ -41,6 +43,7 @@ import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.HomeViewpagerAdapter;
 
+import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.bean.LiveDetailBean;
 import com.xingwang.classroom.bean.LiveIsSubscribeBean;
 import com.xingwang.classroom.bean.OnlineCountBean;
@@ -48,6 +51,7 @@ import com.xingwang.classroom.bean.PlayInfoBean;
 import com.xingwang.classroom.bean.VodListBean;
 import com.xingwang.classroom.dialog.CenterDefineDialog;
 import com.xingwang.classroom.http.ApiParams;
+import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.listener.OnTransitionListener;
@@ -170,6 +174,8 @@ public class LiveDetailActivity extends BaseNetActivity {
                 });
     }
     public void liveEnd(){
+        if (mLiveDetailBean.getData().getLive().getCover()!=null)
+            mVideoPlayer.showThumbBg(mLiveDetailBean.getData().getLive().getCover());
         tvTime.setVisibility(View.VISIBLE);
         tvTime.setText("直播已经结束");
         CenterDefineDialog.getInstance("直播已经结束,是否查看回放视频").setCallback(integer -> {
@@ -275,28 +281,34 @@ public class LiveDetailActivity extends BaseNetActivity {
         }else {
             tvVote.setText("+");
             tvVote.setOnClickListener(v -> {
-
+                getVote();
             });
         }
         initVideoPlay(url);
         initTabLayout();
     }
-  /*  private void getCommentList(int loadDataTypeInit) {
-        requestGet(HttpUrls.URL_LIVE_DETAIL(),new ApiParams().with("id",getIntent().getStringExtra("id")),
-                LiveDetailBean.class, new HttpCallBack<LiveDetailBean>() {
+    private void getVote() {
+        if (mLiveDetailBean!=null) {
+            BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("关注中",false));
+            requestPost(HttpUrls.URL_LIVE_SUBSCRIBE(), new ApiParams().with("live_id", String.valueOf(mLiveDetailBean.getData().getLive().getId())),
+                    CommonEntity.class, new HttpCallBack<CommonEntity>() {
 
-                    @Override
-                    public void onFailure(String message) {
-                        requestFailureShow(message);
-                    }
+                        @Override
+                        public void onFailure(String message) {
+                            MyToast.myToast(getApplicationContext(),message);
+                            BeautyDefine.getOpenPageDefine(LiveDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
+                        }
 
-                    @Override
-                    public void onSuccess(LiveDetailBean lectureListsBean) {
-                        findViewById(R.id.rl_empty).setVisibility(View.GONE);
-                        getCommentList(Constants.LOAD_DATA_TYPE_INIT);
-                    }
-                });
-    }*/
+                        @Override
+                        public void onSuccess(CommonEntity mVodListBean) {
+                            BeautyDefine.getOpenPageDefine(LiveDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
+                            tvVote.setText("已关注");
+                            tvVote.setEnabled(false);
+                        }
+                    });
+        }
+    }
+
 
     private void  initVideoPlay(String url){
 
@@ -316,7 +328,7 @@ public class LiveDetailActivity extends BaseNetActivity {
             GSYVideoManager.instance().setOptionModelList(list);
 
             mVideoPlayer.getBackButton().setOnClickListener(v -> onBackPressed());
-            GSYVideoOptionBuilder gsyVideoOption = new GSYVideoOptionBuilder();
+            GSYVideoOptionBuilder  gsyVideoOption = new GSYVideoOptionBuilder();
             PlayerFactory.setPlayManager(Exo2PlayerManager.class);//使用系统解码器全屏切换会卡顿黑屏
             //exo缓存模式，支持m3u8，只支持exo
             GSYVideoType.setRenderType(GSYVideoType.GLSURFACE);
@@ -358,7 +370,14 @@ public class LiveDetailActivity extends BaseNetActivity {
                         @Override
                         public void onAutoComplete(String url, Object... objects) {
                             super.onAutoComplete(url, objects);
-                            MyToast.myLongToast(LiveDetailActivity.this,"onAutoComplete");
+                            if (isLive){// 正在直播状态 结束后
+                                liveEnd();
+                            }else {//播放下一个视频
+                               /* gsyVideoOption.setUrl("http://app-vod.xw518.com/liveRecord/VOD_NO_TRANSCODE/zhibo/21/2020-07-24-19-30-01_2020-07-24-21-00-48.m3u8")
+                                .build(mVideoPlayer);*/
+                                mVideoPlayer.startPlayLogic();
+                            }
+
                         }
 
                         @Override
@@ -381,18 +400,21 @@ public class LiveDetailActivity extends BaseNetActivity {
             }).build(mVideoPlayer);
 
             mVideoPlayer.getFullscreenButton().setOnClickListener(v -> {
+
                 try {// 可能出现java.lang.IllegalStateException at android.media.MediaPlayer.getVideoHeight(Native Method)
+                    KeyBoardHelper.hideSoftInput(this);//隐藏软键盘
                     //直接横屏
                     orientationUtils.resolveByClick();
                     //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
                     mVideoPlayer.startWindowFullscreen(LiveDetailActivity.this, true, true);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
-         if (isLive&&(System.currentTimeMillis()/1000<mLiveDetailBean.getData().getLive().getStart_time())) {//开始播放前
-            if (mLiveDetailBean.getData().getLive().getCover()!=null)
-                mVideoPlayer.showThumbBg(mLiveDetailBean.getData().getLive().getCover());
+            if (isLive&&(System.currentTimeMillis()/1000<mLiveDetailBean.getData().getLive().getStart_time())) {//开始播放前
+                if (mLiveDetailBean.getData().getLive().getCover()!=null)
+                    mVideoPlayer.showThumbBg(mLiveDetailBean.getData().getLive().getCover());
                 tvTime.setVisibility(View.VISIBLE);
                 mTime = mLiveDetailBean.getData().getLive().getStart_time()-System.currentTimeMillis()/1000;
                 mHandler.post(mDownRunnable);
@@ -558,6 +580,7 @@ public class LiveDetailActivity extends BaseNetActivity {
         HomeViewpagerAdapter mViewPagerAdapter = new HomeViewpagerAdapter(getSupportFragmentManager(), Arrays.asList(mArrayLists), Arrays.asList(mTitle));
         viewPager.setAdapter(mViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
         //  viewpager.setCurrentItem(initPos);
     }
     private void requestFailureShow(String error){
@@ -571,7 +594,8 @@ public class LiveDetailActivity extends BaseNetActivity {
             initData();
         });
     }
-   @Override
+
+ /*  @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {  //把操作放在用户点击的时候
             View v = getCurrentFocus();    //得到当前页面的焦点,ps:有输入框的页面焦点一般会被输入框占据
@@ -580,8 +604,7 @@ public class LiveDetailActivity extends BaseNetActivity {
             }
         }
         return super.dispatchTouchEvent(event);
-    }
-
+    }*/
 
     @Override
     protected int layoutResId() {
