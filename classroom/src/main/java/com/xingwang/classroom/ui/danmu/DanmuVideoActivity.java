@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.listener.LockClickListener;
+import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import com.xingwang.classroom.R;
@@ -21,6 +22,8 @@ import com.xingwang.classroom.dialog.InDanmuDialog;
 import com.xingwang.classroom.ui.BaseActivity;
 
 import java.io.File;
+
+import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 
 public class DanmuVideoActivity extends BaseActivity {
 
@@ -50,7 +53,7 @@ public class DanmuVideoActivity extends BaseActivity {
         //必须在setUp之前设置
         danmakuVideoPlayer.setShrinkImageRes(R.drawable.video_shrink);
         danmakuVideoPlayer.setEnlargeImageRes(R.drawable.video_enlarge);
-
+        PlayerFactory.setPlayManager(Exo2PlayerManager.class);//使用系统解码器全屏切换会卡顿黑屏
         String url = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
        // String url = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8";
         danmakuVideoPlayer.setUp(url, true, null, "测试视频");
@@ -77,10 +80,10 @@ public class DanmuVideoActivity extends BaseActivity {
 
         //detailPlayer.setOpenPreView(true);
 
-        danmakuVideoPlayer.setOnClickListener(new View.OnClickListener() {
+        danmakuVideoPlayer.mSendDanmaku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //danmakuVideoPlayer.get
+                danmuDialog.showDialog(getSupportFragmentManager());
             }
         });
 

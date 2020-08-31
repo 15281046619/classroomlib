@@ -3,6 +3,7 @@ package com.xingwang.classroom.ui.danmu;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -53,14 +54,13 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
 
     //private EditText et_danmu;
 
-    private TextView mSendDanmaku;//,mToogleDanmaku;
+    public TextView mSendDanmaku;//,mToogleDanmaku;
 
     private long mDanmakuStartSeekPosition = -1;
 
     private boolean mDanmaKuShow = true;
 
     private File mDumakuFile;
-
 
     public DanmakuVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);
@@ -95,7 +95,7 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
         mSendDanmaku.setOnClickListener(this);
 
         //mToogleDanmaku.setOnClickListener(this);
-       // danmuDialog=InDanmuDialog.getInstance();
+        //danmuDialog=InDanmuDialog.getInstance();
     }
 
     @Override
@@ -151,7 +151,7 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
         super.onClick(v);
         int id = v.getId();
         if (id == R.id.send_danmaku) {
-            //addDanmaku(true);
+            addDanmaku(true);
         } /*else if (id == R.id.toogle_danmaku) {
             mDanmaKuShow = !mDanmaKuShow;
             resolveDanmakuShow();

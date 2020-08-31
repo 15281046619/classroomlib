@@ -2,8 +2,8 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tv_live_des"
+    <com.ycbjie.webviewlib.WvWebView
+        android:id="@+id/web_live_des"
         android:layout_width="match_parent"
         android:padding="@dimen/dp_15_classroom"
         android:layout_height="match_parent"/>
