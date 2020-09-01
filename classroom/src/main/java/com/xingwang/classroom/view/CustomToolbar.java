@@ -90,7 +90,7 @@ public class CustomToolbar extends Toolbar {
         titleView.setTextColor(color);
     }
     public TextView getText(){
-       return titleView;
+        return titleView;
     }
 
 

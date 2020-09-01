@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.ShareResultCallBack;
@@ -66,6 +67,7 @@ import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.KeyBoardHelper;
 
 
+import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
@@ -121,7 +123,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     public int mId;
     private int clickChild=-1;
     private ImagePickerDefine imagePickerDefine;
-  //  private ImageWidthHeightView ivThumb;
+
     private List<ADBean> mAdbeans;
     private DetailBean mBean;
     public boolean isCollect = false;
@@ -134,7 +136,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private ImageView icCollectTpLink,icShapeTalink,backTpLink;
     private boolean isScreen = false;//竖屏 全屏
     private int mVideoHeight ;//默认720*1280分辨率
-  //  private boolean isInitViewHeight = false;//videoView高度通过计算视频源宽高比计算得来
+    //  private boolean isInitViewHeight = false;//videoView高度通过计算视频源宽高比计算得来
     public static Intent getIntent(Context context, int id) {
         Intent intent = new Intent(context, ClassRoomDetailActivity.class);
         intent.putExtra("id", id);
@@ -166,7 +168,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         btSend =  findViewById(R.id.bt_send);
         cblBarrage =  findViewById(R.id.cbl_barrage);
         etContent =  findViewById(R.id.et_content);
-       // ivThumb =  findViewById(R.id.ivThumb);
+        // ivThumb =  findViewById(R.id.ivThumb);
         rlVideoRoot =  findViewById(R.id.rlVideoRoot);
 
         ivPic =  findViewById(R.id.iv_pic);
@@ -217,7 +219,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(etContent.getText().toString())){
+                if (TextUtils.isEmpty(etContent.getText().toString().trim())){
                     btSend.setVisibility(View.GONE);
                     ivComment.setVisibility(View.VISIBLE);
                     ivPic.setVisibility(View.VISIBLE);
@@ -310,7 +312,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                             //开始播放了才能旋转和全屏
                             orientationUtils.setEnable(true);
                             isPlay = true;
-                           // mVideoPlayer.getBgThumb().setVisibility(View.GONE);
+                            // mVideoPlayer.getBgThumb().setVisibility(View.GONE);
                         }
 
                         @Override
@@ -377,10 +379,6 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             mDialog.showDialog(getSupportFragmentManager());
     }
 
-    private  final String[] PERMISSIONS = new String[]{
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA};
-
     public void goCollect(View view){
 
         requestPost(isCollect?HttpUrls.URL_UNFAVORITE():HttpUrls.URL_FAVORITE(),new ApiParams().with("relation_id",mId+"").with("type","lecture"),
@@ -421,15 +419,13 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         }
     }
     private void requestPermission(){
-        requestDangerousPermissions(PERMISSIONS,100);
+        requestDangerousPermissions(new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA},100);
     }
     public void requestDangerousPermissions(String[] permissions, int requestCode) {
         if (checkDangerousPermissions(permissions)){
-            imagePickerDefine =BeautyDefine.getImagePickerDefine(ClassRoomDetailActivity.this);
-            imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
-                if (list!=null&&list.size()>0)
-                    goUploadPic(list.get(0));
-            });
+            jumpPic();
             return;
         }
         ActivityCompat.requestPermissions(this, permissions, requestCode);
@@ -460,14 +456,25 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     return;
                 }
             }
-            imagePickerDefine = BeautyDefine.getImagePickerDefine(ClassRoomDetailActivity.this);
-            imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
-                if (list!=null&&list.size()>0)
-                    goUploadPic(list.get(0));
-            });
+            jumpPic();
         }
     }
+    private void jumpPic(){
+        imagePickerDefine = BeautyDefine.getImagePickerDefine(ClassRoomDetailActivity.this);
+        imagePickerDefine.showSinglePicker(false, new ImagePickerCallBack() {
+            @Override
+            public void onResult(List<String> list, ImagePickerDefine.MediaType mediaType, List<String> list1) {
+                if (list!=null&&list.size()>0)
+                    goUploadPic(list.get(0));
+            }
 
+            @Override
+            public void onCancel() {
+                choosePicCommentError();
+            }
+        });
+
+    }
     /**
      * 上传图片
      * @param s 路径
@@ -484,6 +491,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
             @Override
             public void onFailure() {
+                choosePicCommentError();
                 MyToast.myToast(getApplicationContext(),"上传失败");
                 BeautyDefine.getOpenPageDefine(ClassRoomDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
             }
@@ -528,7 +536,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                 btSend.setEnabled(true);
                 MyToast.myToast(getApplicationContext(),message);
                 BeautyDefine.getOpenPageDefine(ClassRoomDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-
+                choosePicCommentError();
             }
 
             @Override
@@ -551,6 +559,17 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     }
 
+    /**
+     * 回复某人图片 取消或者发送失败图片后恢复到最开始状态
+     */
+    public void choosePicCommentError(){
+        if (isClickPic) {
+            isClickPic = false;
+            etContent.setTag(null);
+            clickChild = -1;
+            etContent.setHint("请输入你想说的话");
+        }
+    }
     private void initRequestData() {
         requestIsCollect();
     }
@@ -742,12 +761,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         public void startProgress(int newProgress) {
             progress.setWebProgress(newProgress);
             if (newProgress>=70){
-
                 webView.loadUrl("javascript:$('#header').remove();$('#videoSign').remove();$('#footer').remove();$('title').text('"+mTitle+"');" );
-                //   " $('#videoOutline').css({ 'width': window.screen.width + 'px' });" ;
-                   /*     "$('#player').play().css({'width': '100%', 'height':'100%','autoplay':'autoplay'});"+
-                        " $('#videoOutline').css({'width': '100%', 'height':'100%','display':'flex','justifyContent':'center','alignItems':'center'})");*/
-
             }
         }
 
@@ -818,6 +832,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     }
 
     private void handlerMessage(String message) {
+
         try {
             JSONObject jsonObject =new JSONObject(message);
             int curPosition = -1;
@@ -889,13 +904,12 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     showBarrage(commentBean);
                     findViewById(R.id.rl_empty).setVisibility(View.GONE);
                     mComments = commentBean.getData().getComments();
-                    fragmentNotifyDataSetChanged();
                 }else {
                     if (requestType==Constants.LOAD_DATA_TYPE_REFRESH)
                         mComments.clear();
                     mComments.addAll(commentBean.getData().getComments());
-                    fragmentNotifyDataSetChanged();
                 }
+                fragmentNotifyDataSetChanged();
                 isRequesting = false;
             }
         });

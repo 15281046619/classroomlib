@@ -10,7 +10,10 @@
         android:layout_height="match_parent"
         android:gravity="center">
     </FrameLayout>
-
+    <master.flame.danmaku.ui.widget.DanmakuView
+        android:id="@+id/danmaku_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <RelativeLayout
         android:id="@+id/thumb"
         android:layout_width="match_parent"
@@ -77,7 +80,13 @@
             android:text="00:00"
 
             android:textColor="#ffffff" />
-
+        <ImageView
+            android:layout_width="30dp"
+            android:padding="3dp"
+            android:id="@+id/ivDanMu"
+            android:visibility="invisible"
+            android:src="@drawable/select_danmu_classroom"
+            android:layout_height="30dp"/>
         <ImageView
             android:id="@+id/fullscreen"
             android:layout_width="30dp"
@@ -171,7 +180,7 @@
             android:drawablePadding="@dimen/dp_5_classroom"
             android:paddingRight="15dp"
             android:gravity="center_vertical"
-            android:drawableLeft="@mipmap/ic_online_sum"
+            android:drawableLeft="@mipmap/ic_online_sum_classroom"
             android:textColor="@android:color/white"
             android:textSize="16sp"/>
     </LinearLayout>

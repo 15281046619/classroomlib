@@ -37,7 +37,7 @@
                 android:textSize="@dimen/sp_12_classroom"
                 android:textColor="@android:color/white"
                 android:padding="@dimen/dp_5_classroom"
-                android:background="@drawable/shape_live_state_bg"
+                android:background="@drawable/shape_live_state_bg_classroom"
                 />
 
         </RelativeLayout>
@@ -72,7 +72,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_12_classroom"
                 android:layout_height="@dimen/dp_12_classroom"
-                android:src="@mipmap/ic_lll"
+                android:src="@mipmap/ic_lll_classroom"
                 android:layout_centerVertical="true"
                 android:id="@+id/ivView"
                 android:scaleType="fitXY"/>
@@ -95,7 +95,7 @@
                 android:layout_marginRight="@dimen/dp_2_classroom"
                 android:layout_toLeftOf="@+id/tvComment"
                 android:scaleType="fitXY"
-                android:src="@mipmap/ic_plun" />
+                android:src="@mipmap/ic_plun_classroom" />
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/tvComment"
@@ -119,7 +119,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_12_classroom"
                 android:layout_height="@dimen/dp_12_classroom"
-                android:src="@mipmap/ic_jjr"
+                android:src="@mipmap/ic_jjr_classroom"
                 android:layout_centerVertical="true"
                 android:id="@+id/ivName"
                 android:scaleType="fitXY"/>
@@ -142,7 +142,7 @@
                 android:layout_marginRight="@dimen/dp_2_classroom"
                 android:layout_toLeftOf="@+id/tvTime"
                 android:scaleType="fitXY"
-                android:src="@mipmap/ic_kssj" />
+                android:src="@mipmap/ic_kssj_classroom" />
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/tvTime"

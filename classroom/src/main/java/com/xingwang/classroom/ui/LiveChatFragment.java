@@ -1,7 +1,16 @@
 package com.xingwang.classroom.ui;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -18,11 +27,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.ImagePickerCallBack;
+import com.beautydefinelibrary.ImagePickerDefine;
+import com.beautydefinelibrary.OpenPageDefine;
+import com.beautydefinelibrary.UploadResultCallBack;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.DetailAdapter;
 import com.xingwang.classroom.adapter.LiveChatAdapter;
 import com.xingwang.classroom.bean.LiveChatListBean;
 import com.xingwang.classroom.bean.OnlineCountBean;
+import com.xingwang.classroom.dialog.CenterRedPackDialog;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
@@ -38,6 +52,7 @@ import com.xingwang.classroom.ws.WsManagerUtil;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,10 +68,10 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     private LiveChatAdapter mAdapter;
     private int maxSum =10;
     private String channel;
-    private TextView btSend,tvFixed;
+    private TextView btSend,tvFixed,tvNewMessage;
     private ImageView ivPic;
     private EditText etContent;
-
+    private int newMessageSum =0;
 
     public static LiveChatFragment getInstance(String id,String fixedStr){
         LiveChatFragment mFragment = new LiveChatFragment();
@@ -74,6 +89,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         btSend = view.findViewById(R.id.bt_send);
         ivPic = view.findViewById(R.id.iv_pic);
+        tvNewMessage = view.findViewById(R.id.tvNewMessage);
 
         tvFixed = view.findViewById(R.id.tvFixed);
 
@@ -82,12 +98,28 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         mLinearLayout = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLinearLayout);
+
         mAdapter = new LiveChatAdapter(getActivity());
+        tvNewMessage.setOnClickListener(v -> {
+            if (mAdapter!=null)
+                recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
+        });
+        mAdapter.setOnItemClick((position, child, type) -> {
+        /*  etContent.setText("");
+            etContent.setTag(position);
+            etContent.setHint("回复:"+mAdapter.getData().get(position).getUser().getNickname());
+            etContent.requestFocus();
+            mKeyBoardHelper.openInputMethodManager(etContent);*/
+        });
         recyclerView.setAdapter(mAdapter);
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (mAdapter!=null&&mAdapter.getData().size()>0)
-                requestData(Constants.LOAD_DATA_TYPE_MORE,mAdapter.getData().get(0).getId());
+            if (mAdapter!=null&&mAdapter.getData().size()>0) {
+                requestData(Constants.LOAD_DATA_TYPE_MORE, mAdapter.getData().get(0).getId());
+            }else {
+                requestData(Constants.LOAD_DATA_TYPE_MORE,Integer.MAX_VALUE);
+               // swipeRefreshLayout.setRefreshing(false);
+            }
         });
 
         requestSubscribe();
@@ -99,25 +131,124 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
                         recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
                     }
                 });
-
             }
         });
-
-        ivPic.setOnTouchListener((v, event) -> {//警告 会onclick冲突
-            KeyBoardHelper.hideSoftInput(getActivity());
-            return false;
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(newMessageSum!=0&&mAdapter.getItemCount()-1-newMessageSum < mLinearLayout.findLastVisibleItemPosition()){
+                    newMessageSum =0;
+                    updateTvNewMessage();
+                }
+            }
+        });
+        ivPic.setOnClickListener(v -> {
+            requestPermission();
         });
 
         return view;
     }
     private void setFixed(String content){
+
         if (!TextUtils.isEmpty(content)) {
             tvFixed.setText(Html.fromHtml(content));
             tvFixed.setVisibility(View.VISIBLE);
+            tvFixed.requestFocus();
             tvFixed.setSelected(true);
         }else {
+            tvFixed.setSelected(false);
+            tvFixed.clearFocus();
             tvFixed.setVisibility(View.GONE);
         }
+    }
+    private void requestPermission(){
+        requestDangerousPermissions(new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA},100);
+    }
+    public void requestDangerousPermissions(String[] permissions, int requestCode) {
+        if (checkDangerousPermissions(permissions)){
+            jumpPic();
+            return;
+        }
+        requestPermissions( permissions, requestCode);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 100) {
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    MyToast.myToast(getActivity().getApplicationContext(), "你拒绝了该权限");
+                    return;
+                }
+            }
+            jumpPic();
+        }
+    }
+    private ImagePickerDefine imagePickerDefine;
+    private void jumpPic(){
+        imagePickerDefine = BeautyDefine.getImagePickerDefine((AppCompatActivity) getActivity());
+        imagePickerDefine.showSinglePicker(false, new ImagePickerCallBack() {
+            @Override
+            public void onResult(List<String> list, ImagePickerDefine.MediaType mediaType, List<String> list1) {
+                if (list!=null&&list.size()>0)
+                    goUploadPic(list.get(0));
+            }
+
+            @Override
+            public void onCancel() {
+                choosePicCommentError();
+            }
+        });
+    }
+    /**
+     * 上传图片
+     * @param s 路径
+     */
+    private void goUploadPic(String s) {
+        BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Showder("上传中",false));
+        BeautyDefine.getUploadDefine().upload(new File[]{new File(s)},new UploadResultCallBack(){
+
+            @Override
+            public void onSucceed(String[] strings) {
+                goSendComment(strings[0],"2");
+            }
+
+            @Override
+            public void onFailure() {
+                choosePicCommentError();
+                MyToast.myToast(getActivity().getApplicationContext(),"上传失败");
+                BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
+            }
+        });
+    }
+    private void choosePicCommentError() {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (imagePickerDefine != null) {
+            imagePickerDefine.onActivityResultHanlder(requestCode, resultCode, data);
+        }
+    }
+
+    /**
+     * 检查是否已被授权危险权限
+     */
+    public boolean checkDangerousPermissions(String[] permissions) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
+                return false;
+            }
+        }
+        return true;
     }
     /**
      * 长连接 评论
@@ -153,13 +284,48 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
         });
     }
 
+    /**
+     * 处理系统推送的消息
+     * @param message
+     */
     private void handlerMessage(String message) {
         try{
             JSONObject object = new JSONObject(message);
-            if(Constants.CHANNEL_TYPE_NEW_MESSAGE.equals(object.getJSONObject("content").getString("event"))){//新消息
-                LiveChatListBean.DataBean.ItemsBean mBean = GsonUtils.changeGsonToBean(object.getJSONObject("content").getString("data"), LiveChatListBean.DataBean.ItemsBean.class);
-                showChannelMessage(mBean);
+            switch (object.getJSONObject("content").getString("event")){
+                case Constants.CHANNEL_TYPE_NEW_ORDER:
+                case Constants.CHANNEL_TYPE_NEW_MESSAGE:
+                    LiveChatListBean.DataBean.ItemsBean mBean = GsonUtils.changeGsonToBean(object.getJSONObject("content").getString("data"), LiveChatListBean.DataBean.ItemsBean.class);
+                    showChannelMessage(mBean);
+                    break;
+                case  Constants.CHANNEL_TYPE_REMOVE_ITEM:
+                    int mId =object.getJSONObject("content").getJSONObject("data").getInt("id");
+                    for (int i=0;i<mAdapter.getData().size();i++){
+                        if(mAdapter.getData().get(i).getId()==mId){
+                            int finalI = i;
+                            getActivity().runOnUiThread(() -> {
+                                mAdapter.getData().remove(finalI);
+                                mAdapter.notifyDataSetChanged();
+                            });
+                            break;
+                        }
+                    }
+                    break;
+                case  Constants.CHANNEL_TYPE_LIVE_STOP:
+                    getActivity().setResult(101);//移除聊天室
+                    if (getActivity() instanceof LiveDetailActivity){
+                        ((LiveDetailActivity) getActivity()).liveEnd =true;
+                    }
+                    break;
+                case  Constants.CHANNEL_TYPE_LIVE_FIXED1:
+                    String showContent= object.getJSONObject("content").getString("data");
+                    getActivity().runOnUiThread(() -> setFixed(showContent));
+
+                    break;
+                case  Constants.CHANNEL_TYPE_LIVE_FIXED2:
+                    getActivity().runOnUiThread(() -> setFixed(""));
+                    break;
             }
+
         }catch (Exception e){
 
         }
@@ -183,12 +349,76 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
         if (mAdapter!=null){//还没有初始化
 
             getActivity().runOnUiThread(() -> {
-                mAdapter.notifyItemInserted(mAdapter.getItemCount()-1);
-                recyclerView.scrollToPosition(mAdapter.getItemCount()-1);
+
+                if ( ((LiveDetailActivity)getActivity()).orientationUtils.getIsLand()!=0 ){//横屏幕
+                    if (!TextUtils.isEmpty(mBean.getGame_tips())){//答题获奖 横批不显示红包dialog
+                       /* if (String.valueOf(mBean.getUser().getId()).equals(BeautyDefine.getUserInfoDefine(getContext()).getUserId())){//获奖者是自己显示红包dialog
+                            showRedPackDialog(mBean.getGame_tips());
+                        }else {//*/
+                            ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”抢答中获得积分");
+                       /* }*/
+                        return;
+                    }
+                    if (mBean.getType()==1) {
+                        ((LiveDetailActivity) getActivity()).addDanMu(mBean.getUser().getNickname() + "：" + mBean.getBody());
+                    } else if (mBean.getType()==2){
+                        ((LiveDetailActivity)getActivity()).addDanMu(mBean.getUser().getNickname()+":[图片]");
+                    }else if (mBean.getType()==3){
+                        ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”下单成功");
+                    }else if (mBean.getType()==4){
+                        ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”礼物送出成功");
+                    }
+                }else {
+                    if (!TextUtils.isEmpty(mBean.getGame_tips())){//答题获奖
+                        if (String.valueOf(mBean.getUser().getId()).equals(BeautyDefine.getUserInfoDefine(getContext()).getUserId())){//获奖者是自己显示红包dialog
+                            showRedPackDialog(mBean.getGame_tips());
+                        }else {//
+                            ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”抢答中获得积分");
+                        }
+                    }else if (mBean.getType()==3){
+                        ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”下单成功");
+                    }else if (mBean.getType()==4){
+                        ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”礼物送出成功");
+                    }
+
+
+                    boolean isScrollViewEnd = mLinearLayout.findLastVisibleItemPosition() == (mAdapter.getItemCount() - 2) || mAdapter.getItemCount() == 0;//是否滚动到底部
+                    mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
+                    if (isScrollViewEnd) {//是否到底底部，没有不用移动
+                        recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
+                    } else {
+                        newMessageSum++;
+                        updateTvNewMessage();
+                    }
+                }
             });
         }
     }
 
+    /**
+     * 刷新adater
+     */
+    public void refreshAdapter(){
+        if (mAdapter.getData().size()!=mAdapter.getItemCount()){
+            mAdapter.notifyDataSetChanged();
+            recyclerView.scrollToPosition(mAdapter.getItemCount()-1);
+        }
+    }
+
+    private void showRedPackDialog(String tip) {
+        if (getActivity() instanceof LiveDetailActivity)
+            CenterRedPackDialog.getInstance(((LiveDetailActivity)getActivity()).mLiveDetailBean.getData().getLive().getCover(),"直播间",tip).showDialog(getActivity().getSupportFragmentManager());
+    }
+
+
+    private void updateTvNewMessage(){
+        if (newMessageSum>0){
+            tvNewMessage.setText(newMessageSum+"条新消息");
+            tvNewMessage.setVisibility(View.VISIBLE);
+        }else {
+            tvNewMessage.setVisibility(View.GONE);
+        }
+    }
     @Override
     public void onPause() {
         super.onPause();
@@ -204,23 +434,11 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
         if (isInit) {
 
             recyclerView.scrollToPosition(mAdapter.getItemCount()-1);
-         /*   recyclerView.post(() -> {
-                //设置第一条可见的消息
-                // 如果ListView的刷新还没有完成，直接就调用setSelection，就会导致无效。
-                recyclerView.scrollToPosition(mAdapter.getItemCount()-1);
-            });*/
             initSend();
         }else {
             mAdapter.notifyDataSetChanged();
             if (sum>0)
                 recyclerView.scrollToPosition(sum+1);
-
-        /*    if (sum>0)
-                recyclerView.post(() -> {
-                    //设置第一条可见的消息
-                    // 如果ListView的刷新还没有完成，直接就调用setSelection，就会导致无效。
-                    recyclerView.scrollToPosition(sum+1);
-                });*/
         }
         swipeRefreshLayout.setRefreshing(false);
 
@@ -242,36 +460,47 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(etContent.getText().toString())){
+                if (TextUtils.isEmpty(etContent.getText().toString().trim())){
                     btSend.setVisibility(View.GONE);
                     ivPic.setVisibility(View.VISIBLE);
                 }else {
                     btSend.setVisibility(View.VISIBLE);
                     ivPic.setVisibility(View.GONE);
-
                 }
             }
         });
     }
 
     /**
-     * 发生评论  1普通文本，2图片
+     * 发生评论  1普通文本，2图片 3,下单，4打赏
      */
     private void goSendComment(String body,String type) {
-        btSend.setEnabled(false);
-        etContent.setText("");
+        if (type.equals("1"))
+            btSend.setEnabled(false);
         requestPost(HttpUrls.URL_LIVE_CHAT_SEND(),new ApiParams().with("live_id",getArguments().getString("id")).with("type",type).with("body",body),
                 CommonEntity.class, new HttpCallBack<CommonEntity>() {
 
                     @Override
                     public void onFailure(String message) {
-                        btSend.setEnabled(true);
+                        if (type.equals("1")) {
+                            btSend.setEnabled(true);
+                        }else if (type.equals("2")){
+                            BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
+                        }
                         MyToast.myToast(getActivity(),message);
+
                     }
 
                     @Override
                     public void onSuccess(CommonEntity commonEntity) {
-                        btSend.setEnabled(true);
+                        if (type.equals("1")) {
+                            btSend.setEnabled(true);
+                            etContent.setText("");
+                            KeyBoardHelper.hideSoftInput(getActivity());
+
+                        }else if (type.equals("2")){
+                            BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
+                        }
                         MyToast.myToast(getActivity(),commonEntity.getMessage());
                     }
                 });

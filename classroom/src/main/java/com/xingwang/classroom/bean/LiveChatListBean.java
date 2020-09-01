@@ -66,7 +66,7 @@ public class LiveChatListBean extends CommonEntity {
 
             private int id;
             private int live_id;
-            private int type;
+            private int type;//1 文本 2 图片 3，下单 4，打赏
             private String body;
             private int user_id;
             private int time;

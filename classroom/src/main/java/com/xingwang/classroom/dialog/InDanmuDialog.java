@@ -19,7 +19,7 @@ public class InDanmuDialog extends BaseDialog{
 
     @Override
     protected int layoutResId() {
-        return R.layout.dialog_in_danmu;
+        return R.layout.dialog_in_danmu_classroom;
     }
 
     @NonNull

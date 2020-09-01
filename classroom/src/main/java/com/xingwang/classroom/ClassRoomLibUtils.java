@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import com.shuyu.gsyvideoplayer.player.IjkPlayerManager;
 import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsListener;
@@ -33,6 +34,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+
 /**
  * 外部应用工具类
  * Date:2019/10/17
@@ -44,20 +47,19 @@ public class ClassRoomLibUtils {
     public static final String TYPE_JQ ="jq";
     public static final String TYPE_SC ="sc";
     public static final String TYPE_NY ="ny";
-
+    public static final String TYPE_TEST="test";//测试域名
     /**
      * 在application
      * @param type
      */
     public static void initLib(Context context,String type){
+        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT);//关闭日志
         switch (type){
             case TYPE_ZY:
                 HttpUrls.URL_HOST ="http://zyapp.app.xw518.com/";
-               // HttpUrls.URL_HOST ="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/";//测试地址
                 HttpUrls.CHANNEL ="zyapp.lecture.lecture_";
                 HttpUrls.CHANNEL_WS_URL ="ws://zyapp.app.xw518.com:10101";
                 HttpUrls.LIVE_CHANNEL ="zyapp.live.";
-
                 break;
             case TYPE_JQ:
                 break;
@@ -67,6 +69,12 @@ public class ClassRoomLibUtils {
                 HttpUrls.URL_HOST ="http://nyapp.app.xw518.com/";
                 HttpUrls.CHANNEL_WS_URL="ws://nyapp.app.xw518.com:10101";
                 HttpUrls.CHANNEL ="nyapp.lecture.lecture_";
+                break;
+            case TYPE_TEST:
+                HttpUrls.URL_HOST ="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/";//测试地址
+                HttpUrls.CHANNEL_WS_URL="ws://192.168.65.74:10101";
+                HttpUrls.CHANNEL ="zyapp.lecture.lecture_";
+                HttpUrls.LIVE_CHANNEL ="zyapp.live.";
                 break;
             default:
         }
@@ -252,6 +260,10 @@ public class ClassRoomLibUtils {
      */
     public static void startLiveDetailActivity(FragmentActivity activity,String id,Boolean isLive){
         activity.startActivity(new Intent(activity, LiveDetailActivity.class).putExtra("id",id).putExtra(Constants.EXTRA_IS_LIVE,isLive));
+    }
+    public static void startLiveDetailActivity(FragmentActivity activity,String id,Boolean isLive,int position){
+        activity.startActivity(new Intent(activity, LiveDetailActivity.class).putExtra("id",id)
+                .putExtra(Constants.EXTRA_IS_LIVE,isLive).putExtra("position",position));
     }
  /*   public static void startLiveDetailActivity(FragmentActivity activity, String id, String thumb, View view){
         ActivityUtil.startTransitionAnimationActivity(activity,new Intent(activity, LiveDetailActivity.class).putExtra("id",id).putExtra("thumb",thumb),

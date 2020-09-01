@@ -156,6 +156,7 @@ public class WsManagerUtil {
 
         @Override
         synchronized public void onMessage(String text) {
+
             if (channelStatusListener!=null){
                 try{
                     JSONObject jsonObject=new JSONObject(text);

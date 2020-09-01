@@ -81,7 +81,7 @@ public class HttpUrls {
     public static String CHANNEL_WS_URL ="ws://subscribe.app.xw518.com:10101";
     public static String URL_ZHI_BO ="http://zhibo.xw518.com/zhibo/";//直播地址
 
-    //public static final String URL_LIVE_LISTS="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/home/live/lists";
+
     public static final String URL_GOOD_LISTS="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/home/goods/lists";
     public static final String URL_LIVE_INFO="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/home/live/detail";
     public static final String URL_GOOD_ORDER="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/user/order/add";

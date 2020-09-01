@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.UploadResultCallBack;
@@ -120,7 +121,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(etContent.getText().toString())){
+                if (TextUtils.isEmpty(etContent.getText().toString().trim())){
                     btSend.setVisibility(View.GONE);
                     ivPic.setVisibility(View.VISIBLE);
                 }else {
@@ -136,16 +137,39 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     }
     public void requestDangerousPermissions(String[] permissions, int requestCode) {
         if (checkDangerousPermissions(permissions)){
-            imagePickerDefine =BeautyDefine.getImagePickerDefine(ClassRoomCommentDetailActivity.this);
-
-            imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
-                if (list!=null&&list.size()>0)
-                    goUploadPic(list.get(0));
-            });
+            jumpPic();
             return;
         }
         ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
+    private void jumpPic(){
+        imagePickerDefine = BeautyDefine.getImagePickerDefine(ClassRoomCommentDetailActivity.this);
+        imagePickerDefine.showSinglePicker(false, new ImagePickerCallBack() {
+            @Override
+            public void onResult(List<String> list, ImagePickerDefine.MediaType mediaType, List<String> list1) {
+                if (list!=null&&list.size()>0)
+                    goUploadPic(list.get(0));
+            }
+
+            @Override
+            public void onCancel() {
+                choosePicCommentError();
+            }
+        });
+    }
+
+
+    /**
+     * 回复某人图片 取消或者发送失败图片后恢复到最开始状态
+     */
+    public void choosePicCommentError(){
+        if (isClickPic) {
+            isClickPic = false;
+            etContent.setTag(null);
+            etContent.setHint("回复:" + mComments.get(0).getUser().getshowName());
+        }
+    }
+
 
     private void goUploadPic(String s) {
         BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("上传中",false));
@@ -191,11 +215,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
                     return;
                 }
             }
-            imagePickerDefine = BeautyDefine.getImagePickerDefine(ClassRoomCommentDetailActivity.this);
-            imagePickerDefine.showSinglePicker(false, (list, mediaType, list1) -> {
-                if (list != null && list.size() > 0)
-                    goUploadPic(list.get(0));
-            });
+          jumpPic();
         }
     }
 
@@ -218,9 +238,9 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
             @Override
             public void onFailure(String message) {
                 btSend.setEnabled(true);
+                choosePicCommentError();
                 MyToast.myToast(getApplicationContext(),message);
                 BeautyDefine.getOpenPageDefine(ClassRoomCommentDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-
             }
 
             @Override

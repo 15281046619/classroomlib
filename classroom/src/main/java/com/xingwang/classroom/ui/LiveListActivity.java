@@ -1,14 +1,18 @@
 package com.xingwang.classroom.ui;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.LiveListAdapter;
 import com.xingwang.classroom.bean.LiveListBean;
+import com.xingwang.classroom.dialog.CenterRedPackDialog;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
@@ -58,6 +62,8 @@ public class LiveListActivity extends BaseNetActivity {
         toolbar = findViewById(R.id.toolbar);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
+
+
     }
 
     private void initData() {
@@ -73,7 +79,7 @@ public class LiveListActivity extends BaseNetActivity {
             @Override
             public void onFailure(String message) {
                 if (loadDataTypeInit!=Constants.LOAD_DATA_TYPE_MORE)
-                swipeRefreshLayout.setRefreshing(false);
+                    swipeRefreshLayout.setRefreshing(false);
                 MyToast.myToast(getApplicationContext(),message);
             }
 
@@ -118,8 +124,10 @@ public class LiveListActivity extends BaseNetActivity {
             }else if (resultCode==101){//直播结束
                 mData.get(clickPos).setIs_end(2);
                 mAdapter.notifyDataSetChanged();
+            }else if (resultCode==102){//移除该直播间
+                mData.remove(clickPos);
+                mAdapter.notifyDataSetChanged();
             }
-
         }
     }
 }

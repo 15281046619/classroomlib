@@ -35,8 +35,11 @@ public class GlideUtils {
     }
 
     static boolean activityIsFinished(Context context){
-        Activity activity =(Activity) context;
-        return activity == null || activity.isFinishing() || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed());
+        if (context instanceof Activity) {
+            Activity activity = (Activity) context;
+            return activity == null || activity.isFinishing() || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed());
+        }else //可能出在fragment里面
+            return false;
     }
 
 

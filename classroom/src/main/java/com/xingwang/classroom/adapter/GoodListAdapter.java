@@ -3,6 +3,7 @@ package com.xingwang.classroom.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,7 @@ public class GoodListAdapter extends  RecyclerView.Adapter<GoodListAdapter.ViewH
         GoodListBean.GoodBean goodBean=list.get(i);
         viewHolder.tv_good_title.setText(goodBean.getTitle());
         viewHolder.tv_good_price.setText("￥"+goodBean.getPrice());
-        viewHolder.tv_good_des.setText(goodBean.getBody());
+        viewHolder.tv_good_des.setText(Html.fromHtml(goodBean.getBody()));
 
         GlideUtils.loadAvatar(goodBean.getCover(),viewHolder.img_good_cover);
 

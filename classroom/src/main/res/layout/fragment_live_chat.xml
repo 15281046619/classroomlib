@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_width="wrap_content"
-            android:src="@mipmap/ic_xtxx"
+
             android:layout_height="wrap_content"/>
 
     </LinearLayout>-->
@@ -21,9 +21,9 @@
         android:layout_width="match_parent"
         android:singleLine="true"
         android:ellipsize="marquee"
-        android:textColor="#ff4081"
+        android:textColor="@color/sysMessageClassRoom"
         android:layout_margin="@dimen/dp_10_classroom"
-        android:drawableLeft="@mipmap/ic_xtxx"
+        android:drawableLeft="@mipmap/ic_xtxx_classroom"
         android:id="@+id/tvFixed"
         android:gravity="center_vertical"
         android:visibility="gone"
@@ -32,9 +32,8 @@
         android:layout_height="wrap_content"/>
     <com.xingwang.classroom.view.VpSwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_below="@+id/rlTop"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvFixed"
         android:layout_above="@+id/rl_bottom"
         android:id="@+id/swipeRefreshLayout"
         >
@@ -48,7 +47,18 @@
             android:layout_height="wrap_content"
             />
     </com.xingwang.classroom.view.VpSwipeRefreshLayout>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_above="@+id/rl_bottom"
+        android:visibility="gone"
+        android:textColor="@color/sysMessageClassRoom"
+        android:id="@+id/tvNewMessage"
+        android:background="@drawable/shape_new_message_clasroom"
+        android:layout_marginRight="@dimen/dp_10_classroom"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dp_10_classroom"
+        android:padding="@dimen/dp_5_classroom"
+        android:layout_height="wrap_content"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@android:color/white"
@@ -63,6 +73,7 @@
             android:paddingLeft="@dimen/dp_10_classroom"
             android:gravity="center_vertical"
             android:maxLines="1"
+            android:maxLength="256"
             android:id="@+id/et_content"
             android:hint="请输入你想说的话"
             android:inputType="text"
@@ -104,4 +115,4 @@
     </RelativeLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
