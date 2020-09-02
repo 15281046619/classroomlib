@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.CollectionUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.GoodListAdapter;
 import com.xingwang.classroom.bean.GoodListBean;
-import com.xingwang.classroom.bean.LiveListBean;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
@@ -39,7 +37,7 @@ public class LiveGoodListFragment extends BaseLazyLoadFragment {
     }
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_live_good_list,container,false);
+        View view =  inflater.inflate(R.layout.fragment_live_good_list_classroom,container,false);
 
         recycler_view=view.findViewById(R.id.recycler_view);
         swipeRefreshLayout =view.findViewById(R.id.swipeRefreshLayout);

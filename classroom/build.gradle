@@ -96,7 +96,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
 
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.16'
-    implementation 'com.blankj:utilcode:1.29.0'
+    implementation 'com.blankj:utilcode:1.8.2'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
     implementation 'com.github.NewHuLe:NumberPickerView:v1.2'

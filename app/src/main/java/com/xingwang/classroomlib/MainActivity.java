@@ -12,15 +12,17 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 
-
+import com.xingwang.circle.CommentInfoActivity;
 import com.xingwang.classroom.ClassRoomLibUtils;
 
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
 import com.xingwang.classroom.ui.LiveListActivity;
 import com.xingwang.classroom.ui.LiveWebActivity;
-import com.xingwang.classroom.ui.OrderActivity;
+
 import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroomlib.html.WebViewDelegate;
+import com.xingwang.groupchat.GroupListActivity;
+
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -60,11 +62,38 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         Uri uri = Uri.parse("classroom://com.xingw.zyapp.zbdetail?id=227");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
         // startActivity(intent);
-        startActivity(new Intent(this, LiveListActivity.class));
+
     }
 
 
+    public void onClick(View view){
+        String tag =(String) view.getTag();
+        switch (tag){
+            case "1":
+                startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("circle://"+getPackageName()+".host.card?id=56")));
+                break;
+            case "2":
+                startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("essay://"+getPackageName()+".host.adessay?url=http://zyapp.test.xw518.com/article/859")));
+                break;
+            case "3":
 
+                CommentInfoActivity.getIntent(MainActivity.this,"154");
+                break;
+            case "4":
+                startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("essay://"+getPackageName()+".host.essaylist?tag=1")));
+                break;
+            case "5":
+               GroupListActivity.getIntent(MainActivity.this);
+                break;
+            case "6":
+                ClassRoomLibUtils.startListActivity(this,"栏目");
+                break;
+            case "7":
+                startActivity(new Intent(this, LiveListActivity.class));
+                break;
+        }
+
+    }
 
 
     @Override

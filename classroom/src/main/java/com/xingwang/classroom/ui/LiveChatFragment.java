@@ -2,11 +2,9 @@ package com.xingwang.classroom.ui;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,12 +16,10 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
@@ -32,10 +28,8 @@ import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.UploadResultCallBack;
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.adapter.DetailAdapter;
 import com.xingwang.classroom.adapter.LiveChatAdapter;
 import com.xingwang.classroom.bean.LiveChatListBean;
-import com.xingwang.classroom.bean.OnlineCountBean;
 import com.xingwang.classroom.dialog.CenterBuyDialog;
 import com.xingwang.classroom.dialog.CenterRedPackDialog;
 import com.xingwang.classroom.http.ApiParams;
@@ -46,7 +40,6 @@ import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.GsonUtils;
 import com.xingwang.classroom.utils.KeyBoardHelper;
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.ws.ChannelStatusListener;
@@ -55,7 +48,6 @@ import com.xingwang.classroom.ws.WsManagerUtil;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -86,7 +78,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     private  LinearLayoutManager mLinearLayout;
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_live_chat,container,false);
+        View view =  inflater.inflate(R.layout.fragment_live_chat_classroom,container,false);
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         btSend = view.findViewById(R.id.bt_send);

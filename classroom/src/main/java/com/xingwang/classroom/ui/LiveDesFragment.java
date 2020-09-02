@@ -1,27 +1,14 @@
 package com.xingwang.classroom.ui;
 
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.TextView;
 
 import com.tencent.smtt.sdk.WebSettings;
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.bean.GoodListBean;
-import com.xingwang.classroom.bean.LiveInfoBean;
-import com.xingwang.classroom.http.ApiParams;
-import com.xingwang.classroom.http.HttpCallBack;
-import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.MyToast;
 import com.ycbjie.webviewlib.WvWebView;
-import com.ycbjie.webviewlib.X5WebChromeClient;
-import com.ycbjie.webviewlib.X5WebUtils;
-import com.ycbjie.webviewlib.X5WebView;
-import com.zzhoujay.richtext.RichText;
 
 /**
  * Date:2020/8/13
@@ -42,7 +29,7 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
     }
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_live_des,container,false);
+        View view =  inflater.inflate(R.layout.fragment_live_des_classroom,container,false);
 
         webView=view.findViewById(R.id.web_live_des);
 
