@@ -36,12 +36,14 @@ import com.xingwang.classroom.adapter.DetailAdapter;
 import com.xingwang.classroom.adapter.LiveChatAdapter;
 import com.xingwang.classroom.bean.LiveChatListBean;
 import com.xingwang.classroom.bean.OnlineCountBean;
+import com.xingwang.classroom.dialog.CenterBuyDialog;
 import com.xingwang.classroom.dialog.CenterRedPackDialog;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
+import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.GsonUtils;
 import com.xingwang.classroom.utils.KeyBoardHelper;
 import com.xingwang.classroom.utils.LogUtil;
@@ -69,7 +71,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     private int maxSum =10;
     private String channel;
     private TextView btSend,tvFixed,tvNewMessage;
-    private ImageView ivPic;
+    private ImageView ivPic,ivBug;
     private EditText etContent;
     private int newMessageSum =0;
 
@@ -92,7 +94,8 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
         tvNewMessage = view.findViewById(R.id.tvNewMessage);
 
         tvFixed = view.findViewById(R.id.tvFixed);
-
+        ivBug = view.findViewById(R.id.ivBug);
+        GlideUtils.loadAvatar(R.mipmap.ic_qg_classroom,ivBug);
         setFixed(getArguments().getString("fixedStr"));
         etContent = view.findViewById(R.id.et_content);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -445,7 +448,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     }
 
     private void initSend() {
-
+        ivBug.setOnClickListener(v -> CenterBuyDialog.getInstance().setCallback(s -> goSendComment(s,"3")).showDialog(getActivity().getSupportFragmentManager()));
         btSend.setOnClickListener(v -> goSendComment(etContent.getText().toString(),"1"));
         etContent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -497,11 +500,14 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
                             btSend.setEnabled(true);
                             etContent.setText("");
                             KeyBoardHelper.hideSoftInput(getActivity());
-
+                            MyToast.myToast(getActivity(),commonEntity.getMessage());
                         }else if (type.equals("2")){
                             BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
+                            MyToast.myToast(getActivity(),commonEntity.getMessage());
+                        }else if (type.equals("3")){
+                            MyToast.myToast(getActivity(),"下单成功");
                         }
-                        MyToast.myToast(getActivity(),commonEntity.getMessage());
+
                     }
                 });
     }

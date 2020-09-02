@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="groupchat_topTitle">
+        <attr name="title_is_show_back" format="boolean" />
+        <attr name="title_background_color" format="color" />
+        <attr name="left_button_img" format="reference|integer" />
+        <attr name="left_button_background" format="reference|integer" />
+
+        <attr name="title_text" format="string" />
+        <attr name="title_color" format="color" />
+        <attr name="title_size" format="dimension" />
+
+        <attr name="right_first_img" format="reference|integer" />
+        <attr name="right_first_tv" format="string" />
+        <attr name="right_second_img" format="reference|integer" />
+        <attr name="is_show_right_second" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="groupchat_niceImageView">
+        <attr format="boolean" name="is_circle"/>
+        <attr format="boolean" name="is_cover_src"/>
+        <attr format="dimension" name="corner_radius"/>
+        <attr format="dimension" name="corner_top_left_radius"/>
+        <attr format="dimension" name="corner_top_right_radius"/>
+        <attr format="dimension" name="corner_bottom_left_radius"/>
+        <attr format="dimension" name="corner_bottom_right_radius"/>
+        <attr format="dimension" name="border_width"/>
+        <attr format="color" name="border_color"/>
+        <attr format="dimension" name="inner_border_width"/>
+        <attr format="color" name="inner_border_color"/>
+        <attr format="color" name="mask_color"/>
+    </declare-styleable>
+
+    <declare-styleable name="groupchat_imgView">
+        <!-- 默认图片资源，默认值为 null -->
+        <attr name="android:src"/>
+        <!-- 是否是圆形，默认值为 false -->
+        <attr name="iv_circle" format="boolean"/>
+        <!-- 圆角矩形的半径，默认值为 0dp -->
+        <attr name="iv_cornerRadius" format="reference|dimension"/>
+        <!-- 是否是矩形，默认值为 false -->
+        <attr name="iv_square" format="boolean"/>
+        <!-- 描边的宽度，默认值为 0dp -->
+        <attr name="iv_borderWidth" format="reference|dimension"/>
+        <!-- 描边的颜色，默认值为 Color.WHITE -->
+        <attr name="iv_borderColor" format="reference|color"/>
+    </declare-styleable>
+</resources>

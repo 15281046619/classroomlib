@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/line_full"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></View>
+    <LinearLayout
+        android:id="@+id/layout_sheets"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:orientation="vertical"
+        android:background="@drawable/circle_dialog_line_bg">
+
+        <TextView
+            android:id="@+id/tv_shotVieo"
+            style="@style/circle_dialog_tv"
+            android:text="拍摄视频"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/circle_grey"></View>
+
+        <TextView
+            android:id="@+id/tv_take_photo"
+            style="@style/circle_dialog_tv"
+            android:text="选择图片/视频"/>
+    </LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></View>
+</LinearLayout>

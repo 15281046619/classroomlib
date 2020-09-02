@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/circle_white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/line_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.xingwang.swip.view.NiceImageView
+                    android:id="@+id/img_head"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    app:is_circle="true"/>
+                <TextView
+                    android:id="@+id/tv_username"
+                    style="@style/circle_comment_username_tv"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_to_username"
+                style="@style/circle_comment_username_tv"
+                android:layout_marginLeft="0dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/line_child_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/reslib_colorBlack"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentBottom="true">
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/img_comment"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:tint="@color/circle_grey"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/reslib_ic_chat_bubble_outline"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

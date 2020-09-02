@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/groupchat_background"
+    tools:context=".EditGroupNameActivity">
+
+    <com.xingwang.swip.title.TopTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:is_show_right_second = "false"
+        app:title_text="群名称" />
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:maxLines="1"
+        android:maxLength="12"
+        android:textColorHint="@color/groupchat_text_hint"
+        android:background="@drawable/groupchat_edit_shape_white_bg"
+        android:textSize="14sp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:paddingRight="10dp"
+        android:singleLine="true" />
+
+</LinearLayout>

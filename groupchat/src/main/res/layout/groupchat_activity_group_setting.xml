@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GroupSettingActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp">
+
+        <ImageView
+            android:id="@+id/img_group_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/groupchat_default_group_avatar" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.xingwang.swip.title.TopTitleView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:is_show_right_second="false"
+                app:title_background_color="@color/groupchat_transparent"
+                app:title_text="群设置" />
+
+           <!-- <TextView
+                android:id="@+id/tv_group_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:text="群名称"
+                android:textColor="@color/groupchat_white"
+                android:textSize="14sp" />-->
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <RelativeLayout
+            android:id="@+id/rl_group_member"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/groupchat_white"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="群聊成员"
+                android:textColor="#353535"
+                android:textSize="16sp"
+                android:typeface="serif" />
+
+            <ImageView
+                android:id="@+id/img_next_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/groupchat_icon_next" />
+
+            <TextView
+                android:id="@+id/tv_group_member_num"
+                android:layout_toLeftOf="@+id/img_next_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="#AAAAAA"
+                android:textSize="13sp" />
+        </RelativeLayout>
+        <GridView
+            android:id="@+id/gv_group_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="-5dp"
+            android:numColumns="5"
+            android:background="@color/groupchat_white"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="never" />
+
+        <RelativeLayout
+            android:id="@+id/re_change_groupname"
+            style="@style/groupchat_groupset_rela"
+            android:layout_marginTop="@dimen/groupchat_dp_20">
+
+            <TextView
+                style="@style/groupchat_groupset_rela_tv"
+                android:text="群名称" />
+
+            <ImageView
+                android:id="@+id/img_next"
+                style="@style/groupchat_groupset_rela_img" />
+
+            <TextView
+                android:id="@+id/tv_group_name"
+                android:layout_toLeftOf="@+id/img_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="#AAAAAA"
+                android:text="群名称"
+                android:textSize="13sp" />
+        </RelativeLayout>
+        <View
+            style="@style/groupchat_line_View"/>
+        <RelativeLayout
+            android:id="@+id/re_change_intro"
+            style="@style/groupchat_groupset_rela">
+            <TextView
+                android:id="@+id/tv_intro_title"
+                style="@style/groupchat_groupset_rela_tv"
+                android:text="群简介" />
+
+            <ImageView
+                android:id="@+id/img_next_intro"
+                style="@style/groupchat_groupset_rela_img" />
+
+            <TextView
+                android:id="@+id/tv_group_intro"
+                android:layout_toLeftOf="@+id/img_next_intro"
+                android:layout_toRightOf="@+id/tv_intro_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:textColor="#AAAAAA"
+                android:text=""
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <View
+            style="@style/groupchat_line_View"/>
+
+        <!--<RelativeLayout
+            android:id="@+id/re_transfer"
+            style="@style/groupchat_groupset_rela">
+            <TextView
+                style="@style/groupchat_groupset_rela_tv"
+                android:text="转让群" />
+
+            <ImageView
+                android:id="@+id/img_next_transfer"
+                style="@style/groupchat_groupset_rela_img"  />
+        </RelativeLayout>-->
+        <RelativeLayout
+            android:id="@+id/re_admin_group"
+            style="@style/groupchat_groupset_rela">
+            <TextView
+                style="@style/groupchat_groupset_rela_tv"
+                android:text="管理群" />
+
+            <ImageView
+                style="@style/groupchat_groupset_rela_img"  />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/bt_leave"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/groupchat_bg_red_button"
+            android:text="解散群聊"
+            android:textColor="@color/groupchat_white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

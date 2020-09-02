@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.EssayListFragment">
+
+    <TextView
+        android:id="@+id/tv_all_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="gone"/>
+
+   <!-- <com.xingwang.essay.view.VpSwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/essay_background"
+        android:paddingLeft="@dimen/essay_dp_5"
+        android:paddingRight="@dimen/essay_dp_5">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_essay"
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:layout_height="match_parent" />
+    </com.xingwang.essay.view.VpSwipeRefreshLayout>-->
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/swipe_essay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/essay_background"
+        android:paddingLeft="@dimen/essay_dp_5"
+        android:paddingRight="@dimen/essay_dp_5"
+        app:srlEnableFooterTranslationContent="true"
+        android:orientation="vertical">
+        <com.scwang.smartrefresh.header.MaterialHeader
+            android:id="@+id/swipe_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mhPrimaryColor="@color/reslib_colorAccent"
+            app:mhShadowColor="@color/reslib_colorAccent"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_essay"
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:layout_height="match_parent" />
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

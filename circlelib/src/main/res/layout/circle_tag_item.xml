@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="5dp"
+    android:layout_marginLeft="10dp"
+    android:background="@drawable/circle_tag_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/reslib_ic_blog_badge"/>
+    <TextView
+        android:id="@+id/tv_card_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:text="完美"
+        android:textColor="@color/circle_red"
+        android:paddingLeft="3dp" />
+</LinearLayout>

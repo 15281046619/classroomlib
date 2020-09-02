@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="swip_text_black">#000000</color>
+    <color name="swip_text_title">#333333</color>
+    <color name="swip_text_grey">#737373</color>
+    <color name="swip_text_hint">#d5d5d5</color>
+    <color name="swip_background">#f6f6f9</color>
+    <color name="swip_divider">#d6d6d6</color>
+    <color name="swip_list_bg">#efefef</color>
+    <color name="swip_white">#ffffff</color>
+    <color name="swip_green">#12a9ac</color>
+    <color name="swip_progress_green">#08b3b5</color>
+    <color name="swip_green_dark">#008688</color>
+    <color name="swip_grey">#999999</color>
+    <color name="swip_orange">#ff6600</color>
+    <color name="swip_yellow">#fec63d</color>
+    <color name="swip_yellow_border">#c3a334</color>
+    <color name="swip_yellow_dark">#f7d071</color>
+    <color name="swip_red">#ec3123</color>
+    <color name="swip_blue">#0c8dfb</color>
+    <color name="swip__window_color">#232233</color>
+    <!-- 图片处于选中状态时的遮罩层颜色 -->
+    <color name="swip_pp_photo_selected_mask">#4DFFFFFF</color>
+</resources>

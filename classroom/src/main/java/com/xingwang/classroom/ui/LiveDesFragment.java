@@ -18,6 +18,7 @@ import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.MyToast;
 import com.ycbjie.webviewlib.WvWebView;
+import com.ycbjie.webviewlib.X5WebChromeClient;
 import com.ycbjie.webviewlib.X5WebUtils;
 import com.ycbjie.webviewlib.X5WebView;
 import com.zzhoujay.richtext.RichText;
@@ -29,7 +30,7 @@ import com.zzhoujay.richtext.RichText;
  */
 public class LiveDesFragment extends BaseLazyLoadFragment {
 
-    protected WvWebView web_live_des;
+    protected WvWebView webView;
     protected String htmlText;
 
     public static LiveDesFragment getInstance(String des){
@@ -43,7 +44,7 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_live_des,container,false);
 
-        web_live_des=view.findViewById(R.id.web_live_des);
+        webView=view.findViewById(R.id.web_live_des);
 
         return view;
     }
@@ -51,15 +52,39 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
     @Override
     public void initData() {
         htmlText=getArguments().getString(Constants.DATA);
+        setWebViewSetting();
 
-        WebSettings webseting= web_live_des.getSettings();
-        webseting.setSupportZoom(true);
-        webseting.setUseWideViewPort(true);
-        webseting.setBuiltInZoomControls(true);
-        webseting.setLoadWithOverviewMode(true);
-        webseting.setDisplayZoomControls(false);
-        webseting.setJavaScriptCanOpenWindowsAutomatically(false);
+        webView.loadData(htmlText, "text/html;charset=utf-8", "utf-8");
+    }
+    private void setWebViewSetting(){
+        WebSettings websettings = webView.getSettings();
+        websettings.setDomStorageEnabled(true);  // 开启 DOM storage 功能
+        websettings.setAppCacheMaxSize(1024*1024*8);
+        String appCachePath =getActivity().getApplicationContext().getCacheDir().getAbsolutePath();
+        websettings.setAppCachePath(appCachePath);
+        websettings.setAllowFileAccess(true);    // 可以读取文件缓存
+        websettings.setAppCacheEnabled(true);    //开启H5(APPCache)缓存功能
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        webViewDestroy();
+    }
+    private  void  webViewDestroy(){
 
-        web_live_des.loadData(htmlText, "text/html;charset=utf-8", "utf-8");
+            //有音频播放的web页面的销毁逻辑
+            //在关闭了Activity时，如果Webview的音乐或视频，还在播放。就必须销毁Webview
+            //但是注意：webview调用destory时,webview仍绑定在Activity上
+            //这是由于自定义webview构建时传入了该Activity的context对象
+            //因此需要先从父容器中移除webview,然后再销毁webview:
+            if (webView != null) {
+                ViewGroup parent = (ViewGroup) webView.getParent();
+                if (parent != null) {
+                    parent.removeView(webView);
+                }
+                webView.removeAllViews();
+                webView.destroy();
+                webView = null;
+            }
     }
 }

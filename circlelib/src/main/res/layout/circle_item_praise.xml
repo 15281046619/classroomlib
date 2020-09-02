@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xingwang.swip.view.NiceImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:is_circle="true">
+
+</com.xingwang.swip.view.NiceImageView>

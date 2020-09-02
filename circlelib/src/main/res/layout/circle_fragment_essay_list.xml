@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.xingwang.swip.StateFrameLayout
+        android:id="@+id/status_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@color/circle_list_bg"
+        app:sflEmptyLayout="@layout/circle_su_view_empty"
+        app:sflState="normal">
+
+        <com.xingwang.swip.SwipeRefreshListView
+            android:id="@+id/list_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:scrollbars="none"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="never"/>
+    </com.xingwang.swip.StateFrameLayout>
+</LinearLayout>

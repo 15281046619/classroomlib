@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AdminGroupActivity">
+    <com.xingwang.swip.title.TopTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_text="群管理"
+        app:is_show_right_second="false"/>
+
+    <RelativeLayout
+        android:id="@+id/re_add_admin"
+        style="@style/groupchat_groupset_rela">
+        <TextView
+            style="@style/groupchat_groupset_rela_tv"
+            android:text="添加管理员" />
+
+        <ImageView
+            style="@style/groupchat_groupset_rela_img"  />
+    </RelativeLayout>
+
+    <View
+        style="@style/groupchat_line_View"/>
+
+    <RelativeLayout
+        android:id="@+id/re_tran"
+        style="@style/groupchat_groupset_rela">
+        <TextView
+            style="@style/groupchat_groupset_rela_tv"
+            android:text="转让群" />
+
+        <ImageView
+            style="@style/groupchat_groupset_rela_img"  />
+    </RelativeLayout>
+
+    <View
+        style="@style/groupchat_line_View"/>
+
+    <RelativeLayout
+        android:id="@+id/re_block_group"
+        style="@style/groupchat_groupset_rela">
+        <TextView
+            style="@style/groupchat_groupset_rela_tv"
+            android:text="屏蔽用户" />
+
+        <ImageView
+            style="@style/groupchat_groupset_rela_img"  />
+    </RelativeLayout>
+</LinearLayout>

@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,7 @@ import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.KeyBoardHelper;
+import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.ws.CommentEntity;
 
@@ -143,7 +145,14 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
         et_city.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
 
+        et_city.setText(SharedPreferenceUntils.getSaveCity(this));
+        et_adr.setText(SharedPreferenceUntils.getSaveAddress(this));
+        et_buyer_name.setText(SharedPreferenceUntils.getSaveName(this));
+        String savePhone = SharedPreferenceUntils.getSavePhone(this);
+        et_buyer_tel.setText(TextUtils.isEmpty(savePhone)? BeautyDefine.getUserInfoDefine(this).getPhone():savePhone);
+
         mHandler.sendEmptyMessage(MSG_LOAD_DATA);
+
     }
 
     private void initData(){
@@ -151,7 +160,7 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
         goodBean= (GoodListBean.GoodBean) getIntent().getSerializableExtra(Constants.DATA);
 
         tv_good_price.setText(goodBean.getPrice());
-        tv_good_des.setText(goodBean.getBody());
+        tv_good_des.setText(Html.fromHtml(goodBean.getBody()));
         tv_good_title.setText(goodBean.getTitle());
         GlideUtils.loadAvatar(goodBean.getCover(),img_good_cover);
 
@@ -292,7 +301,7 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
 
         BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("提交中",false));
 
-        requestPost(HttpUrls.URL_GOOD_ORDER, new ApiParams().with("goods_id", goodBean.getId())
+        requestPost(HttpUrls.URL_GOOD_ORDER, new ApiParams().with("goods_id", String.valueOf(goodBean.getId()))
                 .with("goods_num", tv_buy_num.getText().toString()).with("tel", et_buyer_tel.getText().toString())
                 .with("address", et_city.getText().toString()+et_adr.getText().toString()).with("username", et_buyer_name.getText().toString())
                 .with("user_tips", et_buyer_msg.getText().toString()), CommonEntity.class, new HttpCallBack<CommonEntity>() {
@@ -304,6 +313,10 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
 
             @Override
             public void onSuccess(CommonEntity s) {
+                SharedPreferenceUntils.savePhone(OrderActivity.this,et_buyer_tel.getText().toString().trim());
+                SharedPreferenceUntils.saveAddress(OrderActivity.this,et_adr.getText().toString().trim());
+                SharedPreferenceUntils.saveCity(OrderActivity.this,et_city.getText().toString().trim());
+                SharedPreferenceUntils.saveName(OrderActivity.this,et_buyer_name.getText().toString().trim());
                 BeautyDefine.getOpenPageDefine(OrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
                 ToastUtils.showShort("下单成功");
                 OrderActivity.this.finish();
@@ -329,6 +342,7 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
                 ToastUtils.showShort("请填写地址详情");
                 return;
             }
+
             postData();
         }
     }

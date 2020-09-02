@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="groupchat_text_black">#000000</color>
+    <color name="groupchat_text_title">#333333</color>
+    <color name="groupchat_text_grey">#737373</color>
+    <color name="groupchat_text_hint">#d5d5d5</color>
+    <color name="groupchat_background">#f6f6f9</color>
+    <color name="groupchat_divider">#d6d6d6</color>
+    <color name="groupchat_list_bg">#efefef</color>
+    <color name="groupchat_white">#ffffff</color>
+    <color name="groupchat_green">#12a9ac</color>
+    <color name="groupchat_progress_green">#08b3b5</color>
+    <color name="groupchat_green_dark">#008688</color>
+    <color name="groupchat_grey">#999999</color>
+    <color name="groupchat_orange">#ff6600</color>
+    <color name="groupchat_yellow">#fec63d</color>
+    <color name="groupchat_yellow_border">#c3a334</color>
+    <color name="groupchat_yellow_dark">#f7d071</color>
+    <color name="groupchat_red">#ec3123</color>
+    <color name="groupchat_blue">#0c8dfb</color>
+    <color name="groupchat__window_color">#232233</color>
+    <color name="groupchat_list_item_select">#F2FFFF</color>
+
+    <color name="groupchat_promptReply">#f5f5f5</color>
+    <color name="groupchat_colorAccent">#737373</color>
+    <color name="groupchat_lookup_tv">#cccccc</color>
+    <color name="groupchat_colorPrimaryDark">#1fa9ab</color>
+    <color name="groupchat_transparent">#00000000</color>
+    <color name="groupchat_btn_down">#f2f2f2</color>
+    <!-- 图片处于选中状态时的遮罩层颜色 -->
+    <color name="groupchat_pp_photo_selected_mask">#4DFFFFFF</color>
+</resources>

@@ -1,0 +1,125 @@
+<resources>
+    <style name="circle_tv_card">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <declare-styleable name="circle_sortableNinePhotoLayout">
+        <!-- 是否显示加号，默认值为 true -->
+        <attr name="bga_snpl_plusEnable" format="boolean"/>
+        <!-- 是否可拖拽排序，默认值为 true -->
+        <attr name="bga_snpl_sortable" format="boolean"/>
+        <!-- 删除按钮图片，默认值为 R.mipmap.bga_pp_ic_delete -->
+        <attr name="bga_snpl_deleteDrawable" format="reference"/>
+        <!-- 可选择图片的总张数,默认值为 9 -->
+        <attr name="bga_snpl_maxItemCount" format="integer"/>
+        <!-- 列数,默认值为 3 -->
+        <attr name="bga_snpl_itemSpanCount" format="integer"/>
+        <!-- 删除按钮是否重叠四分之一，默认值为 false -->
+        <attr name="bga_snpl_deleteDrawableOverlapQuarter" format="boolean"/>
+        <!-- 添加按钮图片，默认值为 R.mipmap.bga_pp_ic_plus -->
+        <attr name="bga_snpl_plusDrawable" format="reference"/>
+        <!-- Item 条目圆角尺寸，默认值为 0dp -->
+        <attr name="bga_snpl_itemCornerRadius" format="dimension|reference"/>
+        <!-- Item 间的水平和垂直间距，默认值为 4dp -->
+        <attr name="bga_snpl_itemWhiteSpacing" format="dimension|reference"/>
+        <!-- 出去九宫格部分的空白区域的尺寸，默认值为 100dp -->
+        <attr name="bga_snpl_otherWhiteSpacing" format="dimension|reference"/>
+        <!-- 占位图资源，默认值为 R.mipmap.bga_pp_ic_holder_light -->
+        <attr name="bga_snpl_placeholderDrawable" format="reference"/>
+        <!-- 是否可编辑，默认值为 true -->
+        <attr name="bga_snpl_editable" format="boolean"/>
+        <!-- item 的尺寸，大于 0dp 时优先级高于 bga_snpl_otherWhiteSpacing，默认值为 0dp -->
+        <attr name="bga_snpl_itemWidth" format="dimension|reference"/>
+    </declare-styleable>
+
+    <style name="circle_DialogStyle" parent="Theme.AppCompat.Light.Dialog" >
+        <!-- 窗口背景色 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否有覆盖-->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--进出动画-->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <!--全屏-->
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <style name="circle_BottomSheetStyle">
+        <item name="android:windowEnterAnimation">@anim/circle_card_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/circle_card_dialog_exit</item>
+    </style>
+
+    <style name="circle_dialog_tv">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/circle_text_black</item>
+    </style>
+    <style name="circle_card_detail_line">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="circle_card_detail_img">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:tint">@color/circle_grey</item>
+    </style>
+
+    <style name="circle_card_detail_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:textColor">@color/circle_grey</item>
+    </style>
+
+    <style name="circle_card_detail_theme" parent="reslib_AppTheme.NoActionBar">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <style name="circle_view_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/circle_list_bg</item>
+    </style>
+
+    <style name="circle_view_grey_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/circle_grey</item>
+    </style>
+
+    <style name="circle_tag_checkbox">
+        <item name="android:button">@drawable/circle_tag_checkbox_style</item>
+    </style>
+
+    <!--评论用户的昵称-->
+    <style name="circle_comment_username_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/reslib_colorBlack</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+    </style>
+</resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xingwang.groupchat">
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 允许程序获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序访问WiFi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序访问相机功能 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.hardware.camera" /> <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序修改全局音频设置 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- 允许程序录制音频 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 允许使用PowerManager的 WakeLocks保持进程在休眠时从屏幕消失 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 允许程序设置内置sd卡的写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许程序读写手机状态和身份 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 　允许一个程序访问精良位置 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 允许应用程序访问额外的位置提供命令 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 允许程序改变Wi-Fi连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+        <!--群管理-->
+        <activity android:name=".AdminGroupActivity"
+            android:theme="@style/reslib_AppTheme.Translucent"></activity>
+        <!--添加新成员-->
+        <activity
+            android:name=".SearchUserActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!---->
+        <activity
+            android:name=".BuildGroupActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--管理员/群转让/屏蔽-->
+        <activity
+            android:name=".TransferActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--群简介-->
+        <activity
+            android:name=".GroupIntroActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--群名称-->
+        <activity
+            android:name=".EditGroupNameActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--群聊天成员-->
+        <activity
+            android:name=".GroupMemberActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--群设置-->
+        <activity
+            android:name=".GroupSettingActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--编辑群资料-->
+        <activity
+            android:name=".CreateGroupActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--群列表-->
+        <activity
+            android:name=".GroupListActivity"
+            android:theme="@style/reslib_AppTheme.Translucent">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+    </application>
+
+</manifest>

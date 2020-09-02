@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TagSelectActivity">
+
+    <com.xingwang.swip.title.TopTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:is_show_right_second="false"/>
+
+    <TextView
+        android:id="@+id/tv_all_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="暂无数据 点击重试"
+        android:visibility="gone"/>
+    <LinearLayout
+        android:id="@+id/line_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/list_first_circle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:background="@color/circle_list_bg"
+            ></ListView>
+
+        <ListView
+            android:id="@+id/list_second_circle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:layout_weight="3.5"></ListView>
+
+        <TextView
+            android:id="@+id/tv_second_empty"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.5"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:visibility="gone"/>
+
+        <ListView
+            android:id="@+id/list_third_circle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:background="@color/circle_list_bg"
+            android:layout_weight="2"></ListView>
+
+        <TextView
+            android:id="@+id/tv_third_empty"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:background="@color/circle_list_bg"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</LinearLayout>

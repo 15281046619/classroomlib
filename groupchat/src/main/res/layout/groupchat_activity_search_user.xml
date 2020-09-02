@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/groupchat_white"
+    tools:context=".SearchUserActivity">
+
+    <com.xingwang.swip.title.TopTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:is_show_right_second="false"
+        app:title_text="添加新成员"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_margin="20dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/groupchat_edit_shape_bg">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableLeft="@drawable/groupchat_ic_search"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="请输入要搜索的手机号码/id"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:singleLine="true"
+                android:textSize="15sp"
+                android:imeOptions="actionSearch"/>
+
+            <ImageView
+                android:id="@+id/img_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/groupchat_icon_delete_img"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="搜索"
+            android:paddingLeft="10dp"
+            android:textSize="15sp"
+            android:textColor="@color/groupchat_text_black"/>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="5dp">
+
+        <LinearLayout
+            android:id="@+id/line_recent_contact"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_recent_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/groupchat_text_black"
+                android:text="最近联系人"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/groupchat_white" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_empty"
+            style="@style/groupchat_tv_empty"/>
+    </FrameLayout>
+
+
+    <Button
+        android:id="@+id/bt_add"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/groupchat_bg_add_button"
+        android:text="立即添加"
+        android:textColor="@color/groupchat_white"
+        android:textSize="16sp" />
+</LinearLayout>

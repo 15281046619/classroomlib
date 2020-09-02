@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.xingwang.circle">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 允许程序获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序访问WiFi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 允许程序访问相机功能 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+        <!--栏目-->
+        <activity android:name=".PartSelctActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" ></activity>
+        <!---->
+        <activity
+            android:name=".TagSelectActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--点赞列表-->
+        <activity
+            android:name=".DiggListActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--评论详情-->
+        <activity
+            android:name=".CommentInfoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/circle_card_detail_theme"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="${applicationId}.host.commentinfo"
+                    android:scheme="circle" />
+            </intent-filter>
+        </activity>
+        <!--帖子详情-->
+        <activity
+            android:name=".CardDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/circle_card_detail_theme"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="${applicationId}.host.card"
+                    android:scheme="circle" />
+            </intent-filter>
+        </activity>
+        <!--视频播放-->
+        <activity
+            android:name=".PlayVideoActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--视频拍摄-->
+        <activity
+            android:name=".ShotVideoActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--大图-->
+        <activity
+            android:name=".PhotoPreviewActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <!--发帖子-->
+        <activity
+            android:name=".PostActivity"
+            android:theme="@style/reslib_AppTheme.Translucent"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".CardActivity"
+            android:theme="@style/reslib_AppTheme.Translucent" />
+        <activity
+            android:name=".CircleActivity"
+            android:theme="@style/reslib_AppTheme.Translucent">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+    </application>
+
+</manifest>

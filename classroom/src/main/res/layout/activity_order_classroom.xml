@@ -53,7 +53,9 @@
             <!--买家信息-->
             <LinearLayout style="@style/OrderUserInfoPLineClassRoom">
                 <!--姓名-->
-                <LinearLayout style="@style/OrderUserInfoCLineClassRoom">
+                <LinearLayout style="@style/OrderUserInfoCLineClassRoom"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
 
                     <TextView
                         style="@style/OrderUserInfoTvClassRoom"

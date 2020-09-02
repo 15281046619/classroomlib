@@ -5,15 +5,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
-import com.beautydefinelibrary.BeautyDefine;
 import com.google.gson.Gson;
 import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpCallProgressBack;
-import com.xingwang.classroom.http.HttpHeaderInterceptor;
+import com.xingwang.swip.utils.HttpHeaderInterceptor;
 
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;

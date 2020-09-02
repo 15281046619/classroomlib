@@ -12,8 +12,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/circlelib" />
             <option value="$PROJECT_DIR$/classroom" />
             <option value="$PROJECT_DIR$/classroom-release" />
+            <option value="$PROJECT_DIR$/essayLib" />
+            <option value="$PROJECT_DIR$/groupchat" />
+            <option value="$PROJECT_DIR$/swiplib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

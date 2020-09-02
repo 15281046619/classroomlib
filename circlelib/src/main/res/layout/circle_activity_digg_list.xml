@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DiggListActivity">
+    <com.xingwang.swip.title.TopTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:is_show_right_second="false"/>
+
+    <com.xingwang.swip.StateFrameLayout
+        android:id="@+id/status_layout"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:background="@color/circle_list_bg"
+        app:sflEmptyLayout="@layout/circle_su_view_empty"
+        app:sflState="normal">
+
+        <com.xingwang.swip.SwipeRefreshListView
+            android:id="@+id/list_digg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:load_text="" />
+    </com.xingwang.swip.StateFrameLayout>
+</LinearLayout>

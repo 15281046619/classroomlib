@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/essay_background"
+    tools:context=".EssayWebviewActivity">
+
+    <com.xingwang.swip.title.TopTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:is_show_right_second="false"/>
+
+    <LinearLayout
+        android:id="@+id/line_load_error"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/essay_background"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/html_load_fail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/essay_network_load_fail"/>
+
+        <TextView
+            android:id="@+id/tryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/essay_dp_25"
+            android:gravity="center"
+            android:text="轻触屏幕重新加载"
+            android:textColor="@color/essay_text_grey"
+            android:textSize="@dimen/essay_sp_16"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/essay_dp_3"
+        android:max="100"
+        android:progressDrawable="@drawable/essay_pg"
+        android:visibility="gone"
+
+        />
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

@@ -41,4 +41,29 @@ public class SharedPreferenceUntils {
           }
       }
     }
+
+    public static String getSavePhone(Context context){
+        return getString(context,"phone","");
+    }
+    public static void savePhone(Context context,String phone){
+         putString(context,"phone",phone);
+    }
+    public static String getSaveName(Context context){
+        return getString(context,"name","");
+    }
+    public static void saveName(Context context,String name){
+         putString(context,"name",name);
+    }
+    public static String getSaveAddress(Context context){
+        return getString(context,"address","");
+    }
+    public static void saveAddress(Context context,String address){
+         putString(context,"address",address);
+    }
+    public static String getSaveCity(Context context){
+        return getString(context,"city","");
+    }
+    public static void saveCity(Context context,String city){
+         putString(context,"city",city);
+    }
 }

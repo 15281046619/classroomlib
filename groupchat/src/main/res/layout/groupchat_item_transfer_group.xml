@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:paddingLeft="15dp"
+    android:gravity="center_vertical"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
+
+    <com.xingwang.groupchat.view.CircularImage
+        android:id="@+id/img_head"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/groupchat_default_avatar"/>
+
+    <TextView
+        android:id="@+id/tv_admin_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/groupchat_dp_2"
+        android:textSize="@dimen/groupchat_sp_10"
+        android:background="@drawable/groupchat_admin_tv"
+        android:textColor="@color/groupchat_white"
+        android:layout_marginLeft="@dimen/groupchat_dp_10"
+        android:text="管理员"/>
+
+    <TextView
+        android:id="@+id/tv_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:paddingLeft="@dimen/groupchat_dp_10"
+        android:singleLine="true"
+        android:textColor="@color/groupchat_text_black"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:layout_marginRight="@dimen/groupchat_dp_10"
+        android:layout_height="wrap_content">
+        <ToggleButton
+            android:id="@+id/tb_open_voice"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:background="@drawable/groupchat_btn_switch"
+            android:checked="false"
+            android:textOff=""
+            android:clickable="false"
+            android:textOn=""/>
+    </LinearLayout>
+
+
+</LinearLayout>

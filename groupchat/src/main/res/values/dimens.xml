@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="groupchat_dp_2">2dp</dimen>
+    <dimen name="groupchat_dp_10">10dp</dimen>
+    <dimen name="groupchat_dp_12">12dp</dimen>
+    <dimen name="groupchat_dp_15">15dp</dimen>
+    <dimen name="groupchat_dp_16">16dp</dimen>
+    <dimen name="groupchat_dp_20">20dp</dimen>
+    <dimen name="groupchat_dp_50">50dp</dimen>
+
+    <dimen name="groupchat_sp_10">10sp</dimen>
+    <dimen name="groupchat_sp_16">16sp</dimen>
+</resources>
+

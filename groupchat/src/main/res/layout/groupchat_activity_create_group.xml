@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/groupchat_background"
+    tools:context=".CreateGroupActivity">
+    <com.xingwang.swip.title.TopTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:is_show_right_second="false"
+        app:title_text="编辑群资料" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/img_add_group_avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/groupchat_icon_addavatar_more"/>
+
+        <EditText
+            android:id="@+id/edit_group_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="填写群昵称(2-12个字)"
+            android:layout_margin="40dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:maxLength="12"
+            android:textSize="14sp"
+            android:theme="@style/groupchat_edit_add_group" />
+
+        <Button
+            android:id="@+id/bt_submit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="30dp"
+            android:background="@drawable/groupchat_button_add_group_submit"
+            android:text="提交"
+            android:textColor="@color/groupchat_white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

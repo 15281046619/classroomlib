@@ -47,6 +47,16 @@
             android:layout_height="wrap_content"
             />
     </com.xingwang.classroom.view.VpSwipeRefreshLayout>
+    <ImageView
+        android:layout_width="40dp"
+        android:src="@mipmap/ic_shangpin_classroom"
+        android:layout_above="@+id/rl_bottom"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/ivBug"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_10_classroom"
+        android:layout_height="40dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_above="@+id/rl_bottom"

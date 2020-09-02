@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+   >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/groupchat_white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="35dp"
+                android:maxLines="1"
+                android:gravity="center_vertical"
+                android:textColorHint="#AAAAAA"
+                android:background="@drawable/groupchat_edit_shape_bg"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="20dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways|snap"
+                android:drawableLeft="@drawable/groupchat_ic_search"
+                android:hint="查找成员"
+                android:drawablePadding="10dp"
+                android:paddingRight="20dp"
+                android:singleLine="true"/>
+
+            <Button
+                android:id="@+id/btn_all"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/groupchat_button_voice_bg"
+                android:text="全选"/>
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"    >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/groupchat_promptReply"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/rcv_right"
+
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/tv_center"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:text="F"
+            android:visibility="gone"
+            android:textColor="@color/groupchat_white"
+            android:background="@color/groupchat_lookup_tv"
+            android:textSize="20sp"
+            android:gravity="center"/>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
