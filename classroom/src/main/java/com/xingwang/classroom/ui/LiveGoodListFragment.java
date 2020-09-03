@@ -79,7 +79,9 @@ public class LiveGoodListFragment extends BaseLazyLoadFragment {
             @Override
             public void onSuccess(GoodListBean goodListBean) {
                 swipeRefreshLayout.setRefreshing(false);
-                goodListAdapter.setDatas(goodListBean.getData());
+                if (goodListBean.getData().size()>0)
+                    goodListAdapter.setDatas(goodListBean.getData());
+
             }
         });
     }

@@ -73,6 +73,15 @@ public class LiveChatListBean extends CommonEntity {
             private int state;
             private String game_tips;
             private UserBean user;
+            private ItemsBean quote;
+
+            public ItemsBean getQuote() {
+                return quote;
+            }
+
+            public void setQuote(ItemsBean quote) {
+                this.quote = quote;
+            }
 
             public int getId() {
                 return id;

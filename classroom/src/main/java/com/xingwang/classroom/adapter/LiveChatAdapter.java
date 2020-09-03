@@ -81,11 +81,38 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder mViewHolder, int position) {
         if (mViewHolder instanceof LiveChatViwHolder) {
             LiveChatViwHolder mBaseViewHolder = (LiveChatViwHolder) mViewHolder;
-            mBaseViewHolder.tvName.setText(mDatas.get(position).getUser().getNickname());
-            GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth, mHeight, mDatas.get(position).getUser().getAvatar())
+            LiveChatListBean.DataBean.ItemsBean itemsBean;
+            LiveChatListBean.DataBean.ItemsBean itemsQuoteBean;
+            if (mDatas.get(position).getQuote()==null) {
+                itemsBean = mDatas.get(position);
+                mBaseViewHolder.llQuoteComment.setVisibility(View.GONE);
+            } else {
+                mBaseViewHolder.llQuoteComment.setVisibility(View.VISIBLE);
+                itemsBean =mDatas.get(position).getQuote();
+                itemsQuoteBean =mDatas.get(position);
+                if (itemsQuoteBean.getType()==1) {
+                    mBaseViewHolder.ivQuiteContent.setVisibility(View.GONE);
+                    mBaseViewHolder.tvQuoteContent.setTextColor(ContextCompat.getColor(activity,android.R.color.black));
+                    mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position));
+                    mBaseViewHolder.tvQuoteContent.setMovementMethod(LinkMovementMethod.getInstance());
+                } else if (itemsQuoteBean.getType() == 2) {
+                    mBaseViewHolder.ivQuiteContent.setVisibility(View.VISIBLE);
+                    mBaseViewHolder.tvQuoteContent.setTextColor(ContextCompat.getColor(activity,R.color.themeClassRoom));
+                    mBaseViewHolder.tvQuoteContent.setText(itemsQuoteBean.getUser().getNickname()+":");
+                    GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth, mHeight, itemsQuoteBean.getBody()), mBaseViewHolder.ivQuiteContent);
+                    mBaseViewHolder.ivQuiteContent.setOnClickListener(v -> {
+                        List<String> mLists = new ArrayList<>();
+                        mLists.add(itemsQuoteBean.getBody());
+                        BeautyDefine.getImagePreviewDefine(activity).showImagePreview(mLists, 0);
+                    });
+                }
+            }
+            mBaseViewHolder.tvName.setText(itemsBean.getUser().getNickname());
+            GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth, mHeight, itemsBean.getUser().getAvatar())
                     , R.mipmap.default_teammate_avatar_classroom, mBaseViewHolder.ivAvatar);
-            mBaseViewHolder.ivAvatar.setOnClickListener(v -> BeautyDefine.getOpenPageDefine(activity).toPersonal(mDatas.get(position).getUser().getId()));//跳转个人中心
-            String badge = mDatas.get(position).getUser().getBadge();
+            LiveChatListBean.DataBean.ItemsBean finalItemsBean = itemsBean;
+            mBaseViewHolder.ivAvatar.setOnClickListener(v -> BeautyDefine.getOpenPageDefine(activity).toPersonal(finalItemsBean.getUser().getId()));//跳转个人中心
+            String badge =itemsBean.getUser().getBadge();
 
             if (mBaseViewHolder.llVip.getChildCount() > 1) {
                 mBaseViewHolder.llVip.removeViews(1, mBaseViewHolder.llVip.getChildCount() - 1);
@@ -96,25 +123,34 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity, badges[i]));
             }
 
-            if (mDatas.get(position).getType()==1) {
+            if (itemsBean.getType()==1) {
                 mBaseViewHolder.tvContent.setVisibility(View.VISIBLE);
                 mBaseViewHolder.ivContent.setVisibility(View.GONE);
-                mBaseViewHolder.tvContent.setText(mDatas.get(position).getBody());
-            } else if (mDatas.get(position).getType() == 2) {
+                mBaseViewHolder.tvContent.setText(itemsBean.getBody());
+            } else if (itemsBean.getType() == 2) {
                 mBaseViewHolder.tvContent.setVisibility(View.GONE);
                 mBaseViewHolder.ivContent.setVisibility(View.VISIBLE);
-                GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth, mHeight, mDatas.get(position).getBody()), mBaseViewHolder.ivContent);
+                GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth, mHeight, itemsBean.getBody()), mBaseViewHolder.ivContent);
+
                 mBaseViewHolder.ivContent.setOnClickListener(v -> {
                     List<String> mLists = new ArrayList<>();
-                    mLists.add(mDatas.get(position).getBody());
+                    mLists.add(itemsBean.getBody());
                     BeautyDefine.getImagePreviewDefine(activity).showImagePreview(mLists, 0);
                 });
+
             }
-            mBaseViewHolder.llRoot.setOnClickListener(v -> {
-                if (onItemClick != null) {
-                    onItemClick.onClickItem(position, position, position);
-                }
-            });
+            if (!String.valueOf(itemsBean.getUser().getId()).equals(BeautyDefine.getUserInfoDefine(activity).getUserId()))//不能回复自己
+                mBaseViewHolder.llRoot.setOnClickListener(v -> {
+                    if (onItemClick != null) {
+                        onItemClick.onClickItem(position, position, position);
+                    }
+                });
+            else
+                mBaseViewHolder.llRoot.setOnClickListener(null);
+
+
+
+
         }else if (mViewHolder instanceof SysViwHolder){
             if (mDatas.get(position).getType()==3) {//下单
                 ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,"下单成功"));
@@ -127,25 +163,35 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
     }
+    private SpannableString getQuoteSpannable(int position){
+        String mShowName = mDatas.get(position).getUser().getNickname();
+        String mDes =mDatas.get(position).getBody();
+        SpannableString  spannableString =new SpannableString(""+mShowName+"："+mDes+"");
+        spannableString.setSpan(new MyCheckTextView(position,false),0,
+                mShowName.length()+1,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
     private SpannableString getSpannableStr(int position,String des){
         String mShowName = mDatas.get(position).getUser().getNickname();
         SpannableString  spannableString =new SpannableString("恭喜"+mShowName+des);
-        spannableString.setSpan(new MyCheckTextView(position),2,
+        spannableString.setSpan(new MyCheckTextView(position,false),2,
                 mShowName.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
     class MyCheckTextView extends ClickableSpan {
-
+        private boolean isQuote;
         private int position;
-        public MyCheckTextView(int position) {
+        public MyCheckTextView(int position,boolean isQuote) {
             this.position = position;
+            this.isQuote =isQuote;
         }
 
         @Override
         public void updateDrawState(TextPaint ds) {
             super.updateDrawState(ds);
             //设置文本的颜色
-            ds.setColor(ContextCompat.getColor(activity,R.color.sysMessageClassRoom));
+            ds.setColor(ContextCompat.getColor(activity,R.color.themeClassRoom));
             //超链接形式的下划线，false 表示不显示下划线，true表示显示下划线,其实默认也是true，如果要下划线的话可以不设置
             ds.setUnderlineText(false);
         }
@@ -153,7 +199,10 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         //点击事件，自由操作
         @Override
         public void onClick(View widget) {
-            BeautyDefine.getOpenPageDefine(activity).toPersonal(mDatas.get(position).getUser().getId());
+            if (isQuote){
+                BeautyDefine.getOpenPageDefine(activity).toPersonal(mDatas.get(position).getQuote().getUser().getId());
+            }else
+                BeautyDefine.getOpenPageDefine(activity).toPersonal(mDatas.get(position).getUser().getId());
         }
     }
 
@@ -169,6 +218,9 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView tvName;
         TextView tvContent;
         TextView tvBack;
+        TextView tvQuoteContent;
+        ImageView ivQuiteContent;
+        LinearLayout llQuoteComment;
         ImageView ivContent;
         LinearLayout llVip;
         LinearLayout llRoot;
@@ -183,6 +235,9 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             tvContent = itemView.findViewById(R.id.tv_content);
             llVip = itemView.findViewById(R.id.ll_vip);
             llRoot = itemView.findViewById(R.id.ll_root);
+            llQuoteComment = itemView.findViewById(R.id.llQuoteComment);
+            ivQuiteContent = itemView.findViewById(R.id.ivQuiteContent);
+            tvQuoteContent = itemView.findViewById(R.id.tvQuoteContent);
             rlGov = itemView.findViewById(R.id.rl_gov);
         }
     }

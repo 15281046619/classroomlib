@@ -55,8 +55,15 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         webViewDestroy();
     }
+
     private  void  webViewDestroy(){
 
             //有音频播放的web页面的销毁逻辑

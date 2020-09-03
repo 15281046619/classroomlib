@@ -54,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp"
+                android:text="这是一个实践反思积分"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
             <ImageView
@@ -62,6 +63,35 @@
                 android:layout_height="90dp"
                 android:gravity="center_vertical"
                 android:visibility="gone"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/llQuoteComment"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/dp_5_classroom"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:background="@drawable/shape_comment_item_bg_classroom">
+            <TextView
+                android:id="@+id/tvQuoteContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="32434343434"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+            <ImageView
+                android:id="@+id/ivQuiteContent"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/ic_fspl_classroom"
+                android:minHeight="45dp"
                 />
         </LinearLayout>
 

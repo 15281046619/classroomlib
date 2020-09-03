@@ -56,7 +56,7 @@ import java.util.List;
  * Time;15:24
  * author:baiguiqiang
  */
-public class LiveChatFragment extends BaseLazyLoadFragment {
+public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHelper.OnKeyBoardStatusChangeListener {
     private VpSwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private LiveChatAdapter mAdapter;
@@ -66,6 +66,9 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     private ImageView ivPic,ivBug;
     private EditText etContent;
     private int newMessageSum =0;
+    private KeyBoardHelper mKeyBoardHelper;
+    private String quote_id=null;//@某条id
+    private boolean isClickPic=false;
 
     public static LiveChatFragment getInstance(String id,String fixedStr){
         LiveChatFragment mFragment = new LiveChatFragment();
@@ -79,6 +82,8 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_live_chat_classroom,container,false);
+        mKeyBoardHelper =new KeyBoardHelper(getActivity());
+        mKeyBoardHelper.onCreate();
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         btSend = view.findViewById(R.id.bt_send);
@@ -87,7 +92,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
 
         tvFixed = view.findViewById(R.id.tvFixed);
         ivBug = view.findViewById(R.id.ivBug);
-        GlideUtils.loadAvatar(R.mipmap.ic_qg_classroom,ivBug);
+        GlideUtils.loadGif(R.mipmap.ic_qg_classroom,ivBug);
         setFixed(getArguments().getString("fixedStr"));
         etContent = view.findViewById(R.id.et_content);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -100,11 +105,12 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
                 recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
         });
         mAdapter.setOnItemClick((position, child, type) -> {
-        /*  etContent.setText("");
+            etContent.setText("");
             etContent.setTag(position);
             etContent.setHint("回复:"+mAdapter.getData().get(position).getUser().getNickname());
+            quote_id = String.valueOf(mAdapter.getData().get(position).getId());
             etContent.requestFocus();
-            mKeyBoardHelper.openInputMethodManager(etContent);*/
+            mKeyBoardHelper.openInputMethodManager(etContent);
         });
         recyclerView.setAdapter(mAdapter);
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
@@ -139,9 +145,10 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
             }
         });
         ivPic.setOnClickListener(v -> {
+            isClickPic=true;
             requestPermission();
         });
-
+        mKeyBoardHelper.setOnKeyBoardStatusChangeListener(this);
         return view;
     }
     private void setFixed(String content){
@@ -165,6 +172,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     public void requestDangerousPermissions(String[] permissions, int requestCode) {
         if (checkDangerousPermissions(permissions)){
             jumpPic();
+
             return;
         }
         requestPermissions( permissions, requestCode);
@@ -219,7 +227,11 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
         });
     }
     private void choosePicCommentError() {
-
+            if (isClickPic) {
+                isClickPic = false;
+                quote_id=null;
+                etContent.setHint("请输入你想说的话");
+            }
     }
 
     @Override
@@ -472,7 +484,11 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     private void goSendComment(String body,String type) {
         if (type.equals("1"))
             btSend.setEnabled(false);
-        requestPost(HttpUrls.URL_LIVE_CHAT_SEND(),new ApiParams().with("live_id",getArguments().getString("id")).with("type",type).with("body",body),
+        ApiParams mParams = new ApiParams().with("live_id", getArguments().getString("id"))
+                .with("type", type).with("body", body);
+        if (quote_id!=null)
+            mParams.with("quote_id",quote_id);
+        requestPost(HttpUrls.URL_LIVE_CHAT_SEND(),mParams,
                 CommonEntity.class, new HttpCallBack<CommonEntity>() {
 
                     @Override
@@ -481,6 +497,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
                             btSend.setEnabled(true);
                         }else if (type.equals("2")){
                             BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
+                            choosePicCommentError();
                         }
                         MyToast.myToast(getActivity(),message);
 
@@ -495,6 +512,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
                             MyToast.myToast(getActivity(),commonEntity.getMessage());
                         }else if (type.equals("2")){
                             BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
+                            choosePicCommentError();
                             MyToast.myToast(getActivity(),commonEntity.getMessage());
                         }else if (type.equals("3")){
                             MyToast.myToast(getActivity(),"下单成功");
@@ -538,6 +556,20 @@ public class LiveChatFragment extends BaseLazyLoadFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (mKeyBoardHelper != null) {
+            mKeyBoardHelper.onDestroy();
+        }
+    }
 
+    @Override
+    public void OnKeyBoardChanged(boolean visible, int keyBoardHeight) {
+        if (!visible){
+            if (quote_id!=null&&!isClickPic){//点击对某人评论在隐藏软键盘
+                quote_id=null;
+                if (btSend.isEnabled())
+                    etContent.setText("");
+                etContent.setHint("请输入你想说的话");
+            }
+        }
     }
 }

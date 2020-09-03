@@ -28,6 +28,10 @@ public class GlideUtils {
         if (!activityIsFinished(imageView.getContext()))
         Glide.with(imageView.getContext()).load(resourceId).placeholder(R.color.GrayClassRoom).centerCrop().into(imageView);
     }
+    public static void loadGif(Integer resourceId,ImageView imageView){
+        if (!activityIsFinished(imageView.getContext()))
+        Glide.with(imageView.getContext()).load(resourceId).asGif().centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+    }
     public static void loadAvatar(String url,ImageView imageView,int placeholder){
         if (!activityIsFinished(imageView.getContext()))
         Glide.with(imageView.getContext()).load(url).placeholder(placeholder).centerCrop().into(imageView);

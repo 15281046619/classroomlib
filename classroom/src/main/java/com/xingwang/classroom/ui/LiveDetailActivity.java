@@ -418,6 +418,7 @@ public class LiveDetailActivity extends BaseNetActivity {
                         @Override
                         public void onPlayError(String url, Object... objects) {
                             super.onPlayError(url, objects);
+
                             if (isLive){
                                 if (liveEnd){//直播结束标识
                                     liveEnd();
@@ -428,6 +429,7 @@ public class LiveDetailActivity extends BaseNetActivity {
                                     return;
                                 }
                             }
+
                             MyToast.myLongToast(getApplicationContext(),"播放错误，点击播放重试");
                         }
                     }).setLockClickListener((view, lock) -> {
@@ -633,7 +635,11 @@ public class LiveDetailActivity extends BaseNetActivity {
         });
     }
 
- /*  @Override
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        mArrayLists[ viewPager.getCurrentItem()].onActivityResult(requestCode,resultCode,data);
+    }
+    /*  @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {  //把操作放在用户点击的时候
             View v = getCurrentFocus();    //得到当前页面的焦点,ps:有输入框的页面焦点一般会被输入框占据
