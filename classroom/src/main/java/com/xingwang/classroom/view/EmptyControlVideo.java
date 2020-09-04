@@ -119,6 +119,11 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
         }
     }
 
+    @Override
+    protected void showWifiDialog() {
+        super.showWifiDialog();
+    }
+
     /**
      * 全屏得时候 findViewById
      * @param context
@@ -547,24 +552,27 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
     /**
      模拟添加弹幕数据
      */
-    public void addDanmaku(boolean islive,String content,int textColor,byte priority) {
+    public void addDanmaku(boolean isLive,String content,int textColor,byte priority) {
         BaseDanmaku danmaku = mDanmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
         if (danmaku == null || mDanmakuView == null) {
             return;
         }
-        try {
+     /*   try {
             LiveDetailActivity mLiveDetailActivity = (LiveDetailActivity) getContext();
-            if (mLiveDetailActivity.orientationUtils != null&&mLiveDetailActivity.orientationUtils.getScreenType() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-                danmaku.duration=new Duration(3000);
+            if (mLiveDetailActivity.orientationUtils != null
+                    &&mLiveDetailActivity.orientationUtils.getScreenType() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                danmaku.duration=new Duration(5000);
             }else
-                danmaku.duration=new Duration(4000);
+                danmaku.duration=new Duration(6000);
         }catch (Exception e){
-            danmaku.duration=new Duration(4000);
-        }
+            danmaku.duration=new Duration(6000);
+        }*/
+        danmaku.duration=new Duration(6000);
         danmaku.text = content;
         danmaku.padding = 10;
         danmaku.priority = priority;  // 可能会被各种过滤器过滤并隐藏显示，所以提高等级
-        danmaku.isLive = islive;
+        danmaku.isLive = isLive;
+
         danmaku.setTime(mDanmakuView.getCurrentTime() + 500);
         danmaku.textSize = 20f * (mParser.getDisplayer().getDensity() - 0.6f);
         danmaku.textColor = textColor;

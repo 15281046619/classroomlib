@@ -202,7 +202,7 @@ public class WsManagerUtil {
         @Override
         public void onFailure(Throwable t, Response response) {
             if (channelStatusListener!=null&&response!=null){
-                channelStatusListener.onFailure(response.code(),response.message());
+                channelStatusListener.onFailure(response.code(),"连接直播间失败");
             }
         }
     };

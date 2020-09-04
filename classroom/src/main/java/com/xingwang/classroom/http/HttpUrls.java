@@ -9,7 +9,7 @@ public class HttpUrls {
     // public static   String URL_HOST="http://zyapp.test.xw518.com/";
     public static   String URL_HOST="http://zyapp.app.xw518.com/";
     private static final String URL_NAME="";
-
+    public static String URL_TYPE="ZY";
     /*private static final String URL_HOST="http://192.168.65.74/";
     private static final String URL_NAME="xwapp/public/";*/
 
@@ -48,6 +48,10 @@ public class HttpUrls {
     public static final String URL_LIVE_LISTS(){
       return  URL_HOST+URL_NAME+"live/home/live/lists";
     }
+
+    public static final String URL_LIVE_CATEGORY(){
+      return  URL_HOST+URL_NAME+"live/home/category/lists";
+    }
     public static final String URL_LIVE_DETAIL(){
       return  URL_HOST+URL_NAME+"live/home/live/detail";
     }
@@ -81,8 +85,13 @@ public class HttpUrls {
     public static String CHANNEL_WS_URL ="ws://subscribe.app.xw518.com:10101";
     public static String URL_ZHI_BO ="http://zhibo.xw518.com/zhibo/";//直播地址
 
-
-    public static final String URL_GOOD_LISTS="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/home/goods/lists";
+    public static final String URL_GOOD_LISTS(){
+        return  URL_HOST+URL_NAME+"live/home/goods/lists";
+    }
+    public static final String URL_GOOD_ORDER(){
+        return  URL_HOST+URL_NAME+"live/user/order/add";
+    }
+ /*   public static final String URL_GOOD_LISTS="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/";
     public static final String URL_LIVE_INFO="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/home/live/detail";
-    public static final String URL_GOOD_ORDER="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/user/order/add";
+    public static final String URL_GOOD_ORDER="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/";*/
 }

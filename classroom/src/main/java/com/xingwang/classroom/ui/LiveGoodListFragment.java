@@ -57,23 +57,19 @@ public class LiveGoodListFragment extends BaseLazyLoadFragment {
 
         swipeRefreshLayout.setOnRefreshListener(() -> getRequestData());
 
-        goodListAdapter.setOnChildItemClickListener(new GoodListAdapter.OnChildItemClickListener() {
-            @Override
-            public void onClick(GoodListBean.GoodBean goodBean) {
-                OrderActivity.getIntent(getContext(),goodBean);
-            }
-        });
+        goodListAdapter.setOnChildItemClickListener(goodBean -> OrderActivity.getIntent(getContext(),goodBean));
 
         getRequestData();
     }
 
     private void getRequestData(){
-        requestGet(HttpUrls.URL_GOOD_LISTS,new ApiParams().with("live_id",getArguments().getString(Constants.DATA)), GoodListBean.class, new HttpCallBack<GoodListBean>() {
+        requestGet(HttpUrls.URL_GOOD_LISTS(),new ApiParams().with("live_id",getArguments().getString(Constants.DATA)), GoodListBean.class, new HttpCallBack<GoodListBean>() {
 
             @Override
             public void onFailure(String message) {
                 swipeRefreshLayout.setRefreshing(false);
-                MyToast.myToast(getContext().getApplicationContext(),message);
+                if (getActivity()!=null)
+                MyToast.myToast(getActivity().getApplicationContext(),message);
             }
 
             @Override

@@ -22,6 +22,7 @@ import com.xingwang.classroom.ui.LiveWebActivity;
 import com.xingwang.classroom.utils.ActivityUtil;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
+import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
@@ -54,6 +55,7 @@ public class ClassRoomLibUtils {
      */
     public static void initLib(Context context,String type){
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT);//关闭日志
+        HttpUrls.URL_TYPE =type;
         switch (type){
             case TYPE_ZY:
                 HttpUrls.URL_HOST ="http://zyapp.app.xw518.com/";

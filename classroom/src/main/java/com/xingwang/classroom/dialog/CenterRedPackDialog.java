@@ -54,7 +54,6 @@ public class CenterRedPackDialog extends BaseDialog {
             WindowManager.LayoutParams layoutParams = window.getAttributes();
             layoutParams.gravity = Gravity.CENTER;
             window.setAttributes(layoutParams);
-
         }
         return dialog;
     }
@@ -97,6 +96,7 @@ public class CenterRedPackDialog extends BaseDialog {
                 animation.addFrame(ContextCompat.getDrawable(getContext(), R.mipmap.ic_pack_4_classroom), 150);
                 animation.addFrame(ContextCompat.getDrawable(getContext(), R.mipmap.ic_pack_2_classroom), 150);
                 animation.addFrame(ContextCompat.getDrawable(getContext(), R.mipmap.ic_pack_1_classroom), 150);
+                animation.addFrame(ContextCompat.getDrawable(getContext(), R.mipmap.ic_pack_6_classroom), 100);
 
 
                 //设置给ImageView

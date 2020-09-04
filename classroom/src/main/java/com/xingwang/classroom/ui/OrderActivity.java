@@ -301,7 +301,7 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
 
         BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("提交中",false));
 
-        requestPost(HttpUrls.URL_GOOD_ORDER, new ApiParams().with("goods_id", String.valueOf(goodBean.getId()))
+        requestPost(HttpUrls.URL_GOOD_ORDER(), new ApiParams().with("goods_id", String.valueOf(goodBean.getId()))
                 .with("goods_num", tv_buy_num.getText().toString()).with("tel", et_buyer_tel.getText().toString())
                 .with("address", et_city.getText().toString()+et_adr.getText().toString()).with("username", et_buyer_name.getText().toString())
                 .with("user_tips", et_buyer_msg.getText().toString()), CommonEntity.class, new HttpCallBack<CommonEntity>() {

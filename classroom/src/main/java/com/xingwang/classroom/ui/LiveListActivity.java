@@ -11,12 +11,16 @@ import android.widget.ImageView;
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.LiveListAdapter;
+import com.xingwang.classroom.bean.CommentBean;
+import com.xingwang.classroom.bean.LiveCategoryBean;
 import com.xingwang.classroom.bean.LiveListBean;
 import com.xingwang.classroom.dialog.CenterRedPackDialog;
 import com.xingwang.classroom.http.ApiParams;
+import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
+import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.view.CustomToolbar;
@@ -71,10 +75,55 @@ public class LiveListActivity extends BaseNetActivity {
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(() -> getRequestData(Constants.LOAD_DATA_TYPE_INIT));
-        getRequestData(Constants.LOAD_DATA_TYPE_INIT);
+        getCategory();
+
+    }
+    private int categoryId =-1;
+    private void getCategory() {
+        requestGet(HttpUrls.URL_LIVE_CATEGORY(),new ApiParams(), LiveCategoryBean.class, new HttpCallBack<LiveCategoryBean>() {
+
+            @Override
+            public void onFailure(String message) {
+                swipeRefreshLayout.setRefreshing(false);
+                MyToast.myToast(getApplicationContext(),message);
+            }
+
+            @Override
+            public void onSuccess(LiveCategoryBean liveCategoryBean) {
+                switch (HttpUrls.URL_TYPE){
+                    case ClassRoomLibUtils.TYPE_ZY:
+                        findCategoryId(liveCategoryBean.getData(),"猪药");
+                        break;
+                    case ClassRoomLibUtils.TYPE_JQ:
+                        findCategoryId(liveCategoryBean.getData(),"禽");
+                        break;
+                    case ClassRoomLibUtils.TYPE_NY:
+                        findCategoryId(liveCategoryBean.getData(),"牛羊");
+                        break;
+                    case ClassRoomLibUtils.TYPE_SC:
+                        findCategoryId(liveCategoryBean.getData(),"水产");
+                        break;
+
+
+                }
+                getRequestData(Constants.LOAD_DATA_TYPE_INIT);
+            }
+        });
+    }
+    private void findCategoryId(List<LiveCategoryBean.DataBean> data, String name){
+        for(int i=0;i<data.size();i++){
+            if (data.get(i).getTitle().contains(name)){
+                categoryId =data.get(i).getId();
+                break;
+            }
+        }
     }
     private void getRequestData(int loadDataTypeInit){
-        requestGet(HttpUrls.URL_LIVE_LISTS(),new ApiParams().with("page",1 ).with("page_num",String.valueOf(pageSum)), LiveListBean.class, new HttpCallBack<LiveListBean>() {
+        ApiParams mApiParams = new ApiParams().with("page", 1).with("page_num", String.valueOf(pageSum));
+        if (categoryId!=-1){
+            mApiParams.with("category_id",categoryId);
+        }
+        requestGet(HttpUrls.URL_LIVE_LISTS(),mApiParams, LiveListBean.class, new HttpCallBack<LiveListBean>() {
 
             @Override
             public void onFailure(String message) {

@@ -185,12 +185,13 @@ public class HttpUtil {
                 try {
                     if (callBack != null && mainHandler != null) {
                         LogUtil.i("onFailure:"+e.getMessage(),HttpUtil.class);
-                        mainHandler.post(() -> callBack.onFailure(e.getMessage()));
+
+                        mainHandler.post(() -> callBack.onFailure("服务异常,请检查你的网络！"));
                     }
                 } catch (Exception e1) {
                     LogUtil.e("Exception:"+e1.getMessage(),HttpUtil.class);
                     if (callBack != null && mainHandler != null) {
-                        mainHandler.post(() ->  callBack.onFailure(e1.getMessage()));
+                        mainHandler.post(() ->  callBack.onFailure("数据解析异常"));
                     }
                 }
             }
@@ -243,12 +244,12 @@ public class HttpUtil {
                     if (callBack != null && mainHandler != null) {
                         mainHandler.post(() -> {
                             LogUtil.i("onFailure:"+e.getMessage(),HttpUtil.class);
-                            callBack.onFailure(e.getMessage());
+                            callBack.onFailure("服务异常,请检查你的网络！");
                         });
                     }
                 } catch (Exception e1) {
                     if (callBack != null && mainHandler != null) {
-                        mainHandler.post(() ->  callBack.onFailure(e1.getMessage()));
+                        mainHandler.post(() ->  callBack.onFailure("数据解析异常"));
                     }
                     LogUtil.e("Exception:"+e1.getMessage(),HttpUtil.class);
                 }
@@ -278,7 +279,7 @@ public class HttpUtil {
                 } catch (Exception e) {
                     LogUtil.e("Exception:"+e.getMessage(),HttpUtil.class);
                     if (callBack != null && mainHandler != null) {
-                        mainHandler.post(() ->  callBack.onFailure(e.getMessage()));
+                        mainHandler.post(() ->  callBack.onFailure("数据解析异常"));
                     }
 
                 }

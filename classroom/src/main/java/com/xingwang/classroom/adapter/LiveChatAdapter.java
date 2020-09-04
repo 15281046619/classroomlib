@@ -45,8 +45,8 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public LiveChatAdapter( FragmentActivity activity) {
 
         this.activity =activity;
-        mWidth = CommentUtils.dip2px(activity,110);
-        mHeight = CommentUtils.dip2px(activity,90);
+        mWidth = CommentUtils.dip2px(activity,50);
+        mHeight = CommentUtils.dip2px(activity,40);
     }
     public ArrayList<LiveChatListBean.DataBean.ItemsBean> getData(){
         return mDatas;
@@ -88,17 +88,16 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 mBaseViewHolder.llQuoteComment.setVisibility(View.GONE);
             } else {
                 mBaseViewHolder.llQuoteComment.setVisibility(View.VISIBLE);
-                itemsBean =mDatas.get(position).getQuote();
-                itemsQuoteBean =mDatas.get(position);
+                itemsBean =mDatas.get(position);
+                itemsQuoteBean =mDatas.get(position).getQuote();
                 if (itemsQuoteBean.getType()==1) {
                     mBaseViewHolder.ivQuiteContent.setVisibility(View.GONE);
-                    mBaseViewHolder.tvQuoteContent.setTextColor(ContextCompat.getColor(activity,android.R.color.black));
-                    mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position));
-                    mBaseViewHolder.tvQuoteContent.setMovementMethod(LinkMovementMethod.getInstance());
+                 //   mBaseViewHolder.tvQuoteContent.setTextColor(ContextCompat.getColor(activity,android.R.color.black));
+                    mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position,itemsQuoteBean.getBody()));
+
                 } else if (itemsQuoteBean.getType() == 2) {
                     mBaseViewHolder.ivQuiteContent.setVisibility(View.VISIBLE);
-                    mBaseViewHolder.tvQuoteContent.setTextColor(ContextCompat.getColor(activity,R.color.themeClassRoom));
-                    mBaseViewHolder.tvQuoteContent.setText(itemsQuoteBean.getUser().getNickname()+":");
+                    mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position,""));
                     GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth, mHeight, itemsQuoteBean.getBody()), mBaseViewHolder.ivQuiteContent);
                     mBaseViewHolder.ivQuiteContent.setOnClickListener(v -> {
                         List<String> mLists = new ArrayList<>();
@@ -106,6 +105,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         BeautyDefine.getImagePreviewDefine(activity).showImagePreview(mLists, 0);
                     });
                 }
+                mBaseViewHolder.tvQuoteContent.setMovementMethod(LinkMovementMethod.getInstance());
             }
             mBaseViewHolder.tvName.setText(itemsBean.getUser().getNickname());
             GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth, mHeight, itemsBean.getUser().getAvatar())
@@ -163,10 +163,10 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
     }
-    private SpannableString getQuoteSpannable(int position){
-        String mShowName = mDatas.get(position).getUser().getNickname();
-        String mDes =mDatas.get(position).getBody();
-        SpannableString  spannableString =new SpannableString(""+mShowName+"："+mDes+"");
+    private SpannableString getQuoteSpannable(int position,String mDes){
+        String mShowName = mDatas.get(position).getQuote().getUser().getNickname();
+
+        SpannableString  spannableString =new SpannableString(mShowName+"："+mDes+"");
         spannableString.setSpan(new MyCheckTextView(position,false),0,
                 mShowName.length()+1,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;

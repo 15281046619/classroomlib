@@ -52,8 +52,8 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
             this.curId = Integer.parseInt(curId);
         this.activity =activity;
         this.lectureId =lectureId;
-        mWidth = CommentUtils.dip2px(activity,110);
-        mHeight = CommentUtils.dip2px(activity,90);
+        mWidth = CommentUtils.dip2px(activity,50);
+        mHeight = CommentUtils.dip2px(activity,40);
     }
     public void setOnDetailItemListener(OnClickDetailItemListener mOnClickDetailItem){
         this.mOnClickDetailItem =mOnClickDetailItem;

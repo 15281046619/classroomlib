@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="看看大家的手气>"
+        android:text="该红包版权由成都兴旺动物药业有限公司提供"
         android:textColor="#fec199"
         android:textStyle="bold"
         android:layout_marginBottom="20dp"

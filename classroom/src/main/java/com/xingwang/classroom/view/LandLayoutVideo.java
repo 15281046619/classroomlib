@@ -2,13 +2,13 @@ package com.xingwang.classroom.view;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
-import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -188,7 +188,7 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
     public RelativeLayout getADViewRoot(){
         return rlAd;
     }
-    @Override
+   /* @Override
     protected void showWifiDialog() {
         if (!NetworkUtils.isAvailable(mContext)) {
             Toast.makeText(mContext, getResources().getString(com.shuyu.gsyvideoplayer.R.string.no_net), Toast.LENGTH_LONG).show();
@@ -204,6 +204,28 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
             }
         });
         builder.setNegativeButton(getResources().getString(com.shuyu.gsyvideoplayer.R.string.tips_not_wifi_cancel), (dialog, which) -> dialog.dismiss());
+        builder.create().show();
+    }*/
+
+    @Override
+    protected void showWifiDialog() {
+        if (!NetworkUtils.isAvailable(mContext)) {
+            //Toast.makeText(mContext, getResources().getString(R.string.no_net), Toast.LENGTH_LONG).show();
+            startPlayLogic();
+            return;
+        }
+        android.app.AlertDialog.Builder builder = new AlertDialog.Builder(getActivityContext());
+        builder.setMessage(getResources().getString(R.string.tips_not_wifi));
+        builder.setPositiveButton(getResources().getString(R.string.tips_not_wifi_confirm), (dialog, which) -> {
+            dialog.dismiss();
+            startPlayLogic();
+        });
+        builder.setNegativeButton(getResources().getString(R.string.tips_not_wifi_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         builder.create().show();
     }
 

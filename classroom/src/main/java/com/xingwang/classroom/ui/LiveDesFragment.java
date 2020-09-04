@@ -51,6 +51,17 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
         websettings.setAppCachePath(appCachePath);
         websettings.setAllowFileAccess(true);    // 可以读取文件缓存
         websettings.setAppCacheEnabled(true);    //开启H5(APPCache)缓存功能
+        websettings.setUseWideViewPort(true);//关键点
+        websettings.setLoadWithOverviewMode(true);
+
+        /**
+
+         * 用WebView显示图片，可使用这个参数 设置网页布局类型： 1、LayoutAlgorithm.NARROW_COLUMNS ：
+
+         * 适应内容大小 2、LayoutAlgorithm.SINGLE_COLUMN:适应屏幕，内容将自动缩放
+
+         */
+      // websettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
     }
     @Override
     public void onDestroyView() {

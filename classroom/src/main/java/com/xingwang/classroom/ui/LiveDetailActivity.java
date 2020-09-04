@@ -222,7 +222,8 @@ public class LiveDetailActivity extends BaseNetActivity {
 
                     @Override
                     public void onFailure(String message) {
-                        requestFailureShow(message);
+                     //   requestFailureShow(message);
+                        showUi(mLiveIsSubScribeBean,"");
                     }
 
                     @Override
@@ -264,7 +265,8 @@ public class LiveDetailActivity extends BaseNetActivity {
 
                     @Override
                     public void onFailure(String message) {
-                        requestFailureShow(message);
+                        //requestFailureShow(message);
+                        showUi(mLiveIsSubScribeBean,"");
                     }
 
                     @Override
@@ -338,7 +340,11 @@ public class LiveDetailActivity extends BaseNetActivity {
     private void  initVideoPlay(String url){
 
 
-
+        if (TextUtils.isEmpty(url)){//视频地址获取失败
+            findViewById(R.id.rl_empty).setVisibility(View.GONE);
+            MyToast.myLongToast(getApplicationContext(),"视频地址获取失败，请重新进入直播间");
+            return;
+        }
         if (orientationUtils==null) {
             //外部辅助的旋转，帮助全屏
             orientationUtils = new OrientationUtils(this, mVideoPlayer);
@@ -424,10 +430,12 @@ public class LiveDetailActivity extends BaseNetActivity {
                                     liveEnd();
                                     return;
                                 }
-                                if (!isPlay){//直播前没有准备到资源
-                                   mVideoPlayer.clickStartIcon();
+                              /*  if (!isPlay){//直播前没有准备到资源
+                                    mVideoPlayer.clickStartIcon();
                                     return;
-                                }
+                                }*/
+                                mVideoPlayer.clickStartIcon();
+                                return;
                             }
 
                             MyToast.myLongToast(getApplicationContext(),"播放错误，点击播放重试");
@@ -639,17 +647,6 @@ public class LiveDetailActivity extends BaseNetActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         mArrayLists[ viewPager.getCurrentItem()].onActivityResult(requestCode,resultCode,data);
     }
-    /*  @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {  //把操作放在用户点击的时候
-            View v = getCurrentFocus();    //得到当前页面的焦点,ps:有输入框的页面焦点一般会被输入框占据
-            if (isShouldHideKeyboard(v, event)) { //判断用户点击的是否是输入框以外的区域
-                hideKeyboard(v.getWindowToken()) ;  //收起键盘
-            }
-        }
-        return super.dispatchTouchEvent(event);
-    }*/
-
     @Override
     protected int layoutResId() {
         return R.layout.activity_live_detail_classromm;

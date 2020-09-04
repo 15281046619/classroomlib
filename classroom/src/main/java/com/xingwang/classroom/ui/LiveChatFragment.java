@@ -3,6 +3,7 @@ package com.xingwang.classroom.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -92,6 +93,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
 
         tvFixed = view.findViewById(R.id.tvFixed);
         ivBug = view.findViewById(R.id.ivBug);
+        ivBug.setAlpha(0.7f);
         GlideUtils.loadGif(R.mipmap.ic_qg_classroom,ivBug);
         setFixed(getArguments().getString("fixedStr"));
         etContent = view.findViewById(R.id.et_content);
@@ -144,10 +146,14 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                 }
             }
         });
-        ivPic.setOnClickListener(v -> {
-            isClickPic=true;
-            requestPermission();
-        });
+        if (BeautyDefine.getUserInfoDefine(getActivity()).isOfficial()) {
+            ivPic.setOnClickListener(v -> {
+                isClickPic = true;
+                requestPermission();
+            });
+        }else {
+            ivPic.setColorFilter(ContextCompat.getColor(getActivity(),R.color.GrayClassRoom));
+        }
         mKeyBoardHelper.setOnKeyBoardStatusChangeListener(this);
         return view;
     }
