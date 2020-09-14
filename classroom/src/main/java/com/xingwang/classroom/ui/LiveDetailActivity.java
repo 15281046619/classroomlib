@@ -116,7 +116,7 @@ public class LiveDetailActivity extends BaseNetActivity {
         @Override
         public void run() {
             getOnlineCount();
-            mHandler.postDelayed(this,10000);
+
         }
     };
 
@@ -173,8 +173,9 @@ public class LiveDetailActivity extends BaseNetActivity {
                             return;
                         }
                         getIsSubscribe();
-                        mHandler.post(mOnlineCountRunnable);
 
+                        onlineCount =liveDetailBean.getData().getLive().getClick();
+                        ((EmptyControlVideo)mVideoPlayer.getCurrentPlayer()).showOnlineCount(onlineCount);
                     }
                 });
     }
@@ -288,13 +289,16 @@ public class LiveDetailActivity extends BaseNetActivity {
 
                         @Override
                         public void onFailure(String message) {
-
+                            mHandler.removeCallbacks(mOnlineCountRunnable);
+                            mHandler.postDelayed(mOnlineCountRunnable,10000);
                         }
 
                         @Override
                         public void onSuccess(OnlineCountBean mVodListBean) {
                             onlineCount =mVodListBean.getData();
                             ((EmptyControlVideo)mVideoPlayer.getCurrentPlayer()).showOnlineCount(mVodListBean.getData());
+                            mHandler.removeCallbacks(mOnlineCountRunnable);
+                            mHandler.postDelayed(mOnlineCountRunnable,10000);
                         }
                     });
     }
@@ -312,6 +316,9 @@ public class LiveDetailActivity extends BaseNetActivity {
             tvVote.setOnClickListener(v -> getVote());
         }
         initVideoPlay(url);
+        //目前调用浏览数，去掉在线数
+     /*   mHandler.removeCallbacks(mOnlineCountRunnable);
+        mHandler.post(mOnlineCountRunnable);*/
         initTabLayout();
     }
     private void getVote() {
@@ -369,7 +376,7 @@ public class LiveDetailActivity extends BaseNetActivity {
                     .setShowFullAnimation(false)
                     .setNeedLockFull(true)
                     .setUrl(url)
-                    .setNeedShowWifiTip(true)
+                    .setNeedShowWifiTip(false)
                     .setDismissControlTime(5000)
                     .setCacheWithPlay(true)
                     .setCachePath(ClassRoomLibUtils.getVideoCachePathFile(this))

@@ -24,4 +24,5 @@
             android:id="@+id/recyclerView"/>
     </com.xingwang.classroom.view.VpSwipeRefreshLayout>
 
+
 </RelativeLayout>

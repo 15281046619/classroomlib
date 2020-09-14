@@ -1,26 +1,20 @@
 package com.xingwang.classroom.ui;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
+
 
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.LiveListAdapter;
-import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.bean.LiveCategoryBean;
 import com.xingwang.classroom.bean.LiveListBean;
-import com.xingwang.classroom.dialog.CenterRedPackDialog;
 import com.xingwang.classroom.http.ApiParams;
-import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.view.CustomToolbar;
@@ -67,7 +61,6 @@ public class LiveListActivity extends BaseNetActivity {
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
 
-
     }
 
     private void initData() {
@@ -92,7 +85,7 @@ public class LiveListActivity extends BaseNetActivity {
             public void onSuccess(LiveCategoryBean liveCategoryBean) {
                 switch (HttpUrls.URL_TYPE){
                     case ClassRoomLibUtils.TYPE_ZY:
-                        findCategoryId(liveCategoryBean.getData(),"猪药");
+                        findCategoryId(liveCategoryBean.getData(),"猪");
                         break;
                     case ClassRoomLibUtils.TYPE_JQ:
                         findCategoryId(liveCategoryBean.getData(),"禽");

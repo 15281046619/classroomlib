@@ -243,9 +243,11 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
     }
     //显示在线人数
     public void showOnlineCount(long count){
-        if (count!=-1){
+        if (count>0){
             tvSum.setVisibility(VISIBLE);
             tvSum.setText(String.valueOf(count * 10 + System.currentTimeMillis() % 10));
+        }else {
+            tvSum.setVisibility(GONE);
         }
     }
     @Override

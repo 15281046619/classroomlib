@@ -91,7 +91,5 @@ public class HttpUrls {
     public static final String URL_GOOD_ORDER(){
         return  URL_HOST+URL_NAME+"live/user/order/add";
     }
- /*   public static final String URL_GOOD_LISTS="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/";
-    public static final String URL_LIVE_INFO="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/home/live/detail";
-    public static final String URL_GOOD_ORDER="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/live/";*/
+
 }

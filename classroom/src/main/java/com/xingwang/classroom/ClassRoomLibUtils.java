@@ -97,7 +97,7 @@ public class ClassRoomLibUtils {
                 //否则表示x5内核加载失败，会自动切换到系统内核。
                 if (!SharedPreferenceUntils.getX5IsInstallFinish(context)&&arg0)
                       SharedPreferenceUntils.saveX5State(context, true);
-                LogUtil.e("TAG","内核加载"+arg0);
+
             }
 
             @Override

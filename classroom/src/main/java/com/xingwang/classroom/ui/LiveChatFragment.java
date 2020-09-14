@@ -43,6 +43,8 @@ import com.xingwang.classroom.utils.GsonUtils;
 import com.xingwang.classroom.utils.KeyBoardHelper;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xingwang.classroom.view.gift.GiftBean;
+import com.xingwang.classroom.view.gift.GiftView;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
 
@@ -68,6 +70,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     private EditText etContent;
     private int newMessageSum =0;
     private KeyBoardHelper mKeyBoardHelper;
+    private GiftView giftView;
     private String quote_id=null;//@某条id
     private boolean isClickPic=false;
 
@@ -90,6 +93,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         btSend = view.findViewById(R.id.bt_send);
         ivPic = view.findViewById(R.id.iv_pic);
         tvNewMessage = view.findViewById(R.id.tvNewMessage);
+        giftView = view.findViewById(R.id.giftView);
 
         tvFixed = view.findViewById(R.id.tvFixed);
         ivBug = view.findViewById(R.id.ivBug);
@@ -121,7 +125,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                 requestData(Constants.LOAD_DATA_TYPE_MORE, mAdapter.getData().get(0).getId());
             }else {
                 requestData(Constants.LOAD_DATA_TYPE_MORE,Integer.MAX_VALUE);
-               // swipeRefreshLayout.setRefreshing(false);
+                // swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -233,11 +237,11 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         });
     }
     private void choosePicCommentError() {
-            if (isClickPic) {
-                isClickPic = false;
-                quote_id=null;
-                etContent.setHint("请输入你想说的话");
-            }
+        if (isClickPic) {
+            isClickPic = false;
+            quote_id=null;
+            etContent.setHint("请输入你想说的话");
+        }
     }
 
     @Override
@@ -359,17 +363,22 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     public void showChannelMessage(LiveChatListBean.DataBean.ItemsBean mBean){
 
         mAdapter.getData().add(mBean);
+        int sum =1;
+        try {
+            sum =Integer.parseInt(mBean.getBody());
+        }catch (Exception e){
+
+        }
+        // giftView.addData(new GiftBean(mBean.getUser().getAvatar(),mBean.getUser().getNickname(),mBean.getUser().getId()+"","小花","1","",sum));
         if (mAdapter!=null){//还没有初始化
 
             getActivity().runOnUiThread(() -> {
 
                 if ( ((LiveDetailActivity)getActivity()).orientationUtils.getIsLand()!=0 ){//横屏幕
                     if (!TextUtils.isEmpty(mBean.getGame_tips())){//答题获奖 横批不显示红包dialog
-                       /* if (String.valueOf(mBean.getUser().getId()).equals(BeautyDefine.getUserInfoDefine(getContext()).getUserId())){//获奖者是自己显示红包dialog
-                            showRedPackDialog(mBean.getGame_tips());
-                        }else {//*/
-                            ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”抢答中获得积分");
-                       /* }*/
+
+                        ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”抢答中获得积分");
+
                         return;
                     }
                     if (mBean.getType()==1) {
