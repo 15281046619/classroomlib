@@ -26,6 +26,7 @@ import com.xingwang.classroom.ui.danmu.DanamakuAdapter;
 import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
+import com.xingwang.swip.utils.Constants;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -245,7 +246,10 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
     public void showOnlineCount(long count){
         if (count>0){
             tvSum.setVisibility(VISIBLE);
+            if (Constants.APP_DBG)
             tvSum.setText(String.valueOf(count * 10 + System.currentTimeMillis() % 10));
+            else
+                tvSum.setText(String.valueOf(count));
         }else {
             tvSum.setVisibility(GONE);
         }
@@ -314,14 +318,18 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
     @Override
     public void onSeekComplete() {
         super.onSeekComplete();
-        int time = mProgressBar.getProgress() * getDuration() / 100;
-        //如果已经初始化过的，直接seek到对于位置
-        if (mHadPlay && getDanmakuView() != null && getDanmakuView().isPrepared()) {
-            resolveDanmakuSeek(this, time);
-        } else if (mHadPlay && getDanmakuView() != null && !getDanmakuView().isPrepared()) {
-            //如果没有初始化过的，记录位置等待
-            setDanmakuStartSeekPosition(time);
+        int time=0;
+        if (mProgressBar!=null) {
+             time = mProgressBar.getProgress() * getDuration() / 100;
         }
+            //如果已经初始化过的，直接seek到对于位置
+            if (mHadPlay && getDanmakuView() != null && getDanmakuView().isPrepared()) {
+                resolveDanmakuSeek(this, time);
+            } else if (mHadPlay && getDanmakuView() != null && !getDanmakuView().isPrepared()) {
+                //如果没有初始化过的，记录位置等待
+                setDanmakuStartSeekPosition(time);
+            }
+
     }
     private void initDanmaku() {
         // 设置最大显示行数

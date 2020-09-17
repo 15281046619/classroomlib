@@ -2,13 +2,15 @@ package com.xingwang.classroom.utils;
 
 import android.util.Log;
 
+import com.xingwang.swip.utils.Constants;
+
 /**
  * log工具类
  */
 public class LogUtil {
-    private static Boolean isOpenLog = false;
+   // private static Boolean isOpenLog = false;
     public static void e(String mTag,String mContent){
-        e(isOpenLog,mTag,mContent);
+        e(Constants.APP_DBG,mTag,mContent);
     }
     public static void e(String mContent,Class mClass){
         e("TAG",mClass.getSimpleName()+":"+mContent);
@@ -24,7 +26,7 @@ public class LogUtil {
         i("TAG",mClass.getSimpleName()+":"+mContent);
     }
     public static void i(String mTag,String mContent){
-        i(isOpenLog,mTag,mContent);
+        i(Constants.APP_DBG,mTag,mContent);
     }
     public static void i(Boolean isOpenLog,String mTag,String mContent){
         if (isOpenLog)

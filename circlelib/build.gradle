@@ -48,7 +48,7 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-annotations:2.6.5"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.6.5"
 
-    implementation 'com.beautydefinelibrary:beautydefinelibrary:1.2.18'
+    implementation 'com.beautydefinelibrary:beautydefinelibrary:1.2.20'
     implementation 'com.beautyreslibrary:zy:1.0.4'
 
     api 'pub.devrel:easypermissions:2.0.1'

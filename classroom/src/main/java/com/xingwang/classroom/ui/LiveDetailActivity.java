@@ -170,7 +170,7 @@ public class LiveDetailActivity extends BaseNetActivity {
 
                         if (liveDetailBean.getData().getLive().getIs_end()==2&&isLive){//参数是直播但是获取到数据直播已经结束了 只能重新
                             liveEnd();
-                            return;
+                           // return;
                         }
                         getIsSubscribe();
 
@@ -317,8 +317,10 @@ public class LiveDetailActivity extends BaseNetActivity {
         }
         initVideoPlay(url);
         //目前调用浏览数，去掉在线数
-     /*   mHandler.removeCallbacks(mOnlineCountRunnable);
-        mHandler.post(mOnlineCountRunnable);*/
+        if (com.xingwang.swip.utils.Constants.APP_DBG) {
+            mHandler.removeCallbacks(mOnlineCountRunnable);
+            mHandler.post(mOnlineCountRunnable);
+        }
         initTabLayout();
     }
     private void getVote() {
@@ -509,7 +511,7 @@ public class LiveDetailActivity extends BaseNetActivity {
         }
         return false;
     }
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

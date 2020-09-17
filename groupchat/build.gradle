@@ -42,7 +42,7 @@ dependencies {
     //加载图片
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 
-    implementation 'com.beautydefinelibrary:beautydefinelibrary:1.2.18'
+    implementation 'com.beautydefinelibrary:beautydefinelibrary:1.2.20'
     implementation 'com.beautyreslibrary:zy:1.0.4'
 
     implementation 'com.android.support:recyclerview-v7:28.0.0'

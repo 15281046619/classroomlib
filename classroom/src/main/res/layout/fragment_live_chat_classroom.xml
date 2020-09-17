@@ -115,14 +115,26 @@
             <ImageView
                 android:layout_width="45dp"
                 android:layout_height="35dp"
+                android:id="@+id/ivGift"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_gift_classroom"/>
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="35dp"
                 android:id="@+id/iv_pic"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:layout_toRightOf="@+id/iv_product"
+            android:layout_toRightOf="@+id/iv_gift"
                 android:paddingBottom="5dp"
+
                 android:layout_centerVertical="true"
                 android:src="@mipmap/ic_tp_classroom"/>
+
         </RelativeLayout>
 
     </RelativeLayout>

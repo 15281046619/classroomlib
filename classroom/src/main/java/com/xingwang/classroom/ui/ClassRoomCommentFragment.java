@@ -16,8 +16,7 @@ import com.xingwang.classroom.adapter.DetailAdapter;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
-
-
+import com.xingwang.swip.view.WrapContentLinearLayoutManager;
 
 
 /**
@@ -91,7 +90,7 @@ public class ClassRoomCommentFragment extends BaseLazyLoadFragment implements De
         if (mActivity==null&&getActivity()!=null) {
             mActivity = (ClassRoomDetailActivity) getActivity();
         }
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getActivity()));
         initAdapter();
     }
     public void initAdapter(){

@@ -40,6 +40,7 @@ public class GiftView extends LinearLayout{
     private List<GiftBean> mData =new ArrayList<>();//所有要显示的数据
     private GiftBean mBean1 ;//正在显示1
     private GiftBean mBean2 ;//正在显示2
+    public  List<GiftBean> mAllGift =new ArrayList<>();
     public GiftView(Context context) {
         this(context,null);
     }
@@ -78,7 +79,22 @@ public class GiftView extends LinearLayout{
                 wsMainHandler.post(() ->showContent2());
             }
         }
+    }
 
+    private void getGiftLists(){
+        mAllGift.add(new GiftBean("","","","爱心","0","",R.mipmap.ic_ax_classroom,"1",0));
+        mAllGift.add(new GiftBean("","","","自行车","1","",R.mipmap.ic_zxc_classroom,"5",0));
+        mAllGift.add(new GiftBean("","","","小轿车","2","",R.mipmap.ic_xjc_classroom,"10",0));
+        mAllGift.add(new GiftBean("","","","跑车","3","",R.mipmap.ic_pc_classroom,"50",0));
+        mAllGift.add(new GiftBean("","","","飞机","4","",R.mipmap.ic_fj_classroom,"100",0));
+        mAllGift.add(new GiftBean("","","","火箭","5","",R.mipmap.ic_hj_classroom,"200",0));
+        mAllGift.add(new GiftBean("","","","航母","6","",R.mipmap.ic_ax_classroom,"500",0));
+        mAllGift.add(new GiftBean("","","","猪","7","",R.mipmap.ic_ax_classroom,"1000",0));
+    }
+    public List<GiftBean> getAllGift(){
+        if (mAllGift.size()==0)
+            getGiftLists();
+        return mAllGift;
     }
     private void showContent1() {
         if (mData.get(0)==mBean2){
@@ -93,7 +109,8 @@ public class GiftView extends LinearLayout{
         }
         rlRoot1.setVisibility(View.VISIBLE);
         GlideUtils.loadAvatar(mBean1.getAvatar(), ivHead1);
-        GlideUtils.loadAvatar(mBean1.getGiftImg(), ivGiftImg1);
+       // GlideUtils.loadAvatar(mBean1.getGiftImg(), ivGiftImg1);
+        GlideUtils.loadAvatar(mBean1.getGiftImgLoc(), ivGiftImg1);
         tvName1.setText(mBean1.getName());
         tvGiftName1.setText("送出 "+mBean1.getGiftName());
         tvSum1.setText("1");
@@ -114,7 +131,8 @@ public class GiftView extends LinearLayout{
 
         rlRoot2.setVisibility(View.VISIBLE);
         GlideUtils.loadAvatar(mBean2.getAvatar(),ivHead2);
-        GlideUtils.loadAvatar(mBean2.getGiftImg(), ivGiftImg2);
+      //  GlideUtils.loadAvatar(mBean2.getGiftImg(), ivGiftImg2);
+        GlideUtils.loadAvatar(mBean2.getGiftImgLoc(), ivGiftImg2);
         tvName2.setText(mBean2.getName());
         tvGiftName2.setText("送出 "+mBean2.getGiftName());
         tvSum2.setText("1");

@@ -30,8 +30,12 @@ public class HttpHeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
-         String mAuth = BeautyDefine.getAccountDefine().getAuthStr();
-       // String mAuth = "Yt7daGui/arohoSc7Kzgam07KF+iDO9M66EzpWTxN3TEx0xNj2D1iVbjfAOv6d6qL8Q+u1nYd/ZAOWCUboPvoARJACwvFGC3tNIW8ABySss=";
+        String mAuth;
+        if (Constants.APP_DBG)
+            mAuth = "Yt7daGui/arohoSc7Kzgam07KF+iDO9M66EzpWTxN3TEx0xNj2D1iVbjfAOv6d6qL8Q+u1nYd/ZAOWCUboPvoARJACwvFGC3tNIW8ABySss=";
+        else
+            mAuth = BeautyDefine.getAccountDefine().getAuthStr();
+
        // String mAuth = "Yt7daGui/arohoSc7Kzgam07KF+iDO9M/dM1k/cZ/eG17lL99fvNn7utihSkxEKaMx4HqCrW/1ooz5zTOeHLoHqt2AIfuHEmh/LB1qxB2Rk=";
 
         if (!TextUtils.isEmpty(mAuth))

@@ -115,7 +115,7 @@ public class HttpUtil {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull final IOException e) {
-                Log.i("commonGet",e.getMessage());
+
                 mainHandler.post(() -> callBack.onFailure("请求失败"));
             }
 
@@ -123,7 +123,7 @@ public class HttpUtil {
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
                     String mDatas = response.body().string();
-                    Log.i("commonGet",mDatas);
+
                     final CommonEntity commonEntity = JsonUtils.jsonToPojo(mDatas,CommonEntity.class);
 
                     handleResult(commonEntity,callBack);
@@ -154,7 +154,7 @@ public class HttpUtil {
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
                     String mdata = response.body().string();//该流只能调用一次 不然closed异常
-                    Log.i("commonPost","onSuccess:"+mdata);
+
                     final CommonEntity<T> commonEntity = JsonUtils.jsonToPojo(mdata,CommonEntity.class);
                     handleResult(commonEntity,callBack);
 

@@ -1,27 +1,51 @@
 package com.xingwang.classroom.view.gift;
 
+import java.io.Serializable;
+
 /**
  * Date:2020/9/12
  * Time;11:03
  * author:baiguiqiang
  */
-public class GiftBean {
+public class GiftBean implements Serializable {
     private String avatar;
+
     private String name;
     private String userId;
     private String giftName;
     private String giftId;
     private String giftImg;
+    private int giftImgLoc;//本地礼物图片
+    private String giftPrice;//本地礼物价格
+
     private int sum;
 
-    public GiftBean(String avatar, String name, String userId, String giftName, String giftId, String giftImg, int sum) {
+    public GiftBean(String avatar, String name, String userId, String giftName, String giftId, String giftImg, int giftImgLoc, String giftPrice, int sum) {
         this.avatar = avatar;
         this.name = name;
         this.userId = userId;
         this.giftName = giftName;
         this.giftId = giftId;
         this.giftImg = giftImg;
+        this.giftImgLoc = giftImgLoc;
+        this.giftPrice = giftPrice;
         this.sum = sum;
+    }
+
+    public int getGiftImgLoc() {
+        return giftImgLoc;
+    }
+
+    public void setGiftImgLoc(int giftImgLoc) {
+        this.giftImgLoc = giftImgLoc;
+    }
+
+    public String getGiftPrice() {
+        return giftPrice;
+    }
+
+    public void setGiftPrice(String giftPrice) {
+        this.giftPrice = giftPrice;
     }
 
     public int getSum() {

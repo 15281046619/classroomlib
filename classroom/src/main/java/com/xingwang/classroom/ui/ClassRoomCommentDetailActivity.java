@@ -44,6 +44,8 @@ import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
+import com.xingwang.swip.view.WrapContentLinearLayoutManager;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +101,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     }
 
     private void initListener() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
         toolBar.setNavigationOnClickListener(v -> finish());
         mKeyBoardHelper.setOnKeyBoardStatusChangeListener(this);
 

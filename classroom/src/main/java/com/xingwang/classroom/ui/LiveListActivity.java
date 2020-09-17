@@ -19,6 +19,7 @@ import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xingwang.swip.view.WrapContentLinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class LiveListActivity extends BaseNetActivity {
     }
 
     private void initData() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(() -> getRequestData(Constants.LOAD_DATA_TYPE_INIT));

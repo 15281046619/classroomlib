@@ -131,7 +131,7 @@ public class ClassRoomLibUtils {
                 MyToast.myToast(context,"正在后台下载安装x5内核");
             }
         });
-
+        com.xingwang.swip.utils.Constants.init(context);
     }
 
     /**

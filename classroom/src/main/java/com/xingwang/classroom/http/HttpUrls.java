@@ -73,6 +73,9 @@ public class HttpUrls {
     public static final String URL_LIVE_CHAT_LISTS(){
       return  URL_HOST+URL_NAME+"live/home/chat/lists";
     }
+    public static final String URL_USER_INFO(){
+      return  URL_HOST+URL_NAME+"user/user/my/info";
+    }
     public static final String URL_LIVE_CHAT_SEND(){
       return  URL_HOST+URL_NAME+"live/user/chat/send";
     }

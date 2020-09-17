@@ -95,7 +95,6 @@ public class CenterBuyDialog extends BaseDialog {
             SharedPreferenceUntils.savePhone(getContext(),phone);
 
             if (callback1!=null){
-
                     callback1.run("{\"phone\":\""+phone+"\",\"name\":\""+name+"\",\"address\":\""+address+"\"}");
             }
             dismissDialog();

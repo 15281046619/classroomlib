@@ -19,6 +19,7 @@ import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.DividerItemDecoration;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
+import com.xingwang.swip.view.WrapContentLinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
         else
             category ="全部";
         if (getContext()!=null) {
-            recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerview.setLayoutManager(new WrapContentLinearLayoutManager(getContext()));
             recyclerview.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
         }
         requestHttpData(Constants.LOAD_DATA_TYPE_INIT,Integer.MAX_VALUE);

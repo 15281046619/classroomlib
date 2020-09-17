@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xingwang.classroom" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.xingwang.classroom">
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序修改全局音频设置 -->
 
     <!--网络状态-->
@@ -20,7 +21,7 @@
    <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     &lt;!&ndash; 硬件加速对X5视频播放非常重要，建议开启 &ndash;&gt;
     <uses-permission android:name="android.permission.GET_TASKS" />-->
-
+    <!-- android:debuggable="true" tools:ignore="HardcodedDebugMode"  强制变为debug 用于java代码获取是否为测试版本功能 -->
     <application android:hardwareAccelerated="true"
         >
 
@@ -43,13 +44,13 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <category android:name="android.intent.category.DEFAULT" />
-                <data
-                    android:scheme="classroom"
-                    android:host="${applicationId}.pldetail" />
-            </intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <category android:name="android.intent.category.DEFAULT" />
+            <data
+                android:scheme="classroom"
+                android:host="${applicationId}.pldetail" />
+        </intent-filter>
         </activity>
         <!--在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity-->
         <!--   android:exported="true"   是否允许外部调用-->

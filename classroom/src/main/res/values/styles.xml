@@ -72,6 +72,10 @@
         <!--全屏-->
         <item name="android:windowFullscreen">false</item>
     </style>
+    <style name="BottomSheetStyleClassRoom">
+        <item name="android:windowEnterAnimation">@anim/bottom_top_enter_classroom</item>
+        <item name="android:windowExitAnimation">@anim/top_bottom_exit_classroom</item>
+    </style>
     <style name="DialogCenterRedPackClassRoom" parent="Theme.AppCompat.Light.Dialog" >
         <!-- 窗口背景色 -->
         <item name="android:windowBackground">@android:color/transparent</item>

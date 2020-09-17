@@ -25,6 +25,7 @@ import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.bean.LiveChatListBean;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.GlideUtils;
+import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.view.CircularImage;
 
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder mViewHolder, int position) {
+        LogUtil.i("onBindViewHolder",""+position);
         if (mViewHolder instanceof LiveChatViwHolder) {
             LiveChatViwHolder mBaseViewHolder = (LiveChatViwHolder) mViewHolder;
             LiveChatListBean.DataBean.ItemsBean itemsBean;
@@ -157,7 +159,8 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }else if (mDatas.get(position).getType()==4){//打赏成功
                 ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,"打赏成功"));
             }else if (!TextUtils.isEmpty(mDatas.get(position).getGame_tips())){
-                ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,"抢答中获得积分"));
+                ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,
+                        "抢答中获得积分,回复答案："+mDatas.get(position).getBody()));
             }
             ((SysViwHolder) mViewHolder).tvContent.setMovementMethod(LinkMovementMethod.getInstance());
         }

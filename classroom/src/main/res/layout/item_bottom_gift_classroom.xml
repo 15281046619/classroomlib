@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:id="@+id/rlRoot"
+    android:paddingLeft="20dp"
+    android:paddingTop="@dimen/dp_5_classroom"
+    android:paddingBottom="@dimen/dp_5_classroom"
+    android:paddingRight="20dp"
+    android:layout_gravity="center"
+    android:background="@drawable/select_gift_select_bg_classroom"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/ivIcon"
+        android:src="@mipmap/ic_ax_classroom"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvName"
+        android:textColor="@color/black"
+        android:text="爱心"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSum"
+        android:textSize="10sp"
+        android:textColor="@color/black"
+        android:text="2积分"/>
+</LinearLayout>

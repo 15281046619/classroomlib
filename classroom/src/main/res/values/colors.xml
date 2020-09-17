@@ -20,4 +20,5 @@
     <color name="black">#000000</color>
     <color name="red">#ec3123</color>
     <color name="sysMessageClassRoom">#ff4081</color>
+    <color name="GIftItemBgClassRoom">#00ffffff</color>
 </resources>
