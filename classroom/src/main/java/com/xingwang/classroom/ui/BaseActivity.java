@@ -17,6 +17,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 
+import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.SystemDefine;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.utils.ActivityManager;
 import com.xingwang.classroom.utils.LogUtil;
@@ -34,10 +36,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (getIntent().getData()!=null){
+            SystemDefine systemDefine = BeautyDefine.getSystemDefine();
+            if (!systemDefine.checkLaunch(this)){
+                systemDefine.launch(this,getIntent().getData().toString());
+                return;
+            }
+        }
         super.onCreate(savedInstanceState);
         if (savedInstanceState!=null&&savedInstanceState.getBoolean("isClean")){
             finish();
         }
+
         transparentStatusBar();
         setContentView(layoutResId());
         ActivityManager.getInstance().addActivity(this);

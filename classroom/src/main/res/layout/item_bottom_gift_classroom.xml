@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:id="@+id/rlRoot"
-    android:paddingLeft="20dp"
+
     android:paddingTop="@dimen/dp_5_classroom"
     android:paddingBottom="@dimen/dp_5_classroom"
-    android:paddingRight="20dp"
+
     android:layout_gravity="center"
     android:background="@drawable/select_gift_select_bg_classroom"
     android:orientation="vertical">

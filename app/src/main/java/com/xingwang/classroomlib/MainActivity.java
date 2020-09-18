@@ -59,9 +59,10 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         // ClassRoomLibUtils.startWebActivity(this,"http%3a%2f%2fzyapp.app.xw518.com%2fpage%2fshare_article%3fid%3d1230",false,"测试");
 
         // startActivity(new Intent(this, LiveWebActivity.class));
-        Uri uri = Uri.parse("classroom://com.xingw.zyapp.zblist");
+   //     Uri uri = Uri.parse("classroom://com.xingw.zyapp.zblist");
+        Uri uri = Uri.parse("classroom://com.xingwang.classroomlib.zblist");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-        // startActivity(intent);
+         //startActivity(intent);
 
     }
 

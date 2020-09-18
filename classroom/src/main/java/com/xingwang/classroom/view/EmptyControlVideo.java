@@ -318,10 +318,9 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
     @Override
     public void onSeekComplete() {
         super.onSeekComplete();
-        int time=0;
+
         if (mProgressBar!=null) {
-             time = mProgressBar.getProgress() * getDuration() / 100;
-        }
+            int   time = mProgressBar.getProgress() * getDuration() / 100;
             //如果已经初始化过的，直接seek到对于位置
             if (mHadPlay && getDanmakuView() != null && getDanmakuView().isPrepared()) {
                 resolveDanmakuSeek(this, time);
@@ -329,7 +328,7 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
                 //如果没有初始化过的，记录位置等待
                 setDanmakuStartSeekPosition(time);
             }
-
+        }
     }
     private void initDanmaku() {
         // 设置最大显示行数

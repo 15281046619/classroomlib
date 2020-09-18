@@ -177,12 +177,14 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     private int curChooseJf=0;
     private void showChooseGiftDialog() {
         if (curJF!=-1) {
-            mChooseGiftDialog = BottomGifDialog.getInstance(giftView.getAllGift(),curJF);
-            mChooseGiftDialog.setCallback(integer -> {
-                curChooseJf = Integer.parseInt(giftView.getAllGift().get(integer).getGiftPrice());
-                goSendComment(giftView.getAllGift().get(integer).getGiftName(), "4");
-            });
-            mChooseGiftDialog.showDialog(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+            if (mChooseGiftDialog==null||!mChooseGiftDialog.isVisible()) {
+                mChooseGiftDialog = BottomGifDialog.getInstance(giftView.getAllGift(), curJF);
+                mChooseGiftDialog.setCallback(integer -> {
+                    curChooseJf = Integer.parseInt(giftView.getAllGift().get(integer).getGiftPrice());
+                    goSendComment(giftView.getAllGift().get(integer).getGiftName(), "4");
+                });
+                mChooseGiftDialog.showDialog(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+            }
         }else {
             getJF();
         }
@@ -483,6 +485,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         super.onPause();
         if (getActivity()!=null)
             KeyBoardHelper.hideSoftInput(getActivity());
+
     }
 
     @Override
@@ -586,17 +589,20 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     }
 
     private void getJF(){
+        ivGift.setEnabled(false);
         requestGet(HttpUrls.URL_USER_INFO(),new ApiParams(),
                 UserInfoBean.class, new HttpCallBack<UserInfoBean>() {
 
                     @Override
                     public void onFailure(String message) {
+                        ivGift.setEnabled(true);
                         MyToast.myLongToast(getActivity(),"获取积分数目失败，请重新点击");
 
                     }
 
                     @Override
                     public void onSuccess(UserInfoBean mUserBean) {
+                        ivGift.setEnabled(true);
                         curJF =mUserBean.getData().getJifen();
                         showChooseGiftDialog();
                     }
@@ -638,6 +644,9 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         super.onDestroyView();
         if (mKeyBoardHelper != null) {
             mKeyBoardHelper.onDestroy();
+        }
+        if(giftView!=null){
+            giftView.onDestroy();
         }
     }
 

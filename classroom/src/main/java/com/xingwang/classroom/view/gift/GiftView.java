@@ -85,11 +85,11 @@ public class GiftView extends LinearLayout{
         mAllGift.add(new GiftBean("","","","爱心","0","",R.mipmap.ic_ax_classroom,"1",0));
         mAllGift.add(new GiftBean("","","","自行车","1","",R.mipmap.ic_zxc_classroom,"5",0));
         mAllGift.add(new GiftBean("","","","小轿车","2","",R.mipmap.ic_xjc_classroom,"10",0));
-        mAllGift.add(new GiftBean("","","","跑车","3","",R.mipmap.ic_pc_classroom,"50",0));
-        mAllGift.add(new GiftBean("","","","飞机","4","",R.mipmap.ic_fj_classroom,"100",0));
-        mAllGift.add(new GiftBean("","","","火箭","5","",R.mipmap.ic_hj_classroom,"200",0));
-        mAllGift.add(new GiftBean("","","","航母","6","",R.mipmap.ic_ax_classroom,"500",0));
-        mAllGift.add(new GiftBean("","","","猪","7","",R.mipmap.ic_ax_classroom,"1000",0));
+        mAllGift.add(new GiftBean("","","","跑车","3","",R.mipmap.ic_pc_classroom,"20",0));
+        mAllGift.add(new GiftBean("","","","飞机","4","",R.mipmap.ic_fj_classroom,"50",0));
+        mAllGift.add(new GiftBean("","","","火箭","5","",R.mipmap.ic_hj_classroom,"100",0));
+        mAllGift.add(new GiftBean("","","","油轮","6","",R.mipmap.ic_ylun_classroom,"200",0));
+        mAllGift.add(new GiftBean("","","","航母","7","",R.mipmap.ic_hm_classroom,"500",0));
     }
     public List<GiftBean> getAllGift(){
         if (mAllGift.size()==0)
@@ -109,8 +109,9 @@ public class GiftView extends LinearLayout{
         }
         rlRoot1.setVisibility(View.VISIBLE);
         GlideUtils.loadAvatar(mBean1.getAvatar(), ivHead1);
-       // GlideUtils.loadAvatar(mBean1.getGiftImg(), ivGiftImg1);
-        GlideUtils.loadAvatar(mBean1.getGiftImgLoc(), ivGiftImg1);
+        // GlideUtils.loadAvatar(mBean1.getGiftImg(), ivGiftImg1);
+        // GlideUtils.loadAvatar(mBean1.getGiftImgLoc(), ivGiftImg1);
+        ivGiftImg1.setImageResource(mBean1.getGiftImgLoc());
         tvName1.setText(mBean1.getName());
         tvGiftName1.setText("送出 "+mBean1.getGiftName());
         tvSum1.setText("1");
@@ -131,22 +132,25 @@ public class GiftView extends LinearLayout{
 
         rlRoot2.setVisibility(View.VISIBLE);
         GlideUtils.loadAvatar(mBean2.getAvatar(),ivHead2);
-      //  GlideUtils.loadAvatar(mBean2.getGiftImg(), ivGiftImg2);
-        GlideUtils.loadAvatar(mBean2.getGiftImgLoc(), ivGiftImg2);
+        //  GlideUtils.loadAvatar(mBean2.getGiftImg(), ivGiftImg2);
+
+        ivGiftImg2.setImageResource(mBean2.getGiftImgLoc());
         tvName2.setText(mBean2.getName());
         tvGiftName2.setText("送出 "+mBean2.getGiftName());
         tvSum2.setText("1");
         showAnimator(rlRoot2);
     }
+    private AnimatorSet animatorSetAlpha;
+    private   ValueAnimator aAnimatorAlpha;
     private void showAnimator(View view){
-        AnimatorSet animatorSetsuofang = new AnimatorSet();//组合动画
-        ValueAnimator aAnimator = ObjectAnimator.ofFloat(view,"alpha",0f,1f);
+        animatorSetAlpha = new AnimatorSet();//组合动画
+        aAnimatorAlpha = ObjectAnimator.ofFloat(view,"alpha",0f,1f);
         ValueAnimator bAnimator = ObjectAnimator.ofFloat(view,"translationX",-getMeasuredWidth(),0);
-        animatorSetsuofang.setDuration(400);
-        animatorSetsuofang.setInterpolator(new DecelerateInterpolator());
-        animatorSetsuofang.play(bAnimator).with(aAnimator);//两个动画同时开始
-        animatorSetsuofang.start();
-        aAnimator.addListener(new Animator.AnimatorListener(){
+        animatorSetAlpha.setDuration(400);
+        animatorSetAlpha.setInterpolator(new DecelerateInterpolator());
+        animatorSetAlpha.play(bAnimator).with(aAnimatorAlpha);//两个动画同时开始
+        animatorSetAlpha.start();
+        aAnimatorAlpha.addListener(new Animator.AnimatorListener(){
 
             @Override
             public void onAnimationStart(Animator animation) {
@@ -196,16 +200,16 @@ public class GiftView extends LinearLayout{
             }
         }
     }
-
+    private ValueAnimator aAnimatorClose;
     /**
      * 隐藏动画
      */
     private void HideAlphaAnimator(View view){
-        ValueAnimator aAnimator = ObjectAnimator.ofFloat(view,"alpha",1f,0f);
-        aAnimator.setDuration(1000);
-        aAnimator.setInterpolator(new AccelerateInterpolator());
-        aAnimator.start();
-        aAnimator.addListener(new Animator.AnimatorListener() {
+        aAnimatorClose = ObjectAnimator.ofFloat(view,"alpha",1f,0f);
+        aAnimatorClose.setDuration(1200);
+        aAnimatorClose.setInterpolator(new AccelerateInterpolator());
+        aAnimatorClose.start();
+        aAnimatorClose.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -246,17 +250,19 @@ public class GiftView extends LinearLayout{
             }
         });
     }
+    private  AnimatorSet animatorSetScale;
+    private  ValueAnimator animatorScale;
     private void showScaleSumAnimator(TextView tvSum1) {
-        AnimatorSet animatorSetsuofang = new AnimatorSet();//组合动画
+        animatorSetScale = new AnimatorSet();//组合动画
         tvSum1.setPivotX(0);
         tvSum1.setPivotY(tvSum1.getMeasuredHeight());// 变换中心点
-        ValueAnimator aAnimator = ObjectAnimator.ofFloat(tvSum1,"scaleX",1f,1.8f,1f);
+        animatorScale = ObjectAnimator.ofFloat(tvSum1,"scaleX",1f,1.8f,1f);
         ValueAnimator aAnimatorb= ObjectAnimator.ofFloat(tvSum1,"scaleY",1f,1.8f,1f);
 
-        animatorSetsuofang.setDuration(300);
-        animatorSetsuofang.play(aAnimator).with(aAnimatorb);
-        animatorSetsuofang.start();
-        aAnimator.addListener(new Animator.AnimatorListener() {
+        animatorSetScale.setDuration(300);
+        animatorSetScale.play(animatorScale).with(aAnimatorb);
+        animatorSetScale.start();
+        animatorScale.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -277,6 +283,7 @@ public class GiftView extends LinearLayout{
 
             }
         });
+
     }
 
 
@@ -300,6 +307,26 @@ public class GiftView extends LinearLayout{
         }
     }
     public void onDestroy(){
+        if (animatorScale!=null) {
+            animatorScale.removeAllListeners();
+            animatorScale.cancel();
 
+        }
+        if (aAnimatorClose!=null){
+            aAnimatorClose.removeAllListeners();
+            aAnimatorClose.cancel();
+        }
+        if (aAnimatorAlpha!=null){
+            aAnimatorAlpha.removeAllListeners();
+            aAnimatorAlpha.cancel();
+        }
+        if (animatorSetScale!=null){
+            animatorSetScale.cancel();
+            animatorSetScale=null;
+        }
+        if (animatorSetAlpha!=null){
+            animatorSetAlpha.cancel();
+            animatorSetAlpha=null;
+        }
     }
 }

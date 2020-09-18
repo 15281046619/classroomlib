@@ -144,7 +144,7 @@ public class BottomGifDialog extends BaseDialog {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             viewHolder.tvName.setText(maps.get(position).getGiftName());
-            viewHolder.tvSum.setText(maps.get(position).getGiftPrice());
+            viewHolder.tvSum.setText(maps.get(position).getGiftPrice()+"积分");
             GlideUtils.loadAvatar(maps.get(position).getGiftImgLoc(),viewHolder.ivIcon);
             if (curPos ==position){
                 viewHolder.rlRoot.setBackgroundResource(R.drawable.shape_select_item_gift_classroom);

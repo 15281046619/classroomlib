@@ -39,6 +39,7 @@ import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.KeyBoardHelper;
+import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.ws.CommentEntity;
@@ -318,7 +319,7 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
                 SharedPreferenceUntils.saveCity(OrderActivity.this,et_city.getText().toString().trim());
                 SharedPreferenceUntils.saveName(OrderActivity.this,et_buyer_name.getText().toString().trim());
                 BeautyDefine.getOpenPageDefine(OrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-                ToastUtils.showShort("下单成功");
+                MyToast.myLongToast(OrderActivity.this,"下单成功");
                 OrderActivity.this.finish();
             }
         });
