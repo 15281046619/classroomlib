@@ -8,7 +8,7 @@
         <item name="android:textColor">@color/textColorClassRoom</item>
         <item name="android:textSize">@dimen/sp_15_classroom</item>
 
-
+<!--        <item name="android:windowBackground">@android:color/transparent</item>-->
         <!--禁止多点触控-->
         <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:splitMotionEvents">false</item>

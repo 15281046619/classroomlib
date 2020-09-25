@@ -3,15 +3,12 @@ package com.xingwang.classroom.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.Html;
@@ -23,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.ImagePickerCallBack;
@@ -407,7 +403,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                     }else if (mBean.getType()==3){
                         ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”下单成功");
                     }else if (mBean.getType()==4){
-                        ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”礼物送出成功");
+                        ((LiveDetailActivity)getActivity()).addSySDanMu("“"+mBean.getUser().getNickname()+"”打赏了【"+mBean.getBody()+"】");
                     }
                 }else {
                     if (!TextUtils.isEmpty(mBean.getGame_tips())){//答题获奖
@@ -419,7 +415,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                     }else if (mBean.getType()==3){
                         ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”下单成功");
                     }else if (mBean.getType()==4){
-                        ((LiveDetailActivity)getActivity()).addSySDanMu("恭喜“"+mBean.getUser().getNickname()+"”礼物送出成功");
+                        ((LiveDetailActivity)getActivity()).addSySDanMu("“"+mBean.getUser().getNickname()+"”打赏了【"+mBean.getBody()+"】");
                         if (mGiftBean!=null)
                             giftView.addData(mGiftBean);
                     }

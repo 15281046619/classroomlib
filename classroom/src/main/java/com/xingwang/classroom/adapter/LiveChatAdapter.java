@@ -80,7 +80,6 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder mViewHolder, int position) {
-        LogUtil.i("onBindViewHolder",""+position);
         if (mViewHolder instanceof LiveChatViwHolder) {
             LiveChatViwHolder mBaseViewHolder = (LiveChatViwHolder) mViewHolder;
             LiveChatListBean.DataBean.ItemsBean itemsBean;
@@ -121,8 +120,8 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             if (!TextUtils.isEmpty(badge) && mBaseViewHolder.llVip.getChildCount() == 1) {
                 String[] badges = badge.split(",");
-                for (int i = 0; i < badges.length; i++)
-                    mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity, badges[i]));
+                for (String s : badges)
+                    mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity, s));
             }
 
             if (itemsBean.getType()==1) {
@@ -143,7 +142,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             if (!String.valueOf(itemsBean.getUser().getId()).equals(BeautyDefine.getUserInfoDefine(activity).getUserId()))//不能回复自己
                 mBaseViewHolder.llRoot.setOnClickListener(v -> {
-                    if (onItemClick != null) {
+                    if (onItemClick != null&&!String.valueOf(itemsBean.getUser().getId()).equals(BeautyDefine.getUserInfoDefine(activity).getUserId())) {
                         onItemClick.onClickItem(position, position, position);
                     }
                 });
@@ -157,10 +156,9 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (mDatas.get(position).getType()==3) {//下单
                 ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,"下单成功"));
             }else if (mDatas.get(position).getType()==4){//打赏成功
-                ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,"打赏成功"));
+                ((SysViwHolder) mViewHolder).tvContent.setText(getRewardSpannableStr(position,"打赏了【"+mDatas.get(position).getBody()+"】"));
             }else if (!TextUtils.isEmpty(mDatas.get(position).getGame_tips())){
-                ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,
-                        "抢答中获得积分,回复答案："+mDatas.get(position).getBody()));
+                ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,"抢答中获得积分,回复答案："+mDatas.get(position).getBody()));
             }
             ((SysViwHolder) mViewHolder).tvContent.setMovementMethod(LinkMovementMethod.getInstance());
         }
@@ -180,6 +178,20 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         SpannableString  spannableString =new SpannableString("恭喜"+mShowName+des);
         spannableString.setSpan(new MyCheckTextView(position,false),2,
                 mShowName.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    /**
+     * 打赏显示
+     * @param position
+     * @param des
+     * @return
+     */
+    private SpannableString getRewardSpannableStr(int position,String des){
+        String mShowName = mDatas.get(position).getUser().getNickname();
+        SpannableString  spannableString =new SpannableString(mShowName+des);
+        spannableString.setSpan(new MyCheckTextView(position,false),0,
+                mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
     class MyCheckTextView extends ClickableSpan {

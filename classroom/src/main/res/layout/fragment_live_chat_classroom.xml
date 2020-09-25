@@ -129,7 +129,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-            android:layout_toRightOf="@+id/iv_gift"
+                android:layout_toRightOf="@+id/ivGift"
                 android:paddingBottom="5dp"
 
                 android:layout_centerVertical="true"

@@ -4,11 +4,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.blankj.utilcode.util.EmptyUtils;
 import com.xingwang.swip.bean.CommonEntity;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URLEncoder;
