@@ -2,7 +2,6 @@ package com.xingwang.classroom.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 
@@ -19,6 +18,7 @@ import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xingwang.swip.view.WrapContentLinearLayoutManager;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.List;
  * author:baiguiqiang
  */
 public class LiveListActivity extends BaseNetActivity {
-
+    private int page =1;
     private CustomToolbar toolbar;
     private VpSwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -39,6 +39,7 @@ public class LiveListActivity extends BaseNetActivity {
     private List<LiveListBean.DataBean> mData = new ArrayList<>();
     private LiveListAdapter mAdapter;
     private int clickPos;
+    private boolean isRequesting =false;
     @Override
     protected int layoutResId() {
         return R.layout.activity_live_list_classroom;
@@ -61,7 +62,14 @@ public class LiveListActivity extends BaseNetActivity {
         toolbar = findViewById(R.id.toolbar);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                if (mData.size()>0&&!isRequesting)
+                    getRequestData(Constants.LOAD_DATA_TYPE_MORE);
 
+            }
+        });
     }
 
     private void initData() {
@@ -114,10 +122,14 @@ public class LiveListActivity extends BaseNetActivity {
         }
     }
     private void getRequestData(int loadDataTypeInit){
-        ApiParams mApiParams = new ApiParams().with("page", 1).with("page_num", String.valueOf(pageSum));
+        if (loadDataTypeInit!=Constants.LOAD_DATA_TYPE_MORE){
+            page=1;
+        }
+        ApiParams mApiParams = new ApiParams().with("page", page).with("page_num", String.valueOf(pageSum));
         if (categoryId!=-1){
             mApiParams.with("category_id",categoryId);
         }
+        isRequesting =true;
         requestGet(HttpUrls.URL_LIVE_LISTS(),mApiParams, LiveListBean.class, new HttpCallBack<LiveListBean>() {
 
             @Override
@@ -125,6 +137,7 @@ public class LiveListActivity extends BaseNetActivity {
                 if (loadDataTypeInit!=Constants.LOAD_DATA_TYPE_MORE)
                     swipeRefreshLayout.setRefreshing(false);
                 MyToast.myToast(getApplicationContext(),message);
+                isRequesting= false;
             }
 
             @Override
@@ -138,6 +151,8 @@ public class LiveListActivity extends BaseNetActivity {
                     initAdapter(3);
                 }else
                     initAdapter(1);
+                isRequesting= false;
+                page++;
             }
         });
     }

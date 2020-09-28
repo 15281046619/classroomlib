@@ -112,13 +112,8 @@ public class LiveDetailActivity extends BaseNetActivity {
             }
         }
     };
-    private Runnable mOnlineCountRunnable=new Runnable() {//每隔10s刷新一次在线人数查询
-        @Override
-        public void run() {
-            getOnlineCount();
-
-        }
-    };
+    //每隔10s刷新一次在线人数查询
+    private Runnable mOnlineCountRunnable= () -> getOnlineCount();
 
 
     @Override
