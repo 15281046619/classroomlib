@@ -43,11 +43,13 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private DetailAdapter.OnClickDetailItemListener onItemClick;
     private final int ITEM_TYPE_1 =1;
     private final int ITEM_TYPE_2 =2;
-    public LiveChatAdapter( FragmentActivity activity) {
+    private String speaker;
+    public LiveChatAdapter( FragmentActivity activity,String speaker) {
 
         this.activity =activity;
         mWidth = CommentUtils.dip2px(activity,50);
         mHeight = CommentUtils.dip2px(activity,40);
+        this.speaker =speaker;
     }
     public ArrayList<LiveChatListBean.DataBean.ItemsBean> getData(){
         return mDatas;
@@ -156,7 +158,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (mDatas.get(position).getType()==3) {//下单
                 ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,"下单成功"));
             }else if (mDatas.get(position).getType()==4){//打赏成功
-                ((SysViwHolder) mViewHolder).tvContent.setText(getRewardSpannableStr(position,"打赏了【"+mDatas.get(position).getBody()+"】"));
+                ((SysViwHolder) mViewHolder).tvContent.setText(getRewardSpannableStr(position,"打赏了【"+mDatas.get(position).getBody()+"】给"+speaker));
             }else if (!TextUtils.isEmpty(mDatas.get(position).getGame_tips())){
                 ((SysViwHolder) mViewHolder).tvContent.setText(getSpannableStr(position,"抢答中获得积分,回复答案："+mDatas.get(position).getBody()));
             }

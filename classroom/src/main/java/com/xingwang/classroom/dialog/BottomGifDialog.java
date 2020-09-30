@@ -145,7 +145,8 @@ public class BottomGifDialog extends BaseDialog {
             }
             viewHolder.tvName.setText(maps.get(position).getGiftName());
             viewHolder.tvSum.setText(maps.get(position).getGiftPrice()+"积分");
-            GlideUtils.loadAvatar(maps.get(position).getGiftImgLoc(),viewHolder.ivIcon);
+            viewHolder.ivIcon.setImageResource(maps.get(position).getGiftImgLoc());
+            //  GlideUtils.loadAvatar(maps.get(position).getGiftImgLoc(),viewHolder.ivIcon);
             if (curPos ==position){
                 viewHolder.rlRoot.setBackgroundResource(R.drawable.shape_select_item_gift_classroom);
             }else {

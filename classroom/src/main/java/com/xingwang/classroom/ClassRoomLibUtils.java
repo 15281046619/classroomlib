@@ -8,7 +8,11 @@ import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.model.VideoOptionModel;
 import com.shuyu.gsyvideoplayer.player.IjkPlayerManager;
+import com.shuyu.gsyvideoplayer.player.PlayerFactory;
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsListener;
@@ -33,8 +37,11 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
@@ -131,9 +138,26 @@ public class ClassRoomLibUtils {
                 MyToast.myToast(context,"正在后台下载安装x5内核");
             }
         });
-        com.xingwang.swip.utils.Constants.init(context);
+
+        com.xingwang.swip.utils.Constants.init(context);//初始化 检查debug或者正式版本
+        initGSYVideoSetting();
     }
 
+    /**
+     * 初始化gsyvideo一些基础配置
+     */
+    private static void initGSYVideoSetting(){
+        //尝试降低倍数 视频声音画面不同步
+        VideoOptionModel videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 30);
+        List<VideoOptionModel> list = new ArrayList<>();
+        list.add(videoOptionModel);
+        GSYVideoManager.instance().setOptionModelList(list);
+        PlayerFactory.setPlayManager(Exo2PlayerManager.class);//使用系统解码器全屏切换会卡顿黑屏
+
+        //exo缓存模式，支持m3u8，只支持exo
+        // CacheFactory.setCacheManager(ExoPlayerCacheManager.class);
+        GSYVideoType.setRenderType(GSYVideoType.GLSURFACE);
+    }
     /**
      * 获取视频缓存文件夹
      * @param context

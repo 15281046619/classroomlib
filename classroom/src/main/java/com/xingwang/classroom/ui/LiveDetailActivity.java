@@ -76,7 +76,7 @@ import static com.xingwang.classroom.http.HttpUrls.URL_ZHI_BO;
  */
 public class LiveDetailActivity extends BaseNetActivity {
     private EmptyControlVideo mVideoPlayer;
-    private TextView tvVote,tvTime;
+    private TextView tvTime;
     public OrientationUtils orientationUtils;
     private boolean isTransition =true;
     private Transition transition;
@@ -304,12 +304,12 @@ public class LiveDetailActivity extends BaseNetActivity {
      * @param url
      */
     private void showUi(LiveIsSubscribeBean lectureListsBean,String url) {
-        if (lectureListsBean.getData().isSubscribe()){
+    /*    if (lectureListsBean.getData().isSubscribe()){
             tvVote.setText("已关注");
         }else {
             tvVote.setText("+");
             tvVote.setOnClickListener(v -> getVote());
-        }
+        }*/
         initVideoPlay(url);
         //目前调用浏览数，去掉在线数
         if (com.xingwang.swip.utils.Constants.APP_DBG) {
@@ -318,7 +318,7 @@ public class LiveDetailActivity extends BaseNetActivity {
         }
         initTabLayout();
     }
-    private void getVote() {
+   /* private void getVote() {
         if (mLiveDetailBean!=null) {
             BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("关注中",false));
             requestPost(HttpUrls.URL_LIVE_SUBSCRIBE(), new ApiParams().with("live_id", String.valueOf(mLiveDetailBean.getData().getLive().getId())),
@@ -338,7 +338,7 @@ public class LiveDetailActivity extends BaseNetActivity {
                         }
                     });
         }
-    }
+    }*/
 
 
     private void  initVideoPlay(String url){
@@ -354,17 +354,8 @@ public class LiveDetailActivity extends BaseNetActivity {
             orientationUtils = new OrientationUtils(this, mVideoPlayer);
             //初始化不打开外部的旋转
             orientationUtils.setEnable(false);
-            //尝试降低倍数 视频声音画面不同步
-            VideoOptionModel videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 30);
-            List<VideoOptionModel> list = new ArrayList<>();
-            list.add(videoOptionModel);
-            GSYVideoManager.instance().setOptionModelList(list);
-
 
             GSYVideoOptionBuilder  gsyVideoOption = new GSYVideoOptionBuilder();
-            PlayerFactory.setPlayManager(Exo2PlayerManager.class);//使用系统解码器全屏切换会卡顿黑屏
-            //exo缓存模式，支持m3u8，只支持exo
-            GSYVideoType.setRenderType(GSYVideoType.GLSURFACE);
             gsyVideoOption.setIsTouchWiget(true)
                     .setIsTouchWigetFull(true)
                     .setRotateViewAuto(false)
@@ -570,9 +561,9 @@ public class LiveDetailActivity extends BaseNetActivity {
         AndroidBug5497Workaround.assistActivity(this);
         tabLayout =findViewById(R.id.tabLayout);
         tvTime =findViewById(R.id.tvTime);
-        tvVote =findViewById(R.id.tvVote);
+        //tvVote =findViewById(R.id.tvVote);
         viewPager =findViewById(R.id.viewPager);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         mVideoPlayer = findViewById(R.id.video_track);
         //  RelativeLayout rlTime = findViewById(R.id.rlTime);
         mVideoHeight = CommentUtils.getScreenWidth(this)*720/1280;
@@ -622,12 +613,14 @@ public class LiveDetailActivity extends BaseNetActivity {
         });*/
     }
     private Fragment[] mArrayLists ;
-    private String[] mTitle ={"现场互动","直播介绍","产品列表"};
+    private String[] mTitle ={"现场互动","直播介绍","产品列表","排行榜"};
     private void initTabLayout() {
         mArrayLists =new  Fragment[]{
                 LiveChatFragment.getInstance(String.valueOf(mLiveDetailBean.getData().getLive().getId()),
-                        mLiveDetailBean.getData().getLive().getFixed_state()==1?mLiveDetailBean.getData().getLive().getFixed_str():""),
-                LiveDesFragment.getInstance(mLiveDetailBean.getData().getLive().getBody()),LiveGoodListFragment.getInstance(mId)};
+                        mLiveDetailBean.getData().getLive().getFixed_state()==1?mLiveDetailBean.getData().getLive().getFixed_str():""
+                        ,mLiveDetailBean.getData().getLive().getSpeaker()),
+                LiveDesFragment.getInstance(mLiveDetailBean.getData().getLive().getBody()),LiveGoodListFragment.getInstance(mId)
+            ,LiveGiftTopsFragment.getInstance(mId)};
         tabLayout.removeAllTabs();
         HomeViewpagerAdapter mViewPagerAdapter = new HomeViewpagerAdapter(getSupportFragmentManager(), Arrays.asList(mArrayLists), Arrays.asList(mTitle));
         viewPager.setAdapter(mViewPagerAdapter);

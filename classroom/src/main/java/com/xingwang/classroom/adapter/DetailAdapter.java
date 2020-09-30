@@ -269,5 +269,6 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
 
     public interface OnClickDetailItemListener{
         void onClickItem(int position,int child,int type);
+
     }
 }

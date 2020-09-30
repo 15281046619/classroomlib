@@ -16,6 +16,7 @@ import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xingwang.swip.view.WrapContentLinearLayoutManager;
 
 /**
  * Date:2020/8/13
@@ -51,7 +52,7 @@ public class LiveGoodListFragment extends BaseLazyLoadFragment {
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
         swipeRefreshLayout.setRefreshing(true);
 
-        recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycler_view.setLayoutManager(new WrapContentLinearLayoutManager(getActivity()));
         goodListAdapter=new GoodListAdapter(getActivity());
         recycler_view.setAdapter(goodListAdapter);
 

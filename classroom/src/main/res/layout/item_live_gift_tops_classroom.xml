@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/rlRoot"
+    android:layout_height="70dp">
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+       android:layout_centerVertical="true"
+        android:id="@+id/tvPosition"
+        android:paddingLeft="@dimen/dp_10_classroom"
+        android:textSize="@dimen/sp_14_classroom"
+        android:textColor="@color/GrayClassRoom"
+        android:text="1"/>
+    <com.xingwang.classroom.view.CircularImage
+        android:id="@+id/ivHead"
+        style="@style/chatAvatarClassRoom"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/tvPosition"
+        android:layout_marginLeft="5dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10_classroom"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/ivHead"
+        android:text="小李字"
+        android:id="@+id/tvName"
+        android:singleLine="true"
+        android:layout_toLeftOf="@+id/tvSum"
+        android:textSize="@dimen/sp_14_classroom"
+        android:layout_marginRight="@dimen/dp_10_classroom"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:id="@+id/tvSum"
+        android:layout_marginLeft="@dimen/dp_10_classroom"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="贡献12积分"
+        android:layout_marginRight="@dimen/dp_10_classroom"
+        android:textSize="13sp"/>
+</RelativeLayout>

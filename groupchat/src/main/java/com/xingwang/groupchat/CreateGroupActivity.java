@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.ImagePickerCallBack;
@@ -212,6 +213,7 @@ public class CreateGroupActivity extends BaseActivity implements View.OnClickLis
         HttpUtil.post(Constants.GROUP_CREATE, params, new HttpUtil.HttpCallBack() {
             @Override
             public void onFailure(String message) {
+
                 ToastUtils.showShortSafe(message);
                 hideLoadingDialog();
             }

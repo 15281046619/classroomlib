@@ -48,13 +48,14 @@
             app:tabIndicatorHeight="2dp"
             app:tabSelectedTextColor="#fff"
             app:tabMode="fixed"
-            android:layout_weight="3"
+            android:layout_weight="4"
             app:tabTextColor="#a3e2cb"/>
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:text="+"
+            android:visibility="gone"
             android:gravity="center"
             android:id="@+id/tvVote"
             android:textColor="@android:color/white"

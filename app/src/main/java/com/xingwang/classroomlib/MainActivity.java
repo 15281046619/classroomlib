@@ -19,6 +19,7 @@ import com.xingwang.classroom.ui.ClassRoomHomeActivity;
 import com.xingwang.classroom.ui.LiveListActivity;
 import com.xingwang.classroom.ui.LiveWebActivity;
 
+import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroomlib.html.WebViewDelegate;
 import com.xingwang.groupchat.GroupListActivity;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         Uri uri = Uri.parse("classroom://com.xingwang.classroomlib.zbdetail?id=224&is_end=0");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
         // startActivity(intent);
+
 
     }
 

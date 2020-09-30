@@ -25,6 +25,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.xingwang.circle.PlayVideoActivity;
 import com.xingwang.circle.R;
 
@@ -208,7 +209,8 @@ public class MyJzvdStd extends MyJzvd {
         int i = v.getId();
         if (i == R.id.thumb) {
             if (jzDataSource == null || jzDataSource.urlsMap.isEmpty() || jzDataSource.getCurrentUrl() == null) {
-                Toast.makeText(getContext(), getResources().getString(R.string.no_url), Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort( getResources().getString(R.string.no_url));
+               // Toast.makeText(getContext(), getResources().getString(R.string.no_url), Toast.LENGTH_SHORT).show();
                 return;
             }
             if (state == STATE_NORMAL) {
@@ -271,7 +273,8 @@ public class MyJzvdStd extends MyJzvd {
             clarityPopWindow.update(clarity, -offsetX, -offsetY, Math.round(layout.getMeasuredWidth() * 2), layout.getMeasuredHeight());
         } else if (i == R.id.retry_btn) {
             if (jzDataSource.urlsMap.isEmpty() || jzDataSource.getCurrentUrl() == null) {
-                Toast.makeText(getContext(), getResources().getString(R.string.no_url), Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort(getResources().getString(R.string.no_url));
+               // Toast.makeText(getContext(), , Toast.LENGTH_SHORT).show();
                 return;
             }
             if (!jzDataSource.getCurrentUrl().toString().startsWith("file") && !

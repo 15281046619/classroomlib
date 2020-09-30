@@ -78,7 +78,7 @@ public class LiveListActivity extends BaseNetActivity {
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(() -> getRequestData(Constants.LOAD_DATA_TYPE_INIT));
         getCategory();
-       //  getRequestData(Constants.LOAD_DATA_TYPE_INIT);
+        // getRequestData(Constants.LOAD_DATA_TYPE_INIT);
     }
     private int categoryId =-1;
     private void getCategory() {

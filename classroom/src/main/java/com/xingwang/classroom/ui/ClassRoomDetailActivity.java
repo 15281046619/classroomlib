@@ -267,16 +267,8 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             orientationUtils = new OrientationUtils(this, mVideoPlayer);
             //初始化不打开外部的旋转
             orientationUtils.setEnable(false);
-
-
             mVideoPlayer.getBackButton().setOnClickListener(v -> onBackPressed());
             GSYVideoOptionBuilder gsyVideoOption = new GSYVideoOptionBuilder();
-            PlayerFactory.setPlayManager(Exo2PlayerManager.class);//使用系统解码器全屏切换会卡顿黑屏
-            //exo缓存模式，支持m3u8，只支持exo
-            // CacheFactory.setCacheManager(ExoPlayerCacheManager.class);
-            GSYVideoType.setRenderType(GSYVideoType.GLSURFACE);
-
-
             String mPlayPosition = SharedPreferenceUntils.getString(this, "playposition" + mId, "0");
             if (TextUtils.isEmpty(url)){
                 mVideoPlayer.showThumbBg(thumb);
@@ -542,7 +534,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             @Override
             public void onSuccess(SendCommentBean commentBean) {
                 if (commentBean.getData().getState()==1) {
-                    MyToast.myToast(getApplicationContext(), " 发送成功");//直接长连接里面返回数据
+                   // MyToast.myToast(getApplicationContext(), " 发送成功");//直接长连接里面返回数据
                 }else {
                     MyToast.myToast(getApplicationContext(), "正在审核");
                 }

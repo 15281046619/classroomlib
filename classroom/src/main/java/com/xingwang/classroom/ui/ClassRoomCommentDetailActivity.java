@@ -249,7 +249,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
             public void onSuccess(SendCommentBean commentBean) {
                 if (commentBean.getData().getState()==1) {
 
-                    MyToast.myToast(getApplicationContext(), " 发送成功");
+                //    MyToast.myToast(getApplicationContext(), " 发送成功");
                     UserInfoDefine mCurUserInfo = BeautyDefine.getUserInfoDefine(getApplicationContext());
                     if(state==3) {//加载完了才能添加到最后
                         String body = "";

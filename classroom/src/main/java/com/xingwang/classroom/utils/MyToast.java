@@ -1,6 +1,8 @@
 package com.xingwang.classroom.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +24,10 @@ public class MyToast {
         @SuppressLint("InflateParams")
         public static void myToast(Context contenxt,String str)
         {
+            if (contenxt instanceof Activity){
+                contenxt =contenxt.getApplicationContext();
+            }
+
             if (contenxt==null)
                 return;
             //首先加载一个自定义的布局
@@ -62,6 +68,9 @@ public class MyToast {
         @SuppressLint("InflateParams")
         public static void myLongToast(Context contenxt,String str)
         {
+            if (contenxt instanceof Activity){
+                contenxt =contenxt.getApplicationContext();
+            }
             if (contenxt==null)
                 return;
             //首先加载一个自定义的布局
@@ -102,6 +111,10 @@ public class MyToast {
         @SuppressLint("InflateParams")
         public static void myToast(Context context,String str, int BOTTOM)
         {
+            if (context instanceof Activity){
+                context =context.getApplicationContext();
+            }
+
             if (context==null)
                 return;
             //首先加载一个自定义的布局

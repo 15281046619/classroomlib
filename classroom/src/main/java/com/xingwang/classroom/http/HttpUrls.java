@@ -91,6 +91,9 @@ public class HttpUrls {
     public static final String URL_GOOD_LISTS(){
         return  URL_HOST+URL_NAME+"live/home/goods/lists";
     }
+    public static final String URL_GIFT_TOPS(){
+        return  URL_HOST+URL_NAME+"live/home/gift/tops";
+    }
     public static final String URL_GOOD_ORDER(){
         return  URL_HOST+URL_NAME+"live/user/order/add";
     }

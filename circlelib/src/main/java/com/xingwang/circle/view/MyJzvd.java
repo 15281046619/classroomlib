@@ -24,6 +24,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.xingwang.circle.R;
 
 import java.lang.reflect.Constructor;
@@ -197,7 +198,8 @@ public abstract class MyJzvd extends FrameLayout implements View.OnClickListener
         if (i == R.id.start) {
             Log.i(TAG, "onClick start [" + this.hashCode() + "] ");
             if (jzDataSource == null || jzDataSource.urlsMap.isEmpty() || jzDataSource.getCurrentUrl() == null) {
-                Toast.makeText(getContext(), getResources().getString(R.string.no_url), Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort( getResources().getString(R.string.no_url));
+
                 return;
             }
             if (state == STATE_NORMAL) {
