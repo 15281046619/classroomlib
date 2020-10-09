@@ -48,10 +48,12 @@ public class LiveListActivity extends BaseNetActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setNavigationBarColor(android.R.color.black);
-        initView();
-        initData();
-        initListener();
+        if (!isStartLaunch()) {
+            setNavigationBarColor(android.R.color.black);
+            initView();
+            initData();
+            initListener();
+        }
     }
 
     private void initListener() {

@@ -127,11 +127,13 @@ public class LiveDetailActivity extends BaseNetActivity {
             }
         }
         super.onCreate(savedInstanceState);
-        setNavigationBarColor(android.R.color.black);
-        //mId = getIntent().getStringExtra("id");
-        initId();
-        initView();
-        initData();
+        if (!isStartLaunch()) {
+            setNavigationBarColor(android.R.color.black);
+            //mId = getIntent().getStringExtra("id");
+            initId();
+            initView();
+            initData();
+        }
     }
     /**
      * 获取上个页面传过来的id

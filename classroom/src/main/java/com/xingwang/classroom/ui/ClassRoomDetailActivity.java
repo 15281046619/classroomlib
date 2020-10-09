@@ -36,6 +36,7 @@ import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.ShareResultCallBack;
+import com.beautydefinelibrary.SystemDefine;
 import com.beautydefinelibrary.UploadResultCallBack;
 
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
@@ -158,87 +159,90 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        AndroidBug5497Workaround.assistActivity(this);
 
-        mKeyBoardHelper =new KeyBoardHelper(this);
-        mKeyBoardHelper.onCreate();
-        mVideoPlayer =  findViewById(R.id.video_track);
-        webView =  findViewById(R.id.webview);
-        flameLayout =  findViewById(R.id.flameLayout);
-        btSend =  findViewById(R.id.bt_send);
-        cblBarrage =  findViewById(R.id.cbl_barrage);
-        etContent =  findViewById(R.id.et_content);
-        // ivThumb =  findViewById(R.id.ivThumb);
-        rlVideoRoot =  findViewById(R.id.rlVideoRoot);
+        if (!isStartLaunch()) {
+            AndroidBug5497Workaround.assistActivity(this);
 
-        ivPic =  findViewById(R.id.iv_pic);
-        ivProduct =  findViewById(R.id.iv_product);
-        ivComment =  findViewById(R.id.iv_comment);
-        viewDot =  findViewById(R.id.view_dot);
-        icCollectTpLink =  findViewById(R.id.iv_collect_tplink);
-        icShapeTalink =  findViewById(R.id.iv_shape_tplink);
-        backTpLink =  findViewById(R.id.back_tplink);
+            mKeyBoardHelper = new KeyBoardHelper(this);
+            mKeyBoardHelper.onCreate();
+            mVideoPlayer = findViewById(R.id.video_track);
+            webView = findViewById(R.id.webview);
+            flameLayout = findViewById(R.id.flameLayout);
+            btSend = findViewById(R.id.bt_send);
+            cblBarrage = findViewById(R.id.cbl_barrage);
+            etContent = findViewById(R.id.et_content);
+            // ivThumb =  findViewById(R.id.ivThumb);
+            rlVideoRoot = findViewById(R.id.rlVideoRoot);
 
-        initId();
+            ivPic = findViewById(R.id.iv_pic);
+            ivProduct = findViewById(R.id.iv_product);
+            ivComment = findViewById(R.id.iv_comment);
+            viewDot = findViewById(R.id.view_dot);
+            icCollectTpLink = findViewById(R.id.iv_collect_tplink);
+            icShapeTalink = findViewById(R.id.iv_shape_tplink);
+            backTpLink = findViewById(R.id.back_tplink);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ((LinearLayout.LayoutParams) rlVideoRoot.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
-            ((LinearLayout.LayoutParams) flameLayout.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
-        }
-        mVideoHeight = CommentUtils.getScreenWidth(this)*720/1280;
-        mVideoPlayer.getLayoutParams().height =mVideoHeight;
-        rlVideoRoot.setMinimumHeight(mVideoHeight);
-        setCurFragment(0,false,true);
+            initId();
 
-        ivPic.setOnClickListener(v ->{
-            isClickPic =true;
-            requestPermission();
-        });
-        ivProduct.setOnClickListener(v -> {
-            if (mAdbeans!=null&&mAdbeans.size()>0) {
-                ClassRoomLibUtils.startWebActivity(ClassRoomDetailActivity.this,
-                        mAdbeans.get(0).getBody().getLink()
-                        ,true,"产品详情");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((LinearLayout.LayoutParams) rlVideoRoot.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
+                ((LinearLayout.LayoutParams) flameLayout.getLayoutParams()).setMargins(0, StatusBarUtils.getStatusHeight(this), 0, 0);
             }
-        });
-        cblBarrage.setOnClickListener(v -> {
-            if (!NoDoubleClickUtils.isDoubleClick()) {//不能连续点击后
-                setCurFragment(1, false, false);
-            }});
-        btSend.setOnClickListener(v -> goSendComment());
-        etContent.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            mVideoHeight = CommentUtils.getScreenWidth(this) * 720 / 1280;
+            mVideoPlayer.getLayoutParams().height = mVideoHeight;
+            rlVideoRoot.setMinimumHeight(mVideoHeight);
+            setCurFragment(0, false, true);
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(etContent.getText().toString().trim())){
-                    btSend.setVisibility(View.GONE);
-                    ivComment.setVisibility(View.VISIBLE);
-                    ivPic.setVisibility(View.VISIBLE);
-                    if (mAdbeans!=null&&mAdbeans.size() > 0){
-                        ivProduct.setVisibility(View.VISIBLE);
-                    }
-
-                }else {
-                    btSend.setVisibility(View.VISIBLE);
-                    ivComment.setVisibility(View.GONE);
-                    ivPic.setVisibility(View.GONE);
-                    ivProduct.setVisibility(View.GONE);
+            ivPic.setOnClickListener(v -> {
+                isClickPic = true;
+                requestPermission();
+            });
+            ivProduct.setOnClickListener(v -> {
+                if (mAdbeans != null && mAdbeans.size() > 0) {
+                    ClassRoomLibUtils.startWebActivity(ClassRoomDetailActivity.this,
+                            mAdbeans.get(0).getBody().getLink()
+                            , true, "产品详情");
                 }
-            }
-        });
+            });
+            cblBarrage.setOnClickListener(v -> {
+                if (!NoDoubleClickUtils.isDoubleClick()) {//不能连续点击后
+                    setCurFragment(1, false, false);
+                }
+            });
+            btSend.setOnClickListener(v -> goSendComment());
+            etContent.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        initRequestData();
-        mKeyBoardHelper.setOnKeyBoardStatusChangeListener(this);
+                }
 
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (TextUtils.isEmpty(etContent.getText().toString().trim())) {
+                        btSend.setVisibility(View.GONE);
+                        ivComment.setVisibility(View.VISIBLE);
+                        ivPic.setVisibility(View.VISIBLE);
+                        if (mAdbeans != null && mAdbeans.size() > 0) {
+                            ivProduct.setVisibility(View.VISIBLE);
+                        }
+
+                    } else {
+                        btSend.setVisibility(View.VISIBLE);
+                        ivComment.setVisibility(View.GONE);
+                        ivPic.setVisibility(View.GONE);
+                        ivProduct.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            initRequestData();
+            mKeyBoardHelper.setOnKeyBoardStatusChangeListener(this);
+        }
     }
 
     /**

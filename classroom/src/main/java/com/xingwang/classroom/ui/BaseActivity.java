@@ -36,16 +36,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        if (getIntent().getData()!=null){
-            SystemDefine systemDefine = BeautyDefine.getSystemDefine();
-            if (!systemDefine.checkLaunch(this)){
-                systemDefine.launch(this,getIntent().getData().toString());
-                return;
-            }
-        }
         super.onCreate(savedInstanceState);
         if (savedInstanceState!=null&&savedInstanceState.getBoolean("isClean")){
-            finish();
+            //finish();
+            ActivityManager.getInstance().finishAllActivity();
         }
 
         transparentStatusBar();
@@ -62,6 +56,22 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(ContextCompat.getColor(this, id));
         }
+    }
+
+    /**
+     *  super.onCreate(savedInstanceState)后面判断
+     * 是否启动launch页面 启动的话 不在执行下面代码
+     * @return
+     */
+    public boolean isStartLaunch(){
+        if (getIntent().getData()!=null){
+            SystemDefine systemDefine = BeautyDefine.getSystemDefine();
+            if (!systemDefine.checkLaunch(this)){
+                systemDefine.launch(this,getIntent().getData().toString());
+                return true;
+            }
+        }
+        return false;
     }
     /*  @Override
     public boolean dispatchTouchEvent(MotionEvent event) {

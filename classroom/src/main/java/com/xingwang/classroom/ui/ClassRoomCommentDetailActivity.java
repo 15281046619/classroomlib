@@ -88,15 +88,16 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AndroidBug5497Workaround.assistActivity(this);
-        mKeyBoardHelper =new KeyBoardHelper(this);
-        mKeyBoardHelper.onCreate();
-
-        initIntentData();
-        initView();
-        initSwipeRefresh();
-        initListener();
-        initRequestData();
+        if(!isStartLaunch()) {
+            AndroidBug5497Workaround.assistActivity(this);
+            mKeyBoardHelper = new KeyBoardHelper(this);
+            mKeyBoardHelper.onCreate();
+            initIntentData();
+            initView();
+            initSwipeRefresh();
+            initListener();
+            initRequestData();
+        }
 
     }
 
@@ -228,12 +229,11 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
         Object mPos = etContent.getTag();
         if (TextUtils.isEmpty(mContent)) {//发送图片
             mApiParams.with("pics",ivPic.getTag());
-            mApiParams.with("pid", mComments.get((Integer) mPos).getId()+"");
         }else{
             BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("发送中",false));
             mApiParams.with("body",mContent);
-            mApiParams.with("pid",mComments.get((Integer) mPos).getId()+"");
         }
+        mApiParams.with("pid", mComments.get((Integer) mPos).getId()+"");
         HttpUtil.cancelTag(this);
         requestPost(HttpUrls.URL_PUBLISH(),mApiParams, SendCommentBean.class,new HttpCallBack<SendCommentBean>() {
 
