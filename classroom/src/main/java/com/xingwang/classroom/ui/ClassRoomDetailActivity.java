@@ -998,6 +998,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             mKeyBoardHelper.onDestroy();
         }
         webViewDestroy();
+        if (cblBarrage!=null)
         cblBarrage.onDestroy();
     }
     private  void  webViewDestroy(){
