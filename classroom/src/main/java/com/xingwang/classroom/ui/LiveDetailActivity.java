@@ -508,7 +508,7 @@ public class LiveDetailActivity extends BaseNetActivity {
             mHandler.removeCallbacks(mDownRunnable);
         if (mHandler!=null&&mOnlineCountRunnable!=null)
             mHandler.removeCallbacks(mOnlineCountRunnable);
-        if (isPlay) {
+        if (isPlay&&mVideoPlayer!=null) {
             mVideoPlayer.getCurrentPlayer().release();
         }
         if (orientationUtils != null)
@@ -539,9 +539,10 @@ public class LiveDetailActivity extends BaseNetActivity {
     private boolean isPlaying = false;
     @Override
     protected void onPause() {
-
-        isPlaying = mVideoPlayer.getGSYVideoManager().isPlaying();
-        mVideoPlayer.getCurrentPlayer().onVideoPause();
+        if (mVideoPlayer!=null) {
+            isPlaying = mVideoPlayer.getGSYVideoManager().isPlaying();
+            mVideoPlayer.getCurrentPlayer().onVideoPause();
+        }
        /* if (mVideoPlayer != null) {
             SharedPreferenceUntils.putString(this, "playposition" + mId, mVideoPlayer.getCurrentPositionWhenPlaying() + "");
         }*/

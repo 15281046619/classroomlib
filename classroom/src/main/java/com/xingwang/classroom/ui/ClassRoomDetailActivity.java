@@ -989,7 +989,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     protected void onDestroy() {
         WsManagerUtil.getInstance().onDestroy(null);
         super.onDestroy();
-        if (isPlay) {
+        if (isPlay&&mVideoPlayer!=null) {
             mVideoPlayer.getCurrentPlayer().release();
         }
         if (orientationUtils != null)
