@@ -67,7 +67,7 @@ public class ClassRoomLibUtils {
             case TYPE_ZY:
                 HttpUrls.URL_HOST ="http://zyapp.app.xw518.com/";
                 HttpUrls.CHANNEL ="zyapp.lecture.lecture_";
-                HttpUrls.CHANNEL_WS_URL ="ws://zyapp.app.xw518.com:10101";
+                HttpUrls.CHANNEL_WS_URL ="ws://subscribe.app.xw518.com/server";
                 HttpUrls.LIVE_CHANNEL ="zyapp.live.";
                 break;
             case TYPE_JQ:
@@ -76,7 +76,7 @@ public class ClassRoomLibUtils {
                 break;
             case TYPE_NY:
                 HttpUrls.URL_HOST ="http://nyapp.app.xw518.com/";
-                HttpUrls.CHANNEL_WS_URL="ws://nyapp.app.xw518.com:10101";
+                HttpUrls.CHANNEL_WS_URL="ws://nyapp.app.xw518.com/server";
                 HttpUrls.CHANNEL ="nyapp.lecture.lecture_";
                 break;
             case TYPE_TEST:
@@ -282,7 +282,6 @@ public class ClassRoomLibUtils {
     }
     /**
      *
-
      */
     public static void startLiveDetailActivity(FragmentActivity activity,String id,Boolean isLive){
         activity.startActivity(new Intent(activity, LiveDetailActivity.class).putExtra("id",id).putExtra(Constants.EXTRA_IS_LIVE,isLive));

@@ -88,7 +88,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(!isStartLaunch()) {
+       if(!isStartLaunch()) {
             AndroidBug5497Workaround.assistActivity(this);
             mKeyBoardHelper = new KeyBoardHelper(this);
             mKeyBoardHelper.onCreate();
@@ -304,8 +304,12 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
                 swipeRefreshLayout.setRefreshing(false);
         });
     }
+
+    /**
+     * mdivid 当前评论id  为0的话是从课程详情跳转过来 没有当前id
+     */
     private void initRequestData() {
-        requestGet(HttpUrls.URL_COMMENTDETAIL(),new ApiParams().with("id",mBid.equals("0")?mDivId:mBid), CommentDetailBean.class,new HttpCallBack<CommentDetailBean>() {
+        requestGet(HttpUrls.URL_COMMENTDETAIL(),new ApiParams().with("id",mDivId.equals("0")?mBid:mDivId), CommentDetailBean.class,new HttpCallBack<CommentDetailBean>() {
 
             @Override
             public void onFailure(String message) {
@@ -314,21 +318,29 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
 
             @Override
             public void onSuccess(CommentDetailBean commentBean) {
-                mComments.add(commentBean.getData());
-                etContent.setHint("回复:"+mComments.get(0).getUser().getshowName());
-                etContent.setTag(0);
-                if (mDivId==null||mDivId.equals("0")||mBid.equals("0")) {
-                    if (mBid.equals("0"))//不能从课程详情页面点击过来的
-                        mComments.get(0).setCurPosition(true);
+                mBid =commentBean.getData().getBid()+"";
+                if (mDivId.equals("0")){//从课程详情点击过来
+                    mComments.add(commentBean.getData());
+                    etContent.setHint("回复:"+mComments.get(0).getUser().getshowName());
+                    etContent.setTag(0);
                     getData(Constants.LOAD_DATA_TYPE_INIT, "0");
-                } else
-                    initDivIdData();
+                }else {
+                    mComments.add(commentBean.getData());
+                    mComments.get(0).setCurPosition(true);
+                    if (mDivId.equals(commentBean.getData().getBid())){//顶层评论
+                        etContent.setHint("回复:"+mComments.get(0).getUser().getshowName());
+                        etContent.setTag(0);
+                        getData(Constants.LOAD_DATA_TYPE_INIT, "0");
+                    }else {
+                        initTopIdData();
+                    }
+                }
             }
         });
     }
 
-    private void initDivIdData() {
-        requestGet(HttpUrls.URL_COMMENTDETAIL(),new ApiParams().with("id",mDivId), CommentDetailBean.class,new HttpCallBack<CommentDetailBean>() {
+    private void initTopIdData() {
+        requestGet(HttpUrls.URL_COMMENTDETAIL(),new ApiParams().with("id",mBid), CommentDetailBean.class,new HttpCallBack<CommentDetailBean>() {
 
             @Override
             public void onFailure(String message) {
@@ -337,8 +349,10 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
 
             @Override
             public void onSuccess(CommentDetailBean commentBean) {
-                commentBean.getData().setCurPosition(true);
-                mComments.add(commentBean.getData());
+               // commentBean.getData().setCurPosition(true);
+                mComments.add(0,commentBean.getData());
+                etContent.setHint("回复:"+mComments.get(0).getUser().getshowName());
+                etContent.setTag(0);
                 getData(Constants.LOAD_DATA_TYPE_INIT,mDivId);
             }
         });
@@ -376,7 +390,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     boolean isRequesting =false;
     private void getData(int requestType,String id){
         isRequesting = true;
-        if (mBid.equals("0")){
+        if (mBid.equals(mDivId)){
             state = 3;
             findViewById(R.id.rl_empty).setVisibility(View.GONE);
             initAdapter();
