@@ -76,7 +76,7 @@ public class ClassRoomLibUtils {
                 break;
             case TYPE_NY:
                 HttpUrls.URL_HOST ="http://nyapp.app.xw518.com/";
-                HttpUrls.CHANNEL_WS_URL="ws://nyapp.app.xw518.com/server";
+                HttpUrls.CHANNEL_WS_URL="ws://subscribe.app.xw518.com/server";
                 HttpUrls.CHANNEL ="nyapp.lecture.lecture_";
                 break;
             case TYPE_TEST:
