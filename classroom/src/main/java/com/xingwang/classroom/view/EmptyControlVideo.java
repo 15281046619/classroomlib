@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.shuyu.gsyvideoplayer.model.GSYVideoModel;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
-import com.shuyu.gsyvideoplayer.video.ListGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
@@ -23,10 +21,9 @@ import com.xingwang.classroom.R;
 import com.xingwang.classroom.ui.LiveDetailActivity;
 import com.xingwang.classroom.ui.danmu.BiliDanmukuParser;
 import com.xingwang.classroom.ui.danmu.DanamakuAdapter;
+import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.GlideUtils;
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
-import com.xingwang.swip.utils.Constants;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -35,10 +32,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import master.flame.danmaku.controller.IDanmakuView;
 import master.flame.danmaku.danmaku.loader.ILoader;
@@ -54,7 +48,6 @@ import master.flame.danmaku.danmaku.model.android.SpannedCacheStuffer;
 import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
 import master.flame.danmaku.danmaku.parser.IDataSource;
 import master.flame.danmaku.ui.widget.DanmakuView;
-import moe.codeest.enviews.ENDownloadView;
 
 /**
  * 无任何控制ui的播放

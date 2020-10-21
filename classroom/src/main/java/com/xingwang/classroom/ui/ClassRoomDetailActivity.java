@@ -78,8 +78,8 @@ import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.LandLayoutVideo;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
-import com.xingwreslib.beautyreslibrary.CourseFavoriteInfo;
-import com.xingwreslib.beautyreslibrary.CourseFavoriteLiveData;
+/*import com.xingwreslib.beautyreslibrary.CourseFavoriteInfo;
+import com.xingwreslib.beautyreslibrary.CourseFavoriteLiveData;*/
 import com.ycbjie.webviewlib.InterWebListener;
 import com.ycbjie.webviewlib.VideoWebListener;
 import com.ycbjie.webviewlib.WebProgress;
@@ -387,7 +387,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                     public void onSuccess(FavoritBean mBean) {
                         MyToast.myToast(getApplicationContext(),mBean.getMessage());
                         isCollect = !isCollect;
-                        CourseFavoriteLiveData.getInstance().notifyInfoChanged(new CourseFavoriteInfo(mId,isCollect,-1));
+                       // CourseFavoriteLiveData.getInstance().notifyInfoChanged(new CourseFavoriteInfo(mId,isCollect,-1));
                         view.setSelected(isCollect);
                     }
                 });

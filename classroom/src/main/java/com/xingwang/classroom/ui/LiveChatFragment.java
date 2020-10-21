@@ -43,11 +43,12 @@ import com.xingwang.classroom.utils.GsonUtils;
 import com.xingwang.classroom.utils.KeyBoardHelper;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 import com.xingwang.classroom.view.gift.GiftBean;
 import com.xingwang.classroom.view.gift.GiftView;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
-import com.xingwang.swip.view.WrapContentLinearLayoutManager;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -92,7 +93,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
 
 
 
-    private  WrapContentLinearLayoutManager mLinearLayout;
+    private WrapContentLinearLayoutManager mLinearLayout;
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_live_chat_classroom,container,false);

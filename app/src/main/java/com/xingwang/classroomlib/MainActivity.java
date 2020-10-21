@@ -12,7 +12,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 
-import com.xingwang.circle.CommentInfoActivity;
 import com.xingwang.classroom.ClassRoomLibUtils;
 
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
@@ -22,7 +21,7 @@ import com.xingwang.classroom.ui.LiveWebActivity;
 import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroomlib.html.WebViewDelegate;
-import com.xingwang.groupchat.GroupListActivity;
+
 
 
 import java.io.UnsupportedEncodingException;
@@ -61,9 +60,11 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
 
         // startActivity(new Intent(this, LiveWebActivity.class));
    //     Uri uri = Uri.parse("classroom://com.xingw.zyapp.zblist");
-        Uri uri = Uri.parse("classroom://com.xingwang.classroomlib.zbdetail?id=224&is_end=0");
+      /*  Uri uri = Uri.parse("classroom://com.xingwang.classroomlib.zbdetail?id=224&is_end=0");
+        Intent intent = new Intent(Intent.ACTION_VIEW,uri);*/
+        Uri uri = Uri.parse("classroom://com.xingwang.classroomlib.pldetail?div_id=482&lecture_id=51&bid=0");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-        // startActivity(intent);
+       //  startActivity(intent);
 
 
     }
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
             case "2":
                 startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("essay://"+getPackageName()+".host.adessay?url=http://zyapp.test.xw518.com/article/859")));
                 break;
-            case "3":
+           /* case "3":
 
                 CommentInfoActivity.getIntent(MainActivity.this,"154");
                 break;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
                 break;
             case "5":
                GroupListActivity.getIntent(MainActivity.this);
-                break;
+                break;*/
             case "6":
                 ClassRoomLibUtils.startListActivity(this,"栏目");
                 break;

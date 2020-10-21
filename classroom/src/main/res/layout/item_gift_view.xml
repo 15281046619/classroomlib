@@ -59,7 +59,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:id="@+id/ivGiftImg1"
-            android:src="@color/reslib_colorAccent"
+
             android:layout_height="40dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:id="@+id/ivGiftImg2"
-            android:src="@color/reslib_colorAccent"
+            android:src="#0055BC"
             android:layout_height="40dp"/>
         <LinearLayout
             android:layout_width="wrap_content"

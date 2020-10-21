@@ -18,7 +18,8 @@ import com.xingwang.classroom.utils.KeyBoardHelper;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.DividerItemDecoration;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
-import com.xingwang.swip.view.WrapContentLinearLayoutManager;
+import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
+
 
 import java.util.ArrayList;
 import java.util.Objects;

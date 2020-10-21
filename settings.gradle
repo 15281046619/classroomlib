@@ -1,6 +1,2 @@
-include ':circlelib'
-include ':essayLib'
-include ':groupchat'
-include ':swiplib'
 include ':app', ':classroom-release', ':classroom'
 rootProject.name='classroomlib'

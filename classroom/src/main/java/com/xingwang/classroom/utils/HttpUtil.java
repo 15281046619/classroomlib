@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpCallProgressBack;
-import com.xingwang.swip.utils.HttpHeaderInterceptor;
+
 
 
 import org.json.JSONObject;

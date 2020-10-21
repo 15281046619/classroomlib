@@ -18,8 +18,9 @@ import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.DividerItemDecoration;
+import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
-import com.xingwang.swip.view.WrapContentLinearLayoutManager;
+
 
 import java.util.ArrayList;
 import java.util.List;

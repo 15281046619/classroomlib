@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:text="￥20"
                     android:layout_marginLeft="@dimen/dp_10_classroom"
-                    android:textColor="@color/reslib_colorHrefPress"
+                    android:textColor="#BA1C26"
                     android:textSize="@dimen/sp_14_classroom"
                     />
             </LinearLayout>

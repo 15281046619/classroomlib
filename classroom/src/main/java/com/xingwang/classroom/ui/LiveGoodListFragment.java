@@ -16,7 +16,7 @@ import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
-import com.xingwang.swip.view.WrapContentLinearLayoutManager;
+import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 
 /**
  * Date:2020/8/13

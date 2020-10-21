@@ -43,8 +43,9 @@ import com.xingwang.classroom.utils.TimeUtil;
 import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
-import com.xingwang.swip.view.WrapContentLinearLayoutManager;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       if(!isStartLaunch()) {
+      if(!isStartLaunch()) {
             AndroidBug5497Workaround.assistActivity(this);
             mKeyBoardHelper = new KeyBoardHelper(this);
             mKeyBoardHelper.onCreate();
@@ -97,7 +98,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
             initSwipeRefresh();
             initListener();
             initRequestData();
-        }
+      }
 
     }
 
@@ -327,7 +328,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
                 }else {
                     mComments.add(commentBean.getData());
                     mComments.get(0).setCurPosition(true);
-                    if (mDivId.equals(commentBean.getData().getBid())){//顶层评论
+                    if (mDivId.equals(commentBean.getData().getBid()+"")){//顶层评论
                         etContent.setHint("回复:"+mComments.get(0).getUser().getshowName());
                         etContent.setTag(0);
                         getData(Constants.LOAD_DATA_TYPE_INIT, "0");

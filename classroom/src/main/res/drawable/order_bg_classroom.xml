@@ -3,7 +3,7 @@
 		xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-	<solid  android:color="@color/reslib_colorWhiteTextOrIcons"/>
+	<solid  android:color="@android:color/white"/>
 		<!-- 圆角的幅度 -->
 		<corners
 				android:topLeftRadius="10dip"

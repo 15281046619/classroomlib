@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/reslib_colorWhiteTextOrIcons"
+        android:background="#FFFFFFFF"
         android:paddingRight="@dimen/dp_15_classroom"
         android:paddingLeft="@dimen/dp_15_classroom"
         android:paddingTop="@dimen/dp_5_classroom"
@@ -35,7 +35,7 @@
             android:layout_height="@dimen/dp_35_classroom"
             android:text="提交订单"
             android:textSize="@dimen/sp_14_classroom"
-            android:textColor="@color/reslib_colorWhiteTextOrIcons"
+            android:textColor="@android:color/white"
             android:background="@drawable/order_btn_bg_classroom"/>
     </LinearLayout>
 
@@ -175,7 +175,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_10_classroom"
                                 android:text="￥20"
-                                android:textColor="@color/reslib_colorHrefPress"
+                                android:textColor="#BA1C26"
                                 android:textSize="@dimen/sp_14_classroom" />
                         </LinearLayout>
 

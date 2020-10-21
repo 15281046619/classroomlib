@@ -314,7 +314,7 @@ public class LiveDetailActivity extends BaseNetActivity {
         }*/
         initVideoPlay(url);
         //目前调用浏览数，去掉在线数
-        if (com.xingwang.swip.utils.Constants.APP_DBG) {
+        if (Constants.APP_DBG) {
             mHandler.removeCallbacks(mOnlineCountRunnable);
             mHandler.post(mOnlineCountRunnable);
         }

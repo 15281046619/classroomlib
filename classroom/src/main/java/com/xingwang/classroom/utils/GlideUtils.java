@@ -22,7 +22,7 @@ public class GlideUtils {
     }
     public static void loadAvatar(String url,ImageView imageView){
         if (!activityIsFinished(imageView.getContext()))
-        Glide.with(imageView.getContext()).load(url).placeholder(R.drawable.reslib_bg_default_placeholder).error(R.drawable.reslib_bg_default_error).centerCrop().into(imageView);
+        Glide.with(imageView.getContext()).load(url).placeholder(R.mipmap.bg_default_placeholder_classroom).error(R.mipmap.bg_default_error_classroom).centerCrop().into(imageView);
     }
     public static void loadAvatar(Integer resourceId,ImageView imageView){
         if (!activityIsFinished(imageView.getContext()))

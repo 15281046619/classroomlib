@@ -2,7 +2,7 @@ package com.xingwang.classroom.utils;
 
 import android.util.Log;
 
-import com.xingwang.swip.utils.Constants;
+
 
 /**
  * log工具类

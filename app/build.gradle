@@ -59,9 +59,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':circlelib')
+/*    implementation project(path: ':circlelib')
     implementation project(path: ':groupchat')
-    implementation project(path: ':essayLib')
+    implementation project(path: ':essayLib')*/
     implementation project(path: ':classroom')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

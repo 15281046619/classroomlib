@@ -73,11 +73,16 @@ public class ClassRoomLibUtils {
             case TYPE_JQ:
                 break;
             case TYPE_SC:
+                HttpUrls.URL_HOST ="http://yyapp.app.xw518.com/";
+                HttpUrls.CHANNEL ="yyapp.lecture.lecture_";
+                HttpUrls.CHANNEL_WS_URL ="ws://subscribe.app.xw518.com/server";
+                HttpUrls.LIVE_CHANNEL ="yyapp.live.";
                 break;
             case TYPE_NY:
                 HttpUrls.URL_HOST ="http://nyapp.app.xw518.com/";
-                HttpUrls.CHANNEL_WS_URL="ws://subscribe.app.xw518.com/server";
                 HttpUrls.CHANNEL ="nyapp.lecture.lecture_";
+                HttpUrls.CHANNEL_WS_URL="ws://subscribe.app.xw518.com/server";
+                HttpUrls.LIVE_CHANNEL ="nyapp.live.";
                 break;
             case TYPE_TEST:
                 HttpUrls.URL_HOST ="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/";//测试地址
@@ -139,7 +144,7 @@ public class ClassRoomLibUtils {
             }
         });
 
-        com.xingwang.swip.utils.Constants.init(context);//初始化 检查debug或者正式版本
+        Constants.init(context);//初始化 检查debug或者正式版本
         initGSYVideoSetting();
     }
 
