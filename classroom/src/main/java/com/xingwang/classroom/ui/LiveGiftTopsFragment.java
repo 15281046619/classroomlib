@@ -14,7 +14,6 @@ import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.KeyBoardHelper;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.DividerItemDecoration;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;

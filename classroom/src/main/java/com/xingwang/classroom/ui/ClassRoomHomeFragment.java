@@ -74,7 +74,7 @@ public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
     boolean isRequesting =false;
     void requestHttpData(int loadDataTypeInit,int id) {
         ApiParams mApiParams = new ApiParams().with("num", pageNum).with("backward_div_id", id);
-        if(!category.equals("-1"))
+        if(category!=null&&!category.equals("-1"))
             mApiParams.with("category_id", category);
         isRequesting =true;
         requestGet(HttpUrls.URL_LISTS(),mApiParams, LectureListsBean.class, new HttpCallBack<LectureListsBean>() {

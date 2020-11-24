@@ -26,6 +26,7 @@ import com.xingwang.classroom.bean.CategoryBean;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
+import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.GlideImageLoader;
 import com.xingwang.classroom.utils.MyToast;
@@ -74,10 +75,17 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
         if (!isStartLaunch()) {
             initViews();
             initSettingToolBarHeight();
+            initBannerHeight();
             initSettingAppBarListener();
             initBannerListener();
             goRequestData(Constants.LOAD_DATA_TYPE_INIT);
         }
+    }
+
+    private void initBannerHeight() {
+        appBarLayoutHeight = CommentUtils.getScreenWidth(this)*18/43;
+        banner.getLayoutParams().height = (int) appBarLayoutHeight;
+
     }
 
     private void goRequestData(int type){
@@ -137,7 +145,8 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
     private List<String> getTitleDes() {
         List<String> mLists =new ArrayList<>();
         for (ADGroupBean.DataBean mBean:mTitleImages){
-            mLists.add(mBean.getTitle());
+          //  mLists.add(mBean.getTitle()); 2020/11/10 去掉标题
+            mLists.add("");
         }
         return mLists;
     }
@@ -184,7 +193,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
     }
 
     private void initSettingAppBarListener() {
-        appBarLayoutHeight= getResources().getDimension(R.dimen.dp_200_classroom);
+       // appBarLayoutHeight= getResources().getDimension(R.dimen.dp_200_classroom);
         appBarLayout.addOnOffsetChangedListener((AppBarLayout.BaseOnOffsetChangedListener<AppBarLayout>) (appBarLayout, verticalOffset) -> {
             int offset = Math.abs(verticalOffset); //目的是将负数转换为绝对正数；
             //标题栏的渐变
@@ -239,7 +248,9 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
             mLayoutParams.height = mLayoutParams.height + mStatusHeight;
             tvTitle.setLayoutParams(mLayoutParams);
             tvTitle.setPadding(0, mStatusHeight, 0, 0);
+
         }
+
     }
 
     @Override

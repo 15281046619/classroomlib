@@ -3,6 +3,7 @@ package com.xingwang.classroom.adapter;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class HomeAdapter extends BaseLoadMoreAdapter<LectureListsBean.DataBean> 
             mViewHolder.title.setText(mDatas.get(i).getTitle());
             mViewHolder.tvTime.setText(mDatas.get(i).getPublish_time().substring(0,mDatas.get(i).getPublish_time().indexOf(" ")));
             mViewHolder.tvNum.setText(mDatas.get(i).getClick()+"次学习");
+            mViewHolder.tvDes.setText(Html.fromHtml(mDatas.get(i).getBody()));
             GlideUtils.loadAvatar(mDatas.get(i).getThumb(),mViewHolder.ivIcon);
         }
     }
@@ -48,12 +50,14 @@ public class HomeAdapter extends BaseLoadMoreAdapter<LectureListsBean.DataBean> 
         TextView title;
         TextView tvTime;
         TextView tvNum;
+        TextView tvDes;
         ImageView ivIcon;
          HomeViewHolder(@NonNull View itemView) {
             super(itemView);
             title= itemView.findViewById(R.id.title);
              tvTime= itemView.findViewById(R.id.tv_time);
              tvNum= itemView.findViewById(R.id.tv_num);
+             tvDes= itemView.findViewById(R.id.tvDes);
              ivIcon= itemView.findViewById(R.id.iv_icon);
         }
     }

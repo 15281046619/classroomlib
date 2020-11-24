@@ -559,7 +559,7 @@ public class LiveDetailActivity extends BaseNetActivity {
 
 
 
-    @SuppressLint("ClickableViewAccessibility")
+
     private void initView() {
         AndroidBug5497Workaround.assistActivity(this);
         tabLayout =findViewById(R.id.tabLayout);
@@ -576,44 +576,6 @@ public class LiveDetailActivity extends BaseNetActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             rlVideoRoot.setPadding(0, StatusBarUtils.getStatusHeight(this), 0, 0);
         }
-
-    /*
-        TextView tvTime = findViewById(R.id.tvTime);
-        AnimatorSet animatorSetsuofang = new AnimatorSet();//组合动画
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvTime, "scaleX", 1f, 0f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvTime, "scaleY", 1f, 0f);
-        scaleX.setRepeatCount(10);
-        scaleY.setRepeatCount(10);
-        animatorSetsuofang.setDuration(1000);
-        animatorSetsuofang.setInterpolator(new DecelerateInterpolator());
-        animatorSetsuofang.play(scaleX).with(scaleY);//两个动画同时开始
-        animatorSetsuofang.start();
-        scaleX.addListener(new Animator.AnimatorListener(){
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-               // rlTime.setVisibility(View.GONE);
-                ivThumb.setVisibility(View.GONE);
-                mVideoPlayer.startPlayLogic();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-                String mPos =    tvTime.getText().toString();
-                int curTime  = Integer.parseInt(mPos)-1;
-                tvTime.setText(""+curTime);
-            }
-        });*/
     }
     private Fragment[] mArrayLists ;
     private String[] mTitle ={"现场互动","直播介绍","产品列表","排行榜"};
