@@ -1,11 +1,15 @@
 package com.xingwang.classroom.ui;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.utils.Constants;
 import com.ycbjie.webviewlib.WvWebView;
@@ -40,8 +44,14 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
     public void initData() {
         htmlText=getArguments().getString(Constants.DATA);
         setWebViewSetting();
-
+        htmlText = htmlText.replace("<img", "<img style=\"max-width:100%;height:auto\"");
         webView.loadData(htmlText, "text/html;charset=utf-8", "utf-8");
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView webView, String s) {
+                return true;
+            }
+        });
     }
     private void setWebViewSetting(){
         WebSettings websettings = webView.getSettings();
@@ -51,8 +61,9 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
         websettings.setAppCachePath(appCachePath);
         websettings.setAllowFileAccess(true);    // 可以读取文件缓存
         websettings.setAppCacheEnabled(true);    //开启H5(APPCache)缓存功能
-        websettings.setUseWideViewPort(true);//关键点
-        websettings.setLoadWithOverviewMode(true);
+   /*     websettings.setUseWideViewPort(true);//关键点这两个属性要配合使用，根据自动适配屏幕大小
+        websettings.setLoadWithOverviewMode(true);*/
+
 
         /**
 

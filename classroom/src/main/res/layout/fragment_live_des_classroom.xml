@@ -3,5 +3,5 @@
     <com.ycbjie.webviewlib.WvWebView  xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/web_live_des"
         android:layout_width="match_parent"
-        android:padding="@dimen/dp_15_classroom"
+        android:padding="@dimen/dp_10_classroom"
         android:layout_height="match_parent"/>
