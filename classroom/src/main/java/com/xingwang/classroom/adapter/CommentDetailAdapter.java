@@ -157,6 +157,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
         }else {
             spannableString = new SpannableString("回复"+mShowToCustomer+"：");
         }
+        if (mShowToCustomer.length()!=0)
         spannableString.setSpan(new MyCheckTextView(context,mItem.getTo_user().getId()),2,
                 mShowToCustomer.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;

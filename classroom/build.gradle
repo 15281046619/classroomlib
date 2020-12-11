@@ -84,7 +84,7 @@ dependencies {
     implementation 'com.beautydefinelibrary:beautydefinelibrary:1.2.20'
     //implementation 'com.beautyreslibrary:beautyreslibrary:1.1.9'//有implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'库
     //implementation 'com.beautyreslibrary:zy:1.0.4'//有implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'库
-  implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'
+    implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'
 
     implementation 'com.zzhoujay.richtext:richtext:3.0.8'
 

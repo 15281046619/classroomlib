@@ -13,20 +13,10 @@ import android.webkit.WebView;
 
 
 import com.xingwang.classroom.ClassRoomLibUtils;
-
-import com.xingwang.classroom.ui.ClassRoomHomeActivity;
 import com.xingwang.classroom.ui.LiveListActivity;
-import com.xingwang.classroom.ui.LiveWebActivity;
-
-import com.xingwang.classroom.utils.GlideUtils;
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroomlib.html.WebViewDelegate;
 
 
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 
 public class MainActivity extends AppCompatActivity implements WebViewDelegate {
@@ -36,6 +26,11 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
+     //   Log.d("TAG","ArrayList："+(System.currentTimeMillis()-cur));
         // ClassRoomLibUtils.startListActivity(this,"栏目");
 
 

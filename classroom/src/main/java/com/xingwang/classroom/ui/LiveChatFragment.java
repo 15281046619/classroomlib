@@ -48,9 +48,6 @@ import com.xingwang.classroom.view.gift.GiftBean;
 import com.xingwang.classroom.view.gift.GiftView;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
-
-
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -290,6 +287,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
+
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED ||
                     ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
@@ -311,7 +309,6 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                     @Override
                     public void subscribeSuccess(String response) {
                         super.subscribeSuccess(response);
-
                     }
 
                     @Override
@@ -431,10 +428,10 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                     mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
                     if (isScrollViewEnd) {//是否到底底部，没有不用移动
                         recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
-                    } else {
-                        newMessageSum++;
-                        updateTvNewMessage();
-                    }
+                    }else {
+                    newMessageSum++;
+                    updateTvNewMessage();
+                }
                 }
             });
         }
@@ -462,7 +459,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
      * 刷新adater
      */
     public void refreshAdapter(){
-        if (mAdapter.getData().size()!=mAdapter.getItemCount()){
+        if (mAdapter!=null&&mAdapter.getData().size()!=mAdapter.getItemCount()){
             mAdapter.notifyDataSetChanged();
             recyclerView.scrollToPosition(mAdapter.getItemCount()-1);
         }
@@ -638,7 +635,6 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     @Override
     public void onDestroy() {
         super.onDestroy();
-        WsManagerUtil.getInstance().onDestroy(null);
     }
 
     @Override

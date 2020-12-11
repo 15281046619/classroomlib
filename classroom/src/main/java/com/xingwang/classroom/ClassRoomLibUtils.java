@@ -131,7 +131,7 @@ public class ClassRoomLibUtils {
                 if (i == 232){//经过测试232 是最后一次收到的状态{
                     SharedPreferenceUntils.saveX5State(context,true);
                     EventBus.getDefault().post(new X5InstallSuccessBean(1,100));
-                    MyToast.myToast(context,"安装x5内核成功");
+                   // MyToast.myToast(context,"安装x5内核成功");
                 }else {
                     EventBus.getDefault().post(new X5InstallSuccessBean(1,0));
                 }

@@ -415,6 +415,7 @@ public class LiveDetailActivity extends BaseNetActivity {
                             if (orientationUtils != null) {
                                 orientationUtils.backToProtVideo();
                             }
+                            if (mArrayLists.length>0)
                             ((LiveChatFragment) mArrayLists[0]).refreshAdapter();
                         }
 

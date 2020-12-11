@@ -170,6 +170,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         String mShowName = mDatas.get(position).getQuote().getUser().getNickname();
 
         SpannableString  spannableString =new SpannableString(mShowName+"："+mDes+"");
+
         spannableString.setSpan(new MyCheckTextView(position,true),0,
                 mShowName.length()+1,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
@@ -178,6 +179,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private SpannableString getSpannableStr(int position,String des){
         String mShowName = mDatas.get(position).getUser().getNickname();
         SpannableString  spannableString =new SpannableString("恭喜"+mShowName+des);
+        if (mShowName.length()+2!=2)
         spannableString.setSpan(new MyCheckTextView(position,false),2,
                 mShowName.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
@@ -192,6 +194,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private SpannableString getRewardSpannableStr(int position,String des){
         String mShowName = mDatas.get(position).getUser().getNickname();
         SpannableString  spannableString =new SpannableString(mShowName+des);
+        if (mShowName.length()!=0)
         spannableString.setSpan(new MyCheckTextView(position,false),0,
                 mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;

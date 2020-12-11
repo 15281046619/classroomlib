@@ -70,13 +70,13 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
             String badge =mDatas.get(position).getUser().getBadge();
 
             if (mBaseViewHolder.llVip.getChildCount()>1){
-            mBaseViewHolder.llVip.removeViews(1,mBaseViewHolder.llVip.getChildCount()-1);
-        }
+                mBaseViewHolder.llVip.removeViews(1,mBaseViewHolder.llVip.getChildCount()-1);
+            }
 
             if (!TextUtils.isEmpty(badge)&&mBaseViewHolder.llVip.getChildCount()==1){
                 String[] badges = badge.split(",");
                 for (int i=0;i<badges.length;i++)
-                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,badges[i]));
+                    mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,badges[i]));
             }
             if (!TextUtils.isEmpty(mDatas.get(position).getBody())){
                 mBaseViewHolder.tvContent.setVisibility(View.VISIBLE);
@@ -185,9 +185,11 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
                 spannableString.setSpan(new MyCheckTextView(context,mItem.getUser().getId()),0,mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
             }else {
                 spannableString = new SpannableString(mShowName+"回复"+mShowToCustomer+"："+mItem.getBody());
-                spannableString.setSpan(new MyCheckTextView(context,mItem.getUser().getId()),0,mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-                spannableString.setSpan(new MyCheckTextView(context,mItem.getTo_user().getId()),mShowName.length()+2,
-                        mShowName.length()+mShowToCustomer.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                if (mShowName.length()!=0)
+                    spannableString.setSpan(new MyCheckTextView(context,mItem.getUser().getId()),0,mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                if (mShowName.length()+mShowToCustomer.length()!=0)
+                    spannableString.setSpan(new MyCheckTextView(context,mItem.getTo_user().getId()),mShowName.length()+2,
+                            mShowName.length()+mShowToCustomer.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             }
         }else {
@@ -196,8 +198,10 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
                 spannableString.setSpan(new MyCheckTextView(context,mItem.getUser().getId()),0,mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
             }else {
                 spannableString = new SpannableString(mShowName+"回复"+mShowToCustomer+"："+mItem.getBody());
-                spannableString.setSpan(new MyCheckTextView(context,mItem.getUser().getId()),0,mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-                spannableString.setSpan(new MyCheckTextView(context,mItem.getTo_user().getId()),mShowName.length()+2,mShowName.length()+mShowToCustomer.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                if (mShowName.length()!=0)
+                    spannableString.setSpan(new MyCheckTextView(context,mItem.getUser().getId()),0,mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                if (mShowToCustomer.length()!=0)
+                    spannableString.setSpan(new MyCheckTextView(context,mItem.getTo_user().getId()),mShowName.length()+2,mShowName.length()+mShowToCustomer.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
 
