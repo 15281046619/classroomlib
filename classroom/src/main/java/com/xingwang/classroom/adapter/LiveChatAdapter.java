@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.LabelUiFactoryDefine;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.bean.LiveChatListBean;
@@ -123,7 +124,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (!TextUtils.isEmpty(badge) && mBaseViewHolder.llVip.getChildCount() == 1) {
                 String[] badges = badge.split(",");
                 for (String s : badges)
-                    mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity, s));
+                    mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity, s, LabelUiFactoryDefine.Style.LEVEL));
             }
 
             if (itemsBean.getType()==1) {

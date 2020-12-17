@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.LabelUiFactoryDefine;
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.CommentBean;
@@ -72,7 +73,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
             if (!TextUtils.isEmpty(badge)&&mBaseViewHolder.llVip.getChildCount()==1){
                 String[] badges = badge.split(",");
                 for (int i=0;i<badges.length;i++)
-                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,badges[i]));
+                mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,badges[i],LabelUiFactoryDefine.Style.LEVEL));
             }
             mBaseViewHolder.tvDatetime.setText(TimeUtil.getTimeFormatText(mDatas.get(position).getPublish_time()));
             if (!TextUtils.isEmpty(mDatas.get(position).getBody())){
