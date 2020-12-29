@@ -3,6 +3,7 @@ package com.xingwang.classroom.bean;
 
 import com.xingwang.classroom.http.CommonEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class LiveListBean extends CommonEntity {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * id : 221
          * category_id : 5

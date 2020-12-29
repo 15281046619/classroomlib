@@ -369,11 +369,9 @@ public class ClassRoomLibUtils {
     }
     private static String getVideoCachePath(Context context){
         String videoCachePath;
-        if (Environment.MEDIA_MOUNTED.equals(Environment
-                .getExternalStorageState())
-                || !Environment.isExternalStorageRemovable()) {
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())|| !Environment.isExternalStorageRemovable()) {
             videoCachePath = context.getExternalCacheDir().getPath();
-        } else {
+        }else{
             videoCachePath = context.getCacheDir().getPath();
         }
         videoCachePath = videoCachePath + "/cachePath/";

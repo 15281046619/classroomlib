@@ -20,6 +20,8 @@ import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,10 @@ public class LiveListActivity extends BaseNetActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState!=null){
+            clickPos=  savedInstanceState.getInt("clickPos");
+            mData = (List<LiveListBean.DataBean>) savedInstanceState.getSerializable("mData");
+        }
         if (!isStartLaunch()) {
             setNavigationBarColor(android.R.color.black);
             initView();
@@ -81,6 +87,15 @@ public class LiveListActivity extends BaseNetActivity {
         getCategory();
         //getRequestData(Constants.LOAD_DATA_TYPE_INIT);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("clickPos",clickPos);
+        outState.putSerializable("mData", (Serializable) mData);
+        super.onSaveInstanceState(outState);
+
+    }
+
     private int categoryId =-1;
     private void getCategory() {
 
@@ -178,7 +193,7 @@ public class LiveListActivity extends BaseNetActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==100){
+        if (requestCode==100&&mAdapter!=null&&mData!=null&&mData.size()>0){
             if (resultCode==100){//正在直播
                 mAdapter.notifyDataSetChanged();
             }else if (resultCode==101){//直播结束
