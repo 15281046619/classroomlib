@@ -89,7 +89,7 @@ public class LiveDetailActivity extends BaseNetActivity {
 
     private Handler mHandler = new Handler();
     private long mTime = 0;
-    private boolean isPlay =false;
+    public boolean isPlay =false;
     private boolean isPause;
     public long onlineCount=-1;//在线人数
     public boolean liveEnd = false;//收到直播结束标准

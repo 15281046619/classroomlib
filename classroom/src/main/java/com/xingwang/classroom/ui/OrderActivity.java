@@ -194,32 +194,27 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
 
     private void showPickerView() {// 弹出选择器
 
-        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                //返回的分别是三个级别的选中位置
-                String opt1tx = options1Items.size() > 0 ?
-                        options1Items.get(options1).getPickerViewText() : "";
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
+            //返回的分别是三个级别的选中位置
+            String opt1tx = options1Items.size() > 0 ?
+                    options1Items.get(options1).getPickerViewText() : "";
 
-                String opt2tx = options2Items.size() > 0
-                        && options2Items.get(options1).size() > 0 ?
-                        options2Items.get(options1).get(options2) : "";
+            String opt2tx = options2Items.size() > 0
+                    && options2Items.get(options1).size() > 0 ?
+                    options2Items.get(options1).get(options2) : "";
 
-                String opt3tx = options2Items.size() > 0
-                        && options3Items.get(options1).size() > 0
-                        && options3Items.get(options1).get(options2).size() > 0 ?
-                        options3Items.get(options1).get(options2).get(options3) : "";
+            String opt3tx = options2Items.size() > 0
+                    && options3Items.get(options1).size() > 0
+                    && options3Items.get(options1).get(options2).size() > 0 ?
+                    options3Items.get(options1).get(options2).get(options3) : "";
 
 
-                if (opt1tx.equals(opt2tx)){//此时为直辖
-                    et_city.setText(opt1tx+opt3tx);
-                }else {
-                    et_city.setText(opt1tx+opt2tx+opt3tx);
-                }
-              }
-            })
-
-                .setTitleText("城市选择")
+            if (opt1tx.equals(opt2tx)){//此时为直辖
+                et_city.setText(opt1tx+opt3tx);
+            }else {
+                et_city.setText(opt1tx+opt2tx+opt3tx);
+            }
+          }).setTitleText("城市选择")
                 .setTitleSize(16)
                 .setSubCalSize(15)
                 .setDividerColor(Color.BLACK)

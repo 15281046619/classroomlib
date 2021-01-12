@@ -12,6 +12,7 @@
     <color name="SwipeRefreshLayoutClassRoom">#FFC400</color>
    <!-- <color name="themeClassRoom">#0058bd</color>-->
     <color name="themeClassRoom">#0055BC</color>
+    <color name="theme1ClassRoom">#3F75B6</color>
    <!-- <color name="themeClassRoom">@color/reslib_colorPrimary</color>-->
 
     <color name="BGClassRoom">#f2f2f2</color>

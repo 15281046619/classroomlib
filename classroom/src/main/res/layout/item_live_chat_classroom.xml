@@ -15,10 +15,10 @@
         android:layout_marginLeft="10dp"
         android:id="@+id/rl_gov"
         android:layout_marginRight="5dp" >
+
         <com.xingwang.classroom.view.CircularImage
             android:id="@+id/iv_avatar"
-            style="@style/chatAvatarClassRoom"
-            />
+            style="@style/chatAvatarClassRoom" />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -31,6 +32,7 @@ import com.xingwang.classroom.adapter.LiveChatAdapter;
 import com.xingwang.classroom.bean.LiveChatListBean;
 import com.xingwang.classroom.bean.UserInfoBean;
 import com.xingwang.classroom.dialog.BottomGifDialog;
+import com.xingwang.classroom.dialog.BottomGifSubmitDialog;
 import com.xingwang.classroom.dialog.CenterBuyDialog;
 import com.xingwang.classroom.dialog.CenterRedPackDialog;
 import com.xingwang.classroom.http.ApiParams;
@@ -78,6 +80,18 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     private BottomGifDialog mChooseGiftDialog;
     private int curJF =-1;
     private String speaker;
+    private  BottomGifSubmitDialog mGitSubmit;
+    private Handler handler =new Handler();
+    private Runnable showGiftSubmitRunnable = () -> showGifSubmitDialog();
+    private Runnable closeGiftSubmitRunnable =new Runnable() {
+        @Override
+        public void run() {
+            if (mGitSubmit!=null){
+                mGitSubmit.dismissDialog();
+                mGitSubmit=null;
+            }
+        }
+    };
     public static LiveChatFragment getInstance(String id,String fixedStr,String speaker){
         LiveChatFragment mFragment = new LiveChatFragment();
         Bundle bundle = new Bundle();
@@ -171,8 +185,15 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         }
         ivGift.setOnClickListener(v -> showChooseGiftDialog());
         mKeyBoardHelper.setOnKeyBoardStatusChangeListener(this);
+        LiveDetailActivity mActivity = (LiveDetailActivity) getActivity();
+        if (Constants.isShowGiftSubmitDialog&&mActivity.isLive&&mActivity.isPlay){
+            handler.postDelayed(showGiftSubmitRunnable,10000);
+        }
+
         return view;
     }
+
+
     private int curChooseJf=0;
     private void showChooseGiftDialog() {
         if (curJF!=-1) {
@@ -429,9 +450,9 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                     if (isScrollViewEnd) {//是否到底底部，没有不用移动
                         recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
                     }else {
-                    newMessageSum++;
-                    updateTvNewMessage();
-                }
+                        newMessageSum++;
+                        updateTvNewMessage();
+                    }
                 }
             });
         }
@@ -490,7 +511,23 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     @Override
     public void initData() {
         requestData(Constants.LOAD_DATA_TYPE_INIT,Integer.MAX_VALUE);
+
     }
+
+    private void showGifSubmitDialog(){
+        if (mGitSubmit==null) {
+            mGitSubmit = BottomGifSubmitDialog.getInstance(
+                    ((LiveDetailActivity) getActivity()).mLiveDetailBean.getData().getLive().getCover(),
+                    BeautyDefine.getUserInfoDefine(getContext()).getNickName());
+            mGitSubmit.setCallback(integer -> {
+                showChooseGiftDialog();
+            });
+            mGitSubmit.showDialog(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+            Constants.isShowGiftSubmitDialog =false;
+            handler.postDelayed(closeGiftSubmitRunnable,8000);
+        }
+    }
+
     public void initAdapter(boolean isInit,int sum){
         if (isInit) {
             mAdapter.notifyDataSetChanged();
@@ -569,11 +606,11 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                             btSend.setEnabled(true);
                             etContent.setText("");
                             KeyBoardHelper.hideSoftInput(getActivity());
-                           // MyToast.myToast(getActivity(),commonEntity.getMessage());
+                            // MyToast.myToast(getActivity(),commonEntity.getMessage());
                         }else if (type.equals("2")){
                             BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
                             choosePicCommentError();
-                           // MyToast.myToast(getActivity(),commonEntity.getMessage());
+                            // MyToast.myToast(getActivity(),commonEntity.getMessage());
                         }else if (type.equals("3")){
                             MyToast.myToast(getActivity(),"下单成功");
                         }else if (type.equals("4")){
@@ -632,19 +669,25 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                 });
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
+
 
     @Override
     public void onDestroyView() {
+        WsManagerUtil.getInstance().onDestroy(null);
         super.onDestroyView();
         if (mKeyBoardHelper != null) {
             mKeyBoardHelper.onDestroy();
         }
         if(giftView!=null){
             giftView.onDestroy();
+        }
+
+        if (handler!=null&&showGiftSubmitRunnable!=null){
+            handler.removeCallbacks(showGiftSubmitRunnable);
+        }
+
+        if (handler!=null&&closeGiftSubmitRunnable!=null){
+            handler.removeCallbacks(closeGiftSubmitRunnable);
         }
     }
 
@@ -659,4 +702,5 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
             }
         }
     }
+
 }

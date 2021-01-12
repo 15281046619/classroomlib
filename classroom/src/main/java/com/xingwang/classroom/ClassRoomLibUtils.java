@@ -23,6 +23,7 @@ import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
 import com.xingwang.classroom.ui.LiveDetailActivity;
 import com.xingwang.classroom.ui.LiveWebActivity;
+import com.xingwang.classroom.ui.StatisticPriceActivity;
 import com.xingwang.classroom.utils.ActivityUtil;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
@@ -284,6 +285,19 @@ public class ClassRoomLibUtils {
      */
     public static void startListActivity(Context context,String type){
         context.startActivity(new Intent(context,ClassRoomHomeActivity.class).putExtra("type",type));
+    }
+
+
+    public static void startHistoryPriceActivity(Context context){
+        context.startActivity(new Intent(context, StatisticPriceActivity.class));
+    }
+    /**
+     *统计猪历史价格
+     * @param context
+     * @param type 0 大豆 1 玉米 2 内三元 ...
+     */
+    public static void startHistoryPriceActivity(Context context,String type){
+        context.startActivity(new Intent(context,StatisticPriceActivity.class).putExtra("type",type));
     }
     /**
      *

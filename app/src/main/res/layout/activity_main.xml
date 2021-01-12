@@ -11,7 +11,7 @@
         android:id="@+id/tv_jump_circle_uri"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="圈子uri"
+        android:text="诸摇统计"
         android:onClick="onClick"
         android:tag="1"
         android:textSize="15sp"/>

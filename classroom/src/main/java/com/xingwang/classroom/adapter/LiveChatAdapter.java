@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -97,11 +98,12 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if (itemsQuoteBean.getType()==1) {
                     mBaseViewHolder.ivQuiteContent.setVisibility(View.GONE);
                  //   mBaseViewHolder.tvQuoteContent.setTextColor(ContextCompat.getColor(activity,android.R.color.black));
-                    mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position,itemsQuoteBean.getBody()));
+                    mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position,itemsQuoteBean.getBody()).toString());
 
                 } else if (itemsQuoteBean.getType() == 2) {
                     mBaseViewHolder.ivQuiteContent.setVisibility(View.VISIBLE);
                     mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position,""));
+
                     GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(mWidth, mHeight, itemsQuoteBean.getBody()), mBaseViewHolder.ivQuiteContent);
                     mBaseViewHolder.ivQuiteContent.setOnClickListener(v -> {
                         List<String> mLists = new ArrayList<>();
@@ -130,7 +132,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (itemsBean.getType()==1) {
                 mBaseViewHolder.tvContent.setVisibility(View.VISIBLE);
                 mBaseViewHolder.ivContent.setVisibility(View.GONE);
-                mBaseViewHolder.tvContent.setText(itemsBean.getBody());
+                mBaseViewHolder.tvContent.setText(Html.fromHtml(itemsBean.getBody()));
             } else if (itemsBean.getType() == 2) {
                 mBaseViewHolder.tvContent.setVisibility(View.GONE);
                 mBaseViewHolder.ivContent.setVisibility(View.VISIBLE);
@@ -196,8 +198,8 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         String mShowName = mDatas.get(position).getUser().getNickname();
         SpannableString  spannableString =new SpannableString(mShowName+des);
         if (mShowName.length()!=0)
-        spannableString.setSpan(new MyCheckTextView(position,false),0,
-                mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new MyCheckTextView(position,false),0,
+                    mShowName.length(),SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
     class MyCheckTextView extends ClickableSpan {

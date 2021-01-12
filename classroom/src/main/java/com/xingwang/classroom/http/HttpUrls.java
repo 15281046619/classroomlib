@@ -76,6 +76,9 @@ public class HttpUrls {
     public static final String URL_USER_INFO(){
       return  URL_HOST+URL_NAME+"user/user/my/info";
     }
+    public static final String URL_PRICE_HISTORY(){
+      return  URL_HOST+URL_NAME+"price/general/api/history";
+    }
     public static final String URL_LIVE_CHAT_SEND(){
       return  URL_HOST+URL_NAME+"live/user/chat/send";
     }

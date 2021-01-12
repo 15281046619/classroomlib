@@ -193,7 +193,7 @@ public class LiveListActivity extends BaseNetActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==100&&mAdapter!=null&&mData!=null&&mData.size()>0){
+        if (requestCode==100&&mAdapter!=null&&mData!=null&&mData.size()>clickPos){
             if (resultCode==100){//正在直播
                 mAdapter.notifyDataSetChanged();
             }else if (resultCode==101){//直播结束

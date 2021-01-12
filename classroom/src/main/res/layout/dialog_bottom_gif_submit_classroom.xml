@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_git_submit_bg"
+    >
+    <com.xingwang.classroom.view.CircularImage
+        android:id="@+id/ivAvatar"
+        style="@style/chatAvatarClassRoom"
+        android:layout_margin="@dimen/dp_15_classroom"
+        />
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivAvatar"
+        android:gravity="center_vertical"
+        android:text="右边"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/dp_15_classroom"
+        android:layout_marginRight="5dp"
+        android:textSize="13sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/ivAvatar"
+        android:text="送我一个小心心吧"
+        android:id="@+id/tvDes"
+        android:layout_alignBottom="@+id/ivAvatar"/>
+    <ImageView
+        android:layout_width="20dp"
+        android:src="@mipmap/ic_ax_classroom"
+        android:layout_alignBottom="@+id/ivAvatar"
+        android:layout_toRightOf="@+id/tvDes"
+        android:layout_alignTop="@+id/tvDes"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_alignBottom="@+id/ivAvatar"
+        android:layout_alignTop="@+id/ivAvatar"
+        android:layout_height="wrap_content">
+    <Button
+        android:layout_width="@dimen/dp_80_classroom"
+        android:gravity="center"
+        android:text="立即赠送"
+        android:id="@+id/btSend"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/white"
+        android:background="@drawable/shape_send_gift_bg"
+        android:layout_marginRight="@dimen/dp_15_classroom"
+        android:layout_height="@dimen/dp_30_classroom"/>
+    </RelativeLayout>
+</RelativeLayout>

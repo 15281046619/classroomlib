@@ -50,4 +50,5 @@ public class Constants {
         }
         return false;
     }
+    public static boolean isShowGiftSubmitDialog= true;//显示礼物提示
 }

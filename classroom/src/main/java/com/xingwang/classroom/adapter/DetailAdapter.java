@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.LabelUiFactoryDefine;
-import com.xingwang.classroom.BuildConfig;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.utils.CommentUtils;
@@ -76,13 +76,13 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
 
             if (!TextUtils.isEmpty(badge)&&mBaseViewHolder.llVip.getChildCount()==1){
                 String[] badges = badge.split(",");
-                for (int i=0;i<badges.length;i++)
-                    mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity,badges[i], LabelUiFactoryDefine.Style.LEVEL));
+                for (String s : badges)
+                    mBaseViewHolder.llVip.addView(BeautyDefine.getLabelUiFactoryDefine().getLabelUiFactory().getLabelView(activity, s, LabelUiFactoryDefine.Style.LEVEL));
             }
             if (!TextUtils.isEmpty(mDatas.get(position).getBody())){
                 mBaseViewHolder.tvContent.setVisibility(View.VISIBLE);
                 mBaseViewHolder.ivContent.setVisibility(View.GONE);
-                mBaseViewHolder.tvContent.setText(mDatas.get(position).getBody());
+                mBaseViewHolder.tvContent.setText(Html.fromHtml(mDatas.get(position).getBody()));
             }else if (!TextUtils.isEmpty(mDatas.get(position).getPics())){
                 mBaseViewHolder.tvContent.setVisibility(View.GONE);
                 mBaseViewHolder.ivContent.setVisibility(View.VISIBLE);

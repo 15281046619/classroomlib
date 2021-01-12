@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         String tag =(String) view.getTag();
         switch (tag){
             case "1":
-                startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("circle://"+getPackageName()+".host.card?id=56")));
+               // startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("circle://"+getPackageName()+".host.card?id=56")));
+                ClassRoomLibUtils.startHistoryPriceActivity(this,"1");
                 break;
             case "2":
                 startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("essay://"+getPackageName()+".host.adessay?url=http://zyapp.test.xw518.com/article/859")));
