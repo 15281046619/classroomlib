@@ -509,7 +509,7 @@ public class LiveDetailActivity extends BaseNetActivity {
             mHandler.removeCallbacks(mDownRunnable);
         if (mHandler!=null&&mOnlineCountRunnable!=null)
             mHandler.removeCallbacks(mOnlineCountRunnable);
-        if (mVideoPlayer!=null) {
+        if (mVideoPlayer!=null) {//isplay 1.12去掉isplay判断
             mVideoPlayer.getCurrentPlayer().release();
         }
         if (orientationUtils != null)

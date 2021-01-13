@@ -14,6 +14,7 @@ import android.webkit.WebView;
 
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.ui.LiveListActivity;
+import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroomlib.html.WebViewDelegate;
 
 
@@ -57,9 +58,11 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
    //     Uri uri = Uri.parse("classroom://com.xingw.zyapp.zblist");
       /*  Uri uri = Uri.parse("classroom://com.xingwang.classroomlib.zbdetail?id=224&is_end=0");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);*/
-        Uri uri = Uri.parse("classroom://com.xingwang.classroomlib.pldetail?div_id=482&lecture_id=51&bid=0");
+       // Uri uri = Uri.parse("classroom://com.xingwang.classroomlib.pldetail?div_id=482&lecture_id=51&bid=0");
+
+        Uri uri = Uri.parse("classroom://"+getPackageName()+".kcdetail?id=70&type='video'");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-       //  startActivity(intent);
+      //  startActivity(intent);
 
 
     }

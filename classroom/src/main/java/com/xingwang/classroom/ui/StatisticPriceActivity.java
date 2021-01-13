@@ -69,17 +69,22 @@ public class StatisticPriceActivity extends BaseNetActivity{
         }
     }
     private void initListener() {
-        swipeRefreshLayout.setOnRefreshListener(() -> swipeRefreshLayout.setRefreshing(false));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                goRequestData();
+            }
+        });
         toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     private void initData() {
         toolbar.setText(toNameByPosition(initPos));
+        swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
         goRequestData();
     }
     private void goRequestData(){
-        swipeRefreshLayout.setRefreshing(true);
         requestGet(HttpUrls.URL_PRICE_HISTORY(),new ApiParams(), HistoryPriceBean.class, new HttpCallBack<HistoryPriceBean>() {
 
             @Override
@@ -105,7 +110,7 @@ public class StatisticPriceActivity extends BaseNetActivity{
 
     }
     private void initTabLayout() {
-
+        mFragments.clear();
         ArrayList<String> mTitles =new ArrayList<>();
         for (int i=0;i<6;i++) {
             mFragments.add(StatisticPriceFragment.getInstance(i));

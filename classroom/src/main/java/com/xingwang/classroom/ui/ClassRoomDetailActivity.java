@@ -399,7 +399,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             ArrayList<String> mPics = new ArrayList<>();
             mPics.add(mBean.getData().getLecture().getThumb());
             String regMatchTag = "<[^>]*>";
-            BeautyDefine.getShareDefine(this).share(HttpUrls.URL_SHARE()+"?id="+mBean.getData().getLecture().getId(),mPics,mBean.getData().getLecture().getTitle(),
+            BeautyDefine.getShareDefine(this).share("classroom://"+getPackageName()+".kcdetail?id="+mBean.getData().getLecture().getId()+"&type='video'",HttpUrls.URL_SHARE()+"?id="+mBean.getData().getLecture().getId(),mPics,mBean.getData().getLecture().getTitle(),
                     mBean.getData().getLecture().getBody().replaceAll(regMatchTag,""),new ShareResultCallBack(){
 
                         @Override
@@ -930,7 +930,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             setCurFragment(0, false, false);
             return;
         }
-        if (isLoadVideo){
+        if (isLoadVideo&&mVideoPlayer!=null){
             if ( mVideoPlayer.isVerticalVideo()&&isScreen) {
                 mVideoPlayer.getLayoutParams().height = mVideoHeight;
                 // setNavigationBarColor(android.R.color.white);
@@ -965,7 +965,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private boolean isPlaying = false;
     @Override
     protected void onPause() {
-        if (isLoadVideo) {
+        if (isLoadVideo&&mVideoPlayer!=null) {
             isPlaying = mVideoPlayer.getGSYVideoManager().isPlaying();
             mVideoPlayer.getCurrentPlayer().onVideoPause();
             if (mVideoPlayer != null) {
@@ -979,7 +979,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     @Override
     protected void onResume() {
-        if (isLoadVideo&&isPlaying)
+        if (isLoadVideo&&isPlaying&&mVideoPlayer!=null)
             mVideoPlayer.getCurrentPlayer().onVideoResume(false);
         super.onResume();
         isPause = false;
