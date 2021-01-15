@@ -135,4 +135,24 @@ public class TimeUtil {
             return time;
         }
     }
+    public static String byTimeAddDay1(String time,int day){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+
+
+        try {
+            Date date = sdf.parse(time);
+            Calendar rightNow = Calendar.getInstance();
+            rightNow.setTime(date);
+            rightNow.add(Calendar.DAY_OF_YEAR, day);
+            Date mTime = rightNow.getTime();
+            String format = sdf1.format(mTime);
+            //2019-06-10减60天为：2019-04-11
+
+            return format;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return time;
+        }
+    }
 }

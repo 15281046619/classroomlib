@@ -6,32 +6,35 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.ChartTouchListener;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.utils.LogUtil;
-import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.TimeUtil;
+import com.xingwang.classroom.view.DetailsMarkerView;
+import com.xingwang.classroom.view.MyLineChart;
+import com.xingwang.classroom.view.PositionMarker;
+import com.xingwang.classroom.view.RoundMarker;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,13 +44,13 @@ import java.util.List;
  * author:baiguiqiang
  */
 public class StatisticPriceFragment extends BaseLazyLoadFragment  {
-    private LineChart mLineChar;
+    private MyLineChart mLineChar;
     private TextView tvTime,tvUnit,tvPrice,tvPercentage;
     private String mUnit="元/千克";//单位
     private RadioGroup radioGroup;
     private int curPosition=0;
     private List<String> mData=new ArrayList<>();
-    private int time=366;//代表天数 有366 183 90 30
+    private int time=30;//代表天数 有366 183 90 30
     private String startData;//开始计算时间
 
     @Override
@@ -88,6 +91,7 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
             }else {
                 time =mData.size();
             }
+            mLineChar.clear();
             lineChartToData();
             initShow();
         });
@@ -145,7 +149,6 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
         ArrayList<Entry> values =new ArrayList();
         double totalPrice=0;
         int totalTime=0;
-        LogUtil.i("TAG",mData.toString());
         for ( int i=(mData.size()-time);i<mData.size();i++){
             try {
                 totalPrice=sum(totalPrice,Double.parseDouble(mData.get(i)));
@@ -174,12 +177,10 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
                 @Override
                 public String getFormattedValue(float value) {
                     try {
-                        return TimeUtil.byTimeAddDay(startData, (int) value);
+                        return TimeUtil.byTimeAddDay(startData, (int) value-1);
                     }catch (Exception e){
                         return super.getFormattedValue(value);
                     }
-
-
                 }
             });
             // 创建一个数据集,并给它一个类型
@@ -198,6 +199,13 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
             set1.setFormLineWidth(1f);
             set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
             set1.setFormSize(15.f);
+            mLineChar.getAxisRight().setEnabled(false); //设置图表右边的y轴禁用
+            //隐藏左边坐标轴横网格线
+            mLineChar.getAxisLeft().setDrawGridLines(false);
+            //隐藏右边坐标轴横网格线
+            mLineChar.getAxisRight().setDrawGridLines(false);
+            //隐藏X轴竖网格线
+            mLineChar.getXAxis().setDrawGridLines(false);
 
             if (Utils.getSDKInt() >= 18) {
                 // 填充背景只支持18以上
@@ -237,7 +245,7 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
             String mOldPrice =df.format((double) mTotalPrice/mTotalTime);
             Double old = Double.parseDouble(mOldPrice);
             Double cur = Double.parseDouble(mPrice);
-            double p3 = (cur-old) / cur;
+            double p3 = (cur-old) / old;
             mPercentage =Double.parseDouble(df.format(p3*100));
         }else {
             mPercentage=0;
@@ -252,9 +260,25 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
     }
     private void setLineChart() {
         //设置手势滑动事件
-       // mLineChar.setOnChartGestureListener(this);
+      //  mLineChar.setOnChartGestureListener(this);
         //设置数值选择监听
-        // mLineChar.setOnChartValueSelectedListener(this);
+        mLineChar.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                //查看覆盖物是否被回收
+                if (mLineChar.isMarkerAllNull()) {
+                    //重新绑定覆盖物
+                    createMakerView();
+                    //并且手动高亮覆盖物
+                    mLineChar.highlightValue(h);
+                }
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
         //后台绘制
         mLineChar.setDrawGridBackground(false);
         //设置描述文本
@@ -262,15 +286,33 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
         //设置支持触控手势
         mLineChar.setTouchEnabled(true);
         //设置缩放
-        mLineChar.setDragEnabled(true);
+        mLineChar.setDragEnabled(false);
         //设置推动
-        mLineChar.setScaleEnabled(true);
+        mLineChar.setScaleEnabled(false);
         //如果禁用,扩展可以在x轴和y轴分别完成
         mLineChar.setPinchZoom(true);
-        mLineChar.setHighlightPerTapEnabled(false);
-        mLineChar.setHighlightPerDragEnabled(false);
+        mLineChar.setHighlightPerTapEnabled(true);
+        mLineChar.setHighlightPerDragEnabled(true);
+       /* //透明化图例
+        Legend legend = mLineChar.getLegend();
+        legend.setForm(Legend.LegendForm.NONE);
+        legend.setTextColor(Color.WHITE);*/
+      /*  DetailsMarkerView detailsMarkerView = new DetailsMarkerView(getContext(),R.layout.layout_marker_view_detail,mUnit,startData);
+        //一定要设置这个玩意，不然到点击到最边缘的时候不会自动调整布局
+        detailsMarkerView.setChartView(mLineChar);
+        mLineChar.setMarker(detailsMarkerView);*/
+        createMakerView();
     }
-
+    /**
+     * 创建覆盖物
+     */
+    public void createMakerView() {
+        DetailsMarkerView detailsMarkerView = new DetailsMarkerView(getContext(),R.layout.layout_marker_view_detail,mUnit,startData);
+        detailsMarkerView.setChartView(mLineChar);
+        mLineChar.setDetailsMarkerView(detailsMarkerView);
+        mLineChar.setPositionMarker(new PositionMarker(getContext()));
+        mLineChar.setRoundMarker(new RoundMarker(getContext()));
+    }
     public static StatisticPriceFragment getInstance(int position){
         StatisticPriceFragment mFragment = new StatisticPriceFragment();
         Bundle bundle = new Bundle();
@@ -308,7 +350,8 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
                 mData= mActivity.mData.getPrices().getPork();
                 break;
         }
-        time = mData.size();
+        LogUtil.i(mData.toString());
+        time = 30;
     }
 
 

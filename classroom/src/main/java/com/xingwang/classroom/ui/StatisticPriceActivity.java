@@ -19,6 +19,7 @@ import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.CustomToolbar;
+import com.xingwang.classroom.view.NoScrollViewPager;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import java.util.List;
 public class StatisticPriceActivity extends BaseNetActivity{
     private CustomToolbar toolbar;
     private TabLayout tabLayout;
-    private ViewPager viewpager;
+    private NoScrollViewPager viewpager;
     private VpSwipeRefreshLayout swipeRefreshLayout;
     private int initPos =0;
     private List<Fragment> mFragments;
@@ -69,12 +70,7 @@ public class StatisticPriceActivity extends BaseNetActivity{
         }
     }
     private void initListener() {
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                goRequestData();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> goRequestData());
         toolbar.setNavigationOnClickListener(v -> finish());
     }
 

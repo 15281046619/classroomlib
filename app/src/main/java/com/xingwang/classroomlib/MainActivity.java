@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
 
 
 
-
      //   Log.d("TAG","ArrayList："+(System.currentTimeMillis()-cur));
         // ClassRoomLibUtils.startListActivity(this,"栏目");
 
