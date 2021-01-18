@@ -77,24 +77,28 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
     }
 
     private void initShow() {
-        tvTime.setText(TimeUtil.getMD(System.currentTimeMillis()/1000+"")+"更新");
-        tvUnit.setText("单位："+mUnit);
-        tvPrice.setText(getPriceSpannable());
-        tvPercentage.setText(getPercentageSpannable());
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId==R.id.tvMonth){
-                time =30;
-            }else  if(checkedId==R.id.tvQuarter){
-                time =90;
-            }else   if(checkedId==R.id.tvYear2){
-                time =183;
-            }else {
-                time =mData.size();
-            }
-            mLineChar.clear();
-            lineChartToData();
-            initShow();
-        });
+        if (mData!=null) {
+            tvTime.setText(TimeUtil.getMD(System.currentTimeMillis() / 1000 + "") + "更新");
+            tvUnit.setText("单位：" + mUnit);
+            tvPrice.setText(getPriceSpannable());
+            tvPercentage.setText(getPercentageSpannable());
+            radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                if (mData != null) {
+                    if (checkedId == R.id.tvMonth) {
+                        time = 30;
+                    } else if (checkedId == R.id.tvQuarter) {
+                        time = 90;
+                    } else if (checkedId == R.id.tvYear2) {
+                        time = 183;
+                    } else {
+                        time = mData.size();
+                    }
+                    mLineChar.clear();
+                    lineChartToData();
+                    initShow();
+                }
+            });
+        }
     }
 
     private SpannableString getPercentageSpannable() {
@@ -146,6 +150,8 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
     private String mPrice;//平均价格
     private double mPercentage=0;//同期比列
     private void setData() {
+        if (mData==null)
+            return;
         ArrayList<Entry> values =new ArrayList();
         double totalPrice=0;
         int totalTime=0;
@@ -260,7 +266,7 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
     }
     private void setLineChart() {
         //设置手势滑动事件
-      //  mLineChar.setOnChartGestureListener(this);
+       // mLineChar.setOnChartGestureListener(this);
         //设置数值选择监听
         mLineChar.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -293,6 +299,8 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
         mLineChar.setPinchZoom(true);
         mLineChar.setHighlightPerTapEnabled(true);
         mLineChar.setHighlightPerDragEnabled(true);
+        mLineChar.setDragEnabled(true);//拖动高亮
+
        /* //透明化图例
         Legend legend = mLineChar.getLegend();
         legend.setForm(Legend.LegendForm.NONE);
@@ -307,11 +315,13 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
      * 创建覆盖物
      */
     public void createMakerView() {
-        DetailsMarkerView detailsMarkerView = new DetailsMarkerView(getContext(),R.layout.layout_marker_view_detail,mUnit,startData);
-        detailsMarkerView.setChartView(mLineChar);
-        mLineChar.setDetailsMarkerView(detailsMarkerView);
-        mLineChar.setPositionMarker(new PositionMarker(getContext()));
-        mLineChar.setRoundMarker(new RoundMarker(getContext()));
+        if (startData!=null) {
+            DetailsMarkerView detailsMarkerView = new DetailsMarkerView(getContext(), R.layout.layout_marker_view_detail, mUnit, startData);
+            detailsMarkerView.setChartView(mLineChar);
+            mLineChar.setDetailsMarkerView(detailsMarkerView);
+            mLineChar.setPositionMarker(new PositionMarker(getContext()));
+            mLineChar.setRoundMarker(new RoundMarker(getContext()));
+        }
     }
     public static StatisticPriceFragment getInstance(int position){
         StatisticPriceFragment mFragment = new StatisticPriceFragment();
@@ -322,37 +332,40 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment  {
     }
     private void initAllData(){
         StatisticPriceActivity mActivity = (StatisticPriceActivity) getActivity();
-        startData=mActivity.mData.getStart_date();
-
-        switch (curPosition){
-            case 0:
-                mUnit ="元/吨";
-                mData=  mActivity.mData.getPrices().getBean();
-                break;
-            case 1:
-                mUnit ="元/吨";
-                mData= mActivity.mData.getPrices().getMaize();
-                break;
-            case 2:
-                mUnit ="元/千克";
-                mData= mActivity.mData.getPrices().getPig_in();
-                break;
-            case 3:
-                mUnit ="元/千克";
-                mData= mActivity.mData.getPrices().getPig_out();
-                break;
-            case 4:
-                mUnit ="元/千克";
-                mData= mActivity.mData.getPrices().getPig_local();
-                break;
-            case 5:
-                mUnit ="元/千克";
-                mData= mActivity.mData.getPrices().getPork();
-                break;
+        if (mActivity.mData!=null) {
+            startData = mActivity.mData.getStart_date();
+            switch (curPosition) {
+                case 0:
+                    mUnit = "元/吨";
+                    mData = mActivity.mData.getPrices().getBean();
+                    break;
+                case 1:
+                    mUnit = "元/吨";
+                    mData = mActivity.mData.getPrices().getMaize();
+                    break;
+                case 2:
+                    mUnit = "元/千克";
+                    mData = mActivity.mData.getPrices().getPig_in();
+                    break;
+                case 3:
+                    mUnit = "元/千克";
+                    mData = mActivity.mData.getPrices().getPig_out();
+                    break;
+                case 4:
+                    mUnit = "元/千克";
+                    mData = mActivity.mData.getPrices().getPig_local();
+                    break;
+                case 5:
+                    mUnit = "元/千克";
+                    mData = mActivity.mData.getPrices().getPork();
+                    break;
+            }
+            time = 30;
         }
-        LogUtil.i(mData.toString());
-        time = 30;
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

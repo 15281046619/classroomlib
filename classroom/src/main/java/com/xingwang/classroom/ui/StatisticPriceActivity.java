@@ -47,6 +47,8 @@ public class StatisticPriceActivity extends BaseNetActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (!isStartLaunch()) {
+            if (savedInstanceState!=null&&savedInstanceState.getSerializable("data")!=null)
+            mData = (HistoryPriceBean.DataBean) savedInstanceState.getSerializable("data");
             initViews();
             initIntent();
             initData();
@@ -106,6 +108,7 @@ public class StatisticPriceActivity extends BaseNetActivity{
 
     }
     private void initTabLayout() {
+       // getSupportFragmentManager().getFragments().clear();
         mFragments.clear();
         ArrayList<String> mTitles =new ArrayList<>();
         for (int i=0;i<6;i++) {
@@ -135,6 +138,13 @@ public class StatisticPriceActivity extends BaseNetActivity{
 
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable("data",mData);
+        super.onSaveInstanceState(outState);
+
     }
 
     private String toNameByPosition(int i){

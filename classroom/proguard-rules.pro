@@ -397,5 +397,3 @@
 
 -keep class **JNI* {*;}
 
-
-
