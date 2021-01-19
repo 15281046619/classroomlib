@@ -52,7 +52,7 @@ public class HistoryPriceBean extends CommonEntity {
             this.prices = prices;
         }
 
-        public static class PricesBean {
+        public static class PricesBean  implements Serializable{
             private List<String> bean;
             private List<String> maize;
             private List<String> pig_out;

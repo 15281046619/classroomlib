@@ -3,6 +3,7 @@ package com.xingwang.classroom.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -120,7 +121,7 @@ public class MyLineChart extends LineChart {
 
     }
 
-
+ //   PointF downPoint = new PointF();
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent evt) {
@@ -142,9 +143,10 @@ public class MyLineChart extends LineChart {
 
                     getParent().requestDisallowInterceptTouchEvent(true);
 
-                }else if (getScrollY()>1&&Math.abs(evt.getY()-downPoint.y)>5){*/
+                }else*/
+              //  if (evt.getY()-downPoint.y>=0){
                     getParent().requestDisallowInterceptTouchEvent(true);
-               /* }*/
+              //  }
 
                 break;
 
