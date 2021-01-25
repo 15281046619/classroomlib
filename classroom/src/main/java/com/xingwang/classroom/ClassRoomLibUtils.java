@@ -141,7 +141,7 @@ public class ClassRoomLibUtils {
             @Override
             public void onDownloadProgress(int i) {
                 EventBus.getDefault().post(new X5InstallSuccessBean(0,i));
-                MyToast.myToast(context,"正在后台下载安装x5内核");
+               // MyToast.myToast(context,"正在后台下载安装x5内核");
             }
         });
 

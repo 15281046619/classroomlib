@@ -98,8 +98,7 @@ public class LiveChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if (itemsQuoteBean.getType()==1) {
                     mBaseViewHolder.ivQuiteContent.setVisibility(View.GONE);
                  //   mBaseViewHolder.tvQuoteContent.setTextColor(ContextCompat.getColor(activity,android.R.color.black));
-                    mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position,itemsQuoteBean.getBody()).toString());
-
+                    mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position,itemsQuoteBean.getBody()));
                 } else if (itemsQuoteBean.getType() == 2) {
                     mBaseViewHolder.ivQuiteContent.setVisibility(View.VISIBLE);
                     mBaseViewHolder.tvQuoteContent.setText(getQuoteSpannable(position,""));

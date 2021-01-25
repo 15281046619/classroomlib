@@ -428,13 +428,13 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
                 sb1.append(line);
             }
             sb1.append("</i>");
-            Log.e("3333333", sb1.toString());
+            //Log.e("3333333", sb1.toString());
             instream.close();
             return new ByteArrayInputStream(sb1.toString().getBytes());
         } catch (java.io.FileNotFoundException e) {
-            Log.d("TestFile", "The File doesn't not exist.");
+            //Log.d("TestFile", "The File doesn't not exist.");
         } catch (IOException e) {
-            Log.d("TestFile", e.getMessage());
+            //Log.d("TestFile", e.getMessage());
         }
         return null;
     }
