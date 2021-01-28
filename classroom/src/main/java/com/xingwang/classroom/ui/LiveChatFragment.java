@@ -187,7 +187,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         mKeyBoardHelper.setOnKeyBoardStatusChangeListener(this);
         LiveDetailActivity mActivity = (LiveDetailActivity) getActivity();
         if (Constants.isShowGiftSubmitDialog&&mActivity.isLive){
-            handler.postDelayed(showGiftSubmitRunnable,10000);
+            handler.postDelayed(showGiftSubmitRunnable,15000);
         }
 
         return view;
