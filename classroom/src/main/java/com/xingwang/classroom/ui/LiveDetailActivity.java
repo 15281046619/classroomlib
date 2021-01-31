@@ -1,7 +1,7 @@
 package com.xingwang.classroom.ui;
 
 
-import android.annotation.SuppressLint;
+
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -21,23 +21,15 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
-import com.beautydefinelibrary.BeautyDefine;
-import com.beautydefinelibrary.OpenPageDefine;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
-import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener;
-import com.shuyu.gsyvideoplayer.model.VideoOptionModel;
-import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
-import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.HomeViewpagerAdapter;
 
-import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.bean.LiveDetailBean;
 import com.xingwang.classroom.bean.LiveIsSubscribeBean;
 import com.xingwang.classroom.bean.OnlineCountBean;
@@ -45,7 +37,6 @@ import com.xingwang.classroom.bean.PlayInfoBean;
 import com.xingwang.classroom.bean.VodListBean;
 import com.xingwang.classroom.dialog.CenterDefineDialog;
 import com.xingwang.classroom.http.ApiParams;
-import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.listener.OnTransitionListener;
@@ -53,19 +44,13 @@ import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.KeyBoardHelper;
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.StatusBarUtils;
 import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.EmptyControlVideo;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-
-import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 import static com.xingwang.classroom.http.HttpUrls.URL_ZHI_BO;
 

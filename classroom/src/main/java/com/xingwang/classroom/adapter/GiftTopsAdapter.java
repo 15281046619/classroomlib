@@ -70,7 +70,6 @@ public class GiftTopsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else {
             return ITEM_TYPE_2;
         }
-
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder mViewHolder, @SuppressLint("RecyclerView") int position) {
