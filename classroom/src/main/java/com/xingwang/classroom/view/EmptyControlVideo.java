@@ -143,6 +143,7 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
     private void findByIdAll(){
 
         tvSum= findViewById(R.id.tvSum);
+
         mDanmakuView =findViewById(R.id.danmaku_view);
         setDanmakuView(mDanmakuView);
         ivDanMu= findViewById(R.id.ivDanMu);
@@ -150,6 +151,13 @@ public class EmptyControlVideo extends StandardGSYVideoPlayer {
         ivDanMu.setVisibility(VISIBLE);
 
         ivDanMu.setOnClickListener(this);
+        findViewById(R.id.iv_shape).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getContext() instanceof LiveDetailActivity)
+                    ((LiveDetailActivity)getContext()).goShape(v);
+            }
+        });
     }
     /**
      * 退出全屏得时候 findViewById 才能够同步

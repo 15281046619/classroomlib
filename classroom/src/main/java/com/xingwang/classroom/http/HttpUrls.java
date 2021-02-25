@@ -85,6 +85,9 @@ public class HttpUrls {
     public static final String URL_SHARE(){
         return URL_HOST+"page/share_lecture";//课程分享网页
     }
+    public static final String URL_DOWNLOAD(){
+        return URL_HOST+"page/download";//app下载
+    }
 
     public static String CHANNEL="zyapp.lecture.lecture_";//channel
     public static String LIVE_CHANNEL="zyapp.live.";//直播channel

@@ -67,8 +67,6 @@ public class BottomGifSubmitDialog extends BaseDialog {
             }
             dismissDialog();
         });
-
-
     }
 
 

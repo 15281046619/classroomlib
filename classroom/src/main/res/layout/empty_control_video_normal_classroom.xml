@@ -166,11 +166,19 @@
             android:text="0"
             android:visibility="gone"
             android:drawablePadding="@dimen/dp_5_classroom"
-            android:paddingRight="15dp"
+
             android:gravity="center_vertical"
             android:drawableLeft="@mipmap/ic_online_sum_classroom"
             android:textColor="@android:color/white"
             android:textSize="16sp"/>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/iv_shape"
+            android:src="@mipmap/ic_fx_classroom"
+            android:paddingLeft="14dp"
+            android:layout_marginRight="10dp"
+            android:paddingRight="14dp"/>
     </LinearLayout>
 
     <RelativeLayout

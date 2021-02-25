@@ -86,7 +86,7 @@ public class ClassRoomLibUtils {
                 HttpUrls.LIVE_CHANNEL ="nyapp.live.";
                 break;
             case TYPE_TEST:
-                HttpUrls.URL_HOST ="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/";//测试地址
+                HttpUrls.URL_HOST ="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/";//测试地址 更改了
                 HttpUrls.CHANNEL_WS_URL="ws://192.168.65.74:10101";
                 HttpUrls.CHANNEL ="zyapp.lecture.lecture_";
                 HttpUrls.LIVE_CHANNEL ="zyapp.live.";
@@ -321,11 +321,11 @@ public class ClassRoomLibUtils {
      * @param isLive
      * @param requestCode
      */
- public static void startForResultLiveDetailActivity(FragmentActivity activity,String id,Boolean isLive,int requestCode){
+ public static void startForResultLiveDetailActivity(FragmentActivity activity,String id,Boolean isLive,int requestCode)
+    {
      activity.startActivityForResult(new Intent(activity, LiveDetailActivity.class).putExtra("id",id).putExtra(Constants.EXTRA_IS_LIVE,isLive),requestCode);
- }
-    /**
-     *
+     }
+    /***
      * @param activity
      * @param url
      * @param isProduct 是否是产品， 如果是产品就会有咨询按钮

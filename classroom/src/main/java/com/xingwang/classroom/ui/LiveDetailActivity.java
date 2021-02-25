@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.ShareResultCallBack;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
@@ -49,6 +51,7 @@ import com.xingwang.classroom.utils.StatusBarUtils;
 import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.EmptyControlVideo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -502,6 +505,30 @@ public class LiveDetailActivity extends BaseNetActivity {
 
     }
 
+    /**
+     * 分享直播
+     */
+    public void goShape(View view){
+        if (mLiveDetailBean!=null) {
+            ArrayList<String> mPics = new ArrayList<>();
+            mPics.add(mLiveDetailBean.getData().getLive().getCover());
+            String regMatchTag = "<[^>]*>";
+            //暂时不用uri跳转 ，classroom://"+getPackageName()+".zbdetail?id="+mBean.getData().getLecture().getId()+"&type='video'
+            BeautyDefine.getShareDefine(this).share("classroom://"+getPackageName()+".zbdetail?id="+ mLiveDetailBean.getData().getLive().getId()+"&is_end="+(isLive?0:1),HttpUrls.URL_DOWNLOAD()+"?id=",mPics,mLiveDetailBean.getData().getLive().getTitle(),
+                    mLiveDetailBean.getData().getLive().getBody().replaceAll(regMatchTag,""),new ShareResultCallBack(){
+
+                        @Override
+                        public void onSucceed()
+                        {
+
+                        }
+                        @Override
+                        public void onFailure(String s) {
+                            MyToast.myToast(getApplicationContext(),s);
+                        }
+                    });
+        }
+    }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
