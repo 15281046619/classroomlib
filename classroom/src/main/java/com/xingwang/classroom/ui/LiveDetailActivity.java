@@ -514,7 +514,7 @@ public class LiveDetailActivity extends BaseNetActivity {
             mPics.add(mLiveDetailBean.getData().getLive().getCover());
             String regMatchTag = "<[^>]*>";
             //暂时不用uri跳转 ，classroom://"+getPackageName()+".zbdetail?id="+mBean.getData().getLecture().getId()+"&type='video'
-            BeautyDefine.getShareDefine(this).share("classroom://"+getPackageName()+".zbdetail?id="+ mLiveDetailBean.getData().getLive().getId()+"&is_end="+(isLive?0:1),HttpUrls.URL_DOWNLOAD()+"?id=",mPics,mLiveDetailBean.getData().getLive().getTitle(),
+            BeautyDefine.getShareDefine(this).share("classroom://"+getPackageName()+".zbdetail?id="+ mLiveDetailBean.getData().getLive().getId()+"&is_end="+(isLive?1:0),HttpUrls.URL_DOWNLOAD(),mPics,mLiveDetailBean.getData().getLive().getTitle(),
                     mLiveDetailBean.getData().getLive().getBody().replaceAll(regMatchTag,""),new ShareResultCallBack(){
 
                         @Override
