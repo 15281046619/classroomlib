@@ -1,6 +1,6 @@
 package com.xingwang.classroom.ui;
 
-import android.util.Log;
+
 
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.utils.HttpUtil;

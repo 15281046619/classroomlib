@@ -1,8 +1,6 @@
 package com.xingwang.classroom.dialog;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,16 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.view.gift.GiftBean;
 
 

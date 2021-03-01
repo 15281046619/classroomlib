@@ -9,10 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
-import com.blankj.utilcode.util.ToastUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;

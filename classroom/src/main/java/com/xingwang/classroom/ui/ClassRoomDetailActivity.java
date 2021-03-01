@@ -1,7 +1,6 @@
 package com.xingwang.classroom.ui;
 
 import android.Manifest;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,11 +15,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,14 +33,11 @@ import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.ShareResultCallBack;
-import com.beautydefinelibrary.SystemDefine;
 import com.beautydefinelibrary.UploadResultCallBack;
 
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
-import com.shuyu.gsyvideoplayer.player.PlayerFactory;
-import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
@@ -62,13 +56,11 @@ import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.GsonUtils;
 import com.xingwang.classroom.utils.HttpUtil;
 import com.xingwang.classroom.utils.KeyBoardHelper;
 
 
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
@@ -78,8 +70,6 @@ import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.LandLayoutVideo;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
-/*import com.xingwreslib.beautyreslibrary.CourseFavoriteInfo;
-import com.xingwreslib.beautyreslibrary.CourseFavoriteLiveData;*/
 import com.ycbjie.webviewlib.InterWebListener;
 import com.ycbjie.webviewlib.VideoWebListener;
 import com.ycbjie.webviewlib.WebProgress;
@@ -95,7 +85,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
+
 
 
 

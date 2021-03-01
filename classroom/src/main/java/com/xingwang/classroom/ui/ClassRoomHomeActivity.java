@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
-import com.beautydefinelibrary.SystemDefine;
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.HomeViewpagerAdapter;

@@ -1,19 +1,18 @@
 package com.xingwang.classroom.ui;
 
-import android.graphics.Color;
+
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.components.Description;
+
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -21,12 +20,9 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.ChartTouchListener;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.utils.LogUtil;
 import com.xingwang.classroom.utils.TimeUtil;
 import com.xingwang.classroom.view.DetailsMarkerView;
 import com.xingwang.classroom.view.MyLineChart;

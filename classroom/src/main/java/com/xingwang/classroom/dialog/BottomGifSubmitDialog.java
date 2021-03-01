@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xingwang.classroom.R;

@@ -55,7 +55,7 @@
                             android:id="@+id/iv_search"
                             android:src="@mipmap/ic_ss_classroom"
                             android:layout_gravity="right|center_vertical"
-                            android:layout_marginRight="12dp"
+                            android:layout_marginEnd="12dp"
                             />
                     </com.xingwang.classroom.view.CustomToolbar>
 

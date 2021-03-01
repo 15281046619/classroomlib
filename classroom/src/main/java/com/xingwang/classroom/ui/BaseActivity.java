@@ -19,9 +19,7 @@ import android.widget.EditText;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.SystemDefine;
-import com.xingwang.classroom.R;
 import com.xingwang.classroom.utils.ActivityManager;
-import com.xingwang.classroom.utils.LogUtil;
 
 import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 

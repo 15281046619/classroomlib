@@ -6,13 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.HomeViewpagerAdapter;
-import com.xingwang.classroom.bean.ADGroupBean;
-import com.xingwang.classroom.bean.CategoryBean;
 import com.xingwang.classroom.bean.HistoryPriceBean;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
