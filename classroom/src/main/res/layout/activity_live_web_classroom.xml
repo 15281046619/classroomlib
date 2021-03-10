@@ -13,7 +13,7 @@
     <com.xingwang.classroom.view.CustomToolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyleClassRoom"
-        android:text="直播"
+        android:text="@string/live_title_ClassRoom"
         />
 
     <com.ycbjie.webviewlib.X5WebView
@@ -41,5 +41,6 @@
         app:layout_anchorGravity="bottom|right|end"
         app:pressedTranslationZ="10dp"
         app:rippleColor="#a6a6a6"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:focusable="true" />
 </android.support.design.widget.CoordinatorLayout>

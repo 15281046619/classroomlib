@@ -1,5 +1,6 @@
 package com.xingwang.classroom.ws;
 
+import android.app.Service;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -67,6 +68,7 @@ public class WsManager implements IWsManager {
             if (!isSendRequest){
                 tryReconnect();
             }
+
         }
     };
     private WebSocketListener mWebSocketListener = new WebSocketListener() {

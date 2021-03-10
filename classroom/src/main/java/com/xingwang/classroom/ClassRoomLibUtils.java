@@ -67,29 +67,29 @@ public class ClassRoomLibUtils {
         switch (type){
             case TYPE_ZY:
                 HttpUrls.URL_HOST ="http://zyapp.app.xw518.com/";
-                HttpUrls.CHANNEL ="zyapp.lecture.lecture_";
+                HttpUrls.CHANNEL ="lecture.lecture_";
                 HttpUrls.CHANNEL_WS_URL ="ws://subscribe.app.xw518.com/server";
-                HttpUrls.LIVE_CHANNEL ="zyapp.live.";
+                HttpUrls.LIVE_CHANNEL ="live.";
                 break;
             case TYPE_JQ:
                 break;
             case TYPE_SC:
                 HttpUrls.URL_HOST ="http://yyapp.app.xw518.com/";
-                HttpUrls.CHANNEL ="yyapp.lecture.lecture_";
+                HttpUrls.CHANNEL ="lecture.lecture_";
                 HttpUrls.CHANNEL_WS_URL ="ws://subscribe.app.xw518.com/server";
-                HttpUrls.LIVE_CHANNEL ="yyapp.live.";
+                HttpUrls.LIVE_CHANNEL ="live.";
                 break;
             case TYPE_NY:
                 HttpUrls.URL_HOST ="http://nyapp.app.xw518.com/";
-                HttpUrls.CHANNEL ="nyapp.lecture.lecture_";
+                HttpUrls.CHANNEL ="lecture.lecture_";
                 HttpUrls.CHANNEL_WS_URL="ws://subscribe.app.xw518.com/server";
-                HttpUrls.LIVE_CHANNEL ="nyapp.live.";
+                HttpUrls.LIVE_CHANNEL ="live.";
                 break;
             case TYPE_TEST:
                 HttpUrls.URL_HOST ="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/";//测试地址 更改了
                 HttpUrls.CHANNEL_WS_URL="ws://192.168.65.74:10101";
-                HttpUrls.CHANNEL ="zyapp.lecture.lecture_";
-                HttpUrls.LIVE_CHANNEL ="zyapp.live.";
+                HttpUrls.CHANNEL ="lecture.lecture_";
+                HttpUrls.LIVE_CHANNEL ="live.";
                 break;
             default:
         }

@@ -89,8 +89,8 @@ public class HttpUrls {
         return URL_HOST+"page/download";//app下载
     }
 
-    public static String CHANNEL="zyapp.lecture.lecture_";//channel
-    public static String LIVE_CHANNEL="zyapp.live.";//直播channel
+    public static String CHANNEL="lecture.lecture_";//channel
+    public static String LIVE_CHANNEL="live.";//直播channel
     public static String CHANNEL_WS_URL ="ws://subscribe.app.xw518.com/server";
     public static String URL_ZHI_BO ="http://zhibo.xw518.com/zhibo/";//直播地址
 
