@@ -48,7 +48,26 @@ public class ADGroupBean extends CommonEntity {
         private String desc;
         private String pic;
         private String uri;
+        private String page;
+        private String parameter;
+
         private int weight;
+
+        public String getPage() {
+            return page;
+        }
+
+        public void setPage(String page) {
+            this.page = page;
+        }
+
+        public String getParameter() {
+            return parameter;
+        }
+
+        public void setParameter(String parameter) {
+            this.parameter = parameter;
+        }
 
         public int getId() {
             return id;

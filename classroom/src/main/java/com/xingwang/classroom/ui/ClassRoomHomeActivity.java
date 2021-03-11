@@ -82,6 +82,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
     }
 
     private void initBannerHeight() {
+
         appBarLayoutHeight = CommentUtils.getScreenWidth(this)*18/43;
         banner.getLayoutParams().height = (int) appBarLayoutHeight;
 
@@ -183,7 +184,9 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
         banner.setOnBannerListener(position -> {
             if(mTitleImages!=null) {
                 try {
-                    ClassRoomLibUtils.startActivityForUri(ClassRoomHomeActivity.this,mTitleImages.get(position).getUri());
+                    ClassRoomLibUtils.startActivityForUri(ClassRoomHomeActivity.this,
+                            BeautyDefine.getCommonDefine().getPageUri(mTitleImages.get(position).getPage(),
+                                    mTitleImages.get(position).getParameter()));
                 }catch (Exception e){
                     e.printStackTrace();
                 }

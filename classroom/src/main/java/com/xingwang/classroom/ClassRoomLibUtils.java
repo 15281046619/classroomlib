@@ -24,15 +24,10 @@ import com.xingwang.classroom.ui.ClassRoomHomeActivity;
 import com.xingwang.classroom.ui.LiveDetailActivity;
 import com.xingwang.classroom.ui.LiveWebActivity;
 import com.xingwang.classroom.ui.StatisticPriceActivity;
-import com.xingwang.classroom.utils.ActivityUtil;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.HttpUtil;
-import com.xingwang.classroom.utils.LogUtil;
-import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.ycbjie.webviewlib.X5LogUtils;
-import com.ycbjie.webviewlib.X5WebUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -260,7 +255,7 @@ public class ClassRoomLibUtils {
      * @param url
      */
     public static void startActivityForUri(FragmentActivity activity,String url){
-        if (url.contains("classroom://com.xingw.zyapp.kcdetail")&&url.contains("tplink")){
+        if (url.contains("classroom://"+activity.getPackageName()+".kcdetail")&&url.contains("tplink")){
             String id=  CommentUtils.getParamByUrl(url,"id");
             startDetailActivityType(activity,id==null?0:Integer.parseInt(id),"tplink");
         }else {
