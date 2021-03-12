@@ -61,7 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 是否启动launch页面 启动的话 不在执行下面代码
      * @return
      */
-    public boolean isStartLaunch(){
+    /*public boolean isStartLaunch(){
         if (getIntent().getData()!=null){
             SystemDefine systemDefine = BeautyDefine.getSystemDefine();
             if (!systemDefine.checkLaunch(this)){
@@ -70,7 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
+    }*/
     /*  @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {  //把操作放在用户点击的时候

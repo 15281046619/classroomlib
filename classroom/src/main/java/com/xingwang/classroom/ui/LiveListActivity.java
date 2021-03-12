@@ -53,12 +53,12 @@ public class LiveListActivity extends BaseNetActivity {
             clickPos=  savedInstanceState.getInt("clickPos");
             mData = (List<LiveListBean.DataBean>) savedInstanceState.getSerializable("mData");
         }
-        if (!isStartLaunch()) {
+        //if (!isStartLaunch()) {
             setNavigationBarColor(android.R.color.black);
             initView();
             initData();
             initListener();
-        }
+      //  }
     }
 
     private void initListener() {

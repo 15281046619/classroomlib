@@ -71,14 +71,14 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!isStartLaunch()) {
+     //   if (!isStartLaunch()) {
             initViews();
             initSettingToolBarHeight();
             initBannerHeight();
             initSettingAppBarListener();
             initBannerListener();
             goRequestData(Constants.LOAD_DATA_TYPE_INIT);
-        }
+      //  }
     }
 
     private void initBannerHeight() {

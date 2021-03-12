@@ -88,7 +88,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(!isStartLaunch()) {
+        //if(!isStartLaunch()) {
             AndroidBug5497Workaround.assistActivity(this);
             mKeyBoardHelper = new KeyBoardHelper(this);
             mKeyBoardHelper.onCreate();
@@ -97,7 +97,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
             initSwipeRefresh();
             initListener();
             initRequestData();
-        }
+       // }
 
     }
 

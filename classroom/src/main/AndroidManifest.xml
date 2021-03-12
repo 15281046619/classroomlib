@@ -28,6 +28,7 @@
         <activity android:name="com.xingwang.classroom.ui.ClassRoomHomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -41,6 +42,7 @@
         <activity android:name="com.xingwang.classroom.ui.ClassRoomCommentDetailActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
@@ -58,6 +60,7 @@
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:exported="true"
             android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
@@ -73,6 +76,7 @@
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:hardwareAccelerated="true"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
@@ -88,6 +92,7 @@
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:hardwareAccelerated="true"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
 
@@ -96,6 +101,7 @@
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:hardwareAccelerated="true"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
 
@@ -104,6 +110,7 @@
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:hardwareAccelerated="true"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppThemeClassRoom" >
             <intent-filter>
@@ -119,6 +126,7 @@
         <activity android:name=".ui.OrderActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeClassRoom">
 
         </activity>

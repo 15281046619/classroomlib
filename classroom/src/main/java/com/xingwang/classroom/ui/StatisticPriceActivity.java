@@ -43,14 +43,14 @@ public class StatisticPriceActivity extends BaseNetActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!isStartLaunch()) {
+       // if (!isStartLaunch()) {
             if (savedInstanceState!=null&&savedInstanceState.getSerializable("data")!=null)
             mData = (HistoryPriceBean.DataBean) savedInstanceState.getSerializable("data");
             initViews();
             initIntent();
             initData();
             initListener();
-        }
+       // }
     }
     private void initIntent(){
         String type =getIntent().getStringExtra("type");

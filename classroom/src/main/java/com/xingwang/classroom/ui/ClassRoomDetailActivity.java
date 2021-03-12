@@ -150,7 +150,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
         super.onCreate(savedInstanceState);
 
-        if (!isStartLaunch()) {
+       // if (!isStartLaunch()) {
             AndroidBug5497Workaround.assistActivity(this);
 
             mKeyBoardHelper = new KeyBoardHelper(this);
@@ -232,7 +232,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
             initRequestData();
             mKeyBoardHelper.setOnKeyBoardStatusChangeListener(this);
-        }
+   //     }
     }
 
     /**
