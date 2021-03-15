@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui;
+package com.xingwang.classroom.ui.live;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.tencent.smtt.sdk.WebSettings;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.dialog.CenterDefineDialog;
+import com.xingwang.classroom.ui.BaseNetActivity;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.ycbjie.webviewlib.InterWebListener;

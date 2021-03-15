@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui;
+package com.xingwang.classroom.ui.live;
 
 import android.Manifest;
 import android.content.Intent;
@@ -39,6 +39,7 @@ import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
+import com.xingwang.classroom.ui.BaseLazyLoadFragment;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.GlideUtils;
 import com.xingwang.classroom.utils.GsonUtils;

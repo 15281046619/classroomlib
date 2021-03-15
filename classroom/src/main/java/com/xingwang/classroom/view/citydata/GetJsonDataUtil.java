@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui.citydata;
+package com.xingwang.classroom.view.citydata;
 
 import android.content.Context;
 import android.content.res.AssetManager;

@@ -13,8 +13,8 @@ import android.webkit.WebView;
 
 
 import com.xingwang.classroom.ClassRoomLibUtils;
-import com.xingwang.classroom.ui.LiveListActivity;
-import com.xingwang.classroom.utils.LogUtil;
+import com.xingwang.classroom.ui.live.LiveListActivity;
+import com.xingwang.classroom.ui.shopping.ShoppingHomeActivity;
 import com.xingwang.classroomlib.html.WebViewDelegate;
 
 
@@ -74,11 +74,11 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
             case "2":
                 startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("essay://"+getPackageName()+".host.adessay?url=http://zyapp.test.xw518.com/article/859")));
                 break;
-           /* case "3":
+          case "3":
 
-                CommentInfoActivity.getIntent(MainActivity.this,"154");
+                startActivity(new Intent(this, ShoppingHomeActivity.class));
                 break;
-            case "4":
+           /*   case "4":
                 startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("essay://"+getPackageName()+".host.essaylist?tag=1")));
                 break;
             case "5":

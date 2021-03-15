@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Environment;
 
 import android.support.v4.app.FragmentActivity;
-import android.view.View;
 
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.model.VideoOptionModel;
@@ -21,9 +20,9 @@ import com.xingwang.classroom.dialog.CenterQuiteDialog;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
-import com.xingwang.classroom.ui.LiveDetailActivity;
-import com.xingwang.classroom.ui.LiveWebActivity;
-import com.xingwang.classroom.ui.StatisticPriceActivity;
+import com.xingwang.classroom.ui.live.LiveDetailActivity;
+import com.xingwang.classroom.ui.live.LiveWebActivity;
+import com.xingwang.classroom.ui.statistic.StatisticPriceActivity;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
@@ -63,7 +62,7 @@ public class ClassRoomLibUtils {
             case TYPE_ZY:
                 HttpUrls.URL_HOST ="http://zyapp.app.xw518.com/";
                 HttpUrls.CHANNEL ="lecture.lecture_";
-                HttpUrls.CHANNEL_WS_URL ="ws://subscribe.app.xw518.com/server";
+                HttpUrls.CHANNEL_WS_URL ="ws://zyapp.app.xw518.com/subscribe";
                 HttpUrls.LIVE_CHANNEL ="live.";
                 break;
             case TYPE_JQ:
@@ -82,7 +81,7 @@ public class ClassRoomLibUtils {
                 break;
             case TYPE_TEST:
                 HttpUrls.URL_HOST ="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/";//测试地址 更改了
-                HttpUrls.CHANNEL_WS_URL="ws://192.168.65.74:10101";
+                HttpUrls.CHANNEL_WS_URL="ws://192.168.230.176:10101";
                 HttpUrls.CHANNEL ="lecture.lecture_";
                 HttpUrls.LIVE_CHANNEL ="live.";
                 break;

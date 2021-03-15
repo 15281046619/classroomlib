@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui;
+package com.xingwang.classroom.ui.live;
 
 
 
@@ -42,6 +42,7 @@ import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
 import com.xingwang.classroom.listener.OnTransitionListener;
+import com.xingwang.classroom.ui.BaseNetActivity;
 import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.CommentUtils;
 import com.xingwang.classroom.utils.Constants;

@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui;
+package com.xingwang.classroom.ui.live;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,7 @@ import com.xingwang.classroom.bean.LiveListBean;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
+import com.xingwang.classroom.ui.BaseNetActivity;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.NoDoubleClickUtils;

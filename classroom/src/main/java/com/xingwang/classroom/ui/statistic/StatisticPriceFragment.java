@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui;
+package com.xingwang.classroom.ui.statistic;
 
 
 import android.graphics.DashPathEffect;
@@ -23,6 +23,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.xingwang.classroom.R;
+import com.xingwang.classroom.ui.BaseLazyLoadFragment;
 import com.xingwang.classroom.utils.TimeUtil;
 import com.xingwang.classroom.view.DetailsMarkerView;
 import com.xingwang.classroom.view.MyLineChart;
@@ -39,7 +40,7 @@ import java.util.List;
  * Time;13:56
  * author:baiguiqiang
  */
-public class StatisticPriceFragment extends BaseLazyLoadFragment  {
+public class StatisticPriceFragment extends BaseLazyLoadFragment {
     private MyLineChart mLineChar;
     private TextView tvTime,tvUnit,tvPrice,tvPercentage;
     private String mUnit="元/千克";//单位

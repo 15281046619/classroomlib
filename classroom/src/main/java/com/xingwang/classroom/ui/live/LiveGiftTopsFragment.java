@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui;
+package com.xingwang.classroom.ui.live;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +13,7 @@ import com.xingwang.classroom.bean.GiftTopsBean;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
+import com.xingwang.classroom.ui.BaseLazyLoadFragment;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.DividerItemDecoration;

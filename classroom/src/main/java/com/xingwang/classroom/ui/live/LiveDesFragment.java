@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui;
+package com.xingwang.classroom.ui.live;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.xingwang.classroom.R;
+import com.xingwang.classroom.ui.BaseLazyLoadFragment;
 import com.xingwang.classroom.utils.Constants;
 import com.ycbjie.webviewlib.WvWebView;
 

@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui;
+package com.xingwang.classroom.ui.live;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -31,7 +30,8 @@ import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.CommonEntity;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
-import com.xingwang.classroom.ui.citydata.GetJsonDataUtil;
+import com.xingwang.classroom.ui.BaseNetActivity;
+import com.xingwang.classroom.view.citydata.GetJsonDataUtil;
 import com.xingwang.classroom.utils.AndroidBug5497Workaround;
 import com.xingwang.classroom.utils.Constants;
 import com.xingwang.classroom.utils.GlideUtils;
@@ -39,7 +39,6 @@ import com.xingwang.classroom.utils.KeyBoardHelper;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.utils.SharedPreferenceUntils;
 import com.xingwang.classroom.view.CustomToolbar;
-import com.xingwang.classroom.ws.CommentEntity;
 
 import org.json.JSONArray;
 
@@ -48,7 +47,7 @@ import java.util.List;
 
 import cn.com.cesgroup.numpickerview.NumberPickerView;
 
-public class OrderActivity extends BaseNetActivity implements View.OnClickListener {
+public class LiveOrderActivity extends BaseNetActivity implements View.OnClickListener {
 
     private KeyBoardHelper mKeyBoardHelper;
 
@@ -101,7 +100,7 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
     };
 
     public static Intent getIntent(Context context, GoodListBean.GoodBean goodBean) {
-        Intent intent = new Intent(context, OrderActivity.class);
+        Intent intent = new Intent(context, LiveOrderActivity.class);
         intent.putExtra(Constants.DATA,goodBean);
         context.startActivity(intent);
         return intent;
@@ -165,7 +164,7 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderActivity.this.finish();
+                LiveOrderActivity.this.finish();
             }
         });
 
@@ -300,19 +299,19 @@ public class OrderActivity extends BaseNetActivity implements View.OnClickListen
                 .with("user_tips", et_buyer_msg.getText().toString()), CommonEntity.class, new HttpCallBack<CommonEntity>() {
             @Override
             public void onFailure(String message) {
-                BeautyDefine.getOpenPageDefine(OrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
+                BeautyDefine.getOpenPageDefine(LiveOrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
                 ToastUtils.showShort(message);
             }
 
             @Override
             public void onSuccess(CommonEntity s) {
-                SharedPreferenceUntils.savePhone(OrderActivity.this,et_buyer_tel.getText().toString().trim());
-                SharedPreferenceUntils.saveAddress(OrderActivity.this,et_adr.getText().toString().trim());
-                SharedPreferenceUntils.saveCity(OrderActivity.this,et_city.getText().toString().trim());
-                SharedPreferenceUntils.saveName(OrderActivity.this,et_buyer_name.getText().toString().trim());
-                BeautyDefine.getOpenPageDefine(OrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-                MyToast.myLongToast(OrderActivity.this,"下单成功");
-                OrderActivity.this.finish();
+                SharedPreferenceUntils.savePhone(LiveOrderActivity.this,et_buyer_tel.getText().toString().trim());
+                SharedPreferenceUntils.saveAddress(LiveOrderActivity.this,et_adr.getText().toString().trim());
+                SharedPreferenceUntils.saveCity(LiveOrderActivity.this,et_city.getText().toString().trim());
+                SharedPreferenceUntils.saveName(LiveOrderActivity.this,et_buyer_name.getText().toString().trim());
+                BeautyDefine.getOpenPageDefine(LiveOrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
+                MyToast.myLongToast(LiveOrderActivity.this,"下单成功");
+                LiveOrderActivity.this.finish();
             }
         });
     }

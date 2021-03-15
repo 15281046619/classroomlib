@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.xingwang.classroom.ui.danmu;
+package com.xingwang.classroom.view.danmu;
 
 import android.graphics.Color;
 import android.text.TextUtils;

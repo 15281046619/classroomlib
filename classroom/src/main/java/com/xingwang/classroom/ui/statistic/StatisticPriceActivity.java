@@ -1,4 +1,4 @@
-package com.xingwang.classroom.ui;
+package com.xingwang.classroom.ui.statistic;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.xingwang.classroom.bean.HistoryPriceBean;
 import com.xingwang.classroom.http.ApiParams;
 import com.xingwang.classroom.http.HttpCallBack;
 import com.xingwang.classroom.http.HttpUrls;
+import com.xingwang.classroom.ui.BaseNetActivity;
 import com.xingwang.classroom.utils.MyToast;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.view.NoScrollViewPager;
@@ -27,7 +28,7 @@ import java.util.List;
  * Time;13:05
  * author:baiguiqiang
  */
-public class StatisticPriceActivity extends BaseNetActivity{
+public class StatisticPriceActivity extends BaseNetActivity {
     private CustomToolbar toolbar;
     private TabLayout tabLayout;
     private NoScrollViewPager viewpager;
