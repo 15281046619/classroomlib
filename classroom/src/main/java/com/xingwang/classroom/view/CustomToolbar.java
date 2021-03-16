@@ -20,7 +20,7 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.utils.StatusBarUtils;
+import com.xinwang.bgqbaselib.utils.StatusBarUtils;
 
 /**
  * Date:2019/8/20

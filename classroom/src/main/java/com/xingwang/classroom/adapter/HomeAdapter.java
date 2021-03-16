@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.LectureListsBean;
-import com.xingwang.classroom.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.GlideUtils;
 
 import java.util.List;
 

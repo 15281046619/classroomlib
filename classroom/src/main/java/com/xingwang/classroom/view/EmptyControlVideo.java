@@ -18,9 +18,9 @@ import com.xingwang.classroom.R;
 import com.xingwang.classroom.ui.live.LiveDetailActivity;
 import com.xingwang.classroom.view.danmu.BiliDanmukuParser;
 import com.xingwang.classroom.view.danmu.DanamakuAdapter;
-import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.GlideUtils;
-import com.xingwang.classroom.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.Constants;
+import com.xinwang.bgqbaselib.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.MyToast;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

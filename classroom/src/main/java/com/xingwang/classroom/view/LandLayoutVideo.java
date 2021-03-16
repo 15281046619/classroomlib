@@ -7,24 +7,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+
 
 import com.shuyu.gsyvideoplayer.utils.NetworkUtils;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
-import com.xingwang.classroom.utils.GlideUtils;
-import com.xingwang.classroom.utils.LogUtil;
+import com.xinwang.bgqbaselib.utils.GlideUtils;
+
 
 
 /**

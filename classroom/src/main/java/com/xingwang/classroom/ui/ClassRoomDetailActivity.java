@@ -50,26 +50,26 @@ import com.xingwang.classroom.bean.IsFavoritBean;
 import com.xingwang.classroom.bean.SendCommentBean;
 import com.xingwang.classroom.dialog.BottomADSheetDialog;
 import com.xingwang.classroom.dialog.CenterDefineDialog;
-import com.xingwang.classroom.http.ApiParams;
-import com.xingwang.classroom.http.HttpCallBack;
-import com.xingwang.classroom.http.HttpUrls;
-import com.xingwang.classroom.utils.AndroidBug5497Workaround;
-import com.xingwang.classroom.utils.CommentUtils;
-import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.GsonUtils;
-import com.xingwang.classroom.utils.HttpUtil;
-import com.xingwang.classroom.utils.KeyBoardHelper;
 
-
-import com.xingwang.classroom.utils.MyToast;
-import com.xingwang.classroom.utils.NoDoubleClickUtils;
-import com.xingwang.classroom.utils.SharedPreferenceUntils;
-import com.xingwang.classroom.utils.StatusBarUtils;
 import com.xingwang.classroom.view.CustomBarrageLayout;
 import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.LandLayoutVideo;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
+import com.xinwang.bgqbaselib.base.BaseNetActivity;
+import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.HttpCallBack;
+import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.utils.AndroidBug5497Workaround;
+import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.Constants;
+import com.xinwang.bgqbaselib.utils.GsonUtils;
+import com.xinwang.bgqbaselib.utils.HttpUtil;
+import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
+import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.NoDoubleClickUtils;
+import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
+import com.xinwang.bgqbaselib.utils.StatusBarUtils;
 import com.ycbjie.webviewlib.InterWebListener;
 import com.ycbjie.webviewlib.VideoWebListener;
 import com.ycbjie.webviewlib.WebProgress;
@@ -367,7 +367,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
 
     public void goCollect(View view){
 
-        requestPost(isCollect?HttpUrls.URL_UNFAVORITE():HttpUrls.URL_FAVORITE(),new ApiParams().with("relation_id",mId+"").with("type","lecture"),
+        requestPost(isCollect? HttpUrls.URL_UNFAVORITE():HttpUrls.URL_FAVORITE(),new ApiParams().with("relation_id",mId+"").with("type","lecture"),
                 FavoritBean.class,new HttpCallBack<FavoritBean>() {
                     @Override
                     public void onFailure(String message) {
@@ -390,12 +390,11 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             mPics.add(mBean.getData().getLecture().getThumb());
             String regMatchTag = "<[^>]*>";
             //暂时不用uri跳转 ，classroom://"+getPackageName()+".kcdetail?id="+mBean.getData().getLecture().getId()+"&type='video'
-            BeautyDefine.getShareDefine(this).share("",HttpUrls.URL_SHARE()+"?id="+mBean.getData().getLecture().getId(),mPics,mBean.getData().getLecture().getTitle(),
+            BeautyDefine.getShareDefine(this).share("lecture/detail","id="+mBean.getData().getLecture().getId(),"",HttpUrls.URL_SHARE()+"?id="+mBean.getData().getLecture().getId(),mPics,mBean.getData().getLecture().getTitle(),
                     mBean.getData().getLecture().getBody().replaceAll(regMatchTag,""),new ShareResultCallBack(){
 
                         @Override
-                        public void onSucceed()
-                        {
+                        public void onSucceed(){
 
                         }
                         @Override

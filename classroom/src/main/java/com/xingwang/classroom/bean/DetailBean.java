@@ -2,9 +2,8 @@ package com.xingwang.classroom.bean;
 
 import android.text.TextUtils;
 
-import com.google.gson.annotations.SerializedName;
-import com.xingwang.classroom.http.CommonEntity;
-import com.xingwang.classroom.utils.GsonUtils;
+import com.xinwang.bgqbaselib.http.CommonEntity;
+import com.xinwang.bgqbaselib.utils.GsonUtils;
 
 
 /**

@@ -1,2 +1,3 @@
+include ':bgqbaselib'
 include ':app', ':classroom-release', ':classroom'
 rootProject.name='classroomlib'

@@ -38,25 +38,26 @@ import com.xingwang.classroom.bean.OnlineCountBean;
 import com.xingwang.classroom.bean.PlayInfoBean;
 import com.xingwang.classroom.bean.VodListBean;
 import com.xingwang.classroom.dialog.CenterDefineDialog;
-import com.xingwang.classroom.http.ApiParams;
-import com.xingwang.classroom.http.HttpCallBack;
-import com.xingwang.classroom.http.HttpUrls;
+import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.HttpCallBack;
+import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xingwang.classroom.listener.OnTransitionListener;
-import com.xingwang.classroom.ui.BaseNetActivity;
-import com.xingwang.classroom.utils.AndroidBug5497Workaround;
-import com.xingwang.classroom.utils.CommentUtils;
-import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.KeyBoardHelper;
-import com.xingwang.classroom.utils.MyToast;
-import com.xingwang.classroom.utils.StatusBarUtils;
+import com.xinwang.bgqbaselib.utils.AndroidBug5497Workaround;
+import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.Constants;
+import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
+import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.StatusBarUtils;
 import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.EmptyControlVideo;
+import com.xinwang.bgqbaselib.base.BaseNetActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static com.xingwang.classroom.http.HttpUrls.URL_ZHI_BO;
+import static com.xinwang.bgqbaselib.http.HttpUrls.URL_ZHI_BO;
+
 
 /**
  * Date:2020/6/2
@@ -515,7 +516,7 @@ public class LiveDetailActivity extends BaseNetActivity {
             mPics.add(mLiveDetailBean.getData().getLive().getCover());
             String regMatchTag = "<[^>]*>";
             //暂时不用uri跳转 ，classroom://"+getPackageName()+".zbdetail?id="+mBean.getData().getLecture().getId()+"&type='video'
-            BeautyDefine.getShareDefine(this).share("classroom://"+getPackageName()+".zbdetail?id="+ mLiveDetailBean.getData().getLive().getId()+"&is_end="+(isLive?1:0),HttpUrls.URL_DOWNLOAD(),mPics,mLiveDetailBean.getData().getLive().getTitle(),
+            BeautyDefine.getShareDefine(this).share("live/detail","id="+ mLiveDetailBean.getData().getLive().getId()+"&is_end="+(isLive?1:0),"classroom://"+getPackageName()+".zbdetail?id="+ mLiveDetailBean.getData().getLive().getId()+"&is_end="+(isLive?1:0),HttpUrls.URL_DOWNLOAD(),mPics,mLiveDetailBean.getData().getLive().getTitle(),
                     mLiveDetailBean.getData().getLive().getBody().replaceAll(regMatchTag,""),new ShareResultCallBack(){
 
                         @Override

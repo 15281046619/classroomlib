@@ -12,11 +12,12 @@ import android.view.ViewGroup;
 import com.beautydefinelibrary.BeautyDefine;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.DetailAdapter;
-import com.xingwang.classroom.utils.Constants;
+
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
-
+import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
+import com.xinwang.bgqbaselib.utils.Constants;
 
 
 /**

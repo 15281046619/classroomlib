@@ -7,12 +7,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.content.LocalBroadcastManager;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.xingwang.classroom.http.HttpUrls;
-import com.xingwang.classroom.utils.LogUtil;
+import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 
 import org.json.JSONObject;
 

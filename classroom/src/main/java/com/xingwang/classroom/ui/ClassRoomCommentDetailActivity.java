@@ -30,20 +30,22 @@ import com.xingwang.classroom.adapter.CommentDetailAdapter;
 import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.bean.CommentDetailBean;
 import com.xingwang.classroom.bean.SendCommentBean;
-import com.xingwang.classroom.http.ApiParams;
-import com.xingwang.classroom.http.HttpCallBack;
-import com.xingwang.classroom.http.HttpUrls;
-import com.xingwang.classroom.utils.AndroidBug5497Workaround;
-import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.HttpUtil;
-import com.xingwang.classroom.utils.KeyBoardHelper;
-import com.xingwang.classroom.utils.MyToast;
-import com.xingwang.classroom.utils.TimeUtil;
+
 import com.xingwang.classroom.view.CustomProgressBar;
 import com.xingwang.classroom.view.CustomToolbar;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
+import com.xinwang.bgqbaselib.base.BaseNetActivity;
+import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.HttpCallBack;
+import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.utils.AndroidBug5497Workaround;
+import com.xinwang.bgqbaselib.utils.Constants;
+import com.xinwang.bgqbaselib.utils.HttpUtil;
+import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
+import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.TimeUtil;
 
 
 import java.io.File;

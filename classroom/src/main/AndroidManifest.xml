@@ -94,7 +94,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/AppThemeClassRoom" >
+            android:theme="@style/AppThemeClassRoom">
 
         </activity>
         <activity android:name="com.xingwang.classroom.ui.statistic.StatisticPriceActivity"

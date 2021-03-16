@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.LiveListBean;
-import com.xingwang.classroom.utils.GlideUtils;
-import com.xingwang.classroom.utils.LogUtil;
-import com.xingwang.classroom.utils.TimeUtil;
+import com.xinwang.bgqbaselib.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.LogUtil;
+import com.xinwang.bgqbaselib.utils.TimeUtil;
 import com.xingwang.classroom.view.ImageWidthHeightView;
 
 import java.util.List;

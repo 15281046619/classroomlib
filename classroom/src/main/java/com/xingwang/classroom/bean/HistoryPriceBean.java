@@ -1,6 +1,8 @@
 package com.xingwang.classroom.bean;
 
-import com.xingwang.classroom.http.CommonEntity;
+
+
+import com.xinwang.bgqbaselib.http.CommonEntity;
 
 import java.io.Serializable;
 import java.util.List;

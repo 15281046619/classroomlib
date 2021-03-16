@@ -25,9 +25,9 @@ import com.beautydefinelibrary.LabelUiFactoryDefine;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.bean.LiveChatListBean;
-import com.xingwang.classroom.utils.CommentUtils;
-import com.xingwang.classroom.utils.GlideUtils;
-import com.xingwang.classroom.utils.LogUtil;
+import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xingwang.classroom.view.CircularImage;
 
 import java.util.ArrayList;

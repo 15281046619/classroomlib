@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.beautydefinelibrary.BeautyDefine;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.DetailBean;
+import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.zzhoujay.richtext.RichText;
 
 

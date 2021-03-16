@@ -1,6 +1,7 @@
 package com.xingwang.classroom.bean;
 
-import com.xingwang.classroom.http.CommonEntity;
+
+import com.xinwang.bgqbaselib.http.CommonEntity;
 
 /**
  * Date:2020/8/19

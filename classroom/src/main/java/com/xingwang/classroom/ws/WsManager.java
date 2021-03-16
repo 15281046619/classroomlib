@@ -7,8 +7,8 @@ import android.os.Looper;
 import android.text.TextUtils;
 
 
-import com.xingwang.classroom.utils.CommentUtils;
-import com.xingwang.classroom.utils.LogUtil;
+import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xingwang.classroom.ws.listener.IWsManager;
 
 import java.util.concurrent.ExecutorService;

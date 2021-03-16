@@ -9,8 +9,8 @@ import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.ui.BaseLazyLoadFragment;
-import com.xingwang.classroom.utils.Constants;
+import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
+import com.xinwang.bgqbaselib.utils.Constants;
 import com.ycbjie.webviewlib.WvWebView;
 
 /**

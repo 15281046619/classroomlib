@@ -2,7 +2,7 @@ package com.xingwang.classroom.bean;
 
 import android.text.TextUtils;
 
-import com.xingwang.classroom.http.CommonEntity;
+import com.xinwang.bgqbaselib.http.CommonEntity;
 
 import java.util.ArrayList;
 import java.util.List;

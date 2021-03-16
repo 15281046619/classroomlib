@@ -23,12 +23,13 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.ui.BaseLazyLoadFragment;
-import com.xingwang.classroom.utils.TimeUtil;
+
 import com.xingwang.classroom.view.DetailsMarkerView;
 import com.xingwang.classroom.view.MyLineChart;
 import com.xingwang.classroom.view.PositionMarker;
 import com.xingwang.classroom.view.RoundMarker;
+import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
+import com.xinwang.bgqbaselib.utils.TimeUtil;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

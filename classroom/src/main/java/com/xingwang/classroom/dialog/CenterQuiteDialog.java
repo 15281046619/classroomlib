@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.X5InstallSuccessBean;
-import com.xingwang.classroom.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.MyToast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

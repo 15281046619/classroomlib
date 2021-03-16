@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.CommentBean;
-import com.xingwang.classroom.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xingwang.classroom.view.BaseBarrageAdapter;
 
 import java.util.List;

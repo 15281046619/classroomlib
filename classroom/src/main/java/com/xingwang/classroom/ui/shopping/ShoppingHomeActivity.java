@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.ui.BaseActivity;
+import com.xinwang.bgqbaselib.base.BaseActivity;
 
 /**
  * Date:2021/3/15

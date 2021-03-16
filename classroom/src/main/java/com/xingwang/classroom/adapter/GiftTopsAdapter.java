@@ -22,9 +22,9 @@ import android.widget.TextView;
 import com.beautydefinelibrary.BeautyDefine;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.GiftTopsBean;
-import com.xingwang.classroom.bean.LiveChatListBean;
-import com.xingwang.classroom.utils.CommentUtils;
-import com.xingwang.classroom.utils.GlideUtils;
+
+
+import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xingwang.classroom.view.CircularImage;
 
 import java.util.ArrayList;

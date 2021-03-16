@@ -12,8 +12,8 @@ import android.widget.EditText;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.utils.MyToast;
-import com.xingwang.classroom.utils.SharedPreferenceUntils;
+import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 
 /**
  * 购买药品dialog

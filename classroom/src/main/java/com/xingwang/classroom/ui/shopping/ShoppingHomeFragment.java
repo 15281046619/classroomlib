@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.ui.BaseLazyLoadFragment;
+import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 
 
 /**

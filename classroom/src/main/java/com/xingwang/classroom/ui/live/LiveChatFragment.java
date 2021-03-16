@@ -35,22 +35,24 @@ import com.xingwang.classroom.dialog.BottomGifDialog;
 import com.xingwang.classroom.dialog.BottomGifSubmitDialog;
 import com.xingwang.classroom.dialog.CenterBuyDialog;
 import com.xingwang.classroom.dialog.CenterRedPackDialog;
-import com.xingwang.classroom.http.ApiParams;
-import com.xingwang.classroom.http.CommonEntity;
-import com.xingwang.classroom.http.HttpCallBack;
-import com.xingwang.classroom.http.HttpUrls;
-import com.xingwang.classroom.ui.BaseLazyLoadFragment;
-import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.GlideUtils;
-import com.xingwang.classroom.utils.GsonUtils;
-import com.xingwang.classroom.utils.KeyBoardHelper;
-import com.xingwang.classroom.utils.MyToast;
+
+import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.CommonEntity;
+import com.xinwang.bgqbaselib.http.HttpCallBack;
+import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.utils.Constants;
+import com.xinwang.bgqbaselib.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.GsonUtils;
+import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
+import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 import com.xingwang.classroom.view.gift.GiftBean;
 import com.xingwang.classroom.view.gift.GiftView;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;
+import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
+
 import org.json.JSONObject;
 
 import java.io.File;

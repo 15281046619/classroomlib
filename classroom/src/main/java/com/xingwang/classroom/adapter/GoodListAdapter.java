@@ -15,7 +15,7 @@ import com.beautydefinelibrary.BeautyDefine;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.GoodListBean;
-import com.xingwang.classroom.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xingwang.classroom.view.ImageWidthHeightView;
 
 import java.util.ArrayList;

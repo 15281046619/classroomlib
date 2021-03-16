@@ -8,7 +8,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.utils.TimeUtil;
+import com.xinwang.bgqbaselib.utils.TimeUtil;
 
 import java.math.BigDecimal;
 
@@ -25,7 +25,7 @@ public class DetailsMarkerView extends MarkerView {
     /**
      * 在构造方法里面传入自己的布局以及实例化控件
      * @param context 上下文
-     * @param 自己的布局
+
      */
     public DetailsMarkerView(Context context, int layoutResource,String unit,String startTime) {
         super(context, layoutResource);

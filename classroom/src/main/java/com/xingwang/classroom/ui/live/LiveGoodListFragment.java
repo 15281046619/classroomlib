@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.GoodListAdapter;
 import com.xingwang.classroom.bean.GoodListBean;
-import com.xingwang.classroom.http.ApiParams;
-import com.xingwang.classroom.http.HttpCallBack;
-import com.xingwang.classroom.http.HttpUrls;
-import com.xingwang.classroom.ui.BaseLazyLoadFragment;
-import com.xingwang.classroom.utils.Constants;
-import com.xingwang.classroom.utils.MyToast;
+import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.HttpCallBack;
+import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.utils.Constants;
+import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xingwang.classroom.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
+import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 
 /**
  * Date:2020/8/13
