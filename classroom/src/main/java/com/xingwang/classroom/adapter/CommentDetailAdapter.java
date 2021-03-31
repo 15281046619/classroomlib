@@ -26,6 +26,7 @@ import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
+import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.utils.ActivityManager;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
@@ -60,7 +61,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
     }
 
     @Override
-    void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+   public void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof BaseViewHolder){
             BaseViewHolder mBaseViewHolder = (BaseViewHolder) viewHolder;
             mBaseViewHolder.tvName.setText(mDatas.get(position).getUser().getshowName());
@@ -165,7 +166,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
         return spannableString;
     }
     @Override
-    RecyclerView.ViewHolder onBaseCreateViewHolder(View view,int viewType) {
+    public RecyclerView.ViewHolder onBaseCreateViewHolder(View view,int viewType) {
         return new BaseViewHolder(view);
     }
 
@@ -226,7 +227,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
 
 
     @Override
-    int getViewLayout(int viewType) {
+   public int getViewLayout(int viewType) {
         return R.layout.item_comment_detail_classroom;
     }
 

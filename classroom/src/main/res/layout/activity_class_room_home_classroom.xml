@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundClassRoom"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.xingwang.classroom.view.VpSwipeRefreshLayout
+    <com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/swipe_refresh_layout"
@@ -42,7 +42,7 @@
                         android:layout_height="@dimen/dp_200_classroom"
                         app:banner_layout="@layout/layout_banner_classroom"
                         />
-                    <com.xingwang.classroom.view.CustomToolbar
+                    <com.xinwang.bgqbaselib.view.CustomToolbar
                         android:id="@+id/toolbar"
                         app:layout_collapseMode="pin"
                         app:layout_scrollFlags="scroll|enterAlways"
@@ -57,7 +57,7 @@
                             android:layout_gravity="right|center_vertical"
                             android:layout_marginEnd="12dp"
                             />
-                    </com.xingwang.classroom.view.CustomToolbar>
+                    </com.xinwang.bgqbaselib.view.CustomToolbar>
 
 
                 </android.support.design.widget.CollapsingToolbarLayout>
@@ -84,7 +84,7 @@
 
 
         </android.support.design.widget.CoordinatorLayout>
-    </com.xingwang.classroom.view.VpSwipeRefreshLayout>
+    </com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout>
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
@@ -95,6 +95,7 @@
         android:textStyle="bold"
         android:background="@android:color/transparent"
         android:text="@string/class_room_home_title_ClassRoom"/>
+
 </RelativeLayout>
 
 

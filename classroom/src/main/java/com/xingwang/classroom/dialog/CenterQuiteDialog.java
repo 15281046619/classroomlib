@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
-
+import com.xinwang.bgqbaselib.dialog.BaseDialog;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.X5InstallSuccessBean;
 import com.xinwang.bgqbaselib.utils.MyToast;

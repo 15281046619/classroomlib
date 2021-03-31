@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.LiveListBean;
+import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.TimeUtil;
@@ -29,7 +30,7 @@ public class LiveListAdapter extends BaseLoadMoreAdapter<LiveListBean.DataBean> 
 
     @SuppressLint("SetTextI18n")
     @Override
-    void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         if (viewHolder instanceof HomeViewHolder){
             HomeViewHolder mViewHolder = (HomeViewHolder) viewHolder;
             mViewHolder.title.setText(mDatas.get(i).getTitle());
@@ -56,12 +57,12 @@ public class LiveListAdapter extends BaseLoadMoreAdapter<LiveListBean.DataBean> 
     }
 
     @Override
-    RecyclerView.ViewHolder onBaseCreateViewHolder(View view,int viewType) {
+    public RecyclerView.ViewHolder onBaseCreateViewHolder(View view,int viewType) {
         return new HomeViewHolder(view);
     }
 
     @Override
-    int getViewLayout(int viewType) {
+   public int getViewLayout(int viewType) {
         return R.layout.item_live_list_classroom;
     }
     class HomeViewHolder extends RecyclerView.ViewHolder{

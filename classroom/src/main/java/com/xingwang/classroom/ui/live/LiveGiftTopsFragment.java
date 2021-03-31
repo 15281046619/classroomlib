@@ -16,7 +16,7 @@ import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xingwang.classroom.view.DividerItemDecoration;
-import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 

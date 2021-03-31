@@ -46,5 +46,6 @@ dependencies {
     api 'cn.yc:WebViewLib:1.2.2'//x5webview
     //implementation 'cn.yc:YCSlideLib:1.1.2'
     api 'org.greenrobot:eventbus:3.0.0'
-
+    api 'com.android.support.constraint:constraint-layout:1.1.3'
+    api 'com.android.support:design:28.0.0'
 }

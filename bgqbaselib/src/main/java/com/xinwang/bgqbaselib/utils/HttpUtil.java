@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import com.beautydefinelibrary.BeautyDefine;
 import com.google.gson.Gson;
 import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
@@ -204,7 +205,7 @@ public class HttpUtil {
                         if ("invalid token".equals(jsonObject.getString("code"))) {
                             mainHandler.post(() -> callBack.onFailure("权限认证失败，请重新登录账号"));
                             ActivityManager.getInstance().finishAllActivity();
-                            //BeautyDefine.getAccountDefine().controlReLogin();
+                            BeautyDefine.getAccountDefine().controlReLogin();
                         }
                         else
                             mainHandler.post(() ->  callBack.onFailure(message));
@@ -264,7 +265,7 @@ public class HttpUtil {
                             if ("invalid token".equals(jsonObject.getString("code"))) {
                                 mainHandler.post(() -> callBack.onFailure("权限认证失败，请重新登录账号"));
                                 ActivityManager.getInstance().finishAllActivity();
-                               // BeautyDefine.getAccountDefine().controlReLogin();
+                                BeautyDefine.getAccountDefine().controlReLogin();
                             }
                             else
                             mainHandler.post(() ->  callBack.onFailure(message));

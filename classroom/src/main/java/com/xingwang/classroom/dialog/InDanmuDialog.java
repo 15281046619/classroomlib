@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-
+import com.xinwang.bgqbaselib.dialog.BaseDialog;
 import com.xingwang.classroom.R;
 
 public class InDanmuDialog extends BaseDialog{

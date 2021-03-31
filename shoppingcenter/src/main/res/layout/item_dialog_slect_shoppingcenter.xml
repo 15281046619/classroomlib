@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:minWidth="280dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="女装"
+        android:textSize="@dimen/sp_12_classroom"
+        android:id="@+id/tvTitle"
+        android:padding="@dimen/dp_10_classroom"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llRoot"
+        android:paddingLeft="@dimen/dp_10_classroom"
+        android:paddingRight="@dimen/dp_10_classroom"
+        android:orientation="vertical"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1_classroom"
+        android:background="@color/BGClassRoom"/>
+</LinearLayout>

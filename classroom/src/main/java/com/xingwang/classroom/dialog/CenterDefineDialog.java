@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
+import com.xinwang.bgqbaselib.dialog.BaseDialog;
 import com.xingwang.classroom.R;
 
 public class CenterDefineDialog extends BaseDialog {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="zy_hot_search_array_ShoppingCenter">
+        <item>瘟毒快克</item>
+        <item>健力磺胺</item>
+        <item>六畜兴旺</item>
+        <item>分散剂</item>
+        <item>肾肝宝</item>
+        <item>莫克灵</item>
+        <item>清火宝</item>
+        <item>促孕宝（催情散）</item>
+    </string-array>
+    <string-array name="jq_hot_search_array_ShoppingCenter">
+        <item>恩诺沙星注射液</item>
+        <item>清瘟败毒散</item>
+        <item>氟苯尼考粉</item>
+        <item>黄藤素注射液</item>
+        <item>维生素C可溶性粉</item>
+
+    </string-array>
+    <string-array name="sc_hot_search_array_ShoppingCenter">
+        <item>应激硬壳灵</item>
+        <item>水立净</item>
+        <item>过碳酸钠</item>
+        <item>混杀先锋</item>
+        <item>三病灵</item>
+
+    </string-array>
+    <string-array name="ny_hot_search_array_ShoppingCenter">
+        <item>牛羊五号康</item>
+        <item>反刍动力</item>
+        <item>牛羊混感康</item>
+        <item>牛羊消气灵</item>
+    </string-array>
+
+</resources>

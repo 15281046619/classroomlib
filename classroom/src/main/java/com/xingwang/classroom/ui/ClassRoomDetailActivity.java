@@ -52,7 +52,7 @@ import com.xingwang.classroom.dialog.BottomADSheetDialog;
 import com.xingwang.classroom.dialog.CenterDefineDialog;
 
 import com.xingwang.classroom.view.CustomBarrageLayout;
-import com.xingwang.classroom.view.CustomProgressBar;
+import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xingwang.classroom.view.LandLayoutVideo;
 import com.xingwang.classroom.ws.ChannelStatusListener;
 import com.xingwang.classroom.ws.WsManagerUtil;

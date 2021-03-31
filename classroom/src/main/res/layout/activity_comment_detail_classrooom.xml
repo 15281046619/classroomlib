@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:background="@color/BGClassRoom"
     android:layout_height="match_parent">
-    <com.xingwang.classroom.view.CustomToolbar
+    <com.xinwang.bgqbaselib.view.CustomToolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyleClassRoom"
         android:text="回复详情"
@@ -14,7 +14,7 @@
         android:layout_below="@+id/ll_title"
         android:layout_height="match_parent"
         android:layout_width="match_parent"/>
-    <com.xingwang.classroom.view.VpSwipeRefreshLayout
+    <com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -26,7 +26,7 @@
             android:paddingBottom="5dp"
             android:layout_below="@+id/tv_title"
             android:id="@+id/recycler_view"/>
-    </com.xingwang.classroom.view.VpSwipeRefreshLayout>
+    </com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@android:color/white"

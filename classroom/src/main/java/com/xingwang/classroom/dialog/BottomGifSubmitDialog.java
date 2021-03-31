@@ -7,7 +7,7 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-
+import com.xinwang.bgqbaselib.dialog.BaseDialog;
 import com.xingwang.classroom.R;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xingwang.classroom.view.CircularImage;

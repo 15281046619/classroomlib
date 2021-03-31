@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.xingwang.classroom.R;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
-
+import com.xinwang.bgqbaselib.dialog.BaseDialog;
 
 public class BottomADSheetDialog extends BaseDialog {
 

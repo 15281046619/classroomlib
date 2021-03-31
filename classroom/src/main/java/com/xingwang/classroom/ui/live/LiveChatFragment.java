@@ -45,7 +45,7 @@ import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
 import com.xinwang.bgqbaselib.utils.MyToast;
-import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
 import com.xingwang.classroom.view.gift.GiftBean;
 import com.xingwang.classroom.view.gift.GiftView;

@@ -23,8 +23,9 @@ import com.xingwang.classroom.adapter.HomeViewpagerAdapter;
 import com.xingwang.classroom.bean.ADGroupBean;
 import com.xingwang.classroom.bean.CategoryBean;
 
-import com.xingwang.classroom.view.CustomToolbar;
-import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xinwang.bgqbaselib.utils.GlideUtils;
+import com.xinwang.bgqbaselib.view.CustomToolbar;
+import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
@@ -64,9 +65,11 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
         return R.layout.activity_class_room_home_classroom;
     }
 
+
+
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         banner.startAutoPlay();
     }
 
@@ -80,7 +83,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
             initSettingAppBarListener();
             initBannerListener();
             goRequestData(Constants.LOAD_DATA_TYPE_INIT);
-      //  }
+         //  }
     }
 
     private void initBannerHeight() {

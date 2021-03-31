@@ -21,10 +21,12 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
@@ -144,8 +146,7 @@ public class CommentUtils {
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mNetworkInfo = mConnectivityManager
-                    .getActiveNetworkInfo();
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
             if (mNetworkInfo != null) {
                 return mNetworkInfo.isAvailable();
             }
@@ -213,5 +214,37 @@ public class CommentUtils {
             e.printStackTrace();
             return url;
         }
+    }
+
+    /**
+     * 跳转浏览器页面
+     * @param activity
+     * @param url
+     */
+    public static void jumpWebBrowser(Activity activity,String url){
+        if(url.startsWith("http://")||url.startsWith("https://")){
+            url ="xingw://"+activity.getPackageName()+"/openpage/webbrowser?url="+url;
+        }
+        try {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 富文本适配
+     * @param bodyHTML html字符串
+     * @return 更新宽高属性后的html字符串
+     */
+    public static String getWebNewData(String bodyHTML){
+        String body = bodyHTML;
+        bodyHTML = body.replace("&quot;", "\"");
+       String head = ("<head>"
+                + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> "
+                + "<style>" +
+               "img{max-width: 100%; width:100%; height:auto;}" +
+               "video{max-width: 100%; width:100%; height:auto;}</style>" +
+               "</head>");
+        return "<html>"+head+"<body style='margin:0;padding:0'>"+bodyHTML+"</body></html>";
     }
 }

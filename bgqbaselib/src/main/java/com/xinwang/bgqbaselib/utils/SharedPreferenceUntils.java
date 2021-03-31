@@ -66,4 +66,20 @@ public class SharedPreferenceUntils {
     public static void saveCity(Context context,String city){
          putString(context,"city",city);
     }
+    //保存商城历史搜索
+    public static void saveSearchHistory(Context context,String history){
+        putString(context,"history",history);
+    }
+    //获取搜索
+    public static String getSearchHistory(Context context){
+        return getString(context,"history","");
+    }
+    //获取商品
+    public static String getGoods(Context context){
+        return  getString(context,"goods","");
+    }
+    //保存商品
+    public static void saveGoods(Context context,String content){
+        putString(context,"goods",content);
+    }
 }

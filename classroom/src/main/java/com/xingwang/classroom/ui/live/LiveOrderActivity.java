@@ -37,7 +37,7 @@ import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
-import com.xingwang.classroom.view.CustomToolbar;
+import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 
 import org.json.JSONArray;

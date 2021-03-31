@@ -32,11 +32,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            //重建时清除 fragment的状态
+            savedInstanceState.remove("android:support:fragments");
+        }
         super.onCreate(savedInstanceState);
         if (savedInstanceState!=null&&savedInstanceState.getBoolean("isClean")){
             //finish();
             ActivityManager.getInstance().finishAllActivity();
         }
+
 
         transparentStatusBar();
         setContentView(layoutResId());
@@ -46,6 +51,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean("isClean",true);
+        //销毁时不保存fragment的状态
+        outState.remove("android:support:fragments");
         super.onSaveInstanceState(outState);
     }
     protected void setNavigationBarColor( @ColorRes int id) {
@@ -87,7 +94,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return
      */
     public Boolean isShouldHideKeyboard(View v,MotionEvent  event) {
-
         if (v instanceof EditText) {  //判断得到的焦点控件是否包含EditText
             int[] l = new int[]{0, 0};
             v.getLocationInWindow(l);

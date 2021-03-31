@@ -13,11 +13,11 @@ import com.beautydefinelibrary.BeautyDefine;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.DetailAdapter;
 
-import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
-import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.utils.Constants;
+import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 
 
 /**

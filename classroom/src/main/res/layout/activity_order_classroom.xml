@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.live.LiveOrderActivity">
 
-    <com.xingwang.classroom.view.CustomToolbar
+    <com.xinwang.bgqbaselib.view.CustomToolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyleClassRoom"
         android:layout_alignParentTop="true"

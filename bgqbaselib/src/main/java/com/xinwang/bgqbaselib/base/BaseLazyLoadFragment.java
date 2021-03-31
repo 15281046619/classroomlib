@@ -16,6 +16,7 @@ import com.xinwang.bgqbaselib.utils.HttpUtil;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -25,6 +26,7 @@ public abstract class BaseLazyLoadFragment extends Fragment {
     protected View mRootView;
     public Context mContext;
     protected boolean isVisible = true;
+
     private boolean isPrepared;
     private boolean isFirst = true;
 

@@ -48,7 +48,7 @@ import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.StatusBarUtils;
-import com.xingwang.classroom.view.CustomProgressBar;
+import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xingwang.classroom.view.EmptyControlVideo;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 
@@ -605,8 +605,6 @@ public class LiveDetailActivity extends BaseNetActivity {
         HomeViewpagerAdapter mViewPagerAdapter = new HomeViewpagerAdapter(getSupportFragmentManager(), Arrays.asList(mArrayLists), Arrays.asList(mTitle));
         viewPager.setAdapter(mViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-        //  viewpager.setCurrentItem(initPos);
     }
     private void requestFailureShow(String error){
         TextView tvMsg = findViewById(R.id.tv_msg);

@@ -31,11 +31,10 @@ import com.xingwang.classroom.bean.CommentBean;
 import com.xingwang.classroom.bean.CommentDetailBean;
 import com.xingwang.classroom.bean.SendCommentBean;
 
-import com.xingwang.classroom.view.CustomProgressBar;
-import com.xingwang.classroom.view.CustomToolbar;
-import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xinwang.bgqbaselib.view.CustomProgressBar;
+import com.xinwang.bgqbaselib.view.CustomToolbar;
+import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
-import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
@@ -46,6 +45,7 @@ import com.xinwang.bgqbaselib.utils.HttpUtil;
 import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.TimeUtil;
+import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 
 
 import java.io.File;

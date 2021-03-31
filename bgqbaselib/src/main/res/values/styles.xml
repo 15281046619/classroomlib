@@ -72,6 +72,28 @@
         <!--全屏-->
         <item name="android:windowFullscreen">false</item>
     </style>
+
+    <style name="DialogRightCenterStyleClassRoom" parent="Theme.AppCompat.Light.Dialog" >
+        <!-- 窗口背景色 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否有覆盖-->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--进出动画-->
+        <item name="android:windowAnimationStyle">@style/RightSheetStyleClassRoom</item>
+        <!--全屏-->
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="DialogCenterClassRoom" parent="Theme.AppCompat.Light.Dialog" >
         <!-- 窗口背景色 -->
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -95,6 +117,10 @@
     <style name="BottomSheetStyleClassRoom">
         <item name="android:windowEnterAnimation">@anim/bottom_top_enter_classroom</item>
         <item name="android:windowExitAnimation">@anim/top_bottom_exit_classroom</item>
+    </style>
+    <style name="RightSheetStyleClassRoom">
+        <item name="android:windowEnterAnimation">@anim/left_right_enter_classroom</item>
+        <item name="android:windowExitAnimation">@anim/right_left_classroom</item>
     </style>
     <style name="DialogCenterRedPackClassRoom" parent="Theme.AppCompat.Light.Dialog" >
         <!-- 窗口背景色 -->

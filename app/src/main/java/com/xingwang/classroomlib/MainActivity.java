@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -14,10 +15,8 @@ import android.webkit.WebView;
 
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.ui.live.LiveListActivity;
-import com.xingwang.classroom.ui.shopping.ShoppingHomeActivity;
 import com.xingwang.classroomlib.html.WebViewDelegate;
-
-
+import com.xinwang.shoppingcenter.ui.ShoppingHomeActivity;
 
 
 public class MainActivity extends AppCompatActivity implements WebViewDelegate {
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
       //  startActivity(intent);
 
-
     }
 
 
@@ -75,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
                 startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("essay://"+getPackageName()+".host.adessay?url=http://zyapp.test.xw518.com/article/859")));
                 break;
           case "3":
-
                 startActivity(new Intent(this, ShoppingHomeActivity.class));
                 break;
            /*   case "4":

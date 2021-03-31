@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:id="@+id/rlContent"
         android:layout_height="match_parent">
-    <com.xingwang.classroom.view.CustomToolbar
+    <com.xinwang.bgqbaselib.view.CustomToolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyleClassRoom"
         android:text="@string/live_title_ClassRoom"

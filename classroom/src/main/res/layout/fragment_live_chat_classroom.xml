@@ -19,7 +19,7 @@
         android:drawablePadding="@dimen/dp_5_classroom"
         android:marqueeRepeatLimit="marquee_forever"
         android:layout_height="wrap_content"/>
-    <com.xingwang.classroom.view.VpSwipeRefreshLayout
+    <com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/BGClassRoom"
@@ -39,7 +39,7 @@
             android:overScrollMode="ifContentScrolls"
             android:layout_height="wrap_content"
             />
-    </com.xingwang.classroom.view.VpSwipeRefreshLayout>
+    </com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout>
     <ImageView
         android:layout_width="40dp"
         android:layout_above="@+id/rl_bottom"

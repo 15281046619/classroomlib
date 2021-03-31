@@ -4,13 +4,13 @@
     android:background="@color/BGClassRoom"
     android:layout_height="match_parent">
 
-    <com.xingwang.classroom.view.CustomToolbar
+    <com.xinwang.bgqbaselib.view.CustomToolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyleClassRoom"
         android:text="直播列表"
         />
 
-    <com.xingwang.classroom.view.VpSwipeRefreshLayout
+    <com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
@@ -22,7 +22,7 @@
             android:paddingBottom="5dp"
             android:layout_below="@+id/tv_title"
             android:id="@+id/recyclerView"/>
-    </com.xingwang.classroom.view.VpSwipeRefreshLayout>
+    </com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout>
 
 
 </RelativeLayout>

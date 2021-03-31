@@ -12,14 +12,15 @@ import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.HomeViewpagerAdapter;
 import com.xingwang.classroom.bean.HistoryPriceBean;
 
-import com.xingwang.classroom.view.CustomToolbar;
+
 import com.xingwang.classroom.view.NoScrollViewPager;
-import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.view.CustomToolbar;
 
 import java.util.ArrayList;
 import java.util.List;

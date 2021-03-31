@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:background="@android:color/black"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5_classroom"
+        android:src="@drawable/ic_baseline_check_24_classroom"/>
+    <TextView
+        android:id="@+id/tvToastTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="7dp"
+        android:text="添加购物车成功哦"
+        android:paddingBottom="7dp"
+        android:textSize="@dimen/sp_14_classroom"
+        android:layout_marginBottom="@dimen/dp_5_classroom"
+        android:textColor="@android:color/white" />
+</LinearLayout>

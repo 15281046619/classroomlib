@@ -5,4 +5,5 @@
     <string name="class_room_quite_ClassRoom">
        1.尚未安装直播所需插件，强制进入可能出现播放异常\n2.该提示将在直播插件安装成功后,自动关闭\n3.如果一直未安装成功，可以卸载app重新安装进入即可</string>
     <string name="live_title_ClassRoom">直播</string>
+    <string name="no_data_ClassRoom">暂无数据</string>
 </resources>

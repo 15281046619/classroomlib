@@ -1,6 +1,8 @@
 package com.xingwang.classroom.ui;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,10 @@ import com.beautydefinelibrary.BeautyDefine;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.DetailBean;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
+import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.zzhoujay.richtext.RichText;
+import com.zzhoujay.richtext.callback.OnUrlClickListener;
 
 
 /**
@@ -39,12 +44,16 @@ public class ClassRoomDetailFragment extends BaseLazyLoadFragment {
     public void upDateShow(DetailBean mBean){
         if (mBean!=null&&mBean.getData().getLecture()!=null) {
             if (tvTitle!=null)
-            tvTitle.setText(mBean.getData().getLecture().getTitle());
+                tvTitle.setText(mBean.getData().getLecture().getTitle());
             if (tvSum!=null)
-            tvSum.setText(mBean.getData().getLecture().getClick() + "次学习");
+                tvSum.setText(mBean.getData().getLecture().getClick() + "次学习");
             if (tvContent!=null)
-            RichText.from(mBean.getData().getLecture().getBody()).imageClick((imageUrls, position) ->
-                    BeautyDefine.getImagePreviewDefine(getActivity()).showImagePreview(imageUrls, position)).into(tvContent);
+                RichText.from(mBean.getData().getLecture().getBody()).imageClick((imageUrls, position) ->
+                        BeautyDefine.getImagePreviewDefine(getActivity()).showImagePreview(imageUrls, position))
+                        .urlClick(url -> {
+                            CommentUtils.jumpWebBrowser(getActivity(),url);
+                            return true;
+                        }).into(tvContent);
         }
     }
 

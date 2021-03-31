@@ -80,7 +80,7 @@ public class ClassRoomLibUtils {
                 HttpUrls.LIVE_CHANNEL ="live.";
                 break;
             case TYPE_TEST:
-                HttpUrls.URL_HOST ="http://xielei.test.xw518.com/zyapp.test.xw518.com/public/";//测试地址 更改了
+                HttpUrls.URL_HOST ="http://192.168.230.176/zyapp.test.xw518.com/public/";//测试地址 更改了
                 HttpUrls.CHANNEL_WS_URL="ws://192.168.230.176:10101";
                 HttpUrls.CHANNEL ="lecture.lecture_";
                 HttpUrls.LIVE_CHANNEL ="live.";

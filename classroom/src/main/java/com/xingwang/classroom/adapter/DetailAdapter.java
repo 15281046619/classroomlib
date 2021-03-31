@@ -26,6 +26,7 @@ import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.LabelUiFactoryDefine;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.CommentBean;
+import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.TimeUtil;
@@ -61,7 +62,7 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
     }
 
     @Override
-    void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof BaseViewHolder){
             BaseViewHolder mBaseViewHolder = (BaseViewHolder) viewHolder;
             mBaseViewHolder.tvName.setText(mDatas.get(position).getUser().getshowName());
@@ -209,7 +210,7 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
         return spannableString;
     }
     @Override
-    RecyclerView.ViewHolder onBaseCreateViewHolder(View view,int viewType) {
+   public RecyclerView.ViewHolder onBaseCreateViewHolder(View view,int viewType) {
         return new BaseViewHolder(view);
     }
     class MyCheckTextView extends ClickableSpan {
@@ -268,7 +269,7 @@ public class DetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBean.Comm
 
 
     @Override
-    int getViewLayout(int viewType) {
+    public int getViewLayout(int viewType) {
         return R.layout.item_comment_left_text_classroom;
     }
 

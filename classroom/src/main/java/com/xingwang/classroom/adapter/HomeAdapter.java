@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.LectureListsBean;
+import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class HomeAdapter extends BaseLoadMoreAdapter<LectureListsBean.DataBean> 
 
     @SuppressLint("SetTextI18n")
     @Override
-    void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+   public void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         if (viewHolder instanceof HomeViewHolder){
             HomeViewHolder mViewHolder = (HomeViewHolder) viewHolder;
             mViewHolder.title.setText(mDatas.get(i).getTitle());
@@ -38,12 +39,12 @@ public class HomeAdapter extends BaseLoadMoreAdapter<LectureListsBean.DataBean> 
     }
 
     @Override
-    RecyclerView.ViewHolder onBaseCreateViewHolder(View view,int viewType) {
+    public RecyclerView.ViewHolder onBaseCreateViewHolder(View view,int viewType) {
         return new HomeViewHolder(view);
     }
 
     @Override
-    int getViewLayout(int viewType) {
+    public int getViewLayout(int viewType) {
         return R.layout.item_home_classroom;
     }
     class HomeViewHolder extends RecyclerView.ViewHolder{

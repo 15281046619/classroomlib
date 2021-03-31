@@ -13,13 +13,13 @@ import com.xingwang.classroom.adapter.HomeAdapter;
 import com.xingwang.classroom.bean.LectureListsBean;
 import com.xingwang.classroom.view.DividerItemDecoration;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
-import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 
 
 import java.util.ArrayList;

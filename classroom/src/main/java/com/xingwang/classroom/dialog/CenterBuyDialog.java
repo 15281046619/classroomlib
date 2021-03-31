@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-
+import com.xinwang.bgqbaselib.dialog.BaseDialog;
 import com.beautydefinelibrary.BeautyDefine;
 import com.xingwang.classroom.R;
 import com.xinwang.bgqbaselib.utils.MyToast;

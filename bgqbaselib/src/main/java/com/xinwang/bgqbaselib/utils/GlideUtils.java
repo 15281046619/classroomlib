@@ -7,7 +7,9 @@ import android.os.Build;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.xinwang.bgqbaselib.R;
 
 
@@ -18,6 +20,11 @@ public class GlideUtils {
         if (!activityIsFinished(imageView.getContext()))
         Glide.with(imageView.getContext()).load(url).placeholder(defaultImg).into(imageView);
     }
+    public static void loadAvatar(String url,int defaultImg ,ImageView imageView,int width,int height){
+        if (!activityIsFinished(imageView.getContext()))
+        Glide.with(imageView.getContext()).load(url).override(width,height).placeholder(defaultImg).into(imageView);
+    }
+
     public static void loadAvatar(String url,ImageView imageView){
         if (!activityIsFinished(imageView.getContext()))
         Glide.with(imageView.getContext()).load(url).placeholder(R.mipmap.bg_default_placeholder_classroom).error(R.mipmap.bg_default_error_classroom).centerCrop().into(imageView);
@@ -39,7 +46,6 @@ public class GlideUtils {
         Glide.with(imageView.getContext()).load(url).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
                 .centerCrop().crossFade().into(imageView);
     }
-
     static boolean activityIsFinished(Context context){
         if (context instanceof Activity) {
             Activity activity = (Activity) context;

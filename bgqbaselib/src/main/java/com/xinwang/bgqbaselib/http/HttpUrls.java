@@ -9,11 +9,12 @@ public class HttpUrls {
     // public static   String URL_HOST="http://zyapp.test.xw518.com/";
     public static   String URL_HOST="http://zyapp.app.xw518.com/";
     private static final String URL_NAME="";
-    public static String URL_TYPE="ZY";
+    public static String URL_TYPE="zy";
     /*private static final String URL_HOST="http://192.168.65.74/";
     private static final String URL_NAME="xwapp/public/";*/
 
     public static final String URL_GETAUTHSTR=URL_HOST+URL_NAME+"user/auth/getAuthstr";
+    public static final String URL_CHAT="http://kefu.xw518.com/chat.php?c=1";
     public static final String URL_CATEGORYS(){
         return URL_HOST+URL_NAME+"lecture/general/category/lists";
     }
@@ -72,6 +73,30 @@ public class HttpUrls {
     }
     public static final String URL_LIVE_CHAT_LISTS(){
       return  URL_HOST+URL_NAME+"live/home/chat/lists";
+    }
+
+    /**
+     * 商城分类
+     * @return
+     */
+    public static final String URL_GOODS_CATEGORY_LISTS(){
+      return  URL_HOST+URL_NAME+"goods/home/category/lists";
+    }
+
+    /**
+     * 商城详情
+     * @return
+     */
+    public static final String URL_GOODS_DETAIL(){
+      return  URL_HOST+URL_NAME+"goods/home/goods/detail";
+    }
+
+    /**
+     * 商城列表页面
+     * @return
+     */
+    public static final String URL_GOODS_HOME_LISTS(){
+      return  URL_HOST+URL_NAME+"goods/home/goods/lists";
     }
     public static final String URL_USER_INFO(){
       return  URL_HOST+URL_NAME+"user/user/my/info";

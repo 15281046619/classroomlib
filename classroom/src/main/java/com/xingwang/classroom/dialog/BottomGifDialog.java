@@ -15,7 +15,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import com.xinwang.bgqbaselib.dialog.BaseDialog;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.view.gift.GiftBean;
 

@@ -16,11 +16,12 @@ import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.NoDoubleClickUtils;
-import com.xingwang.classroom.view.CustomToolbar;
-import com.xingwang.classroom.view.VpSwipeRefreshLayout;
+
+import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
-import com.xingwang.classroom.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
+import com.xinwang.bgqbaselib.view.CustomToolbar;
+import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;

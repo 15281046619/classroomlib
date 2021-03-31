@@ -15,7 +15,7 @@ import com.xingwang.classroom.R;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xingwang.classroom.view.CircularImage;
 import com.xingwang.classroom.view.MyFrameAnimation;
-
+import com.xinwang.bgqbaselib.dialog.BaseDialog;
 
 public class CenterRedPackDialog extends BaseDialog {
 

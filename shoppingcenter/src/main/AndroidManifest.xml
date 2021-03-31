@@ -1,0 +1,48 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xinwang.shoppingcenter">
+    <!--网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application android:hardwareAccelerated="true"
+        >
+        <activity android:name=".ui.ShoppingHomeActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
+        <activity android:name=".ui.ShoppingSearchActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
+        <activity android:name=".ui.CategoryListsActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
+        <activity android:name=".ui.ShoppingCenterActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
+        <activity android:name=".ui.ShoppingDetailActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeClassRoom">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="classroom"
+                    android:host="${applicationId}.spdetail" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
