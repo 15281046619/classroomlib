@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.ShareResultCallBack;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
@@ -137,6 +138,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         findViewById(R.id.llSeek).setOnClickListener(v -> CommentUtils.jumpWebBrowser(ShoppingDetailActivity.this,HttpUrls.URL_CHAT));
         findViewById(R.id.llShopping).setOnClickListener(v ->startActivity(new Intent(this,ShoppingCenterActivity.class)));//跳转购物车
         findViewById(R.id.tvAdd).setOnClickListener(v -> ShoppingCenterLibUtils.addShoppingCenter(this,mDate));//加入购物车
+        findViewById(R.id.ivShare).setOnClickListener(v -> goShape(v));
     }
     private void requestFailureShow(String error){
         TextView tvMsg = findViewById(R.id.tv_msg);
@@ -315,7 +317,30 @@ public class ShoppingDetailActivity extends BaseNetActivity {
 
     }
 
+    /**
+     * 分享直播
+     */
+    public void goShape(View view){
+        if (mDate!=null) {
+            ArrayList<String> mPics = new ArrayList<>();
+            mPics.add(mDate.getCover());
+            String regMatchTag = "<[^>]*>";
+            //暂时不用uri跳转 ，classroom://"+getPackageName()+".zbdetail?id="+mBean.getData().getLecture().getId()+"&type='video'
+            BeautyDefine.getShareDefine(this).share("goods/detail","id="+ mDate.getId(),"classroom://"+getPackageName()+".spdetail?id="+ mDate.getId(),HttpUrls.URL_DOWNLOAD(),mPics,mDate.getTitle(),
+                    mDate.getBody().replaceAll(regMatchTag,""),new ShareResultCallBack(){
 
+                        @Override
+                        public void onSucceed()
+                        {
+
+                        }
+                        @Override
+                        public void onFailure(String s) {
+                            MyToast.myToast(getApplicationContext(),s);
+                        }
+                    });
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

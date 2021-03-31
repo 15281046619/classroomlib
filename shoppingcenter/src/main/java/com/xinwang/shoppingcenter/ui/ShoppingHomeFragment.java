@@ -118,8 +118,9 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     }
 
     private void initToolbar() {
+
         if (getActivity()!=null&&!(getActivity() instanceof ShoppingHomeActivity)){
-            toolbar.getNavigationIcon().setAlpha(0);
+            toolbar.getNavigationIcon().mutate().setAlpha(0);//必须加mutate，不然修改后全局toolbar都将更改
         }else
             toolbar.setNavigationOnClickListener(v -> getActivity().finish());
     }

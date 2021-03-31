@@ -18,6 +18,7 @@
             android:layout_height="48dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:id="@+id/ivShare"
             android:src="@mipmap/ic_fx_classroom"
             android:layout_gravity="right|center_vertical"
             android:layout_marginEnd="10dp"
