@@ -239,12 +239,12 @@ public class CommentUtils {
     public static String getWebNewData(String bodyHTML){
         String body = bodyHTML;
         bodyHTML = body.replace("&quot;", "\"");
-       String head = ("<head>"
+        String head = ("<head>"
                 + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> "
                 + "<style>" +
-               "img{max-width: 100%; width:100%; height:auto;}" +
-               "video{max-width: 100%; width:100%; height:auto;}</style>" +
-               "</head>");
+                "img{max-width: 100%; width:100%; height:auto;}" +
+                "video{max-width: 100%; width:100%; height:auto;}</style>" +
+                "</head>");
         return "<html>"+head+"<body style='margin:0;padding:0'>"+bodyHTML+"</body></html>";
     }
 }

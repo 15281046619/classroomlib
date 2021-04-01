@@ -208,7 +208,6 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     }
     void showTitleImages(List<ADGroupBean.DataBean> mTitleImages){
         this.mTitleImages = mTitleImages;
-
         banner.setImages(getTitleImages()).setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)
                 .setBannerTitles(getTitleDes()).setImageLoader(new GlideImageLoader()).setDelayTime(3000).start();
         llRoot.setVisibility(View.VISIBLE);
