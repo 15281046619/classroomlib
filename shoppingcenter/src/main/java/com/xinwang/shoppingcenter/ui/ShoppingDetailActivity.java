@@ -292,10 +292,6 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     private void initIntent() {
         Intent intent =getIntent();
         mId =intent.getIntExtra("id",0);
-        if (mDate!=null) {
-            mDate.getPicBeans().add(0, new PicBean(mDate.getCover()));
-        }
-
         Uri uri = intent.getData();
         if (uri == null) {
             return;
@@ -318,7 +314,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     }
 
     /**
-     * 分享直播
+     * 分享课程
      */
     public void goShape(View view){
         if (mDate!=null) {
@@ -332,7 +328,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
                         @Override
                         public void onSucceed()
                         {
-
+                            MyToast.myToast(getApplicationContext(),"分享成功");
                         }
                         @Override
                         public void onFailure(String s) {

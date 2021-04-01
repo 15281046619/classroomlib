@@ -207,7 +207,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
             }
         }else {
             mAdapter.setLoadStateNoNotify(state);
-            mAdapter.notifyItemInserted(mAdapter.getItemCount());
+            mAdapter.notifyItemInserted(mAdapter.getItemCount()-1);
         }
     }
     private void jumpDetailActivity(GoodsBean.DataBean mGoodsBean,View view){

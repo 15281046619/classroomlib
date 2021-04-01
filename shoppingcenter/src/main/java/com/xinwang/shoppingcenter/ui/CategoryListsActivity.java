@@ -72,10 +72,10 @@ public class CategoryListsActivity extends BaseNetActivity {
     private int initPos =0;
     private void initTabLayout(CategoryBean categoryBean) {
         this.categoryBean =categoryBean;
-        String type =getIntent().getStringExtra("type");
+        String type =getIntent().getStringExtra("category_id");
         Uri uri = getIntent().getData();
         if (uri != null) {
-            type = uri.getQueryParameter("type");
+            type = uri.getQueryParameter("category_id");
         }
         mFragments =new ArrayList<>();
         tabLayout.removeAllTabs();
