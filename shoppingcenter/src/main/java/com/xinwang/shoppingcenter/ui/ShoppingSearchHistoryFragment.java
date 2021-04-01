@@ -89,6 +89,7 @@ public class ShoppingSearchHistoryFragment extends BaseLazyLoadFragment {
                 mActivity.showFragment(1,mList.get(finalI));
             });
             flowLayout.addView(tv);
+
         }
     }
 }

@@ -9,7 +9,6 @@ import android.support.design.internal.FlowLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 import com.beautydefinelibrary.BeautyDefine;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.http.ApiParams;
-import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
@@ -37,7 +35,6 @@ import com.xinwang.shoppingcenter.bean.ADGroupBean;
 import com.xinwang.shoppingcenter.bean.FragmentUpdateBean;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -267,7 +264,8 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         }
         getActivity().overridePendingTransition(0,0);
     }
+    public void scrollviewTop(){
 
-
+    }
 
 }
