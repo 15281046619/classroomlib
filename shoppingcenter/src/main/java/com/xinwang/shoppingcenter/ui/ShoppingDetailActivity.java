@@ -25,6 +25,7 @@ import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
@@ -175,62 +176,156 @@ public class ShoppingDetailActivity extends BaseNetActivity {
                     switch (categoryData.getData().get(i).getAttr().get(j).getField()){
                         case "attr0":
                             if (!TextUtils.isEmpty(mDate.getAttr0())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr0() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr0(), String.class);
+                                if (mList.size()>0){
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
+
+
+
                             }
                             break;
                         case "attr1":
                             if (!TextUtils.isEmpty(mDate.getAttr1())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr1() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr1(), String.class);
+                                if (mList.size()>0) {
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
                             }
                             break;
                         case "attr2":
                             if (!TextUtils.isEmpty(mDate.getAttr2())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr2() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr2(), String.class);
+                                if (mList.size()>0) {
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
                             }
                             break;
                         case "attr3":
                             if (!TextUtils.isEmpty(mDate.getAttr3())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr3() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr3(), String.class);
+                                if (mList.size()>0) {
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
+
                             }
                             break;
                         case "attr4":
                             if (!TextUtils.isEmpty(mDate.getAttr4())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr4() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr4(), String.class);
+                                if (mList.size()>0) {
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
                             }
                             break;
                         case "attr5":
                             if (!TextUtils.isEmpty(mDate.getAttr5())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr5() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr5(), String.class);
+                                if (mList.size()>0) {
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
                             }
                             break;
                         case "attr6":
                             if (!TextUtils.isEmpty(mDate.getAttr6())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr6() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr6(), String.class);
+                                if (mList.size()>0) {
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
                             }
                             break;
                         case "attr7":
                             if (!TextUtils.isEmpty(mDate.getAttr7())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr7() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr7(), String.class);
+                                if (mList.size()>0) {
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
                             }
                             break;
                         case "attr8":
                             if (!TextUtils.isEmpty(mDate.getAttr8())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr8() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr8(), String.class);
+                                if (mList.size()>0) {
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
                             }
                             break;
                         case "attr9":
                             if (!TextUtils.isEmpty(mDate.getAttr9())) {
-                                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                tvValue.append(mDate.getAttr9() + "\n");
+                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr9(), String.class);
+                                if (mList.size()>0) {
+                                    for (int t=0;t<mList.size();t++){
+                                        tvValue.append(mList.get(t));
+                                        if (t!=mList.size()-1){
+                                            tvValue.append(" ");
+                                        }
+                                    }
+                                    tvValue.append("\n");
+                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
+                                }
                             }
                             break;
                     }

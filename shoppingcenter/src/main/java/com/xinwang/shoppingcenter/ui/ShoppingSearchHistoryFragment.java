@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.shoppingcenter.R;
@@ -55,9 +56,14 @@ public class ShoppingSearchHistoryFragment extends BaseLazyLoadFragment {
 
     private void initHistorySearch() {
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new SearchHistoryAdapter(mActivity.mSearchData, position -> {
-            mActivity.showFragment(1,mActivity.mSearchData.get(position));
-        }));
+
+        SearchHistoryAdapter mAdapter =new SearchHistoryAdapter(mActivity.mSearchData, new SearchHistoryAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                mActivity.showFragment(1,mActivity.mSearchData.get(position));
+            }
+        });
+        recyclerView.setAdapter(mAdapter);
 
     }
 
