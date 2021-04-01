@@ -225,8 +225,13 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
     @Override
     public void onActivitySendFragment(Object object) {
         curPage=1;
-        HashMap<String,Object> map = (HashMap<String, Object>) object;
-        goRequestData(map,Constants.LOAD_DATA_TYPE_REFRESH);
+        if (object instanceof HashMap) {
+            HashMap<String,Object> map = (HashMap<String, Object>) object;
+            goRequestData(map,Constants.LOAD_DATA_TYPE_REFRESH);
+        }else {
+            goRequestData(new HashMap(),Constants.LOAD_DATA_TYPE_REFRESH);
+        }
+
     }
 
     @Override

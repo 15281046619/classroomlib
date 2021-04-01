@@ -45,6 +45,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -67,7 +68,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     private CustomToolbar toolbar;
     private ImageView ivShoppingCenter;
     private List<ADGroupBean.DataBean> mTitleImages;
-
+    private ProductListsFragment mFragment;
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_shopping_home_shoppingcenter,container,false);
@@ -137,8 +138,14 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
             @Override
             public void onSuccess(ADGroupBean adGroupBean) {
                 showTitleImages(adGroupBean.getData());
-                ProductListsFragment mFragment = ProductListsFragment.getInstance(null, null);
-                FragmentUtils.showChildFragment(ShoppingHomeFragment.this,R.id.flameLayout,mFragment);
+           /*     if (mFragment!=null)//如果创建过，就清空 免得不断刷新出现内存溢出
+                    getChildFragmentManager().beginTransaction().remove(mFragment).commitAllowingStateLoss();*/
+                if (mFragment==null) {
+                    mFragment = ProductListsFragment.getInstance(null, null);
+                    FragmentUtils.showChildFragment(ShoppingHomeFragment.this, R.id.flameLayout, mFragment);
+                } else
+                    mFragment.onActivitySendFragment(new HashMap<String,Object>());
+
             }
         } );
     }
