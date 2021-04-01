@@ -80,21 +80,21 @@
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.support.v4.app.Fragment
 -keep public class * extends android.app.Fragment
+-keep public class * extends android.view.View
 
-
--keep class com.xinwang.bgqbaselib.http.** {*;}
+-keep class com.xinwang.bgqbaselib.http.* {*;}
 
 #GSYVideoPlayer
--keep class com.shuyu.gsyvideoplayer.video.** { *; }
+-keep class com.shuyu.gsyvideoplayer.video.*{ *; }
 -dontwarn com.shuyu.gsyvideoplayer.video.**
--keep class com.shuyu.gsyvideoplayer.video.base.** { *; }
+-keep class com.shuyu.gsyvideoplayer.video.base.* { *; }
 -dontwarn com.shuyu.gsyvideoplayer.video.base.**
--keep class com.shuyu.gsyvideoplayer.utils.** { *; }
+-keep class com.shuyu.gsyvideoplayer.utils.* { *; }
 -dontwarn com.shuyu.gsyvideoplayer.utils.**
--keep class tv.danmaku.ijk.** { *; }
+-keep class tv.danmaku.ijk.* { *; }
 -dontwarn tv.danmaku.ijk.**
 
--keep class com.xinwang.bgqbaselib.**{*; }
+-keep class com.xinwang.bgqbaselib.*{*; }
 
 -keep public class * extends android.view.View{
     *** get*();
@@ -311,31 +311,14 @@
 	*;
 }
 
--keep class com.tencent.mtt.MttTraceEvent {
-	*;
-}
+
 
 # Game related
 -keep public class com.tencent.smtt.gamesdk.* {
 	public protected *;
 }
 
--keep public class com.tencent.smtt.sdk.TBSGameBooter {
-        public <fields>;
-        public <methods>;
-}
 
--keep public class com.tencent.smtt.sdk.TBSGameBaseActivity {
-	public protected *;
-}
-
--keep public class com.tencent.smtt.sdk.TBSGameBaseActivityProxy {
-	public protected *;
-}
-
--keep public class com.tencent.smtt.gamesdk.internal.TBSGameServiceClient {
-	public *;
-}
 #---------------------------------------------------------------------------
 
 
@@ -390,7 +373,7 @@
 -keep class **JNI* {*;}
  #eventbus 混淆
  -keepattributes *Annotation*
--keepclassmembers class ** {
+-keepclassmembers class * {
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }

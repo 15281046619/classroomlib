@@ -81,22 +81,22 @@
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.support.v4.app.Fragment
 -keep public class * extends android.app.Fragment
--keep public class * extends android.view.view
+-keep public class * extends android.view.View
 
 
--keep class com.xingwang.classroom.bean.** {*;}
+-keep class com.xingwang.classroom.bean.* {*;}
 
 #GSYVideoPlayer
--keep class com.shuyu.gsyvideoplayer.video.** { *; }
+-keep class com.shuyu.gsyvideoplayer.video.* { *; }
 -dontwarn com.shuyu.gsyvideoplayer.video.**
--keep class com.shuyu.gsyvideoplayer.video.base.** { *; }
+-keep class com.shuyu.gsyvideoplayer.video.base.* { *; }
 -dontwarn com.shuyu.gsyvideoplayer.video.base.**
--keep class com.shuyu.gsyvideoplayer.utils.** { *; }
+-keep class com.shuyu.gsyvideoplayer.utils.* { *; }
 -dontwarn com.shuyu.gsyvideoplayer.utils.**
--keep class tv.danmaku.ijk.** { *; }
+-keep class tv.danmaku.ijk.* { *; }
 -dontwarn tv.danmaku.ijk.**
 
--keep class com.xingwang.classroom.**{*; }
+-keep class com.xingwang.classroom.*{*; }
 
 -keep public class * extends android.view.View{
     *** get*();
@@ -112,7 +112,7 @@
 }
 
 
--keep class com.tencent.smtt.export.external.**{
+-keep class com.tencent.smtt.export.external.*{
     *;
 }
 
@@ -303,7 +303,7 @@
 	public <fields>;
 	public <methods>;
 }
--keep class com.tencent.smtt.** {
+-keep class com.tencent.smtt.* {
 	*;
 }
 # end
