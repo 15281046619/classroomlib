@@ -115,13 +115,13 @@
                 android:layout_height="0.5dp"
                 android:layout_marginBottom="@dimen/dp_10_classroom"
                 android:background="@color/BGPressedClassRoom"/>
-
+            <!--scollview嵌套webview必须先给webview一个高度，然后根据加载完成后设置webviwe高度-->
             <com.xinwang.bgqbaselib.view.CustomWebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:layout_height="wrap_content"
+                android:layout_height="10dp"
                 />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

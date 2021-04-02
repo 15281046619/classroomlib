@@ -13,7 +13,9 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -167,11 +169,21 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             webView.getSettings().setDefaultTextEncodingName("utf-8");
             String htmlText = mDate.getBody();
             webView.loadData(CommentUtils.getWebNewData(htmlText), "text/html;charset=utf-8", "utf-8");
+            webView.addJavascriptInterface(this, "App");
         }else {
             rlViewPager.getLayoutParams().height = CommentUtils.getScreenWidth(this);
         }
     }
-
+    @JavascriptInterface
+    public void resize(final float height) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Toast.makeText(getActivity(), height + "", Toast.LENGTH_LONG).show();
+                webView.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (height * getResources().getDisplayMetrics().density)));
+            }
+        });
+    }
     private void showNameValue() {
         tvName.setText("类别\n");
         for(int i=0;i<categoryData.getData().size();i++){
