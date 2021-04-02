@@ -18,7 +18,7 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:id="@+id/rbCheck"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_5_classroom"
             android:gravity="center_vertical"/>

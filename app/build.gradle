@@ -44,7 +44,7 @@ android {
         targetCompatibility = '1.8'
     }
     buildTypes {
-        release {
+        /*release {
             minifyEnabled true
             debuggable true
             jniDebuggable true
@@ -59,7 +59,7 @@ android {
             zipAlignEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+        }*/
     }
 }
 

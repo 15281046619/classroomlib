@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.internal.FlowLayout;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -55,6 +56,7 @@ import java.util.Objects;
 public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
 
     private VpSwipeRefreshLayout swipeRefreshLayout;
+
     private RelativeLayout rlSearch;
     private AppBarLayout appBar;
     private Banner banner;
@@ -71,6 +73,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         View view =  inflater.inflate(R.layout.fragment_shopping_home_shoppingcenter,container,false);
         EventBus.getDefault().register(this);
         swipeRefreshLayout =view.findViewById(R.id.swipeRefreshLayout);
+
         rlHot =view.findViewById(R.id.rlHot);
         appBar =view.findViewById(R.id.app_bar_layout);
         llRoot =view.findViewById(R.id.llRoot);
@@ -105,6 +108,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     @Override
     public void initData() {
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
+
         swipeRefreshLayout.setRefreshing(true);
         initToolbar();
         initBannerHeight();
@@ -264,8 +268,13 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         }
         getActivity().overridePendingTransition(0,0);
     }
-    public void scrollviewTop(){
 
+    /**
+     * 滑动到顶部部
+     */
+    public void scrollViewTop(){
+        mFragment.scrollTop();
+        appBar.setExpanded(true,true);
     }
 
 }

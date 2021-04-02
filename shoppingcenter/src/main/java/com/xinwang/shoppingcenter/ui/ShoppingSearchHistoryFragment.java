@@ -57,7 +57,7 @@ public class ShoppingSearchHistoryFragment extends BaseLazyLoadFragment {
     private void initHistorySearch() {
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getContext()));
 
-        SearchHistoryAdapter mAdapter =new SearchHistoryAdapter(mActivity.mSearchData, new SearchHistoryAdapter.OnItemClickListener() {
+        SearchHistoryAdapter mAdapter =new SearchHistoryAdapter(mActivity.mSearchData, new SearchHistoryAdapter.OnItemClickListener() {//不能用lamdbda表达式，主项目会崩溃
             @Override
             public void onClick(int position) {
                 mActivity.showFragment(1,mActivity.mSearchData.get(position));

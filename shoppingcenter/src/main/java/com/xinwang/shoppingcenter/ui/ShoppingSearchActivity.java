@@ -91,7 +91,7 @@ public class ShoppingSearchActivity extends BaseActivity {
                 if (s!=null&&s.length()>0){
                     ivDelete.setVisibility(View.VISIBLE);
                 }else {
-                    ivDelete.setVisibility(View.GONE);
+                    ivDelete.setVisibility(View.INVISIBLE);
                     showFragment(0,null);
                 }
             }

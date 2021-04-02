@@ -15,12 +15,12 @@
         android:layout_height="wrap_content"/>
     <ImageView
         android:id="@+id/ivDelete"
-        android:layout_width="@dimen/dp_15_classroom"
+        android:layout_width="45dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/dp_15_classroom"
+        android:padding="@dimen/dp_15_classroom"
         android:src="@drawable/ic_baseline_close_20_shoppingcenter"
-        android:layout_height="@dimen/dp_15_classroom"/>
+        android:layout_height="45dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1_classroom"

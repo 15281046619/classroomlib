@@ -68,10 +68,11 @@ public class ShoppingCenterActivity extends BaseNetActivity {
             if (mAdapter==null) {
                 mAdapter = new ShoppingCenterAdapter(mData);
                 mAdapter.setOnItemClickListener((view, position) -> startActivity(new Intent(ShoppingCenterActivity.this, ShoppingDetailActivity.class).putExtra("id", mData.get(position).getId())));
-                mAdapter.setOnItemLongClickListener(new BaseLoadMoreAdapter.OnItemLongClickListener() {
+                mAdapter.setOnItemLongClickListener(new BaseLoadMoreAdapter.OnItemLongClickListener() {//不能用lamdbda表达式，主项目会崩溃
                     @Override
                     public void onItemLongClick(View view, int position) {
                         mAdapter.mDatas.remove(position);
+                        rbCheck.setChecked(mAdapter.isAllCheck());
                         mAdapter.saveUpdate(ShoppingCenterActivity.this);
                         if (mAdapter.mDatas.size()==0){
                             requestFailureShow("暂未添加商品");

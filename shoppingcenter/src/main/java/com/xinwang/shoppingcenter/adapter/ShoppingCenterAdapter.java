@@ -84,16 +84,16 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBea
 
             });
             GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
-            baseViewHolder.rbCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            baseViewHolder.rbCheck.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    mDatas.get(i).setCheck(isChecked);
+                public void onClick(View v) {
+                    mDatas.get(i).setCheck(  baseViewHolder.rbCheck.isChecked());
                     SharedPreferenceUntils.saveGoods(baseViewHolder.tvSub.getContext(),GsonUtils.createGsonString(mDatas));
                     if (adapterItemClickListener!=null)
-                        adapterItemClickListener.onClick(i,buttonView);
-
+                        adapterItemClickListener.onClick(i,v);
                 }
             });
+
         }
     }
     public void setOnClickListener(AdapterItemClickListener adapterItemClickListener){

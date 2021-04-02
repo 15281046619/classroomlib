@@ -87,6 +87,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new StaggeredDividerItemDecoration(getContext(), 10,2));
+
         return view;
     }
     private void requestFailureShow(String error){
@@ -238,6 +239,10 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
     public void onAttach(Context context) {
         super.onAttach(context);
 
+    }
+    //滑动到顶部
+    public void scrollTop(){
+        recyclerView.scrollToPosition(0);
     }
 
 }
