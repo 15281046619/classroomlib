@@ -119,6 +119,8 @@
             <com.xinwang.bgqbaselib.view.CustomWebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>

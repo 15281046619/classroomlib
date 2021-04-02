@@ -108,7 +108,6 @@ public class CategoryListsActivity extends BaseNetActivity {
                 if (i==0||categoryBean.getData().get(curPosition).getAttr().size()==0){
                     tvSelect.setEnabled(false);
                 }else {
-
                     tvSelect.setEnabled(true);
                 }
                 tvSelect.setSelected(!categoryBean.getData().get(curPosition).getSelectAttr().isEmpty());

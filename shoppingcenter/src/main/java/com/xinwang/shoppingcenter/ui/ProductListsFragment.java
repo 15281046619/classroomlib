@@ -137,7 +137,6 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
             stringObjectHashMap.put("category_id",category_id);
         stringObjectHashMap.put("page",curPage);
         stringObjectHashMap.put("page_num",pageNum);
-        LogUtil.i(stringObjectHashMap.toString());
         isRequesting =true;
         HttpUtil.cancelTag(this);
         requestGet(HttpUrls.URL_GOODS_HOME_LISTS(),stringObjectHashMap, GoodsBean.class, new HttpCallBack<GoodsBean>() {

@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.SocketException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -182,9 +183,9 @@ public class HttpUtil {
             @Override
             public void onFailure(@NonNull Call call, @NonNull final IOException e) {
                 try {
-                    if (callBack != null && mainHandler != null) {
-                        LogUtil.i("onFailure:"+e.getMessage(),HttpUtil.class);
 
+                    if (callBack != null && mainHandler != null&&!e.getMessage().equals("Socket closed")) {
+                        LogUtil.i("onFailure:"+e.getMessage(),HttpUtil.class);
                         mainHandler.post(() -> callBack.onFailure("服务异常,请检查你的网络！"));
                     }
                 } catch (Exception e1) {
@@ -240,7 +241,7 @@ public class HttpUtil {
             @Override
             public void onFailure(@NonNull Call call, @NonNull final IOException e) {
                 try {
-                    if (callBack != null && mainHandler != null) {
+                    if (callBack != null && mainHandler != null&&!e.getMessage().equals("Socket closed")) {
                         mainHandler.post(() -> {
                             LogUtil.i("onFailure:"+e.getMessage(),HttpUtil.class);
                             callBack.onFailure("服务异常,请检查你的网络！");

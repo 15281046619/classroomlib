@@ -73,6 +73,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
             ImageView imageView =new ImageView(container.getContext());
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setBackgroundResource(R.color.black);
             GlideUtils.loadAvatar(mDate!=null?mDate.getPicBeans().get(position).getUrl():"",R.color.BGPressedClassRoom,imageView);
             container.addView(imageView);
             imageView.setOnClickListener(v -> {
@@ -155,15 +156,20 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     }
     private void initShow() {
         findViewById(R.id.rl_empty).setVisibility(View.GONE);
-        rlViewPager.getLayoutParams().height = CommentUtils.getScreenWidth(this);
-        tvTitle.setText(mDate.getTitle());
-        if (mDate!=null)
-            tvSum.setText("1/"+mDate.getPicBeans().size());
-        showNameValue();
 
-        webView.getSettings().setDefaultTextEncodingName("utf-8");
-        String htmlText =mDate.getBody();
-        webView.loadData( CommentUtils.getWebNewData(htmlText), "text/html;charset=utf-8", "utf-8");
+        tvTitle.setText(mDate.getTitle());
+        if (mDate!=null) {
+            float coverRate= Float.parseFloat(mDate.getCoverRate());
+            rlViewPager.getLayoutParams().height = (int) (coverRate*(CommentUtils.getScreenWidth(this)));
+            tvSum.setText("1/" + mDate.getPicBeans().size());
+            showNameValue();
+
+            webView.getSettings().setDefaultTextEncodingName("utf-8");
+            String htmlText = mDate.getBody();
+            webView.loadData(CommentUtils.getWebNewData(htmlText), "text/html;charset=utf-8", "utf-8");
+        }else {
+            rlViewPager.getLayoutParams().height = CommentUtils.getScreenWidth(this);
+        }
     }
 
     private void showNameValue() {

@@ -44,22 +44,22 @@ android {
         targetCompatibility = '1.8'
     }
     buildTypes {
-        /*release {
-            minifyEnabled true
-            debuggable true
+        release {
+            minifyEnabled false
+        /*    debuggable true
             jniDebuggable true
             zipAlignEnabled true
-            shrinkResources true
+            shrinkResources true*/
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled true
-            debuggable false
+            minifyEnabled false
+        /*    debuggable false
             jniDebuggable false
             zipAlignEnabled true
-            shrinkResources true
+            shrinkResources true*/
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }*/
+        }
     }
 }
 
