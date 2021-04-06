@@ -389,8 +389,9 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             ArrayList<String> mPics = new ArrayList<>();
             mPics.add(mBean.getData().getLecture().getThumb());
             String regMatchTag = "<[^>]*>";
-            //暂时不用uri跳转 ，classroom://"+getPackageName()+".kcdetail?id="+mBean.getData().getLecture().getId()+"&type='video'
-            BeautyDefine.getShareDefine(this).share("lecture/detail","id="+mBean.getData().getLecture().getId(),"",HttpUrls.URL_SHARE()+"?id="+mBean.getData().getLecture().getId(),mPics,mBean.getData().getLecture().getTitle(),
+
+            BeautyDefine.getShareDefine(this).share("lecture/detail",CommentUtils.urlDecode(new String[]{"id"},new String[]{mBean.getData().getLecture().getId()+""}),
+                    "",HttpUrls.URL_SHARE()+"?"+CommentUtils.urlDecode(new String[]{"id"},new String[]{mBean.getData().getLecture().getId()+""}),mPics,mBean.getData().getLecture().getTitle(),
                     mBean.getData().getLecture().getBody().replaceAll(regMatchTag,""),new ShareResultCallBack(){
 
                         @Override

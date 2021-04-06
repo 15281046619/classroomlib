@@ -231,6 +231,25 @@ public class CommentUtils {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 参数转url标准格式
+     * @param key
+     * @param value
+     * @return
+     */
+    public static String urlDecode(String[] key,String[] value){
+        Uri.Builder mBuider = new Uri.Builder();
+        for (int i=0;i<key.length;i++) {
+            if (i<value.length)
+                mBuider.appendQueryParameter(key[i], value[i]);
+        }
+        if (mBuider.toString().length()>1)
+            return mBuider.toString().substring(1);
+        else
+            return mBuider.toString();
+    }
+
     /**
      * 富文本适配
      * @param bodyHTML html字符串

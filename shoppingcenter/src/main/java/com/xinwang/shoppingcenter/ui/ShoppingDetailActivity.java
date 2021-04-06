@@ -435,7 +435,9 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             mPics.add(mDate.getCover());
             String regMatchTag = "<[^>]*>";
             //暂时不用uri跳转 ，classroom://"+getPackageName()+".zbdetail?id="+mBean.getData().getLecture().getId()+"&type='video'
-            BeautyDefine.getShareDefine(this).share("goods/detail","id="+ mDate.getId(),"classroom://"+getPackageName()+".spdetail?id="+ mDate.getId(),HttpUrls.URL_DOWNLOAD(),mPics,mDate.getTitle(),
+            BeautyDefine.getShareDefine(this).share("goods/detail",CommentUtils.urlDecode(new String[]{"id"},new String[]{mDate.getId()+""}),
+                    "classroom://"+getPackageName()+".spdetail?"+CommentUtils.urlDecode(new String[]{"id"},new String[]{mDate.getId()+""}),
+                    HttpUrls.URL_DOWNLOAD(),mPics,mDate.getTitle(),
                     mDate.getBody().replaceAll(regMatchTag,""),new ShareResultCallBack(){
 
                         @Override
