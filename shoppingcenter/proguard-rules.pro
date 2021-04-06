@@ -389,3 +389,5 @@
 }
 
 -keep class **JNI* {*;}
+#图表
+-keep class com.github.mikephil.charting.** { *; }

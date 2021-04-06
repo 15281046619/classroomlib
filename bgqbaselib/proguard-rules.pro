@@ -382,3 +382,5 @@
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
     <init>(java.lang.Throwable);
 }
+#图表
+-keep class com.github.mikephil.charting.** { *; }
