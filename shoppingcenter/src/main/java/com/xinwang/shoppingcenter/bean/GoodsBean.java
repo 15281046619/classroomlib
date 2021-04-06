@@ -112,12 +112,12 @@ public class GoodsBean  extends CommonEntity {
             this.addSum = addSum;
         }
 
-        private List<PicBean> picBeans;
+        private List<String> picBeans;
 
-        public List<PicBean> getPicBeans() {
+        public List<String> getPicBeans() {
             try {
                 if (picBeans==null){
-                    picBeans= GsonUtils.changeGsonToSafeList(getPics(),PicBean.class);
+                    picBeans= GsonUtils.changeGsonToSafeList(getPics(),String.class);
                     setPicBeans(picBeans);
                 }
             }catch (Exception e){
@@ -127,7 +127,7 @@ public class GoodsBean  extends CommonEntity {
             return picBeans;
         }
 
-        public void setPicBeans(List<PicBean> picBeans) {
+        public void setPicBeans(List<String> picBeans) {
             this.picBeans = picBeans;
         }
 

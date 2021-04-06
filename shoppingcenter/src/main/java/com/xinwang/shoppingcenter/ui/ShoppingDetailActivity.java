@@ -76,12 +76,12 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             ImageView imageView =new ImageView(container.getContext());
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setBackgroundResource(R.color.black);
-            GlideUtils.loadAvatar(mDate!=null?mDate.getPicBeans().get(position).getUrl():"",R.color.BGPressedClassRoom,imageView);
+            GlideUtils.loadAvatar(mDate!=null?mDate.getPicBeans().get(position):"",R.color.BGPressedClassRoom,imageView);
             container.addView(imageView);
             imageView.setOnClickListener(v -> {
                 ArrayList<String> mLists = new ArrayList<>();
-                for (PicBean mBean:mDate.getPicBeans()){
-                    mLists.add(mBean.getUrl());
+                for (String mBean:mDate.getPicBeans()){
+                    mLists.add(mBean);
                 }
                 jumpBigPic(mLists,position);
             });
@@ -387,7 +387,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             public void onSuccess(GoodsDetailBean goodsDetailBean) {
                 mDate =goodsDetailBean.getData().getGoods();
                 if (mDate!=null) {
-                    mDate.getPicBeans().add(0, new PicBean(mDate.getCover()));
+                    mDate.getPicBeans().add(0, mDate.getCover());
                     initShow();
                     initAdapter();
                 }else {

@@ -49,11 +49,13 @@ public class ClassRoomDetailFragment extends BaseLazyLoadFragment {
                 tvSum.setText(mBean.getData().getLecture().getClick() + "次学习");
             if (tvContent!=null)
                 RichText.from(mBean.getData().getLecture().getBody()).imageClick((imageUrls, position) ->
-                        BeautyDefine.getImagePreviewDefine(getActivity()).showImagePreview(imageUrls, position))
-                        .urlClick(url -> {
-                            CommentUtils.jumpWebBrowser(getActivity(),url);
-                            return true;
-                        }).into(tvContent);
+                        BeautyDefine.getImagePreviewDefine(getActivity()).showImagePreview(imageUrls, position)).urlClick(new OnUrlClickListener() {
+                    @Override
+                    public boolean urlClicked(String url) {
+                        CommentUtils.jumpWebBrowser(getActivity(),url);
+                        return true;
+                    }
+                }).into(tvContent);
         }
     }
 
