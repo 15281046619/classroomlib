@@ -95,7 +95,7 @@ public class CenterBuyDialog extends BaseDialog {
                 MyToast.myToast(getContext(),"请填写详细地址");
                 return;
             }else  if (TextUtils.isEmpty(name)){
-                MyToast.myToast(getContext(),"请填写买家姓名");
+                MyToast.myToast(getContext(),"请填写收货人姓名");
                 return;
             }
 

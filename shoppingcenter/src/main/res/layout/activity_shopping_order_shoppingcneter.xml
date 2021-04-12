@@ -126,11 +126,13 @@
                             android:drawableLeft="@mipmap/ic_xxzf_shoppingcenter"
                             android:drawablePadding="10dp"
                             android:padding="@dimen/dp_10_classroom"
+                            android:background="@android:color/transparent"
                             android:layout_height="wrap_content"/>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginLeft="@dimen/dp_10_classroom"
+
                             android:background="@color/LineClassRoom"/>
                         <RadioButton
                             android:layout_width="match_parent"
@@ -138,6 +140,7 @@
                             android:text="微信"
                             android:id="@+id/rbWX"
                             android:padding="@dimen/dp_10_classroom"
+                            android:background="@android:color/transparent"
                             android:drawableRight="@drawable/select_order_checkbutton_shoppingcenter"
                             android:drawablePadding="10dp"
                             android:drawableLeft="@mipmap/ic_wx_shoppingcneter"
@@ -155,6 +158,7 @@
                             android:id="@+id/rbZFB"
                             android:drawablePadding="10dp"
                             android:padding="@dimen/dp_10_classroom"
+                            android:background="@android:color/transparent"
                             android:drawableRight="@drawable/select_order_checkbutton_shoppingcenter"
                             android:drawableLeft="@mipmap/ic_zfb_shoppingcneter"
                             android:layout_height="wrap_content"/>

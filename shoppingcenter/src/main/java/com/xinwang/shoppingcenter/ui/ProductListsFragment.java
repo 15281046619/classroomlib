@@ -233,6 +233,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
 
             @Override
             public void onFailure(String message) {
+                MyToast.myToast(getActivity(),message);
                 //BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
             }
 

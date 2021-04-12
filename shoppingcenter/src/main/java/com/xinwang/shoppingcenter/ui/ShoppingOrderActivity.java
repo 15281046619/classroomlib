@@ -16,6 +16,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
@@ -211,15 +213,18 @@ public class ShoppingOrderActivity extends BaseNetActivity {
      * 获取技术老师
      */
     private void goRequestErp() {
+        BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
         requestGet(HttpUrls.URL_USER_MY_ERP(),new ApiParams(), ErpBean.class, new HttpCallBack<ErpBean>() {
 
             @Override
             public void onFailure(String message) {
                 MyToast.myToast(getApplicationContext(),message);
+                BeautyDefine.getOpenPageDefine(ShoppingOrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
             }
 
             @Override
             public void onSuccess(ErpBean erpBean) {
+                BeautyDefine.getOpenPageDefine(ShoppingOrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
                 ShoppingCenterLibUtils.jumpChat(ShoppingOrderActivity.this,erpBean.getData()==null?-1:erpBean.getData().getId(),
                         getContent());
                 finish();
@@ -239,10 +244,13 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     stringBuffer.append(skuAttribute.getValue() + " ");
                 }
             }
-            stringBuffer.append("×"+skuList.get(i).getAddSum()+"\n");
+            stringBuffer.append("×"+skuList.get(i).getAddSum());
+            if (i!=skuList.size()-1){
+                stringBuffer.append("\n");
+            }
         }
         if (!TextUtils.isEmpty(etRemarks.getText().toString())){
-            stringBuffer.append("备注："+etRemarks.getText().toString());
+            stringBuffer.append("\n备注："+etRemarks.getText().toString());
         }
         return stringBuffer.toString();
     }
