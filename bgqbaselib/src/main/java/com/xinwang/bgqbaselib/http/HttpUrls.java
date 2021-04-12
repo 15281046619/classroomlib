@@ -84,6 +84,14 @@ public class HttpUrls {
     }
 
     /**
+     * 获取技术老师信息
+     * @return
+     */
+    public static final String URL_USER_MY_ERP(){
+      return  URL_HOST+URL_NAME+"user/user/my/my-erp";
+    }
+
+    /**
      * 商城详情
      * @return
      */
@@ -97,6 +105,14 @@ public class HttpUrls {
      */
     public static final String URL_GOODS_HOME_LISTS(){
       return  URL_HOST+URL_NAME+"goods/home/goods/lists";
+    }
+
+    /**
+     * 商品sku属性
+     * @return
+     */
+    public static final String URL_GOODS_HOME_SKU_LISTS(){
+      return  URL_HOST+URL_NAME+"goods/home/sku/lists";
     }
     public static final String URL_USER_INFO(){
       return  URL_HOST+URL_NAME+"user/user/my/info";

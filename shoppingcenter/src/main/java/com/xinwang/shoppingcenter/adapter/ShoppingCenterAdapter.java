@@ -3,6 +3,9 @@ package com.xinwang.shoppingcenter.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -10,10 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
+import com.xinwang.bgqbaselib.sku.bean.Sku;
+import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.shoppingcenter.R;
+import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 
@@ -25,27 +31,27 @@ import java.util.List;
  * Time;14:05
  * author:baiguiqiang
  */
-public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBean> {
+public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
     private AdapterItemClickListener adapterItemClickListener;
 
-    public ShoppingCenterAdapter(List<GoodsBean.DataBean> mDatas) {
+    public ShoppingCenterAdapter(List<Sku> mDatas) {
         super(mDatas);
         setLoadState(2);//加载完成 不显示footer
     }
-
-    /**
+/*
+    *//**
      * 全选获取取消
-     */
+     *//*
     public void allCheck(Context context,boolean isCheck){
         for (int i=0;i<mDatas.size();i++){
             mDatas.get(i).setCheck(isCheck);
         }
         saveUpdate(context);
     }
-    /**
+    *//**
      * 是不是全选
      * @return
-     */
+     *//*
     public boolean isAllCheck(){
         for (int i=0;i<mDatas.size();i++){
             if (!mDatas.get(i).isCheck()){
@@ -53,7 +59,7 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBea
             }
         }
         return true;
-    }
+    }*/
 
     /**
      * 保存更新adaptr
@@ -70,20 +76,40 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBea
         if (viewHolder instanceof BaseViewHolder){
             BaseViewHolder baseViewHolder = (BaseViewHolder) viewHolder;
             baseViewHolder.rbCheck .setChecked(mDatas.get(i).isCheck());
-            baseViewHolder.tvTitle.setText(mDatas.get(i).getTitle());
+            baseViewHolder.tvTitle.setText(mDatas.get(i).getGoodTitle());
             baseViewHolder.tvAdd.setOnClickListener(v -> {
                 mDatas.get(i).setAddSum(mDatas.get(i).getAddSum()+1);
                 saveUpdate(baseViewHolder.tvSub.getContext());
+                if (adapterItemClickListener!=null){
+                    adapterItemClickListener.add(i);
+                }
             });
             baseViewHolder.tvSum.setText(String.valueOf(mDatas.get(i).getAddSum()));
+            baseViewHolder.tvSku.setText("");
+            if (mDatas.get(i).getAttributes()!=null&&mDatas.get(i).getAttributes().size()>0) {
+                for (SkuAttribute skuAttribute : mDatas.get(i).getAttributes()) {
+                    baseViewHolder.tvSku.append(skuAttribute.getValue() + " ");
+                }
+                baseViewHolder.tvSku.setVisibility(View.VISIBLE);
+            }else {
+                baseViewHolder.tvSku.setVisibility(View.INVISIBLE);
+            }
+
+            if (TextUtils.isEmpty(mDatas.get(i).getSellingPrice()))
+                baseViewHolder.tvPrice.setText("");
+            else
+                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+mDatas.get(i).getSellingPrice()));
             baseViewHolder.tvSub.setOnClickListener(v -> {
                 if (mDatas.get(i).getAddSum()>1){
                     mDatas.get(i).setAddSum(mDatas.get(i).getAddSum()-1);
                     saveUpdate(baseViewHolder.tvSub.getContext());
+                    if (adapterItemClickListener!=null){
+                        adapterItemClickListener.sub(i);
+                    }
                 }
 
             });
-            GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
+            GlideUtils.loadAvatar(mDatas.get(i).getMainImage(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
             baseViewHolder.rbCheck.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -107,7 +133,7 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBea
     class BaseViewHolder extends RecyclerView.ViewHolder {
         CheckBox rbCheck;
         ImageView icCove;
-        TextView tvTitle,tvSub,tvSum,tvAdd;
+        TextView tvTitle,tvSub,tvSum,tvAdd,tvSku,tvPrice;
         BaseViewHolder(@NonNull View itemView) {
             super(itemView);
             rbCheck =itemView.findViewById(R.id.rbCheck);
@@ -116,6 +142,8 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBea
             tvSub =itemView.findViewById(R.id.tvSub);
             tvSum =itemView.findViewById(R.id.tvSum);
             tvAdd =itemView.findViewById(R.id.tvAdd);
+            tvPrice =itemView.findViewById(R.id.tvPrice);
+            tvSku =itemView.findViewById(R.id.tvSku);
         }
     }
     @Override

@@ -37,7 +37,7 @@ import com.xingwang.classroom.bean.LiveIsSubscribeBean;
 import com.xingwang.classroom.bean.OnlineCountBean;
 import com.xingwang.classroom.bean.PlayInfoBean;
 import com.xingwang.classroom.bean.VodListBean;
-import com.xingwang.classroom.dialog.CenterDefineDialog;
+import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;

@@ -76,10 +76,10 @@ public class SharedPreferenceUntils {
     }
     //获取商品
     public static String getGoods(Context context){
-        return  getString(context,"goods","");
+        return  getString(context,"sku","");
     }
     //保存商品
     public static void saveGoods(Context context,String content){
-        putString(context,"goods",content);
+        putString(context,"sku",content);
     }
 }

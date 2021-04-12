@@ -1,4 +1,4 @@
-package com.xingwang.classroom.dialog;
+package com.xinwang.bgqbaselib.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -8,8 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import com.xinwang.bgqbaselib.dialog.BaseDialog;
-import com.xingwang.classroom.R;
+
+
+import com.xinwang.bgqbaselib.R;
 
 public class CenterDefineDialog extends BaseDialog {
 

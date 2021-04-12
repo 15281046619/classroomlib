@@ -15,10 +15,14 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
+import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.HttpUtil;
@@ -32,6 +36,8 @@ import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.adapter.ShoppingHomeAdapter;
 import com.xinwang.shoppingcenter.bean.FragmentUpdateBean;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
+import com.xinwang.shoppingcenter.bean.SkuBean;
+import com.xinwang.shoppingcenter.dialog.BottomSkuDialog;
 import com.xinwang.shoppingcenter.interfaces.ActivitySendFragmentListener;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 import com.xinwang.shoppingcenter.view.WrapContentStaggeredGridLayoutManager;
@@ -77,7 +83,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
 
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         view =  inflater.inflate(R.layout.fragment_productlist_shoppingcenter,container,false);
+        view =  inflater.inflate(R.layout.fragment_productlist_shoppingcenter,container,false);
         recyclerView =view.findViewById(R.id.recyclerView);
         rl_empty =view.findViewById(R.id.rl_empty);
         rl_empty.setBackgroundResource(R.color.BGClassRoom);
@@ -97,11 +103,11 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
         CustomProgressBar progressbar = view.findViewById(R.id.progressbar);
         progressbar .setVisibility(View.GONE);
         if (!error.equals(getString(R.string.no_data_ClassRoom)))
-        view.findViewById(R.id.rl_empty).setOnClickListener(v -> {
-            progressbar.setVisibility(View.VISIBLE);
-            tvMsg.setText("加载中...");
-            goRequestData(Constants.LOAD_DATA_TYPE_INIT);
-        });
+            view.findViewById(R.id.rl_empty).setOnClickListener(v -> {
+                progressbar.setVisibility(View.VISIBLE);
+                tvMsg.setText("加载中...");
+                goRequestData(Constants.LOAD_DATA_TYPE_INIT);
+            });
     }
     @Override
     public void initData() {
@@ -197,7 +203,13 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
 
                     @Override
                     public void add(int pos) {
-                       ShoppingCenterLibUtils.addShoppingCenter(getActivity(),mData.get(pos));
+                        // ShoppingCenterLibUtils.addShoppingCenter(getActivity(),mData.get(pos));
+                        requestSkuData(pos);
+                    }
+
+                    @Override
+                    public void sub(int pos) {
+
                     }
                 });
                 mAdapter.setOnItemClickListener((view, position) -> jumpDetailActivity(mData.get(position),view));
@@ -210,6 +222,36 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
             mAdapter.notifyItemInserted(mAdapter.getItemCount()-1);
         }
     }
+
+    /**
+     * 获取sku
+     * @param pos
+     */
+    private void requestSkuData(int pos) {
+        //  BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
+        requestGet(HttpUrls.URL_GOODS_HOME_SKU_LISTS(),new ApiParams().with("goods_id",mData.get(pos).getId()), SkuBean.class, new HttpCallBack<SkuBean>(){
+
+            @Override
+            public void onFailure(String message) {
+                //BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
+            }
+
+            @Override
+            public void onSuccess(SkuBean skuBean) {
+
+                // BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
+                showSkuDialog(ShoppingCenterLibUtils.skuToBean(skuBean.getData(),mData.get(pos)));
+            }
+        });
+    }
+    private void showSkuDialog(List<Sku> skuBean){
+        if (skuBean!=null&&skuBean.size()>0&&skuBean.get(0).getId()!=null)
+            BottomSkuDialog.getInstance(skuBean,0).showDialog(getActivity().getSupportFragmentManager());
+        else {
+            if (skuBean.size()>0)
+            ShoppingCenterLibUtils.addShoppingCenter(getActivity(), skuBean.get(0));
+        }
+    }
     private void jumpDetailActivity(GoodsBean.DataBean mGoodsBean,View view){
         Intent intent = new Intent(getActivity(), ShoppingDetailActivity.class);
         if (mGoodsBean!=null){
@@ -218,7 +260,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
     /*    if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
             ActivityCompat.startActivity(getActivity(),intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, "goodsIcon").toBundle());
         } else {*/
-            startActivity(intent);
+        startActivity(intent);
         /*}*/
     }
 

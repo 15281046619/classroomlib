@@ -49,9 +49,10 @@ import com.xingwang.classroom.bean.FavoritBean;
 import com.xingwang.classroom.bean.IsFavoritBean;
 import com.xingwang.classroom.bean.SendCommentBean;
 import com.xingwang.classroom.dialog.BottomADSheetDialog;
-import com.xingwang.classroom.dialog.CenterDefineDialog;
+
 
 import com.xingwang.classroom.view.CustomBarrageLayout;
+import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xingwang.classroom.view.LandLayoutVideo;
 import com.xingwang.classroom.ws.ChannelStatusListener;

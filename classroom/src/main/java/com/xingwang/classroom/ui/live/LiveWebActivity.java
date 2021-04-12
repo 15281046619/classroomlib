@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 
 import com.tencent.smtt.sdk.WebSettings;
 import com.xingwang.classroom.R;
-import com.xingwang.classroom.dialog.CenterDefineDialog;
+
+import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;

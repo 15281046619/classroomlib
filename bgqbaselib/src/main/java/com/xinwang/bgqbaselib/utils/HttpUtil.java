@@ -184,7 +184,7 @@ public class HttpUtil {
             public void onFailure(@NonNull Call call, @NonNull final IOException e) {
                 try {
 
-                    if (callBack != null && mainHandler != null&&!e.getMessage().equals("Socket closed")) {
+                    if (callBack != null && mainHandler != null&&!e.getMessage().equals("Socket closed")&&!e.getMessage().equals("Canceled")) {
                         LogUtil.i("onFailure:"+e.getMessage(),HttpUtil.class);
                         mainHandler.post(() -> callBack.onFailure("服务异常,请检查你的网络！"));
                     }
@@ -241,7 +241,7 @@ public class HttpUtil {
             @Override
             public void onFailure(@NonNull Call call, @NonNull final IOException e) {
                 try {
-                    if (callBack != null && mainHandler != null&&!e.getMessage().equals("Socket closed")) {
+                    if (callBack != null && mainHandler != null&&!e.getMessage().equals("Socket closed")&&!e.getMessage().equals("Canceled")) {
                         mainHandler.post(() -> {
                             LogUtil.i("onFailure:"+e.getMessage(),HttpUtil.class);
                             callBack.onFailure("服务异常,请检查你的网络！");
@@ -267,8 +267,7 @@ public class HttpUtil {
                                 mainHandler.post(() -> callBack.onFailure("权限认证失败，请重新登录账号"));
                                 ActivityManager.getInstance().finishAllActivity();
                                 BeautyDefine.getAccountDefine().controlReLogin();
-                            }
-                            else
+                            }else
                             mainHandler.post(() ->  callBack.onFailure(message));
                         }else {
                             LogUtil.i("onSuccess:" + mData, HttpUtil.class);
@@ -281,7 +280,6 @@ public class HttpUtil {
                     if (callBack != null && mainHandler != null) {
                         mainHandler.post(() ->  callBack.onFailure("数据解析异常"));
                     }
-
                 }
             }
         });

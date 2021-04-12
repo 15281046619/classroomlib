@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -23,8 +24,10 @@ import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.ShareResultCallBack;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
@@ -35,9 +38,13 @@ import com.xinwang.bgqbaselib.view.CustomWebView;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.bean.CategoryBean;
+import com.xinwang.shoppingcenter.bean.ErpBean;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.bean.GoodsDetailBean;
 import com.xinwang.shoppingcenter.bean.PicBean;
+import com.xinwang.shoppingcenter.bean.SkuBean;
+import com.xinwang.shoppingcenter.dialog.BottomSkuDialog;
+import com.xinwang.shoppingcenter.interfaces.OnClickOkListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +63,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     private GoodsBean.DataBean mDate;
     private CategoryBean categoryData;
     private CustomWebView webView;
+    private List<Sku> skuList =new ArrayList<>();
     private PagerAdapter mAdapter = new PagerAdapter() {
 
         @Override
@@ -138,12 +146,32 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             mLists.add(url);
             jumpBigPic(mLists,0);
         });
-        findViewById(R.id.tvBuy).setOnClickListener(v -> CommentUtils.jumpWebBrowser(ShoppingDetailActivity.this,HttpUrls.URL_CHAT));
-        findViewById(R.id.llSeek).setOnClickListener(v -> CommentUtils.jumpWebBrowser(ShoppingDetailActivity.this,HttpUrls.URL_CHAT));
+        findViewById(R.id.tvBuy).setOnClickListener(v -> showSkuDialog(1));
+        findViewById(R.id.llSeek).setOnClickListener(v -> goRequestErp());//咨询
         findViewById(R.id.llShopping).setOnClickListener(v ->startActivity(new Intent(this,ShoppingCenterActivity.class)));//跳转购物车
-        findViewById(R.id.tvAdd).setOnClickListener(v -> ShoppingCenterLibUtils.addShoppingCenter(this,mDate));//加入购物车
+        findViewById(R.id.tvAdd).setOnClickListener(v -> showSkuDialog(0));//加入购物车
         findViewById(R.id.ivShare).setOnClickListener(v -> goShape(v));
     }
+
+    /**
+     * 获取技术老师
+     */
+    private void goRequestErp() {
+        requestGet(HttpUrls.URL_USER_MY_ERP(),new ApiParams(), ErpBean.class, new HttpCallBack<ErpBean>() {
+
+            @Override
+            public void onFailure(String message) {
+                MyToast.myToast(getApplicationContext(),message);
+            }
+
+            @Override
+            public void onSuccess(ErpBean erpBean) {
+                ShoppingCenterLibUtils.jumpChat(ShoppingDetailActivity.this,erpBean.getData()==null?-1:erpBean.getData().getId(),
+                        mDate.getTitle());
+            }
+        });
+    }
+
     private void requestFailureShow(String error){
         TextView tvMsg = findViewById(R.id.tv_msg);
         tvMsg.setText(error);
@@ -157,7 +185,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             });
     }
     private void initShow() {
-        findViewById(R.id.rl_empty).setVisibility(View.GONE);
+
 
         tvTitle.setText(mDate.getTitle());
         if (mDate!=null) {
@@ -173,6 +201,13 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         }else {
             rlViewPager.getLayoutParams().height = CommentUtils.getScreenWidth(this);
         }
+        rlViewPager.post(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.rl_empty).setVisibility(View.GONE);
+            }
+        });
+
     }
     @JavascriptInterface
     public void resize(final float height) {
@@ -354,6 +389,32 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         tvName.append("点击量");
         tvValue.append(mDate.getClick()+"次");
     }
+    private void showSkuDialog(int clickType){
+        if (skuList!=null&&skuList.size()>0&&skuList.get(0).getId()!=null)
+            BottomSkuDialog.getInstance(skuList,clickType).setOnClickOkListener(new OnClickOkListener() {
+                @Override
+                public void onClickOk(Sku sku) {
+                    ArrayList<Sku> skus =new ArrayList<>();
+                    skus.add(sku);
+                    jumpOrderActivity(skus);
+                }
+            }).showDialog(getSupportFragmentManager());
+        else {
+            if (clickType==0) {
+                if (skuList.size() > 0)
+                    ShoppingCenterLibUtils.addShoppingCenter(this, skuList.get(0));
+            }else  if (clickType==1){//立即购买
+                jumpOrderActivity((ArrayList<Sku>) skuList);
+            }
+        }
+    }
+
+    /**
+     * 跳转到确认页面
+     */
+    private void jumpOrderActivity(ArrayList<Sku> skuList) {
+        startActivity(new Intent(this,ShoppingOrderActivity.class).putParcelableArrayListExtra("data",  skuList));
+    }
 
     private void initRequest() {
         requestCategoryList();
@@ -370,11 +431,30 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             @Override
             public void onSuccess(CategoryBean categoryBean) {
                 categoryData = categoryBean;
-                requestDetail();
+                requestSkuData();
             }
         });
     }
-    private void  requestDetail(){
+    /**
+     * 获取sku
+     */
+    private void requestSkuData() {
+
+        requestGet(HttpUrls.URL_GOODS_HOME_SKU_LISTS(),new ApiParams().with("goods_id",mId), SkuBean.class, new HttpCallBack<SkuBean>(){
+
+            @Override
+            public void onFailure(String message) {
+            }
+
+            @Override
+            public void onSuccess(SkuBean skuBean) {
+
+                requestDetail(skuBean);
+                //  showSkuDialog(ShoppingCenterLibUtils.skuToBean(skuBean.getData(),mData.get(pos)));
+            }
+        });
+    }
+    private void  requestDetail(SkuBean skuBean){
         requestGet(HttpUrls.URL_GOODS_DETAIL(),new ApiParams().with("id",mId), GoodsDetailBean.class, new HttpCallBack<GoodsDetailBean>() {
 
             @Override
@@ -388,6 +468,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
                 mDate =goodsDetailBean.getData().getGoods();
                 if (mDate!=null) {
                     mDate.getPicBeans().add(0, mDate.getCover());
+                    skuList= ShoppingCenterLibUtils.skuToBean(skuBean.getData(),goodsDetailBean.getData().getGoods());
                     initShow();
                     initAdapter();
                 }else {
@@ -423,7 +504,6 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         tvName = findViewById(R.id.tvName);
         tvValue = findViewById(R.id.tvValue);
         webView = findViewById(R.id.webview);
-
     }
 
     /**

@@ -1,14 +1,19 @@
 package com.xinwang.bgqbaselib.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.xinwang.bgqbaselib.R;
 
@@ -46,4 +51,10 @@ public abstract class BaseDialog extends DialogFragment {
     public void dismissDialog(){
         dismissAllowingStateLoss();
     }
+
+
+
+
+
+
 }

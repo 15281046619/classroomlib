@@ -77,6 +77,21 @@ public class GoodsBean  extends CommonEntity {
         private String pics;
         private String body;
         private String sku;
+        private String[] skus;
+
+        public String[] getSkus() {
+            if (skus==null){
+                setSkus(sku.split(" "));
+            }
+            if (skus==null)
+                setSkus(new String[]{});
+            return skus;
+        }
+
+        public void setSkus(String[] skus) {
+            this.skus = skus;
+        }
+
         private int state;
         private int rank;
         private int click;
@@ -90,27 +105,9 @@ public class GoodsBean  extends CommonEntity {
         private String attr7;
         private String attr8;
         private String attr9;
-        private int addSum;
 
-        public boolean isCheck() {
-            return isCheck;
-        }
 
-        public void setCheck(boolean check) {
-            isCheck = check;
-        }
 
-        private boolean isCheck;
-
-        public int getAddSum() {
-            if (addSum==0)
-                setAddSum(1);
-            return addSum;
-        }
-
-        public void setAddSum(int addSum) {
-            this.addSum = addSum;
-        }
 
         private List<String> picBeans;
 

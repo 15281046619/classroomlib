@@ -10,4 +10,5 @@ import android.view.View;
 public interface AdapterItemClickListener {
     void onClick(int pos, View view);
     void add(int pos);
+    void sub(int pos);
 }

@@ -2,13 +2,21 @@ package com.xinwang.shoppingcenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.RelativeSizeSpan;
 
+import com.beautydefinelibrary.BeautyDefine;
 import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.sku.bean.Sku;
+import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
+import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
+import com.xinwang.shoppingcenter.bean.SkuBean;
+import com.xinwang.shoppingcenter.ui.ShoppingDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,30 +46,144 @@ public class ShoppingCenterLibUtils {
     /**
      * 添加商品
      */
-    public static void addShoppingCenter(Activity activity, GoodsBean.DataBean mBean ){
+    public static void addShoppingCenter(Activity activity, Sku mBean ){
         if (mBean!=null) {
             String saveGoods = SharedPreferenceUntils.getGoods(activity);
             if (!TextUtils.isEmpty(saveGoods)) {
-                List<GoodsBean.DataBean> mLists = GsonUtils.changeGsonToSafeList(saveGoods, GoodsBean.DataBean.class);
+                List<Sku> mLists = GsonUtils.changeGsonToSafeList(saveGoods, Sku.class);
                 int lookPos= -1;//查找pos
                 for (int i = 0; i < mLists.size(); i++) {
-                    if (mLists.get(i).getId() == mBean.getId()) {
-                        lookPos =i;
-
-                        break;
+                    if (mLists.get(i).getId()==null){//sku id为null 没有规格
+                        if (mBean.getId()==null&&(mLists.get(i).getGoodId() == mBean.getGoodId())){
+                            lookPos = i;
+                            break;
+                        }
+                    }else {
+                        if ((mLists.get(i).getId().equals(mBean.getId())) && (mLists.get(i).getGoodId() == mBean.getGoodId())) {
+                            lookPos = i;
+                            break;
+                        }
                     }
                 }
                 if (lookPos==-1)
                     mLists.add(0, mBean);
                 else
-                    mLists.get(lookPos).setAddSum(mLists.get(lookPos).getAddSum() + 1);
+                    mLists.get(lookPos).setAddSum(mLists.get(lookPos).getAddSum() + mBean.getAddSum());
                 SharedPreferenceUntils.saveGoods(activity, GsonUtils.createGsonString(mLists));
             } else {
-                List<GoodsBean.DataBean> mLists = new ArrayList<>();
+                List<Sku> mLists = new ArrayList<>();
                 mLists.add(mBean);
                 SharedPreferenceUntils.saveGoods(activity, GsonUtils.createGsonString(mLists));
             }
             MyToast.myCenterSuccessToast(activity, "添加成功，在购物车等亲-");
         }
+    }
+
+    /**
+     * 服务器返回数据转换sku模块显示数据
+     * @return
+     */
+    public static List<Sku> skuToBean(List<SkuBean.DataBean> dataBeans,GoodsBean.DataBean goodsBean){
+        List<Sku> skuList =new ArrayList<>();
+        if(dataBeans!=null&&dataBeans.size()>0) {
+            Double[] prices = {Double.parseDouble(dataBeans.get(0).getPrice()), Double.parseDouble(dataBeans.get(0).getPrice())};//第一个值最小值，第二个值最大值
+            for (int i = 0; i < dataBeans.size(); i++) {
+                Sku sku = new Sku();
+                sku.setInStock(true);
+                sku.setId(dataBeans.get(i).getId() + "");
+                sku.setGoodId(dataBeans.get(i).getGoods_id());
+                sku.setGoodTitle(goodsBean.getTitle());
+                try {
+                    sku.setStockQuantity(dataBeans.get(i).getStock());
+                    sku.setOriginPrice(dataBeans.get(i).getPrice());
+                    if (Double.parseDouble(dataBeans.get(i).getPrice()) > prices[0]) {
+                        if (Double.parseDouble(dataBeans.get(i).getPrice()) > prices[1]) {
+                            prices[1] = Double.parseDouble(dataBeans.get(i).getPrice());
+                        }
+                    } else {
+                        prices[0] = Double.parseDouble(dataBeans.get(i).getPrice());
+                    }
+                } catch (Exception e) {
+
+                }
+                sku.setSellingPrice(sku.getOriginPrice());
+                sku.setMainImage(goodsBean.getCover());
+                List<SkuAttribute> attributes = new ArrayList<>();
+                for (int j = 0; j < goodsBean.getSkus().length; j++) {
+                    switch (j) {
+                        case 0:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku0()));
+                            break;
+                        case 1:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku1()));
+                            break;
+                        case 2:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku2()));
+                            break;
+                        case 3:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku3()));
+                            break;
+                        case 4:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku4()));
+                            break;
+                        case 5:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku5()));
+                            break;
+                        case 6:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku6()));
+                            break;
+                        case 7:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku7()));
+                            break;
+                        case 8:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku8()));
+                            break;
+                        case 9:
+                            attributes.add(new SkuAttribute(goodsBean.getSkus()[j], dataBeans.get(i).getSku9()));
+                            break;
+                    }
+
+                }
+                sku.setAttributes(attributes);
+                skuList.add(sku);
+            }
+
+            if (prices[0] != prices[1])
+                skuList.get(0).setShowPrice(prices[0] + "-" + prices[1]);
+            else
+                skuList.get(0).setShowPrice(prices[0] + "");
+        }else {//没有规格
+            Sku sku =new Sku();
+            sku.setGoodTitle(goodsBean.getTitle());
+            sku.setGoodId(goodsBean.getId());
+            sku.setInStock(true);
+            sku.setMainImage(goodsBean.getCover());
+
+            skuList.add(sku);
+        }
+
+        return skuList;
+
+    }
+
+
+    public static SpannableString getPriceSpannable(String content){
+        SpannableString spannableString = new SpannableString(content);
+        spannableString.setSpan( new RelativeSizeSpan(0.6f),0,1,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    /**
+     * 跳转技术老师
+     * @param userId -1代表没有对应技术老师
+     * @param text
+     */
+    public static void jumpChat(Activity activity,long userId, String text){
+        if (userId==-1){
+            CommentUtils.jumpWebBrowser(activity,HttpUrls.URL_CHAT);
+        }else
+        BeautyDefine.getOpenPageDefine(activity).toPersonalChatText(userId,text);
+
+
     }
 }
