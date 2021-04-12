@@ -59,7 +59,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     private ViewPager viewPager;
     private CustomToolbar toolbar;
     private RelativeLayout rlViewPager;
-    private TextView tvSum,tvName,tvValue,tvTitle;
+    private TextView tvSum,tvName,tvValue,tvTitle,tvPrice;
     private int mId;
     private GoodsBean.DataBean mDate;
     private CategoryBean categoryData;
@@ -202,6 +202,12 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             String htmlText = mDate.getBody();
             webView.loadData(CommentUtils.getWebNewData(htmlText), "text/html;charset=utf-8", "utf-8");
             webView.addJavascriptInterface(this, "App");
+            if (TextUtils.isEmpty(skuList.get(0).getShowPrice())){
+                tvPrice.setVisibility(View.GONE);
+            }else {
+                tvPrice.setVisibility(View.VISIBLE);
+                tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+skuList.get(0).getShowPrice()));
+            }
         }else {
             rlViewPager.getLayoutParams().height = CommentUtils.getScreenWidth(this);
         }
@@ -508,6 +514,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         tvName = findViewById(R.id.tvName);
         tvValue = findViewById(R.id.tvValue);
         webView = findViewById(R.id.webview);
+        tvPrice = findViewById(R.id.tvPrice);
     }
 
     /**
