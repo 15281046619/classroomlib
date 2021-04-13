@@ -87,6 +87,7 @@ public class ShoppingCenterLibUtils {
         List<Sku> skuList =new ArrayList<>();
         if(dataBeans!=null&&dataBeans.size()>0) {
             Double[] prices = {Double.parseDouble(dataBeans.get(0).getPrice()), Double.parseDouble(dataBeans.get(0).getPrice())};//第一个值最小值，第二个值最大值
+            int totalSum =0;
             for (int i = 0; i < dataBeans.size(); i++) {
                 Sku sku = new Sku();
                 sku.setInStock(true);
@@ -95,6 +96,7 @@ public class ShoppingCenterLibUtils {
                 sku.setGoodTitle(goodsBean.getTitle());
                 try {
                     sku.setStockQuantity(dataBeans.get(i).getStock());
+                    totalSum =totalSum +dataBeans.get(i).getStock();
                     sku.setOriginPrice(dataBeans.get(i).getPrice());
                     if (Double.parseDouble(dataBeans.get(i).getPrice()) > prices[0]) {
                         if (Double.parseDouble(dataBeans.get(i).getPrice()) > prices[1]) {
@@ -152,6 +154,7 @@ public class ShoppingCenterLibUtils {
                 skuList.get(0).setShowPrice(prices[0] + "-" + prices[1]);
             else
                 skuList.get(0).setShowPrice(prices[0] + "");
+            skuList.get(0).setTotalStock(totalSum);
         }else {//没有规格
             Sku sku =new Sku();
             sku.setGoodTitle(goodsBean.getTitle());

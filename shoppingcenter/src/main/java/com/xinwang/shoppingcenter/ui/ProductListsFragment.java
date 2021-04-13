@@ -193,8 +193,10 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
                 mAdapter.setLoadStateNoNotify(state);
                 mAdapter.notifyDataSetChanged();
             }else {
-                mAdapter = new ShoppingHomeAdapter(mData, (CommentUtils.getScreenWidth(getActivity()) - CommentUtils.dip2px(getContext(), 40)) / 2);
-
+                /**
+                 * item直接10dp 两边边距30dp 加上四边阴影 2dp
+                 */
+                mAdapter = new ShoppingHomeAdapter(mData, (CommentUtils.getScreenWidth(getActivity()) - CommentUtils.dip2px(getContext(), 48)) / 2);
                 mAdapter.setOnClickListener(new AdapterItemClickListener() {
                     @Override
                     public void onClick(int pos, View view) {

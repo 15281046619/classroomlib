@@ -17,6 +17,7 @@ import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
+import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
@@ -78,10 +79,14 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
             baseViewHolder.rbCheck .setChecked(mDatas.get(i).isCheck());
             baseViewHolder.tvTitle.setText(mDatas.get(i).getGoodTitle());
             baseViewHolder.tvAdd.setOnClickListener(v -> {
-                mDatas.get(i).setAddSum(mDatas.get(i).getAddSum()+1);
-                saveUpdate(baseViewHolder.tvSub.getContext());
-                if (adapterItemClickListener!=null){
-                    adapterItemClickListener.add(i);
+                if (mDatas.get(i).getAddSum()<mDatas.get(i).getStockQuantity()) {
+                    mDatas.get(i).setAddSum(mDatas.get(i).getAddSum() + 1);
+                    saveUpdate(baseViewHolder.tvSub.getContext());
+                    if (adapterItemClickListener != null) {
+                        adapterItemClickListener.add(i);
+                    }
+                }else {
+                    MyToast.myToast(  baseViewHolder.tvSub.getContext(),"超出库存数目");
                 }
             });
             baseViewHolder.tvSum.setText(String.valueOf(mDatas.get(i).getAddSum()));
@@ -106,6 +111,9 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
                     if (adapterItemClickListener!=null){
                         adapterItemClickListener.sub(i);
                     }
+                }else {
+
+                    MyToast.myToast(  baseViewHolder.tvSub.getContext(),"数值低于范围");
                 }
 
             });

@@ -17,11 +17,9 @@ import android.widget.TextView;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
-import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
-import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
-import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
@@ -102,7 +100,7 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                     public void add(int pos) {
                         if (mAdapter.mDatas.get(pos).isCheck()) {
                             if (!TextUtils.isEmpty(mAdapter.mDatas.get(pos).getSellingPrice()))
-                                aDoublePrice = aDoublePrice + Double.parseDouble(mAdapter.mDatas.get(pos).getSellingPrice());
+                                aDoublePrice = CountUtil.add(aDoublePrice , Double.parseDouble(mAdapter.mDatas.get(pos).getSellingPrice()));
                             selectSum = selectSum + 1;
                             showTotalPrice(aDoublePrice, selectSum);
                         }
@@ -112,7 +110,7 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                     public void sub(int pos) {
                         if (mAdapter.mDatas.get(pos).isCheck()) {
                             if (!TextUtils.isEmpty(mAdapter.mDatas.get(pos).getSellingPrice()))
-                                aDoublePrice = aDoublePrice - Double.parseDouble(mAdapter.mDatas.get(pos).getSellingPrice());
+                                aDoublePrice =CountUtil.sub(aDoublePrice, Double.parseDouble(mAdapter.mDatas.get(pos).getSellingPrice()));
                             selectSum = selectSum - 1;
                             showTotalPrice(aDoublePrice, selectSum);
                         }
@@ -137,7 +135,7 @@ public class ShoppingCenterActivity extends BaseNetActivity {
             mAdapter.mDatas.get(i).setCheck(isCheck);
             if (isCheck) {
                 if (!TextUtils.isEmpty(mAdapter.mDatas.get(i).getSellingPrice()))
-                price = price + Double.parseDouble(mAdapter.mDatas.get(i).getSellingPrice())*mAdapter.mDatas.get(i).getAddSum();
+                price = CountUtil.add(price ,CountUtil.multiply(mAdapter.mDatas.get(i).getAddSum(),Double.parseDouble(mAdapter.mDatas.get(i).getSellingPrice())));
                 selectSum+=mAdapter.mDatas.get(i).getAddSum();
             }
         }
@@ -169,7 +167,7 @@ public class ShoppingCenterActivity extends BaseNetActivity {
             if (mAdapter.mDatas.get(i).isCheck()){
                 selectSku.add(mAdapter.mDatas.get(i));
                 if (!TextUtils.isEmpty(mAdapter.mDatas.get(i).getSellingPrice())){
-                    price=price+ Double.parseDouble(mAdapter.mDatas.get(i).getSellingPrice())*mAdapter.mDatas.get(i).getAddSum();
+                    price=CountUtil.add(price, CountUtil.multiply(mAdapter.mDatas.get(i).getAddSum(),Double.parseDouble(mAdapter.mDatas.get(i).getSellingPrice())));
                 }
                 selectSum+=mAdapter.mDatas.get(i).getAddSum();
             }

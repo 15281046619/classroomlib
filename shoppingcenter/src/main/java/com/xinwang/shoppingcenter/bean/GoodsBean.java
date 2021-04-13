@@ -53,6 +53,15 @@ public class GoodsBean  extends CommonEntity {
         private int category_id;
         private String title;
         private String cover;
+        private String min_price;//最小价格
+
+        public String getMin_price() {
+            return min_price;
+        }
+
+        public void setMin_price(String min_price) {
+            this.min_price = min_price;
+        }
 
         public String getCoverRate() {
             if (TextUtils.isEmpty(coverRate)){

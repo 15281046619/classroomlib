@@ -33,7 +33,7 @@
             android:layout_marginTop="@dimen/dp_10_classroom"
             android:id="@+id/tvSelect"
             android:textSize="@dimen/sp_13_classroom"
-            android:singleLine="true"
+            android:maxLines="2"
             />
         <ImageView
             android:layout_width="40dp"
@@ -72,8 +72,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/tvSumTitle"
                     android:layout_centerVertical="true"
                     android:text="数量"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tvStore"
+                    android:layout_marginLeft="@dimen/dp_5_classroom"
+                    android:textSize="@dimen/sp_14_classroom"
+                    android:textColor="@color/GrayClassRoom"
+                    android:layout_toRightOf="@+id/tvSumTitle"
+                    android:layout_height="wrap_content"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_alignBottom="@+id/cdCove"

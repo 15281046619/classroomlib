@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 public class BottomSkuDialog extends BaseDialog {
     private List<Sku> skuList =new ArrayList<>();
-    private  TextView tvSelect,tvSum,tvOk;
+    private  TextView tvSelect,tvSum,tvOk,tvStore;
     private  SkuSelectScrollView skuSelectScrollView;
     private OnClickOkListener onClickOkListener;
     @Override
@@ -87,6 +87,7 @@ public class BottomSkuDialog extends BaseDialog {
         tvSelect= findViewById(R.id.tvSelect);
 
         tvSum =findViewById(R.id.tvSum);
+        tvStore =findViewById(R.id.tvStore);
 
         tvOk =findViewById(R.id.tvOk);
 
@@ -98,6 +99,7 @@ public class BottomSkuDialog extends BaseDialog {
                 if (!TextUtils.isEmpty(skuList.get(0).getShowPrice())) {
                     textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + skuList.get(0).getShowPrice()));
                 }
+                tvStore.setText("库存"+skuList.get(0).getTotalStock()+"件");
                 tvSelect.setText("");
             }
 
@@ -109,6 +111,8 @@ public class BottomSkuDialog extends BaseDialog {
             @Override
             public void onSkuSelected(Sku sku) {
                 textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + sku.getSellingPrice()));
+                tvStore.setText("库存"+sku.getStockQuantity()+"件");
+
                 showSelectTitle();
 
             }
@@ -118,6 +122,9 @@ public class BottomSkuDialog extends BaseDialog {
         if (skuList.size()>0&&!TextUtils.isEmpty(skuList.get(0).getShowPrice())) {
             GlideUtils.loadAvatar(skuList.get(0).getMainImage(),R.color.BGPressedClassRoom,findViewById(R.id.ivImg));
             textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + skuList.get(0).getShowPrice()));
+        }
+        if (skuList.size()>0){
+            tvStore.setText("库存"+skuList.get(0).getTotalStock()+"件");
         }
         findViewById(R.id.viewLine).getLayoutParams().height=1;//设置线高度1像素
 
@@ -136,6 +143,11 @@ public class BottomSkuDialog extends BaseDialog {
             @Override
             public void onClick(View v) {
                 if (skuSelectScrollView.getSelectedSku()!=null) {
+                    if (skuSelectScrollView.getSelectedSku().getStockQuantity()<=0){
+                        MyToast.myToast(getActivity(),"该规格没有库存");
+                        return;
+                    }
+
                     skuSelectScrollView.getSelectedSku().setAddSum(Integer.parseInt(tvSum.getText().toString()));
                     if (type==0){
                         ShoppingCenterLibUtils.addShoppingCenter(getActivity(),skuSelectScrollView.getSelectedSku());
@@ -152,6 +164,11 @@ public class BottomSkuDialog extends BaseDialog {
 
 
         findViewById(R.id.tvAdd).setOnClickListener(v -> {
+            if ((skuSelectScrollView.getSelectedSku()!=null&&Integer.parseInt(tvSum.getText().toString())>=skuSelectScrollView.getSelectedSku().getStockQuantity())||
+                    (skuSelectScrollView.getSelectedSku()==null&&Integer.parseInt(tvSum.getText().toString())>=skuList.get(0).getTotalStock())){
+                MyToast.myToast(getActivity(),"超出库存数目");
+                return;
+            }
             tvSum.setText(Integer.parseInt(tvSum.getText().toString())+1+"");
             showSelectTitle();
         });
@@ -160,6 +177,8 @@ public class BottomSkuDialog extends BaseDialog {
             if (Integer.parseInt(tvSum.getText().toString())>1){
                 tvSum.setText(Integer.parseInt(tvSum.getText().toString())-1+"");
                 showSelectTitle();
+            }else {
+                MyToast.myToast(getActivity(),"数值低于范围");
             }
 
         });

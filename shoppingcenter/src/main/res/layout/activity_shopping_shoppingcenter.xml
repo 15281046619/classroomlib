@@ -40,6 +40,7 @@
             android:layout_width="wrap_content"
             android:id="@+id/rbCheck"
             android:layout_marginLeft="@dimen/dp_15_classroom"
+            android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
@@ -49,7 +50,10 @@
             android:layout_toLeftOf="@+id/tvBuy"
             android:layout_marginRight="@dimen/dp_15_classroom"
             android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@+id/rbCheck"
+            android:gravity="right"
+
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tvBuy"

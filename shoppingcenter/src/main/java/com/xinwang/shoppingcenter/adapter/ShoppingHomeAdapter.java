@@ -2,6 +2,7 @@ package com.xinwang.shoppingcenter.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.shoppingcenter.R;
+import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 
@@ -50,7 +52,14 @@ public class ShoppingHomeAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBean>
                 GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.ivContent,itemWidth,layoutParams.height);//必须设置宽高防止反复滑动图片显示问题
             else
                 GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.ivContent);
-
+            if (TextUtils.isEmpty(mDatas.get(i).getMin_price())){
+                baseViewHolder.tvPrice.setVisibility(View.VISIBLE);
+                baseViewHolder.tvPrice.setVisibility(View.GONE);
+            }else {
+                baseViewHolder.tvPrice.setVisibility(View.VISIBLE);
+                baseViewHolder.tvPrice.setVisibility(View.GONE);
+                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+mDatas.get(0).getMin_price()));
+            }
         }
     }
     public void setOnClickListener(AdapterItemClickListener adapterItemClickListener){
@@ -64,7 +73,7 @@ public class ShoppingHomeAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBean>
     class BaseViewHolder extends RecyclerView.ViewHolder {
         ImageView ivContent;
         TextView tvClick;
-        TextView tvContent;
+        TextView tvContent,tvPrice;
         RelativeLayout rlAdd;
 
         BaseViewHolder(@NonNull View itemView) {
@@ -72,6 +81,7 @@ public class ShoppingHomeAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBean>
             ivContent = itemView.findViewById(R.id.ivContent);
             tvClick = itemView.findViewById(R.id.tvClick);
             tvContent = itemView.findViewById(R.id.tvContent);
+            tvPrice = itemView.findViewById(R.id.tvPrice);
             rlAdd = itemView.findViewById(R.id.rlAdd);
         }
     }

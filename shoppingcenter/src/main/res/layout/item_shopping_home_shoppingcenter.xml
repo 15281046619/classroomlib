@@ -7,7 +7,10 @@
     android:foreground="?android:attr/selectableItemBackground"
     app:cardUseCompatPadding="true"
     app:cardPreventCornerOverlap="false"
+    app:cardElevation="2dp"
+    app:cardMaxElevation="2dp"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,6 +24,7 @@
             android:transitionName="goodsIcon"
             android:background="@color/BGPressedClassRoom"
             android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/tvContent"
             android:layout_width="wrap_content"
@@ -34,8 +38,17 @@
             android:layout_height="match_parent"/>
         <RelativeLayout
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPrice"
+                android:textSize="20sp"
+                android:layout_marginLeft="@dimen/dp_10_classroom"
+                android:layout_marginBottom="@dimen/dp_10_classroom"
+                android:layout_centerVertical="true"
+                android:textColor="@color/themeClassRoom"
+                android:layout_toRightOf="@+id/ivImg"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:textSize="@dimen/sp_12_classroom"
@@ -49,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-
                 android:id="@+id/rlAdd"
                 android:padding="@dimen/dp_10_classroom">
                 <TextView

@@ -26,6 +26,7 @@ import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
 import com.xinwang.bgqbaselib.utils.AndroidBug5497Workaround;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
@@ -78,7 +79,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         int dip10 = CommentUtils.dip2px(this, 10);
         for (int i=0;i<skuList.size();i++){
             if (!TextUtils.isEmpty(skuList.get(i).getSellingPrice()))
-                aDoublePrice = aDoublePrice + Double.parseDouble(skuList.get(i).getSellingPrice())*skuList.get(i).getAddSum();
+                aDoublePrice = CountUtil.add(aDoublePrice , CountUtil.multiply(skuList.get(i).getAddSum(),Double.parseDouble(skuList.get(i).getSellingPrice())));
             selectSum+=skuList.get(i).getAddSum();
 
             View itemView = LayoutInflater.from(this).inflate(R.layout.layout_shopping_item_shoppingcenter,llContent,false);
@@ -93,12 +94,16 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             tvTitle.setText(skuList.get(i).getGoodTitle());
             int finalI = i;
             tvAdd.setOnClickListener(v -> {
-                skuList.get(finalI).setAddSum(skuList.get(finalI).getAddSum()+1);
-                tvSum.setText(String.valueOf(skuList.get(finalI).getAddSum()));
-                if (!TextUtils.isEmpty(skuList.get(finalI).getSellingPrice()))
-                    aDoublePrice = aDoublePrice + Double.parseDouble(skuList.get(finalI).getSellingPrice());
-                selectSum = selectSum + 1;
-                showTotalPrice();
+                if (skuList.get(finalI).getAddSum()<skuList.get(finalI).getStockQuantity()) {
+                    skuList.get(finalI).setAddSum(skuList.get(finalI).getAddSum() + 1);
+                    tvSum.setText(String.valueOf(skuList.get(finalI).getAddSum()));
+                    if (!TextUtils.isEmpty(skuList.get(finalI).getSellingPrice()))
+                        aDoublePrice = CountUtil.add(aDoublePrice, Double.parseDouble(skuList.get(finalI).getSellingPrice()));
+                    selectSum = selectSum + 1;
+                    showTotalPrice();
+                }else {
+                    MyToast.myToast(  this,"超出库存数目");
+                }
             });
             tvSum.setText(String.valueOf(skuList.get(i).getAddSum()));
            tvSku.setText("");
@@ -120,9 +125,12 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     skuList.get(finalI).setAddSum(skuList.get(finalI).getAddSum()-1);
                     tvSum.setText(String.valueOf(skuList.get(finalI).getAddSum()));
                     if (!TextUtils.isEmpty(skuList.get(finalI).getSellingPrice()))
-                        aDoublePrice = aDoublePrice - Double.parseDouble(skuList.get(finalI).getSellingPrice());
+                        aDoublePrice = CountUtil.sub(aDoublePrice ,Double.parseDouble(skuList.get(finalI).getSellingPrice()));
                     selectSum = selectSum - 1;
                     showTotalPrice();
+
+                }else {
+                    MyToast.myToast( this,"数值低于范围");
 
                 }
             });

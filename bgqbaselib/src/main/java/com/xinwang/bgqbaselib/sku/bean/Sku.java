@@ -26,6 +26,16 @@ public class Sku implements Parcelable {
 
     private List<SkuAttribute> attributes;
     private String showPrice;
+    private long totalStock;
+
+    public long getTotalStock() {
+        return totalStock;
+    }
+
+    public void setTotalStock(long totalStock) {
+        this.totalStock = totalStock;
+    }
+
     private int goodId;//商品id
 
     private String goodTitle;
@@ -252,6 +262,7 @@ public class Sku implements Parcelable {
         dest.writeInt(this.addSum);
         dest.writeInt(this.goodId);
         dest.writeString(this.showPrice);
+        dest.writeLong(this.totalStock);
     }
 
 
@@ -275,6 +286,7 @@ public class Sku implements Parcelable {
         this.addSum = in.readInt();
         this.goodId =in.readInt();
         this.showPrice =in.readString();
+        this.totalStock =in.readLong();
     }
 
 
