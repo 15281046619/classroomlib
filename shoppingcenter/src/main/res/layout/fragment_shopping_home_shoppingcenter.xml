@@ -95,7 +95,7 @@
                                 android:textColor="@color/backgroundClassRoom"
                                 android:gravity="center_horizontal"
                                 android:textSize="@dimen/sp_12_classroom"
-                                android:text="正规保证"/>
+                                android:text="正规保障"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -151,53 +151,7 @@
                             android:layout_marginBottom="@dimen/dp_10_classroom"
 
                             android:layout_height="wrap_content"/>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/dp_10_classroom"
-                            android:layout_marginLeft="15dp"
-                            android:visibility="gone"
-                            android:layout_marginRight="15dp"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/white"
-                                android:gravity="center_horizontal"
-                                android:text="热门搜索:"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/white"
-                                android:gravity="center_horizontal"
-                                android:layout_marginLeft="@dimen/dp_15_classroom"
-                                android:maxLines="1"
-                                android:text="付清代表"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/white"
-                                android:gravity="center_horizontal"
-                                android:layout_marginLeft="@dimen/dp_15_classroom"
-                                android:maxLines="1"
-                                android:text="绯闻一空"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/white"
-                                android:gravity="center_horizontal"
-                                android:layout_marginLeft="@dimen/dp_15_classroom"
-                                android:maxLines="1"
-                                android:text="小型意义"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/white"
-                                android:gravity="center_horizontal"
-                                android:maxLines="1"
-                                android:layout_marginLeft="@dimen/dp_15_classroom"
-                                android:text="卡卡了了"/>
-                        </LinearLayout>
+
                     </LinearLayout>
                 </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>
