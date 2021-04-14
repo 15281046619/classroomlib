@@ -6,12 +6,14 @@
     >
 
     <android.support.v7.widget.CardView
-        android:layout_width="100dp"
+        android:layout_width="90dp"
         android:id="@+id/cdCove"
         android:layout_toRightOf="@+id/rbCheck"
         android:layout_margin="@dimen/dp_10_classroom"
         app:cardCornerRadius="@dimen/dp_5_classroom"
-        android:layout_height="100dp">
+        app:elevation="0dp"
+        app:cardMaxElevation="0dp"
+        android:layout_height="90dp">
         <ImageView
             android:id="@+id/icCove"
             android:layout_width="match_parent"
@@ -43,11 +45,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvPrice"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:maxLines="1"
+        android:layout_toLeftOf="@+id/llSum"
         android:textColor="@color/themeClassRoom"
         android:layout_alignBottom="@+id/llSum"
         android:layout_alignTop="@+id/llSum"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:layout_toRightOf="@+id/cdCove"/>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -72,7 +76,7 @@
             android:layout_height="match_parent"
             android:background="@color/LineClassRoom"/>
         <TextView
-            android:layout_width="40dp"
+            android:layout_width="35dp"
             android:gravity="center"
             android:id="@+id/tvSum"
             android:layout_height="match_parent"/>

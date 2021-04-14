@@ -23,6 +23,7 @@ import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
 import com.xinwang.bgqbaselib.sku.view.OnSkuListener;
 import com.xinwang.bgqbaselib.sku.view.SkuSelectScrollView;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.shoppingcenter.R;
@@ -97,7 +98,7 @@ public class BottomSkuDialog extends BaseDialog {
             @Override
             public void onUnselected(SkuAttribute unselectedAttribute) {
                 if (!TextUtils.isEmpty(skuList.get(0).getShowPrice())) {
-                    textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + skuList.get(0).getShowPrice()));
+                    textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.doubleToString(skuList.get(0).getShowPrice())));
                 }
                 tvStore.setText("库存"+skuList.get(0).getTotalStock()+"件");
                 tvSelect.setText("");
@@ -110,7 +111,7 @@ public class BottomSkuDialog extends BaseDialog {
 
             @Override
             public void onSkuSelected(Sku sku) {
-                textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + sku.getSellingPrice()));
+                textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.doubleToString(sku.getSellingPrice())));
                 tvStore.setText("库存"+sku.getStockQuantity()+"件");
 
                 showSelectTitle();
@@ -121,7 +122,7 @@ public class BottomSkuDialog extends BaseDialog {
 
         if (skuList.size()>0&&!TextUtils.isEmpty(skuList.get(0).getShowPrice())) {
             GlideUtils.loadAvatar(skuList.get(0).getMainImage(),R.color.BGPressedClassRoom,findViewById(R.id.ivImg));
-            textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + skuList.get(0).getShowPrice()));
+            textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.doubleToString(skuList.get(0).getShowPrice())));
         }
         if (skuList.size()>0){
             tvStore.setText("库存"+skuList.get(0).getTotalStock()+"件");
@@ -167,6 +168,10 @@ public class BottomSkuDialog extends BaseDialog {
             if ((skuSelectScrollView.getSelectedSku()!=null&&Integer.parseInt(tvSum.getText().toString())>=skuSelectScrollView.getSelectedSku().getStockQuantity())||
                     (skuSelectScrollView.getSelectedSku()==null&&Integer.parseInt(tvSum.getText().toString())>=skuList.get(0).getTotalStock())){
                 MyToast.myToast(getActivity(),"超出库存数目");
+                return;
+            }
+            if (Integer.parseInt(tvSum.getText().toString())>=skuList.get(0).getMaxBugSum()){
+                MyToast.myToast(getActivity(),"超出个人限购数目");
                 return;
             }
             tvSum.setText(Integer.parseInt(tvSum.getText().toString())+1+"");

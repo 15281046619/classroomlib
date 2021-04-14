@@ -11,12 +11,16 @@ import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
+import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.ui.ShoppingDetailActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +69,10 @@ public class ShoppingCenterLibUtils {
                         }
                     }
                 }
-                if (lookPos==-1)
+                if (lookPos==-1) {
                     mLists.add(0, mBean);
-                else
+                    EventBus.getDefault().post(new NumberBean(1));
+                }else
                     mLists.get(lookPos).setAddSum(mLists.get(lookPos).getAddSum() + mBean.getAddSum());
                 SharedPreferenceUntils.saveGoods(activity, GsonUtils.createGsonString(mLists));
             } else {
@@ -151,7 +156,7 @@ public class ShoppingCenterLibUtils {
             }
 
             if (prices[0] != prices[1])
-                skuList.get(0).setShowPrice(prices[0] + "-" + prices[1]);
+                skuList.get(0).setShowPrice(CountUtil.doubleToString(prices[0]) + "-" + CountUtil.doubleToString(prices[1]));
             else
                 skuList.get(0).setShowPrice(prices[0] + "");
             skuList.get(0).setTotalStock(totalSum);

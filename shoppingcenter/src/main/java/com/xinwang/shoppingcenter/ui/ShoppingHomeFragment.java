@@ -24,16 +24,20 @@ import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.FragmentUtils;
 import com.xinwang.bgqbaselib.utils.GlideImageLoader;
+import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.bean.ADGroupBean;
 import com.xinwang.shoppingcenter.bean.FragmentUpdateBean;
+import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -61,13 +65,14 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     private AppBarLayout appBar;
     private Banner banner;
     private FlowLayout flowLayout;
-    private TextView tvAllShopping;
+    private TextView tvAllShopping,tvNumber;
     private LinearLayout llRoot;
     private RelativeLayout rlHot;
     private CustomToolbar toolbar;
     private ImageView ivShoppingCenter;
     private List<ADGroupBean.DataBean> mTitleImages;
     private ProductListsFragment mFragment;
+    private int number =0;
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_shopping_home_shoppingcenter,container,false);
@@ -75,6 +80,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         swipeRefreshLayout =view.findViewById(R.id.swipeRefreshLayout);
 
         rlHot =view.findViewById(R.id.rlHot);
+        tvNumber =view.findViewById(R.id.tvNumber);
         appBar =view.findViewById(R.id.app_bar_layout);
         llRoot =view.findViewById(R.id.llRoot);
         rlSearch =view.findViewById(R.id.rlSearch);
@@ -99,6 +105,12 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
             swipeRefreshLayout.setRefreshing(false);
         }
     }
+    @Subscribe()
+    public void updateNumber(NumberBean numberBean){
+        number =number+numberBean.getSum();
+        showNumber();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -115,10 +127,26 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         initListener();
         requestAd();
         initSearchShow();
-
+        initNumber();
 
     }
 
+    private void initNumber() {
+        number = GsonUtils.changeGsonToSafeList( SharedPreferenceUntils.getGoods(getActivity()), Sku.class).size();
+        showNumber();
+    }
+
+    private void showNumber(){
+        if (number<=99) {
+            if (number<0){
+                tvNumber.setText("0");
+            }else {
+                tvNumber.setText(number+"");
+            }
+        }else {
+            tvNumber.setText("99");
+        }
+    }
     private void initToolbar() {
 
         if (getActivity()!=null&&!(getActivity() instanceof ShoppingHomeActivity)){

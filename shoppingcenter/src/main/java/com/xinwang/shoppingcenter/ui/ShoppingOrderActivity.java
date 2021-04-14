@@ -95,6 +95,10 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             int finalI = i;
             tvAdd.setOnClickListener(v -> {
                 if (skuList.get(finalI).getAddSum()<skuList.get(finalI).getStockQuantity()) {
+                    if (skuList.get(finalI).getAddSum()>=skuList.get(0).getMaxBugSum()){
+                        MyToast.myToast(this,"超出个人限购数目");
+                        return;
+                    }
                     skuList.get(finalI).setAddSum(skuList.get(finalI).getAddSum() + 1);
                     tvSum.setText(String.valueOf(skuList.get(finalI).getAddSum()));
                     if (!TextUtils.isEmpty(skuList.get(finalI).getSellingPrice()))
@@ -119,7 +123,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             if (TextUtils.isEmpty(skuList.get(i).getSellingPrice()))
                 tvPrice.setText("");
             else
-                tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+skuList.get(i).getSellingPrice()));
+                tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+CountUtil.doubleToString(skuList.get(i).getSellingPrice())));
             tvSub.setOnClickListener(v -> {
                 if (skuList.get(finalI).getAddSum()>1){
                     skuList.get(finalI).setAddSum(skuList.get(finalI).getAddSum()-1);
@@ -148,7 +152,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     }
 
     public void showTotalPrice(){
-        SpannableString spannableString =new SpannableString("总计:￥"+aDoublePrice);
+        SpannableString spannableString =new SpannableString("总计:￥"+CountUtil.doubleToString(aDoublePrice));
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.themeClassRoom)),3,spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new RelativeSizeSpan(0.6f),3,4,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         if (spannableString.toString().indexOf(".")!=-1&&(spannableString.toString().indexOf(".")!=spannableString.length()-1)){

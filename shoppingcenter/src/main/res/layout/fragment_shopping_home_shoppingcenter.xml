@@ -8,17 +8,26 @@
         android:id="@+id/toolbar"
         style="@style/ToolbarStyleClassRoom"
         android:text="商城首页" >
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp"
-            android:id="@+id/ivShoppingCenter"
-            android:src="@mipmap/ic_gwc_shoppingcneter"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:layout_marginEnd="10dp"
-            />
-
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:id="@+id/ivShoppingCenter"
+                android:src="@mipmap/ic_gwc_shoppingcneter"
+                />
+            <include layout="@layout/layout_round_number_shoppingcenter"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_toRightOf="@+id/ivShoppingCenter"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="-20dp"/>
+        </RelativeLayout>
     </com.xinwang.bgqbaselib.view.CustomToolbar>
     <com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout
         android:layout_width="match_parent"
@@ -53,6 +62,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_15_classroom"
                             android:layout_marginRight="@dimen/dp_15_classroom"
+                            app:cardMaxElevation="0dp"
+                            android:elevation="0dp"
                             app:cardCornerRadius="@dimen/dp_10_classroom">
                             <com.youth.banner.Banner
                                 android:id="@+id/banner"

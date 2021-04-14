@@ -25,8 +25,11 @@ import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.adapter.ShoppingCenterAdapter;
+import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +85,7 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                             mAdapter.mDatas.remove(position);
                             rbCheck.setChecked(isAllCheck());
                             mAdapter.saveUpdate(ShoppingCenterActivity.this);
+                            EventBus.getDefault().post(new NumberBean(-1));
                             if (mAdapter.mDatas.size()==0){
                                 requestFailureShow("暂未添加商品");
                             }
@@ -145,9 +149,12 @@ public class ShoppingCenterActivity extends BaseNetActivity {
     public void showTotalPrice(Double price,int sum){
         this.aDoublePrice =price;
         this.selectSum =sum;
-        SpannableString spannableString =new SpannableString("总计:￥"+price);
+        SpannableString spannableString =new SpannableString("总计:￥"+CountUtil.doubleToString(price));
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.themeClassRoom)),3,spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new RelativeSizeSpan(0.6f),3,4,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        if (spannableString.toString().indexOf(".")!=-1&&(spannableString.toString().indexOf(".")!=spannableString.length()-1)){
+            spannableString.setSpan(new RelativeSizeSpan(0.6f),spannableString.toString().indexOf("."),spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        }
         tvSum.setText(spannableString);
         if (sum>0)
             tvBuy.setText("结算("+sum+")");
@@ -191,8 +198,10 @@ public class ShoppingCenterActivity extends BaseNetActivity {
         });
         ivDelete.setOnClickListener(v -> {
             CenterDefineDialog.getInstance("确认清空购物车?").setCallback(integer -> {
+                EventBus.getDefault().post(new NumberBean(-mAdapter.mDatas.size()));
                 mAdapter.mDatas.clear();
                 mAdapter.saveUpdate(this);
+
                 requestFailureShow("暂未添加商品");
             }).showDialog(getSupportFragmentManager());
 

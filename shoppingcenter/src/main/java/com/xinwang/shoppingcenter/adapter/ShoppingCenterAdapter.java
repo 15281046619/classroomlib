@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
+import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
@@ -80,6 +81,10 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
             baseViewHolder.tvTitle.setText(mDatas.get(i).getGoodTitle());
             baseViewHolder.tvAdd.setOnClickListener(v -> {
                 if (mDatas.get(i).getAddSum()<mDatas.get(i).getStockQuantity()) {
+                    if (mDatas.get(i).getAddSum()>=mDatas.get(0).getMaxBugSum()){
+                        MyToast.myToast(baseViewHolder.tvSub.getContext(),"超出个人限购数目");
+                        return;
+                    }
                     mDatas.get(i).setAddSum(mDatas.get(i).getAddSum() + 1);
                     saveUpdate(baseViewHolder.tvSub.getContext());
                     if (adapterItemClickListener != null) {
@@ -103,7 +108,7 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
             if (TextUtils.isEmpty(mDatas.get(i).getSellingPrice()))
                 baseViewHolder.tvPrice.setText("");
             else
-                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+mDatas.get(i).getSellingPrice()));
+                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.doubleToString(mDatas.get(i).getSellingPrice())));
             baseViewHolder.tvSub.setOnClickListener(v -> {
                 if (mDatas.get(i).getAddSum()>1){
                     mDatas.get(i).setAddSum(mDatas.get(i).getAddSum()-1);

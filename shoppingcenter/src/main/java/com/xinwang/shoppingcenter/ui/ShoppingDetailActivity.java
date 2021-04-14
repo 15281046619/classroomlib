@@ -12,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
@@ -33,6 +34,7 @@ import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.bgqbaselib.view.CustomWebView;
@@ -42,10 +44,14 @@ import com.xinwang.shoppingcenter.bean.CategoryBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.bean.GoodsDetailBean;
+import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.bean.PicBean;
 import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.dialog.BottomSkuDialog;
 import com.xinwang.shoppingcenter.interfaces.OnClickOkListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +65,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     private ViewPager viewPager;
     private CustomToolbar toolbar;
     private RelativeLayout rlViewPager;
-    private TextView tvSum,tvName,tvValue,tvTitle,tvPrice;
+    private TextView tvSum,tvTitle,tvPrice,tvNumber;
+    private LinearLayout llContent;
     private int mId;
     private GoodsBean.DataBean mDate;
     private CategoryBean categoryData;
@@ -102,6 +109,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             container.removeView((View) object);
         }
     };
+    private int number;
+
     @Override
     protected int layoutResId() {
         return R.layout.activity_shopping_detail_shoppingcenter;
@@ -110,17 +119,39 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         initIntent();
         initView();
         initRequest();
         initListener();
+        initNumber();
 
+    }
+    @Subscribe()
+    public void updateNumber(NumberBean numberBean){
+        number =number+numberBean.getSum();
+        showNumber();
     }
     //跳转大图
     private void jumpBigPic(ArrayList<String> mLists,int position){
         BeautyDefine.getImagePreviewDefine(this).showImagePreview(mLists, position);
     }
+    private void initNumber() {
+        number = GsonUtils.changeGsonToSafeList( SharedPreferenceUntils.getGoods(this), Sku.class).size();
+        showNumber();
+    }
 
+    private void showNumber(){
+        if (number<=99) {
+            if (number<0){
+                tvNumber.setText("0");
+            }else {
+                tvNumber.setText(number+"");
+            }
+        }else {
+            tvNumber.setText("99");
+        }
+    }
 
     private void initListener() {
         toolbar.setNavigationOnClickListener(v -> {
@@ -230,175 +261,108 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         });
     }
     private void showNameValue() {
-        tvName.setText("类别\n");
+        llContent.removeAllViews();
+
+        LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mLayoutParams.setMargins(0,0,0,CommentUtils.dip2px(this,10));
         for(int i=0;i<categoryData.getData().size();i++){
             if (categoryData.getData().get(i).getId()==mDate.getCategory_id()){
-                tvValue.setText(categoryData.getData().get(i).getTitle());
-                tvValue.append("\n");
+                View view1 = LayoutInflater.from(this).inflate(R.layout.item_detail_attr_shoppingcenter,llContent,false);
+                TextView tvName1= view1.findViewById(R.id.tvName);
+                TextView tvValue1= view1.findViewById(R.id.tvValue);
+                tvName1.setText("类别");
+                tvValue1.setText(categoryData.getData().get(i).getTitle());
+                llContent.addView(view1,mLayoutParams);
                 for (int j=0;j<categoryData.getData().get(i).getAttr().size();j++){
+
+
+
                     switch (categoryData.getData().get(i).getAttr().get(j).getField()){
                         case "attr0":
                             if (!TextUtils.isEmpty(mDate.getAttr0())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr0(), String.class);
-                                if (mList.size()>0){
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
-
-
-
+                                addAttrView(mLayoutParams,mDate.getAttr0(), i, j);
                             }
                             break;
                         case "attr1":
                             if (!TextUtils.isEmpty(mDate.getAttr1())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr1(), String.class);
-                                if (mList.size()>0) {
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
+                                addAttrView(mLayoutParams,mDate.getAttr1(), i, j);
                             }
                             break;
                         case "attr2":
                             if (!TextUtils.isEmpty(mDate.getAttr2())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr2(), String.class);
-                                if (mList.size()>0) {
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
+                                addAttrView(mLayoutParams,mDate.getAttr2(), i, j);
                             }
                             break;
                         case "attr3":
                             if (!TextUtils.isEmpty(mDate.getAttr3())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr3(), String.class);
-                                if (mList.size()>0) {
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
+                                addAttrView(mLayoutParams,mDate.getAttr3(), i, j);
 
                             }
                             break;
                         case "attr4":
                             if (!TextUtils.isEmpty(mDate.getAttr4())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr4(), String.class);
-                                if (mList.size()>0) {
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
+                                addAttrView(mLayoutParams,mDate.getAttr4(), i, j);
                             }
                             break;
                         case "attr5":
                             if (!TextUtils.isEmpty(mDate.getAttr5())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr5(), String.class);
-                                if (mList.size()>0) {
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
+                                addAttrView(mLayoutParams,mDate.getAttr5(), i, j);
                             }
                             break;
                         case "attr6":
                             if (!TextUtils.isEmpty(mDate.getAttr6())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr6(), String.class);
-                                if (mList.size()>0) {
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
+                                addAttrView(mLayoutParams,mDate.getAttr6(), i, j);
                             }
                             break;
                         case "attr7":
                             if (!TextUtils.isEmpty(mDate.getAttr7())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr7(), String.class);
-                                if (mList.size()>0) {
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
+                                addAttrView(mLayoutParams,mDate.getAttr7(), i, j);
                             }
                             break;
                         case "attr8":
                             if (!TextUtils.isEmpty(mDate.getAttr8())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr8(), String.class);
-                                if (mList.size()>0) {
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
+                                addAttrView(mLayoutParams,mDate.getAttr8(), i, j);
                             }
                             break;
                         case "attr9":
                             if (!TextUtils.isEmpty(mDate.getAttr9())) {
-                                List<String> mList = GsonUtils.changeGsonToSafeList(mDate.getAttr9(), String.class);
-                                if (mList.size()>0) {
-                                    for (int t=0;t<mList.size();t++){
-                                        tvValue.append(mList.get(t));
-                                        if (t!=mList.size()-1){
-                                            tvValue.append(" ");
-                                        }
-                                    }
-                                    tvValue.append("\n");
-                                    tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() + "\n");
-                                }
+                                addAttrView(mLayoutParams,mDate.getAttr9(), i, j);
                             }
                             break;
                     }
+
                 }
+
                 break;
             }
         }
-        tvName.append("点击量");
+        View view = LayoutInflater.from(this).inflate(R.layout.item_detail_attr_shoppingcenter,llContent,false);
+        TextView tvName= view.findViewById(R.id.tvName);
+        TextView tvValue= view.findViewById(R.id.tvValue);
+        tvName.setText("点击量");
         tvValue.append(mDate.getClick()+"次");
+        llContent.addView(view);
+
+
     }
+
+    private void addAttrView(LinearLayout.LayoutParams mLayoutParams,String data, int i, int j) {
+        View view = LayoutInflater.from(this).inflate(R.layout.item_detail_attr_shoppingcenter,llContent,false);
+        TextView tvName= view.findViewById(R.id.tvName);
+        TextView tvValue =view.findViewById(R.id.tvValue);
+        List<String> mList = GsonUtils.changeGsonToSafeList(data, String.class);
+        if (mList.size()>0) {
+            for (int t=0;t<mList.size();t++){
+                tvValue.append(mList.get(t));
+                if (t!=mList.size()-1){
+                    tvValue.append(" ");
+                }
+            }
+            tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() );
+        }
+        llContent.addView(view,mLayoutParams);
+    }
+
     private void showSkuDialog(int clickType){
         if (skuList!=null&&skuList.size()>0&&skuList.get(0).getId()!=null)
             BottomSkuDialog.getInstance(skuList,clickType).setOnClickOkListener(new OnClickOkListener() {
@@ -511,8 +475,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         rlViewPager =findViewById(R.id.rlViewPager);
         tvSum = findViewById(R.id.tvSum);
         tvTitle = findViewById(R.id.tvTitle);
-        tvName = findViewById(R.id.tvName);
-        tvValue = findViewById(R.id.tvValue);
+        llContent = findViewById(R.id.llContent);
+        tvNumber =findViewById(R.id.tvNumber);
         webView = findViewById(R.id.webview);
         tvPrice = findViewById(R.id.tvPrice);
     }
@@ -547,6 +511,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     protected void onDestroy() {
         super.onDestroy();
         webView.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 

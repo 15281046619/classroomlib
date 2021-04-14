@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);*/
        // Uri uri = Uri.parse("classroom://com.xingwang.classroomlib.pldetail?div_id=482&lecture_id=51&bid=0");
 
-        Uri uri = Uri.parse("classroom://"+getPackageName()+".splist?category_id=1");
+        Uri uri = Uri.parse("classroom://"+getPackageName()+".spdetail?id=5");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-      //  startActivity(intent);
+    //    startActivity(intent);
     }
 
 

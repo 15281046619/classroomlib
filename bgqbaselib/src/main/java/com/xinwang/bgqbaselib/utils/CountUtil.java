@@ -1,6 +1,8 @@
 package com.xinwang.bgqbaselib.utils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * double 乘法不准确 精度丢失
@@ -23,5 +25,35 @@ public class CountUtil {
         BigDecimal c = new BigDecimal(String.valueOf(a));
         BigDecimal d = new BigDecimal(String.valueOf(b));
         return  c.subtract(d).doubleValue();
+    }
+
+    /**
+     * double 转string会有多余的0
+     * @param d doblue 有浮点数
+     * @return
+     */
+    public static String doubleToString(String d){
+
+        DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+        try {
+
+           // return NumberFormat.getInstance().format(Double.parseDouble(d));
+            return decimalFormat.format(Double.parseDouble(d));
+        }catch (Exception e){
+            return d;
+        }
+
+    }
+    public static String doubleToString(Double d){
+
+       DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+        try {
+
+            //return NumberFormat.getInstance().format(d);  //这个比如1000 会显示成 1,000
+           return decimalFormat.format(d);
+        }catch (Exception e){
+            return d+"";
+        }
+
     }
 }

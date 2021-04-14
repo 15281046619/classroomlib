@@ -15,6 +15,15 @@ public class Sku implements Parcelable {
     private String id;
 
     private String mainImage;
+    private int maxBugSum;//个人最大购买数目
+
+    public int getMaxBugSum() {
+        return maxBugSum==0?999:maxBugSum;//最大数目三位数
+    }
+
+    public void setMaxBugSum(int maxBugSum) {
+        this.maxBugSum = maxBugSum;
+    }
 
     private int stockQuantity;
 
@@ -263,6 +272,7 @@ public class Sku implements Parcelable {
         dest.writeInt(this.goodId);
         dest.writeString(this.showPrice);
         dest.writeLong(this.totalStock);
+        dest.writeInt(this.maxBugSum);
     }
 
 
@@ -287,6 +297,7 @@ public class Sku implements Parcelable {
         this.goodId =in.readInt();
         this.showPrice =in.readString();
         this.totalStock =in.readLong();
+        this.maxBugSum =in.readInt();
     }
 
 

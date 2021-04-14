@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"/>
     <EditText
         android:layout_width="match_parent"
-       android:hint="电话号码"
+       android:hint="手机号"
         android:inputType="number"
         android:id="@+id/etNumber"
         android:padding="@dimen/dp_15_classroom"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"/>
     <EditText
         android:layout_width="match_parent"
-        android:hint="地址"
+        android:hint="收货地址"
         android:id="@+id/etAddress"
         android:padding="@dimen/dp_15_classroom"
         android:textSize="@dimen/sp_14_classroom"

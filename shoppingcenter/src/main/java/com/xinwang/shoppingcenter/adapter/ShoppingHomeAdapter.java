@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
+import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.shoppingcenter.R;
@@ -52,13 +53,13 @@ public class ShoppingHomeAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBean>
                 GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.ivContent,itemWidth,layoutParams.height);//必须设置宽高防止反复滑动图片显示问题
             else
                 GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.ivContent);
-            if (TextUtils.isEmpty(mDatas.get(i).getMin_price())){
-                baseViewHolder.tvPrice.setVisibility(View.VISIBLE);
+            if (TextUtils.isEmpty(mDatas.get(i).getMin_price())||CountUtil.doubleToString(mDatas.get(i).getMin_price()).equals("0")){
+                baseViewHolder.tvClick.setVisibility(View.VISIBLE);
                 baseViewHolder.tvPrice.setVisibility(View.GONE);
             }else {
                 baseViewHolder.tvPrice.setVisibility(View.VISIBLE);
-                baseViewHolder.tvPrice.setVisibility(View.GONE);
-                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+mDatas.get(0).getMin_price()));
+                baseViewHolder.tvClick.setVisibility(View.GONE);
+                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.doubleToString(mDatas.get(i).getMin_price())));
             }
         }
     }
