@@ -265,5 +265,6 @@ public class CommentUtils {
                 "video{max-width: 100%; width:100%; height:auto;}</style>" +
                 "</head>");
         return "<html>"+head+"<body style='margin:0;padding:0'>"+bodyHTML+"</body></html>";
+       // return "<html>"+head+"<body>"+bodyHTML+"</body></html>";
     }
 }

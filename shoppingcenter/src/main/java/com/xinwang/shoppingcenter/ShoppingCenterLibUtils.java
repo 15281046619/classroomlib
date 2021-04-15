@@ -155,10 +155,10 @@ public class ShoppingCenterLibUtils {
                 skuList.add(sku);
             }
 
-            if (prices[0] != prices[1])
+            if (!prices[0].equals(prices[1]))
                 skuList.get(0).setShowPrice(CountUtil.doubleToString(prices[0]) + "-" + CountUtil.doubleToString(prices[1]));
             else
-                skuList.get(0).setShowPrice(prices[0] + "");
+                skuList.get(0).setShowPrice(CountUtil.doubleToString(prices[0]));
             skuList.get(0).setTotalStock(totalSum);
         }else {//没有规格
             Sku sku =new Sku();
@@ -178,6 +178,17 @@ public class ShoppingCenterLibUtils {
     public static SpannableString getPriceSpannable(String content){
         SpannableString spannableString = new SpannableString(content);
         spannableString.setSpan( new RelativeSizeSpan(0.6f),0,1,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    /**
+     * 负数金额
+     * @param content
+     * @return
+     */
+    public static SpannableString getPriceSpannableSub(String content){
+        SpannableString spannableString = new SpannableString(content);
+        spannableString.setSpan( new RelativeSizeSpan(0.6f),0,2,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
 

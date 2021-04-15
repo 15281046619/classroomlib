@@ -3,6 +3,7 @@ package com.xinwang.shoppingcenter.dialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.beautydefinelibrary.BeautyDefine;
 
+import com.beautydefinelibrary.LocationCallBack;
+import com.beautydefinelibrary.LocationDefine;
 import com.xinwang.bgqbaselib.dialog.BaseDialog;
 import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
 import com.xinwang.bgqbaselib.utils.MyToast;
@@ -24,8 +27,9 @@ import com.xinwang.shoppingcenter.R;
 public class CenterBuyDialog extends BaseDialog {
 
     private Button btOk;
-    private View mCurView;
     private KeyBoardHelper mKeyBoardHelper;
+    public LocationDefine imagePickerDefine;
+
     @Override
     protected int layoutResId() {
         return R.layout.dialog_center_buy_shoppingcenter;
@@ -36,7 +40,21 @@ public class CenterBuyDialog extends BaseDialog {
     public static CenterBuyDialog getInstance(){
         return new CenterBuyDialog();
     }
-
+    /**
+     * 跳转定位页面
+     */
+    public void goLocationAddress(){
+        if (mKeyBoardHelper!=null)
+        mKeyBoardHelper.closeInputMethodManager();
+        imagePickerDefine = BeautyDefine.getLocationDefine((AppCompatActivity) getActivity());
+        imagePickerDefine.showLocation(new LocationCallBack() {
+            @Override
+            public void onResult(String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7) {
+                etAddress.setText(s7);
+                etAddress.setSelection(etAddress.getText().toString().length());
+            }
+        });
+    }
 
     @NonNull
     @Override
@@ -65,8 +83,10 @@ public class CenterBuyDialog extends BaseDialog {
     @Override
     public void onStop() {
         super.onStop();
-        mKeyBoardHelper.closeInputMethodManager();
-        mKeyBoardHelper.onDestroy();
+        if (mKeyBoardHelper!=null) {
+            mKeyBoardHelper.closeInputMethodManager();
+            mKeyBoardHelper.onDestroy();
+        }
     }
 
     EditText etNumber,etName,etAddress;
@@ -108,7 +128,12 @@ public class CenterBuyDialog extends BaseDialog {
             }
             dismissDialog();
         });
-
+        findViewById(R.id.ivLocation).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goLocationAddress();
+            }
+        });
     }
 
 

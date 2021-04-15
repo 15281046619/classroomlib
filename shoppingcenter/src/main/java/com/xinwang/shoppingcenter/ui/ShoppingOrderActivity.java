@@ -1,7 +1,9 @@
 package com.xinwang.shoppingcenter.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
@@ -17,9 +19,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.ImagePickerCallBack;
+import com.beautydefinelibrary.ImagePickerDefine;
+import com.beautydefinelibrary.LocationCallBack;
+import com.beautydefinelibrary.LocationDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
@@ -28,12 +35,12 @@ import com.xinwang.bgqbaselib.utils.AndroidBug5497Workaround;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
-import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
+import com.xinwang.shoppingcenter.bean.CouponBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
 import com.xinwang.shoppingcenter.dialog.CenterBuyDialog;
 
@@ -50,10 +57,18 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private TextView tvAdd,tvAddress,tvPhone,tvName,tvSum,tvPrice;
     private RadioButton rbXX,rbWX,rbZFB;
     private LinearLayout llContent;
+    private TextView tvCoupon;
     private EditText etRemarks;
     private Double aDoublePrice;
     private int selectSum;
     private List<Sku> skuList =new ArrayList<>();
+
+    private CouponBean.DataBean.CouponsBean couponsBean;//当前选中的优惠劵
+    private int couponPos =-1;
+    private int totalCoupon=0;
+    private CenterBuyDialog mDialog;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +82,28 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         skuList = getIntent().getParcelableArrayListExtra("data");
         initShowAddress();
         initShowGoods();
+        initCoupon();
     }
+
+    private void initCoupon() {
+        requestGet(HttpUrls.URL_COUPON_LISTS(), new ApiParams().with("type", 2).with("page", 1).with("page_num", 1),
+                CouponBean.class, new HttpCallBack<CouponBean>() {
+                    @Override
+                    public void onFailure(String message) {
+                        MyToast.myToast(ShoppingOrderActivity.this,message);
+                    }
+
+                    @Override
+                    public void onSuccess(CouponBean commonEntity) {
+                        if (commonEntity.getData()!=null&&commonEntity.getData().getCoupons().size()>0) {
+                            totalCoupon =commonEntity.getData().getTotal();
+                            tvCoupon.setText(totalCoupon+"张可用");
+                        }
+                    }
+                });
+    }
+
+
 
     /**
      * 商品清单
@@ -110,7 +146,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 }
             });
             tvSum.setText(String.valueOf(skuList.get(i).getAddSum()));
-           tvSku.setText("");
+            tvSku.setText("");
             if (skuList.get(i).getAttributes()!=null&&skuList.get(i).getAttributes().size()>0) {
                 for (SkuAttribute skuAttribute : skuList.get(i).getAttributes()) {
                     tvSku.append(skuAttribute.getValue() + " ");
@@ -152,15 +188,21 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     }
 
     public void showTotalPrice(){
-        SpannableString spannableString =new SpannableString("总计:￥"+CountUtil.doubleToString(aDoublePrice));
+        SpannableString spannableString =new SpannableString("总计:￥"+CountUtil.doubleToString(CountUtil.sub(aDoublePrice,couponsBean==null?0D:
+                CountUtil.divide(couponsBean.getFee(),100D))));
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.themeClassRoom)),3,spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new RelativeSizeSpan(0.6f),3,4,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         if (spannableString.toString().indexOf(".")!=-1&&(spannableString.toString().indexOf(".")!=spannableString.length()-1)){
             spannableString.setSpan(new RelativeSizeSpan(0.6f),spannableString.toString().indexOf("."),spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         }
         tvPrice.setText(spannableString);
-        if (selectSum>0)
-            tvSum.setText("共"+selectSum+"件，");
+        if (selectSum>0) {
+            tvSum.setText("共" + selectSum + "件，\n");
+           /* if(couponsBean!=null){
+                tvSum.append("优惠￥"+CountUtil.doubleToString( CountUtil.divide(couponsBean.getFee(),100D)));
+            }*/
+        }
+
     }
     private void initShowAddress() {
         String address = SharedPreferenceUntils.getSaveAddress(this);
@@ -202,7 +244,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             @Override
             public void onClick(View v) {
                 etRemarks.clearFocus();
-                CenterBuyDialog.getInstance().setCallback(new CenterBuyDialog.Callback1<String>() {
+                mDialog = CenterBuyDialog.getInstance();
+                mDialog.setCallback(new CenterBuyDialog.Callback1<String>() {
                     @Override
                     public void run(String s) {
                         initShowAddress();
@@ -220,7 +263,35 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 }
             }
         });
+        findViewById(R.id.llCoupon).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               startActivityForResult(new Intent(ShoppingOrderActivity.this,CouponListsActivity.class)
+                       .putExtra("pos",couponPos),100);
+            }
+        });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mDialog!=null&&mDialog.imagePickerDefine != null) {
+            mDialog.imagePickerDefine.onActivityResultHanlder(requestCode, resultCode, data);
+        }
+        if (requestCode==100&&resultCode==100){
+            if (data==null){//取消优惠劵
+                couponsBean =null;
+                tvCoupon.setText(totalCoupon+"张可用");
+                couponPos =-1;
+            }else {// 选中优惠劵
+                couponsBean = (CouponBean.DataBean.CouponsBean) data.getSerializableExtra("data");
+                tvCoupon.setText(ShoppingCenterLibUtils.getPriceSpannableSub("-￥"+CountUtil.doubleToString(CountUtil.divide(couponsBean.getFee(),100D))));
+                couponPos =data.getIntExtra("pos",-1);
+            }
+            showTotalPrice();
+        }
+    }
+
     /**
      * 获取技术老师
      */
@@ -264,6 +335,9 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         if (!TextUtils.isEmpty(etRemarks.getText().toString())){
             stringBuffer.append("\n备注："+etRemarks.getText().toString());
         }
+        if (couponsBean!=null){
+            stringBuffer.append("\n优惠劵："+couponsBean.getName()+" id="+couponsBean.getId());
+        }
         return stringBuffer.toString();
     }
 
@@ -273,6 +347,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         super.onResume();
 
     }
+
 
     private void initView() {
         tvAdd= findViewById(R.id.tvAdd);
@@ -286,6 +361,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         etRemarks= findViewById(R.id.etRemarks);
         tvPrice= findViewById(R.id.tvPrice);
         tvSum= findViewById(R.id.tvSum);
+        tvCoupon =findViewById(R.id.tvCoupon);
 
     }
 

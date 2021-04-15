@@ -100,6 +100,14 @@ public class HttpUrls {
     }
 
     /**
+     * 获取优惠劵
+     * @return
+     */
+    public static final String URL_COUPON_LISTS(){
+      return  URL_HOST+URL_NAME+"coupon/user/coupon/lists";
+    }
+
+    /**
      * 商城列表页面
      * @return
      */

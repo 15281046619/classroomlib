@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BGClassRoom"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.xinwang.bgqbaselib.view.CustomToolbar
+        android:id="@+id/toolbar"
+        app:layout_collapseMode="pin"
+        android:text="优惠劵"
+        app:layout_scrollFlags="scroll|enterAlways"
+        style="@style/ToolbarStyleClassRoom"
+        />
+    <include
+
+        layout="@layout/layout_empty_classroom"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+    <com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@android:color/white"
+        android:layout_marginTop="@dimen/dp_1_classroom"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvSelect"
+            android:layout_toLeftOf="@+id/tvBuy"
+            android:layout_marginRight="@dimen/dp_15_classroom"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tvBuy"
+            android:layout_width="110dp"
+            android:text="确定"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_15_classroom"
+            android:background="@drawable/shape_count_bg_shoppingcenter"
+            android:textColor="@android:color/white"
+            android:layout_alignParentRight="true"
+            android:layout_height="35dp"/>
+    </RelativeLayout>
+</LinearLayout>

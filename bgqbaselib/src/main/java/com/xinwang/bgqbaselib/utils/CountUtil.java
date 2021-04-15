@@ -26,6 +26,11 @@ public class CountUtil {
         BigDecimal d = new BigDecimal(String.valueOf(b));
         return  c.subtract(d).doubleValue();
     }
+    public static Double  divide(Double a, Double b){
+        BigDecimal c = new BigDecimal(String.valueOf(a));
+        BigDecimal d = new BigDecimal(String.valueOf(b));
+        return  c.divide(d).doubleValue();
+    }
 
     /**
      * double 转string会有多余的0

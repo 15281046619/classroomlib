@@ -66,6 +66,8 @@
                         android:id="@+id/tvAddress"
                         android:layout_marginRight="60dp"
                         android:layout_marginTop="50dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -205,15 +207,49 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
+                        android:id="@+id/llCoupon"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="红包/优惠劵"
+                            android:textSize="@dimen/sp_14_classroom"
+                            android:paddingTop="@dimen/dp_10_classroom"
+                            android:paddingBottom="@dimen/dp_10_classroom"
+                            android:layout_marginLeft="@dimen/dp_10_classroom"
+                            android:gravity="right|center_vertical"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:id="@+id/tvCoupon"
+                            android:gravity="right|center_vertical"
+                            android:singleLine="true"
+                            android:drawableRight="@drawable/ic_baseline_navigate_next_24_shoppingcneter"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/sp_14_classroom"
+                            android:paddingLeft="@dimen/dp_10_classroom"
+                            android:paddingTop="@dimen/dp_10_classroom"
+                            android:paddingBottom="@dimen/dp_10_classroom"
+                            android:hint="暂无可用红包"/>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/dp_10_classroom"
+                        android:background="@color/LineClassRoom"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
 
                         android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="订单备注"
-                            android:textSize="@dimen/sp_13_classroom"
-                            android:paddingTop="@dimen/dp_10_classroom"
-                            android:paddingBottom="@dimen/dp_10_classroom"
+                            android:textSize="@dimen/sp_14_classroom"
+                            android:paddingTop="13dp"
+                            android:paddingBottom="13dp"
                             android:layout_marginLeft="@dimen/dp_10_classroom"
                             android:gravity="right"/>
                         <EditText
@@ -223,9 +259,9 @@
                             android:id="@+id/etRemarks"
                             android:singleLine="true"
                             android:textColor="@color/GrayClassRoom"
-                            android:textSize="@dimen/sp_13_classroom"
-                            android:padding="@dimen/dp_10_classroom"
-
+                            android:textSize="@dimen/sp_14_classroom"
+                            android:padding="13dp"
+                            android:gravity="right"
                             android:hint="选填,请先和商家协商一致"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -245,7 +281,7 @@
             android:layout_alignTop="@+id/tvPrice"
             android:textSize="@dimen/sp_13_classroom"
             android:textColor="@color/GrayClassRoom"
-
+            android:layout_centerVertical="true"
             android:id="@+id/tvSum"/>
         <TextView
             android:id="@+id/tvPrice"
@@ -253,7 +289,6 @@
             android:layout_marginRight="@dimen/dp_15_classroom"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tvBuy"

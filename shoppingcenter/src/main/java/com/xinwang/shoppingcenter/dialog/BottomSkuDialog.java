@@ -187,6 +187,14 @@ public class BottomSkuDialog extends BaseDialog {
             }
 
         });
+        skuSelectScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (skuSelectScrollView.getSelectedSku() != null){
+                    showSelectTitle();
+                }
+            }
+        });
     }
     public BottomSkuDialog setOnClickOkListener(OnClickOkListener onClickOkListener){
         this.onClickOkListener =onClickOkListener;

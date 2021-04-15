@@ -39,7 +39,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //implementation 不能引用到库里面得
-    api 'com.beautydefinelibrary:beautydefinelibrary:1.2.32'
+    api 'com.beautydefinelibrary:beautydefinelibrary:1.2.33'
     api 'com.squareup.okhttp3:okhttp:3.8.1'
     api 'com.squareup.okhttp3:mockwebserver:3.8.1'
     api 'com.google.code.gson:gson:2.8.5'
