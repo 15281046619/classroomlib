@@ -574,7 +574,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
 
                     @Override
                     public void clickLocation() {
-
+                        getPersimmions();
                     }
                 });
                 mDialog.showDialog(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
