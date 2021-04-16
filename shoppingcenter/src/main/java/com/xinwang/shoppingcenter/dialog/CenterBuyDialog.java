@@ -51,6 +51,8 @@ public class CenterBuyDialog extends BaseDialog {
             @Override
             public void onResult(String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7) {
                 etAddress.setText(s4);
+                if (!s7.equals(s3)&&!s7.equals(s1))
+                etAddress.append("\n"+s7);
                 etAddress.setSelection(etAddress.getText().toString().length());
             }
         });
