@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ShoppingCenterActivity"
-            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"

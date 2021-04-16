@@ -193,8 +193,9 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     }
 
     public void showTotalPrice(){
-        SpannableString spannableString =new SpannableString("总计:￥"+CountUtil.doubleToString(CountUtil.sub(aDoublePrice,couponsBean==null?0D:
-                CountUtil.divide(couponsBean.getFee(),100D))));
+        Double mTotal = CountUtil.sub(aDoublePrice, couponsBean == null ? 0D :
+                CountUtil.divide(couponsBean.getFee(), 100D));
+        SpannableString spannableString =new SpannableString("总计:￥"+(mTotal>0?CountUtil.doubleToString(mTotal):0));
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.themeClassRoom)),3,spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new RelativeSizeSpan(0.6f),3,4,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         if (spannableString.toString().indexOf(".")!=-1&&(spannableString.toString().indexOf(".")!=spannableString.length()-1)){
