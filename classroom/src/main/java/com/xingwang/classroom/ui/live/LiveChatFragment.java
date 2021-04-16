@@ -1,6 +1,7 @@
 package com.xingwang.classroom.ui.live;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -33,9 +34,10 @@ import com.xingwang.classroom.bean.LiveChatListBean;
 import com.xingwang.classroom.bean.UserInfoBean;
 import com.xingwang.classroom.dialog.BottomGifDialog;
 import com.xingwang.classroom.dialog.BottomGifSubmitDialog;
-import com.xingwang.classroom.dialog.CenterBuyDialog;
+
 import com.xingwang.classroom.dialog.CenterRedPackDialog;
 
+import com.xinwang.bgqbaselib.dialog.CenterBuyDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
@@ -56,6 +58,7 @@ import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -95,6 +98,8 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
             }
         }
     };
+    private CenterBuyDialog mDialog;
+
     public static LiveChatFragment getInstance(String id,String fixedStr,String speaker){
         LiveChatFragment mFragment = new LiveChatFragment();
         Bundle bundle = new Bundle();
@@ -249,6 +254,15 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                 }
             }
             jumpPic();
+        }else    if (requestCode==101){
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    MyToast.myToast(getActivity(), "你拒绝了该权限");
+                    return;
+                }
+            }
+            if (mDialog!=null)
+                mDialog.goLocationAddress();
         }
     }
     private ImagePickerDefine imagePickerDefine;
@@ -301,6 +315,8 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         super.onActivityResult(requestCode, resultCode, data);
         if (imagePickerDefine != null) {
             imagePickerDefine.onActivityResultHanlder(requestCode, resultCode, data);
+        }else if (mDialog!=null&&mDialog.imagePickerDefine != null) {
+            mDialog.imagePickerDefine.onActivityResultHanlder(requestCode, resultCode, data);
         }
     }
 
@@ -546,7 +562,25 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     }
 
     private void initSend() {
-        ivBug.setOnClickListener(v -> CenterBuyDialog.getInstance().setCallback(s -> goSendComment(s,"3")).showDialog(getActivity().getSupportFragmentManager()));
+        ivBug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               mDialog= CenterBuyDialog.getInstance("订单","下单之后，兴旺技术老师会在24小时内联系您。根据您的养殖情况，定制用药方案！");
+                mDialog.setCallback(new CenterBuyDialog.Callback1<String>() {
+                    @Override
+                    public void run(String s) {
+                        goSendComment(s,"3");
+                    }
+
+                    @Override
+                    public void clickLocation() {
+
+                    }
+                });
+                mDialog.showDialog(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+            }
+        });
+
         btSend.setOnClickListener(v -> goSendComment(etContent.getText().toString(),"1"));
         etContent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -574,6 +608,36 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
             }
         });
     }
+    @TargetApi(23)
+    private void getPersimmions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ArrayList<String> permissions = new ArrayList();
+            /***
+             * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
+             */
+            // 定位精确位置
+            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            /*
+             * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
+             */
+
+            if (permissions.size() > 0) {
+                requestPermissions(permissions.toArray(new String[permissions.size()]), 101);
+            }else {
+                if (mDialog!=null)
+                    mDialog.goLocationAddress();
+            }
+        }else {
+            if (mDialog!=null)
+                mDialog.goLocationAddress();
+        }
+    }
+
 
     /**
      * 发生评论  1普通文本，2图片 3,下单，4打赏

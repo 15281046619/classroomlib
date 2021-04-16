@@ -30,6 +30,7 @@ import com.beautydefinelibrary.LocationCallBack;
 import com.beautydefinelibrary.LocationDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
+import com.xinwang.bgqbaselib.dialog.CenterBuyDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
@@ -47,7 +48,7 @@ import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.bean.CouponBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
-import com.xinwang.shoppingcenter.dialog.CenterBuyDialog;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -250,7 +251,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             @Override
             public void onClick(View v) {
                 etRemarks.clearFocus();
-                mDialog = CenterBuyDialog.getInstance();
+                mDialog = CenterBuyDialog.getInstance("收货地址","请准确的填写收货信息");
                 mDialog.setCallback(new CenterBuyDialog.Callback1<String>() {
                     @Override
                     public void run(String s) {

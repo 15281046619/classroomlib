@@ -13,6 +13,7 @@
         android:gravity="center"
         android:textColor="@color/textColorClassRoom"
         android:textStyle="bold"
+        android:id="@+id/tvTitle"
         android:textSize="@dimen/sp_16_classroom"
         android:paddingBottom="@dimen/dp_15_classroom"/>
     <View
