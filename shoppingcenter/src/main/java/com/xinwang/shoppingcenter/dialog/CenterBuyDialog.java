@@ -50,7 +50,7 @@ public class CenterBuyDialog extends BaseDialog {
         imagePickerDefine.showLocation(new LocationCallBack() {
             @Override
             public void onResult(String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7) {
-                etAddress.setText(s7);
+                etAddress.setText(s4);
                 etAddress.setSelection(etAddress.getText().toString().length());
             }
         });
@@ -131,7 +131,8 @@ public class CenterBuyDialog extends BaseDialog {
         findViewById(R.id.ivLocation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goLocationAddress();
+               if (callback1!=null)
+                   callback1.clickLocation();
             }
         });
     }
@@ -144,5 +145,6 @@ public class CenterBuyDialog extends BaseDialog {
     }
     public  interface Callback1<T> {
         void run(T t);
+        void clickLocation();
     }
 }

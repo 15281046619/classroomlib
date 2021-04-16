@@ -26,8 +26,9 @@ public class GlideUtils {
     }
 
     public static void loadAvatar(String url,ImageView imageView){
-        if (!activityIsFinished(imageView.getContext()))
-        Glide.with(imageView.getContext()).load(url).placeholder(R.mipmap.bg_default_placeholder_classroom).error(R.mipmap.bg_default_error_classroom).centerCrop().into(imageView);
+        if (!activityIsFinished(imageView.getContext()))//asbitmap 解决默认图片 与实际图片不一致，导致刷新变化问题
+        Glide.with(imageView.getContext()).load(url).asBitmap().placeholder(R.mipmap.bg_default_placeholder_classroom)
+                .error(R.mipmap.bg_default_error_classroom).centerCrop().into(imageView);
     }
     public static void loadAvatar(Integer resourceId,ImageView imageView){
         if (!activityIsFinished(imageView.getContext()))

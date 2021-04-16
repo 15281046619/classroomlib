@@ -78,6 +78,7 @@ public class ShoppingCenterLibUtils {
             } else {
                 List<Sku> mLists = new ArrayList<>();
                 mLists.add(mBean);
+                EventBus.getDefault().post(new NumberBean(1));
                 SharedPreferenceUntils.saveGoods(activity, GsonUtils.createGsonString(mLists));
             }
             MyToast.myCenterSuccessToast(activity, "添加成功，在购物车等亲-");

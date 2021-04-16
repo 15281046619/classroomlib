@@ -1,7 +1,12 @@
 package com.xinwang.shoppingcenter.ui;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.text.SpannableString;
@@ -250,6 +255,11 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     public void run(String s) {
                         initShowAddress();
                     }
+
+                    @Override
+                    public void clickLocation() {
+                        getPersimmions();
+                    }
                 }).showDialog(getSupportFragmentManager());
             }
         });
@@ -289,6 +299,50 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 couponPos =data.getIntExtra("pos",-1);
             }
             showTotalPrice();
+        }
+    }
+    @TargetApi(23)
+    private void getPersimmions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ArrayList<String> permissions = new ArrayList();
+            /***
+             * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
+             */
+            // 定位精确位置
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            /*
+             * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
+             */
+
+            if (permissions.size() > 0) {
+                requestPermissions(permissions.toArray(new String[permissions.size()]), 100);
+            }else {
+                if (mDialog!=null)
+                    mDialog.goLocationAddress();
+            }
+        }else {
+            if (mDialog!=null)
+                mDialog.goLocationAddress();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==100){
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    MyToast.myToast(getApplicationContext(), "你拒绝了该权限");
+                    return;
+                }
+            }
+            if (mDialog!=null)
+                mDialog.goLocationAddress();
         }
     }
 
