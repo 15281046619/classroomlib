@@ -224,7 +224,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             JSONObject jsonObject =new JSONObject(json);
            int defaultIndex = jsonObject.getInt("defaultIndex");
             JSONArray jsonArray = jsonObject.getJSONArray("deliveryaddrs");
-           if (defaultIndex<0||jsonArray.length()<=defaultIndex){
+           if (defaultIndex<0||jsonArray==null||jsonArray.length()<=defaultIndex){
                tvAdd.setVisibility(View.VISIBLE);
            }else {
                tvAdd.setVisibility(View.GONE);
