@@ -57,7 +57,15 @@ public class SkuBean extends CommonEntity {
         private String sku7;
         private String sku8;
         private String sku9;
+        private String cover;
 
+        public String getCover() {
+            return cover;
+        }
+
+        public void setCover(String cover) {
+            this.cover = cover;
+        }
 
         public int getId() {
             return id;

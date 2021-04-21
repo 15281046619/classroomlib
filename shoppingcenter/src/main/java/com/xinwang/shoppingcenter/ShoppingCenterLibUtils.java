@@ -115,7 +115,10 @@ public class ShoppingCenterLibUtils {
 
                 }
                 sku.setSellingPrice(sku.getOriginPrice());
-                sku.setMainImage(goodsBean.getCover());
+                if (TextUtils.isEmpty(dataBeans.get(i).getCover()))
+                    sku.setMainImage(goodsBean.getCover());
+                else
+                    sku.setMainImage(dataBeans.get(i).getCover());
                 List<SkuAttribute> attributes = new ArrayList<>();
                 for (int j = 0; j < goodsBean.getSkus().length; j++) {
                     switch (j) {
@@ -202,7 +205,7 @@ public class ShoppingCenterLibUtils {
         if (userId==-1){
             CommentUtils.jumpWebBrowser(activity,HttpUrls.URL_CHAT);
         }else
-        BeautyDefine.getOpenPageDefine(activity).toPersonalChatText(userId,text);
+            BeautyDefine.getOpenPageDefine(activity).toPersonalChatText(userId,text);
 
 
     }

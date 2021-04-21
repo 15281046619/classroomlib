@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ import java.util.Objects;
 public class BottomSkuDialog extends BaseDialog {
     private List<Sku> skuList =new ArrayList<>();
     private  TextView tvSelect,tvSum,tvOk,tvStore;
+    private ImageView ivImg;
     private  SkuSelectScrollView skuSelectScrollView;
     private OnClickOkListener onClickOkListener;
     @Override
@@ -89,7 +91,7 @@ public class BottomSkuDialog extends BaseDialog {
 
         tvSum =findViewById(R.id.tvSum);
         tvStore =findViewById(R.id.tvStore);
-
+        ivImg =findViewById(R.id.ivImg);
         tvOk =findViewById(R.id.tvOk);
 
         skuSelectScrollView.setSkuList(skuList);
@@ -102,6 +104,7 @@ public class BottomSkuDialog extends BaseDialog {
                 }
                 tvStore.setText("库存"+skuList.get(0).getTotalStock()+"件");
                 tvSelect.setText("");
+                GlideUtils.loadAvatar(skuList.get(0).getMainImage(),R.color.BGPressedClassRoom,ivImg);
             }
 
             @Override
@@ -113,7 +116,7 @@ public class BottomSkuDialog extends BaseDialog {
             public void onSkuSelected(Sku sku) {
                 textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.doubleToString(sku.getSellingPrice())));
                 tvStore.setText("库存"+sku.getStockQuantity()+"件");
-
+                GlideUtils.loadAvatar(sku.getMainImage(),R.color.BGPressedClassRoom,ivImg);
                 showSelectTitle();
 
             }
@@ -121,7 +124,7 @@ public class BottomSkuDialog extends BaseDialog {
 
 
         if (skuList.size()>0&&!TextUtils.isEmpty(skuList.get(0).getShowPrice())) {
-            GlideUtils.loadAvatar(skuList.get(0).getMainImage(),R.color.BGPressedClassRoom,findViewById(R.id.ivImg));
+            GlideUtils.loadAvatar(skuList.get(0).getMainImage(),R.color.BGPressedClassRoom,ivImg);
             textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.doubleToString(skuList.get(0).getShowPrice())));
         }
         if (skuList.size()>0){

@@ -50,6 +50,10 @@ import com.xinwang.shoppingcenter.bean.CouponBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +76,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private CouponBean.DataBean.CouponsBean couponsBean;//当前选中的优惠劵
     private int couponPos =-1;
     private int totalCoupon=0;
-    private CenterBuyDialog mDialog;
+  //  private CenterBuyDialog mDialog;
 
 
     @Override
@@ -212,17 +216,34 @@ public class ShoppingOrderActivity extends BaseNetActivity {
 
     }
     private void initShowAddress() {
-        String address = SharedPreferenceUntils.getSaveAddress(this);
+       String json = BeautyDefine.getUserInfoDefine(this).getDeliveryaddr();
+        /*String address = SharedPreferenceUntils.getSaveAddress(this);
         String phone = SharedPreferenceUntils.getSavePhone(this);
-        String name = SharedPreferenceUntils.getSaveName(this);
-        if (TextUtils.isEmpty(address))
+        String name = SharedPreferenceUntils.getSaveName(this);*/
+        try {
+            JSONObject jsonObject =new JSONObject(json);
+           int defaultIndex = jsonObject.getInt("defaultIndex");
+            JSONArray jsonArray = jsonObject.getJSONArray("deliveryaddrs");
+           if (defaultIndex<0||jsonArray.length()>=defaultIndex){
+               tvAdd.setVisibility(View.VISIBLE);
+           }else {
+               tvAdd.setVisibility(View.GONE);
+               tvAddress.setText( jsonArray.getJSONObject(defaultIndex).getString("accurateAddress"));
+               tvPhone.setText( jsonArray.getJSONObject(defaultIndex).getString("phone"));
+               tvName.setText( jsonArray.getJSONObject(defaultIndex).getString("consignee"));
+           }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            tvAdd.setVisibility(View.VISIBLE);
+        }
+     /*   if (TextUtils.isEmpty(address))
             tvAdd.setVisibility(View.VISIBLE);
         else {
             tvAdd.setVisibility(View.GONE);
             tvAddress.setText(address);
             tvPhone.setText(phone);
             tvName.setText(name);
-        }
+        }*/
     }
 
     private void initListener() {
@@ -251,7 +272,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             @Override
             public void onClick(View v) {
                 etRemarks.clearFocus();
-                mDialog = CenterBuyDialog.getInstance("收货地址","请准确的填写收货信息");
+                /*mDialog = CenterBuyDialog.getInstance("收货地址","请准确的填写收货信息");
                 mDialog.setCallback(new CenterBuyDialog.Callback1<String>() {
                     @Override
                     public void run(String s) {
@@ -262,7 +283,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     public void clickLocation() {
                         getPersimmions();
                     }
-                }).showDialog(getSupportFragmentManager());
+                }).showDialog(getSupportFragmentManager());*/
+                BeautyDefine.getOpenPageDefine(ShoppingOrderActivity.this).toDeliveryaddr();
             }
         });
         findViewById(R.id.tvBuy).setOnClickListener(new View.OnClickListener() {
@@ -287,9 +309,9 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (mDialog!=null&&mDialog.imagePickerDefine != null) {
+     /*   if (mDialog!=null&&mDialog.imagePickerDefine != null) {
             mDialog.imagePickerDefine.onActivityResultHanlder(requestCode, resultCode, data);
-        }
+        }*/
         if (requestCode==100&&resultCode==100){
             if (data==null){//取消优惠劵
                 couponsBean =null;
@@ -301,15 +323,17 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 couponPos =data.getIntExtra("pos",-1);
             }
             showTotalPrice();
+        }else if (requestCode==1){
+            initShowAddress();
         }
     }
-    @TargetApi(23)
+   /* @TargetApi(23)
     private void getPersimmions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ArrayList<String> permissions = new ArrayList();
-            /***
+            *//***
              * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
-             */
+             *//*
             // 定位精确位置
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -317,9 +341,9 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
             }
-            /*
+            *//*
              * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
-             */
+             *//*
 
             if (permissions.size() > 0) {
                 requestPermissions(permissions.toArray(new String[permissions.size()]), 100);
@@ -331,9 +355,9 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             if (mDialog!=null)
                 mDialog.goLocationAddress();
         }
-    }
+    }*/
 
-    @Override
+/*    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode==100){
@@ -346,7 +370,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             if (mDialog!=null)
                 mDialog.goLocationAddress();
         }
-    }
+    }*/
 
     /**
      * 获取技术老师

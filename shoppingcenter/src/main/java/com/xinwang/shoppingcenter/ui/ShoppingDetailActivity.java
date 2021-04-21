@@ -279,55 +279,34 @@ public class ShoppingDetailActivity extends BaseNetActivity {
 
                     switch (categoryData.getData().get(i).getAttr().get(j).getField()){
                         case "attr0":
-                            if (!TextUtils.isEmpty(mDate.getAttr0())) {
                                 addAttrView(mLayoutParams,mDate.getAttr0(), i, j);
-                            }
                             break;
                         case "attr1":
-                            if (!TextUtils.isEmpty(mDate.getAttr1())) {
                                 addAttrView(mLayoutParams,mDate.getAttr1(), i, j);
-                            }
                             break;
                         case "attr2":
-                            if (!TextUtils.isEmpty(mDate.getAttr2())) {
                                 addAttrView(mLayoutParams,mDate.getAttr2(), i, j);
-                            }
                             break;
                         case "attr3":
-                            if (!TextUtils.isEmpty(mDate.getAttr3())) {
                                 addAttrView(mLayoutParams,mDate.getAttr3(), i, j);
-
-                            }
                             break;
                         case "attr4":
-                            if (!TextUtils.isEmpty(mDate.getAttr4())) {
                                 addAttrView(mLayoutParams,mDate.getAttr4(), i, j);
-                            }
                             break;
                         case "attr5":
-                            if (!TextUtils.isEmpty(mDate.getAttr5())) {
                                 addAttrView(mLayoutParams,mDate.getAttr5(), i, j);
-                            }
                             break;
                         case "attr6":
-                            if (!TextUtils.isEmpty(mDate.getAttr6())) {
                                 addAttrView(mLayoutParams,mDate.getAttr6(), i, j);
-                            }
                             break;
                         case "attr7":
-                            if (!TextUtils.isEmpty(mDate.getAttr7())) {
                                 addAttrView(mLayoutParams,mDate.getAttr7(), i, j);
-                            }
                             break;
                         case "attr8":
-                            if (!TextUtils.isEmpty(mDate.getAttr8())) {
                                 addAttrView(mLayoutParams,mDate.getAttr8(), i, j);
-                            }
                             break;
                         case "attr9":
-                            if (!TextUtils.isEmpty(mDate.getAttr9())) {
                                 addAttrView(mLayoutParams,mDate.getAttr9(), i, j);
-                            }
                             break;
                     }
 
@@ -347,20 +326,22 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     }
 
     private void addAttrView(LinearLayout.LayoutParams mLayoutParams,String data, int i, int j) {
-        View view = LayoutInflater.from(this).inflate(R.layout.item_detail_attr_shoppingcenter,llContent,false);
-        TextView tvName= view.findViewById(R.id.tvName);
-        TextView tvValue =view.findViewById(R.id.tvValue);
-        List<String> mList = GsonUtils.changeGsonToSafeList(data, String.class);
-        if (mList.size()>0) {
-            for (int t=0;t<mList.size();t++){
-                tvValue.append(mList.get(t));
-                if (t!=mList.size()-1){
-                    tvValue.append(" ");
+        if (!TextUtils.isEmpty(data)&&!data.equals("[]")) {
+            View view = LayoutInflater.from(this).inflate(R.layout.item_detail_attr_shoppingcenter, llContent, false);
+            TextView tvName = view.findViewById(R.id.tvName);
+            TextView tvValue = view.findViewById(R.id.tvValue);
+            List<String> mList = GsonUtils.changeGsonToSafeList(data, String.class);
+            if (mList.size() > 0) {
+                for (int t = 0; t < mList.size(); t++) {
+                    tvValue.append(mList.get(t));
+                    if (t != mList.size() - 1) {
+                        tvValue.append(" ");
+                    }
                 }
+                tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle());
             }
-            tvName.append(categoryData.getData().get(i).getAttr().get(j).getTitle() );
+            llContent.addView(view, mLayoutParams);
         }
-        llContent.addView(view,mLayoutParams);
     }
 
     private void showSkuDialog(int clickType){
