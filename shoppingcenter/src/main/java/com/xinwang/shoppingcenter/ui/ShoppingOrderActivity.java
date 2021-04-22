@@ -267,7 +267,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     }
                 }).showDialog(getSupportFragmentManager());*/
 
-                    BeautyDefine.getDeliveryaddrDefine(ShoppingOrderActivity.this).showDeliveryaddr(tvAdd.getVisibility() == View.GONE, true, new DeliveryaddrCallBack() {
+                    BeautyDefine.getDeliveryaddrDefine(ShoppingOrderActivity.this).showDeliveryaddr(tvAdd.getVisibility() != View.GONE, true, new DeliveryaddrCallBack() {
                         @Override
                         public void edited() {
 
