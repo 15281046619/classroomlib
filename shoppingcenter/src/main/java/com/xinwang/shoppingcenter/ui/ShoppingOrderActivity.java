@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.DeliveryaddrCallBack;
+import com.beautydefinelibrary.DeliveryaddrDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
@@ -67,7 +68,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private CouponBean.DataBean.CouponsBean couponsBean;//当前选中的优惠劵
     private int couponPos =-1;
     private int totalCoupon=0;
-    //  private CenterBuyDialog mDialog;
+    private   DeliveryaddrDefine mADDrDefine;
 
 
     @Override
@@ -222,7 +223,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
 
         } catch (JSONException e) {
             e.printStackTrace();
-            LogUtil.i(e+"");
+            LogUtil.i("error:"+e);
             tvAdd.setVisibility(View.VISIBLE);
         }
 
@@ -266,30 +267,30 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                         getPersimmions();
                     }
                 }).showDialog(getSupportFragmentManager());*/
+                mADDrDefine = BeautyDefine.getDeliveryaddrDefine(ShoppingOrderActivity.this);
+                mADDrDefine.showDeliveryaddr(tvAdd.getVisibility() != View.GONE, true, new DeliveryaddrCallBack() {
+                    @Override
+                    public void edited() {
 
-                    BeautyDefine.getDeliveryaddrDefine(ShoppingOrderActivity.this).showDeliveryaddr(tvAdd.getVisibility() != View.GONE, true, new DeliveryaddrCallBack() {
-                        @Override
-                        public void edited() {
+                    }
 
+                    @Override
+                    public void selected(String s) {
+
+                        try {
+                            LogUtil.i(s);
+                            JSONObject jsonObject = new JSONObject(s);
+                            tvAddress.setText(jsonObject.getString("accurateAddress"));
+                            tvPhone.setText(jsonObject.getString("phone"));
+                            tvName.setText(jsonObject.getString("consignee"));
+                            tvAdd.setVisibility(View.GONE);
+                        } catch (JSONException e) {
+                            LogUtil.i("error:" + e);
+                            e.printStackTrace();
                         }
 
-                        @Override
-                        public void selected(String s) {
-
-                            try {
-                                LogUtil.i(s);
-                                JSONObject jsonObject =new JSONObject(s);
-                                tvAddress.setText( jsonObject.getString("accurateAddress"));
-                                tvPhone.setText( jsonObject.getString("phone"));
-                                tvName.setText( jsonObject.getString("consignee"));
-                                tvAdd.setVisibility(View.GONE);
-                            } catch (JSONException e) {
-                                LogUtil.i(""+e);
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
+                    }
+                });
 
             }
         });
@@ -316,9 +317,9 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-     /*   if (mDialog!=null&&mDialog.imagePickerDefine != null) {
-            mDialog.imagePickerDefine.onActivityResultHanlder(requestCode, resultCode, data);
-        }*/
+        if (mADDrDefine!= null) {
+            mADDrDefine.onActivityResultHanlder(requestCode,resultCode,data);
+        }
         if (requestCode==100&&resultCode==100){
             if (data==null){//取消优惠劵
                 couponsBean =null;
