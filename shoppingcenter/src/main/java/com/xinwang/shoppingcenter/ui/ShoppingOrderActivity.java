@@ -220,10 +220,12 @@ public class ShoppingOrderActivity extends BaseNetActivity {
 
             @Override
             public void onSuccess(AddressBean commonEntity) {
+                if (selectData==null)
                 addressGetSuccess(GsonUtils.getGsonInstance().fromJson(commonEntity.getData().getDeliveryaddrs(),AddressBean.DataBean2.class));
             }
         });
     }
+    private String selectData =null;
     private void addressGetSuccess(AddressBean.DataBean2 dataBean){
         if (dataBean!=null) {
                 tvAdd.setVisibility(View.GONE);
@@ -262,23 +264,11 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             @Override
             public void onClick(View v) {
                 etRemarks.clearFocus();
-                /*mDialog = CenterBuyDialog.getInstance("收货地址","请准确的填写收货信息");
-                mDialog.setCallback(new CenterBuyDialog.Callback1<String>() {
-                    @Override
-                    public void run(String s) {
-                        initShowAddress();
-                    }
-
-                    @Override
-                    public void clickLocation() {
-                        getPersimmions();
-                    }
-                }).showDialog(getSupportFragmentManager());*/
+                selectData =null;
                 mADDrDefine = BeautyDefine.getDeliveryaddrDefine(ShoppingOrderActivity.this);
                 mADDrDefine.showDeliveryaddr(tvAdd.getVisibility() != View.GONE, true, new DeliveryaddrCallBack() {
                     @Override
                     public void edited(String data) {
-                        LogUtil.i("edited:"+data);
                         if (data != null) {
                             AddressBean.DataBean2 mData = GsonUtils.getGsonInstance().fromJson(data, AddressBean.DataBean2.class);
                             addressGetSuccess(mData);
@@ -289,16 +279,14 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     }
                     @Override
                     public void selected(String s) {
-
                         try {
-                            LogUtil.i("selected:"+s);
+                            selectData =s;
                             JSONObject jsonObject = new JSONObject(s);
                             tvAddress.setText(jsonObject.getString("accurateAddress"));
                             tvPhone.setText(jsonObject.getString("phone"));
                             tvName.setText(jsonObject.getString("consignee"));
                             tvAdd.setVisibility(View.GONE);
                         } catch (JSONException e) {
-                            LogUtil.i("error:" + e);
                             e.printStackTrace();
                         }
 
@@ -326,7 +314,9 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             }
         });
     }
+    private void selectAddressData(){
 
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
