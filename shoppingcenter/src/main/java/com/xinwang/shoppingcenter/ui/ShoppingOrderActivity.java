@@ -31,6 +31,7 @@ import com.xinwang.bgqbaselib.utils.AndroidBug5497Workaround;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
@@ -207,6 +208,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     }
     private void initShowAddress() {
         String json = BeautyDefine.getUserInfoDefine(this).getDeliveryaddr();
+        LogUtil.i(json);
         try {
             JSONObject jsonObject =new JSONObject(json);
             int defaultIndex = jsonObject.getInt("defaultIndex");
@@ -220,6 +222,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
 
         } catch (JSONException e) {
             e.printStackTrace();
+            LogUtil.i(e+"");
             tvAdd.setVisibility(View.VISIBLE);
         }
 
@@ -272,13 +275,16 @@ public class ShoppingOrderActivity extends BaseNetActivity {
 
                         @Override
                         public void selected(String s) {
+
                             try {
+                                LogUtil.i(s);
                                 JSONObject jsonObject =new JSONObject(s);
                                 tvAddress.setText( jsonObject.getString("accurateAddress"));
                                 tvPhone.setText( jsonObject.getString("phone"));
                                 tvName.setText( jsonObject.getString("consignee"));
                                 tvAdd.setVisibility(View.GONE);
                             } catch (JSONException e) {
+                                LogUtil.i(""+e);
                                 e.printStackTrace();
                             }
 
