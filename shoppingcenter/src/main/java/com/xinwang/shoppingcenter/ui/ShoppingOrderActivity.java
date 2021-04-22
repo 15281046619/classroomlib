@@ -1,14 +1,9 @@
 package com.xinwang.shoppingcenter.ui;
 
-import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
+import android.support.v4.widget.NestedScrollView;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
@@ -24,15 +19,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
-import com.beautydefinelibrary.ImagePickerCallBack;
-import com.beautydefinelibrary.ImagePickerDefine;
-import com.beautydefinelibrary.LocationCallBack;
-import com.beautydefinelibrary.LocationDefine;
+import com.beautydefinelibrary.DeliveryaddrCallBack;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
-import com.xinwang.bgqbaselib.dialog.CenterBuyDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
-import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
@@ -42,7 +32,6 @@ import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
-import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
@@ -68,6 +57,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private RadioButton rbXX,rbWX,rbZFB;
     private LinearLayout llContent;
     private TextView tvCoupon;
+    private NestedScrollView scrollview;
     private EditText etRemarks;
     private Double aDoublePrice;
     private int selectSum;
@@ -76,7 +66,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private CouponBean.DataBean.CouponsBean couponsBean;//当前选中的优惠劵
     private int couponPos =-1;
     private int totalCoupon=0;
-  //  private CenterBuyDialog mDialog;
+    //  private CenterBuyDialog mDialog;
 
 
     @Override
@@ -216,34 +206,23 @@ public class ShoppingOrderActivity extends BaseNetActivity {
 
     }
     private void initShowAddress() {
-       String json = BeautyDefine.getUserInfoDefine(this).getDeliveryaddr();
-        /*String address = SharedPreferenceUntils.getSaveAddress(this);
-        String phone = SharedPreferenceUntils.getSavePhone(this);
-        String name = SharedPreferenceUntils.getSaveName(this);*/
+        String json = BeautyDefine.getUserInfoDefine(this).getDeliveryaddr();
         try {
             JSONObject jsonObject =new JSONObject(json);
-           int defaultIndex = jsonObject.getInt("defaultIndex");
+            int defaultIndex = jsonObject.getInt("defaultIndex");
             JSONArray jsonArray = jsonObject.getJSONArray("deliveryaddrs");
-           if (defaultIndex<0||jsonArray==null||jsonArray.length()<=defaultIndex){
-               tvAdd.setVisibility(View.VISIBLE);
-           }else {
-               tvAdd.setVisibility(View.GONE);
-               tvAddress.setText( jsonArray.getJSONObject(defaultIndex).getString("accurateAddress"));
-               tvPhone.setText( jsonArray.getJSONObject(defaultIndex).getString("phone"));
-               tvName.setText( jsonArray.getJSONObject(defaultIndex).getString("consignee"));
-           }
+            if (defaultIndex<0||jsonArray.length()<=defaultIndex)//没有默认地址属性,此处默认选择第一个地址
+                defaultIndex=jsonArray.length()-1;
+            tvAdd.setVisibility(View.GONE);
+            tvAddress.setText( jsonArray.getJSONObject(defaultIndex).getString("accurateAddress"));
+            tvPhone.setText( jsonArray.getJSONObject(defaultIndex).getString("phone"));
+            tvName.setText( jsonArray.getJSONObject(defaultIndex).getString("consignee"));
+
         } catch (JSONException e) {
             e.printStackTrace();
             tvAdd.setVisibility(View.VISIBLE);
         }
-     /*   if (TextUtils.isEmpty(address))
-            tvAdd.setVisibility(View.VISIBLE);
-        else {
-            tvAdd.setVisibility(View.GONE);
-            tvAddress.setText(address);
-            tvPhone.setText(phone);
-            tvName.setText(name);
-        }*/
+
     }
 
     private void initListener() {
@@ -284,7 +263,28 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                         getPersimmions();
                     }
                 }).showDialog(getSupportFragmentManager());*/
-                BeautyDefine.getOpenPageDefine(ShoppingOrderActivity.this).toDeliveryaddr();
+
+                    BeautyDefine.getDeliveryaddrDefine(ShoppingOrderActivity.this).showDeliveryaddr(tvAdd.getVisibility() == View.GONE, true, new DeliveryaddrCallBack() {
+                        @Override
+                        public void edited() {
+
+                        }
+
+                        @Override
+                        public void selected(String s) {
+                            try {
+                                JSONObject jsonObject =new JSONObject(s);
+                                tvAddress.setText( jsonObject.getString("accurateAddress"));
+                                tvPhone.setText( jsonObject.getString("phone"));
+                                tvName.setText( jsonObject.getString("consignee"));
+                                tvAdd.setVisibility(View.GONE);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+
             }
         });
         findViewById(R.id.tvBuy).setOnClickListener(new View.OnClickListener() {
@@ -293,6 +293,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 if (tvAdd.getVisibility()==View.GONE) {
                     goRequestErp();
                 }else {
+                    scrollview.smoothScrollTo(0,0);
                     MyToast.myToast(ShoppingOrderActivity.this,"请填写收货地址");
                 }
             }
@@ -300,8 +301,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         findViewById(R.id.llCoupon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivityForResult(new Intent(ShoppingOrderActivity.this,CouponListsActivity.class)
-                       .putExtra("pos",couponPos),100);
+                startActivityForResult(new Intent(ShoppingOrderActivity.this,CouponListsActivity.class)
+                        .putExtra("pos",couponPos),100);
             }
         });
     }
@@ -332,8 +333,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ArrayList<String> permissions = new ArrayList();
             *//***
-             * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
-             *//*
+     * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
+     *//*
             // 定位精确位置
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -342,8 +343,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
             }
             *//*
-             * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
-             *//*
+     * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
+     *//*
 
             if (permissions.size() > 0) {
                 requestPermissions(permissions.toArray(new String[permissions.size()]), 100);
@@ -442,6 +443,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         tvPrice= findViewById(R.id.tvPrice);
         tvSum= findViewById(R.id.tvSum);
         tvCoupon =findViewById(R.id.tvCoupon);
+        scrollview =findViewById(R.id.scrollview);
 
     }
 
