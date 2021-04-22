@@ -227,7 +227,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     }
     private String selectData =null;
     private void addressGetSuccess(AddressBean.DataBean2 dataBean){
-        if (dataBean!=null) {
+        if (dataBean!=null&&dataBean.getDeliveryaddrs().size()>0) {
                 tvAdd.setVisibility(View.GONE);
                 if (dataBean.getDefaultIndex() < 0 || dataBean.getDeliveryaddrs().size() <= dataBean.getDefaultIndex())//没有默认地址属性,此处默认选择第一个地址
                     dataBean.setDefaultIndex(dataBean.getDeliveryaddrs().size() - 1);
@@ -314,9 +314,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             }
         });
     }
-    private void selectAddressData(){
 
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
