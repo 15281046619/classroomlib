@@ -24,6 +24,7 @@ import com.beautydefinelibrary.DeliveryaddrDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
@@ -32,11 +33,13 @@ import com.xinwang.bgqbaselib.utils.AndroidBug5497Workaround;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
+import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
+import com.xinwang.shoppingcenter.bean.AddressBean;
 import com.xinwang.shoppingcenter.bean.CouponBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
 
@@ -207,28 +210,32 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         }
 
     }
-    private void initShowAddress() {
-        String json = BeautyDefine.getUserInfoDefine(this).getDeliveryaddr();
-        LogUtil.i(json);
-        try {
-            JSONObject jsonObject =new JSONObject(json);
-            int defaultIndex = jsonObject.getInt("defaultIndex");
-            JSONArray jsonArray = jsonObject.getJSONArray("deliveryaddrs");
-            if (defaultIndex<0||jsonArray.length()<=defaultIndex)//没有默认地址属性,此处默认选择第一个地址
-                defaultIndex=jsonArray.length()-1;
-            tvAdd.setVisibility(View.GONE);
-            tvAddress.setText( jsonArray.getJSONObject(defaultIndex).getString("accurateAddress"));
-            tvPhone.setText( jsonArray.getJSONObject(defaultIndex).getString("phone"));
-            tvName.setText( jsonArray.getJSONObject(defaultIndex).getString("consignee"));
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-            LogUtil.i("error:"+e);
+    private void initShowAddress() {
+        requestGet(HttpUrls.URL_EXTRA_GET(), new ApiParams().with("names", "deliveryaddrs"), AddressBean.class, new HttpCallBack<AddressBean>() {
+            @Override
+            public void onFailure(String message) {
+
+            }
+
+            @Override
+            public void onSuccess(AddressBean commonEntity) {
+                addressGetSuccess(GsonUtils.getGsonInstance().fromJson(commonEntity.getData().getDeliveryaddrs(),AddressBean.DataBean2.class));
+            }
+        });
+    }
+    private void addressGetSuccess(AddressBean.DataBean2 dataBean){
+        if (dataBean!=null) {
+                tvAdd.setVisibility(View.GONE);
+                if (dataBean.getDefaultIndex() < 0 || dataBean.getDeliveryaddrs().size() <= dataBean.getDefaultIndex())//没有默认地址属性,此处默认选择第一个地址
+                    dataBean.setDefaultIndex(dataBean.getDeliveryaddrs().size() - 1);
+                tvAddress.setText(dataBean.getDeliveryaddrs().get(dataBean.getDefaultIndex()).getAccurateAddress());
+                tvPhone.setText(dataBean.getDeliveryaddrs().get(dataBean.getDefaultIndex()).getPhone());
+                tvName.setText(dataBean.getDeliveryaddrs().get(dataBean.getDefaultIndex()).getConsignee());
+        }else {
             tvAdd.setVisibility(View.VISIBLE);
         }
-
     }
-
     private void initListener() {
         ((RadioGroup)findViewById(R.id.radioGroup)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -270,15 +277,21 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 mADDrDefine = BeautyDefine.getDeliveryaddrDefine(ShoppingOrderActivity.this);
                 mADDrDefine.showDeliveryaddr(tvAdd.getVisibility() != View.GONE, true, new DeliveryaddrCallBack() {
                     @Override
-                    public void edited() {
+                    public void edited(String data) {
+                        LogUtil.i("edited:"+data);
+                        if (data != null) {
+                            AddressBean.DataBean2 mData = GsonUtils.getGsonInstance().fromJson(data, AddressBean.DataBean2.class);
+                            addressGetSuccess(mData);
+                        }else {
+                            initShowAddress();
+                        }
 
                     }
-
                     @Override
                     public void selected(String s) {
 
                         try {
-                            LogUtil.i(s);
+                            LogUtil.i("selected:"+s);
                             JSONObject jsonObject = new JSONObject(s);
                             tvAddress.setText(jsonObject.getString("accurateAddress"));
                             tvPhone.setText(jsonObject.getString("phone"));

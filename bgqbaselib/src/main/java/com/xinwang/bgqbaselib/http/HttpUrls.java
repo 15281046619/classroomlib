@@ -18,6 +18,14 @@ public class HttpUrls {
     public static final String URL_CATEGORYS(){
         return URL_HOST+URL_NAME+"lecture/general/category/lists";
     }
+
+    /**
+     * 扩展信息
+     * @return
+     */
+    public static final String URL_EXTRA_GET(){
+        return URL_HOST+URL_NAME+"user/user/extra/get";
+    }
     public static final String URL_AD_LISTS(){
         return URL_HOST+URL_NAME+"ad/general/ad/lists";
     }
