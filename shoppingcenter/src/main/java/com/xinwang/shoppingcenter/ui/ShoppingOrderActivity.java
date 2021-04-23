@@ -229,12 +229,20 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private void addressGetSuccess(AddressBean.DataBean2 dataBean){
         if (dataBean!=null&&dataBean.getDeliveryaddrs().size()>0) {
                 tvAdd.setVisibility(View.GONE);
-                if (dataBean.getDefaultIndex() < 0 || dataBean.getDeliveryaddrs().size() <= dataBean.getDefaultIndex())//没有默认地址属性,此处默认选择第一个地址
-                    dataBean.setDefaultIndex(dataBean.getDeliveryaddrs().size() - 1);
-                tvAddress.setText(dataBean.getDeliveryaddrs().get(dataBean.getDefaultIndex()).getAccurateAddress());
-                tvPhone.setText(dataBean.getDeliveryaddrs().get(dataBean.getDefaultIndex()).getPhone());
-                tvName.setText(dataBean.getDeliveryaddrs().get(dataBean.getDefaultIndex()).getConsignee());
+                int defaultIndex =dataBean.getDeliveryaddrs().size()-1;
+                for (int i=0;i<dataBean.getDeliveryaddrs().size();i++){
+                    if (dataBean.getDefaultIndex().equals(dataBean.getDeliveryaddrs().get(i).getId())){
+                        defaultIndex =i;
+                        break;
+                    }
+                }
+                tvAddress.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getAccurateAddress());
+                tvPhone.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getPhone());
+                tvName.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getConsignee());
         }else {
+            tvAddress.setText("");
+            tvPhone.setText("");
+            tvName.setText("");
             tvAdd.setVisibility(View.VISIBLE);
         }
     }

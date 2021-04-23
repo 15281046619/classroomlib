@@ -32,5 +32,12 @@
         <item>牛羊混感康</item>
         <item>牛羊消气灵</item>
     </string-array>
+    <string-array name="order_state_name_ShoppingCenter">
+        <item>全部</item>
+        <item>待付款</item>
+        <item>待收货</item>
+        <item>待评论</item>
+        <item>售后</item>
+    </string-array>
 
 </resources>

@@ -2,6 +2,7 @@ package com.xinwang.shoppingcenter.bean;
 
 import com.xinwang.bgqbaselib.http.CommonEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,19 +45,19 @@ public class AddressBean extends CommonEntity {
 
     public static class  DataBean2{
 
-        private int defaultIndex;
+        private String defaultIndex;
         private List<DeliveryaddrsBean> deliveryaddrs;
 
-        public int getDefaultIndex() {
-            return defaultIndex;
+        public String getDefaultIndex() {
+            return defaultIndex==null?"":defaultIndex;
         }
 
-        public void setDefaultIndex(int defaultIndex) {
+        public void setDefaultIndex(String defaultIndex) {
             this.defaultIndex = defaultIndex;
         }
 
         public List<DeliveryaddrsBean> getDeliveryaddrs() {
-            return deliveryaddrs;
+            return deliveryaddrs==null?new ArrayList<>():deliveryaddrs;
         }
 
         public void setDeliveryaddrs(List<DeliveryaddrsBean> deliveryaddrs) {
@@ -65,11 +66,19 @@ public class AddressBean extends CommonEntity {
 
         public static class DeliveryaddrsBean {
 
-
+            private String id;
             private String accurateAddress;
             private String city;
             private String phone;
             private String consignee;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
 
             public String getConsignee() {
                 return consignee;

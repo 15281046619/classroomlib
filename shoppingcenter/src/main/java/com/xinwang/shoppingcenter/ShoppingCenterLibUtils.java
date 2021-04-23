@@ -32,6 +32,12 @@ import java.util.List;
  * author:baiguiqiang
  */
 public class ShoppingCenterLibUtils {
+    public static int ORDER_STATE_DFK=1;//待付款 订单
+    public static int ORDER_STATE_DSH=2;//待收货 物流
+    public static int ORDER_STATE_DPL=3;//待评价 商品
+    public static int ORDER_STATE_YWC=4;//已完成 商品
+    public static int ORDER_STATE_YQX=5;//已取消 订单
+    public static int ORDER_STATE_SH=6;//售后
     public static String[] getHotSearch(Context context){
 
         switch (HttpUrls.URL_TYPE){
