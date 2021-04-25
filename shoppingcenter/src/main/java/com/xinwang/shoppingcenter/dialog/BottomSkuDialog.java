@@ -104,7 +104,7 @@ public class BottomSkuDialog extends BaseDialog {
                 }
                 tvStore.setText("库存"+skuList.get(0).getTotalStock()+"件");
                 tvSelect.setText("");
-                GlideUtils.loadAvatar(skuList.get(0).getMainImage(),R.color.BGPressedClassRoom,ivImg);
+                GlideUtils.loadAvatarNoPlaceholder(skuList.get(0).getMainImage(),ivImg);
             }
 
             @Override
@@ -116,7 +116,7 @@ public class BottomSkuDialog extends BaseDialog {
             public void onSkuSelected(Sku sku) {
                 textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.doubleToString(sku.getSellingPrice())));
                 tvStore.setText("库存"+sku.getStockQuantity()+"件");
-                GlideUtils.loadAvatar(sku.getMainImage(),R.color.BGPressedClassRoom,ivImg);
+                GlideUtils.loadAvatarNoPlaceholder(sku.getMainImage(),ivImg);
                 showSelectTitle();
 
             }
@@ -124,7 +124,7 @@ public class BottomSkuDialog extends BaseDialog {
 
 
         if (skuList.size()>0&&!TextUtils.isEmpty(skuList.get(0).getShowPrice())) {
-            GlideUtils.loadAvatar(skuList.get(0).getMainImage(),R.color.BGPressedClassRoom,ivImg);
+            GlideUtils.loadAvatarNoPlaceholder(skuList.get(0).getMainImage(),ivImg);
             textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.doubleToString(skuList.get(0).getShowPrice())));
         }
         if (skuList.size()>0){

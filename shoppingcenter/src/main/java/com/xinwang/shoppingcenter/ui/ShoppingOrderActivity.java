@@ -24,7 +24,6 @@ import com.beautydefinelibrary.DeliveryaddrDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
-import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
@@ -34,7 +33,6 @@ import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
-import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
@@ -44,10 +42,8 @@ import com.xinwang.shoppingcenter.bean.CouponBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
 
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -231,7 +227,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 tvAdd.setVisibility(View.GONE);
                 int defaultIndex =dataBean.getDeliveryaddrs().size()-1;
                 for (int i=0;i<dataBean.getDeliveryaddrs().size();i++){
-                    if (dataBean.getDefaultIndex().equals(dataBean.getDeliveryaddrs().get(i).getId())){
+                    if (dataBean.getDefaultId().equals(dataBean.getDeliveryaddrs().get(i).getId())){
                         defaultIndex =i;
                         break;
                     }
@@ -344,50 +340,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             initShowAddress();
         }
     }
-   /* @TargetApi(23)
-    private void getPersimmions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ArrayList<String> permissions = new ArrayList();
-            *//***
-     * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
-     *//*
-            // 定位精确位置
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-            }
-            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-            }
-            *//*
-     * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
-     *//*
 
-            if (permissions.size() > 0) {
-                requestPermissions(permissions.toArray(new String[permissions.size()]), 100);
-            }else {
-                if (mDialog!=null)
-                    mDialog.goLocationAddress();
-            }
-        }else {
-            if (mDialog!=null)
-                mDialog.goLocationAddress();
-        }
-    }*/
-
-/*    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode==100){
-            for (int grantResult : grantResults) {
-                if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                    MyToast.myToast(getApplicationContext(), "你拒绝了该权限");
-                    return;
-                }
-            }
-            if (mDialog!=null)
-                mDialog.goLocationAddress();
-        }
-    }*/
 
     /**
      * 获取技术老师

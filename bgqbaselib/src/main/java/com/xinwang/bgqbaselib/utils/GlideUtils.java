@@ -20,6 +20,10 @@ public class GlideUtils {
         if (!activityIsFinished(imageView.getContext()))
         Glide.with(imageView.getContext()).load(url).placeholder(defaultImg).centerCrop().into(imageView);
     }
+    public static void loadAvatarNoPlaceholder(String url ,ImageView imageView){
+        if (!activityIsFinished(imageView.getContext()))
+        Glide.with(imageView.getContext()).load(url).centerCrop().into(imageView);
+    }
     public static void loadAvatar(String url,int defaultImg ,ImageView imageView,int width,int height){
         if (!activityIsFinished(imageView.getContext()))
         Glide.with(imageView.getContext()).load(url).override(width,height).placeholder(defaultImg).centerCrop().into(imageView);

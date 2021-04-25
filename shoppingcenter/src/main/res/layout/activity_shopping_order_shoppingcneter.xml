@@ -47,6 +47,9 @@
                         android:layout_marginLeft="60dp"
                         android:id="@+id/tvName"
                         android:textStyle="bold"
+                        android:maxLength="10"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="50dp"
                         android:layout_height="wrap_content"/>
@@ -57,6 +60,9 @@
                         android:layout_toRightOf="@+id/tvName"
                         android:layout_marginLeft="@dimen/dp_10_classroom"
                         android:textSize="@dimen/sp_13_classroom"
+                        android:maxLength="11"
+                        android:singleLine="true"
+                        android:ellipsize="end"
                         android:textColor="@color/GrayClassRoom"
 
                         android:layout_height="wrap_content"/>
@@ -262,6 +268,7 @@
                             android:textSize="@dimen/sp_14_classroom"
                             android:padding="13dp"
                             android:gravity="right"
+                            android:maxLength="255"
                             android:hint="选填,请先和商家协商一致"/>
                     </LinearLayout>
                 </LinearLayout>

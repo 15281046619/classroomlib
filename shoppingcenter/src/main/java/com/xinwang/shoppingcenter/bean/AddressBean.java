@@ -45,15 +45,15 @@ public class AddressBean extends CommonEntity {
 
     public static class  DataBean2{
 
-        private String defaultIndex;
+        private String defaultId;
         private List<DeliveryaddrsBean> deliveryaddrs;
 
-        public String getDefaultIndex() {
-            return defaultIndex==null?"":defaultIndex;
+        public String getDefaultId() {
+            return defaultId==null?"":defaultId;
         }
 
-        public void setDefaultIndex(String defaultIndex) {
-            this.defaultIndex = defaultIndex;
+        public void setDefaultId(String defaultId) {
+            this.defaultId = defaultId;
         }
 
         public List<DeliveryaddrsBean> getDeliveryaddrs() {
