@@ -18,6 +18,27 @@
                 android:layout_height="48dp"
                 android:paddingLeft="13dp"
                 android:paddingRight="13dp"
+                android:id="@+id/icOrderList"
+                android:src="@mipmap/ic_order_shoppingcenter"
+                />
+            <include layout="@layout/layout_round_number_shoppingcenter"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:id="@+id/icOrderNumber"
+                android:visibility="gone"
+                android:layout_toRightOf="@+id/icOrderList"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="-20dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
                 android:id="@+id/ivShoppingCenter"
                 android:src="@mipmap/ic_gwc_shoppingcneter"
                 />

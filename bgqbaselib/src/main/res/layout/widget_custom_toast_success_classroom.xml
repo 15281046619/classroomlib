@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5_classroom"
+        android:id="@+id/iv_icon"
         android:src="@drawable/ic_baseline_check_24_classroom"/>
     <TextView
         android:id="@+id/tvToastTips"

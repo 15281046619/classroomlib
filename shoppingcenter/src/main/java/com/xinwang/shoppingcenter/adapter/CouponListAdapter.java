@@ -24,10 +24,14 @@ import java.util.List;
  */
 public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.CouponsBean> {
     public int curPos =-1;//选中pos
-    public CouponListAdapter(List<CouponBean.DataBean.CouponsBean> mDatas) {
+    private Double aDouble;
+    public CouponListAdapter(List<CouponBean.DataBean.CouponsBean> mDatas,Double mCurPrice) {
         super(mDatas);
+        aDouble =mCurPrice;
     }
-
+    public Double getCurPrice(){
+        return aDouble;
+    }
     @Override
     protected void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         if (viewHolder instanceof BaseViewHolder ){
@@ -37,6 +41,15 @@ public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.C
             mViewHolder.tvTitle.setText(mDatas.get(i).getName());
             mViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.doubleToString(CountUtil.divide(mDatas.get(i).getFee(),100D))));
             mViewHolder.tvTime.setText("有效期至"+ TimeUtil.getYMD(mDatas.get(i).getExpire_at()+""));
+            if (mDatas.get(i).getMin_money()>0)
+                mViewHolder.tvMinPrice.setText("满"+CountUtil.doubleToString(mDatas.get(i).getMin_money())+"可用");
+            else
+                mViewHolder.tvMinPrice.setText("");
+            if (aDouble>=mDatas.get(i).getMin_money()){
+                mViewHolder.viewIsUser.setVisibility(View.VISIBLE);
+            }else {
+                mViewHolder.viewIsUser.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -51,8 +64,8 @@ public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.C
     }
     class BaseViewHolder extends RecyclerView.ViewHolder {
         ImageView ivSelect;
-        TextView tvDes,tvPrice,tvTitle,tvTime;
-
+        TextView tvDes,tvPrice,tvTitle,tvTime,tvMinPrice;
+        View viewIsUser;
 
 
         BaseViewHolder(@NonNull View itemView) {
@@ -61,7 +74,9 @@ public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.C
             tvDes= itemView.findViewById(R.id.tvDes);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            tvMinPrice = itemView.findViewById(R.id.tvMinPrice);
             tvTime = itemView.findViewById(R.id.tvTime);
+            viewIsUser = itemView.findViewById(R.id.viewIsUser);
         }
     }
 }

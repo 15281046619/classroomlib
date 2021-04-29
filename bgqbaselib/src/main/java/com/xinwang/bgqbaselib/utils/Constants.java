@@ -27,6 +27,10 @@ public class Constants {
 
 
     public static boolean APP_DBG = false; // 是否是debug模式
+    public final static int PAY_STATE_ALL =0;//所有
+    public final static int PAY_STATE_NO =1; //支付状态未支付
+    public final static int PAY_STATE_YES =2;
+    public final static int PAY_STATE_CANCEL =3;
     public static void init(Context context){
         APP_DBG = isApkDebugable(context);
     }

@@ -18,18 +18,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/dp_10_classroom">
+        >
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="新人优惠劵"
+            android:paddingLeft="@dimen/dp_10_classroom"
+            android:paddingTop="@dimen/dp_10_classroom"
             android:textColor="@color/black"
             android:textSize="20sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvTime"
+            android:paddingLeft="@dimen/dp_10_classroom"
             android:textSize="14sp"
             android:layout_marginTop="@dimen/dp_2_classroom"
             android:layout_below="@+id/tvTitle"
@@ -39,26 +42,42 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:id="@+id/ivSelect"
-            android:layout_marginTop="@dimen/dp_5_classroom"
+            android:layout_marginTop="@dimen/dp_15_classroom"
+            android:layout_marginRight="@dimen/dp_10_classroom"
             android:src="@drawable/select_order_checkbutton_shoppingcenter"/>
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvPrice"
-            android:textSize="24sp"
-            android:maxLines="1"
-            android:text="￥20"
+            android:orientation="vertical"
             android:layout_marginRight="@dimen/dp_10_classroom"
             android:layout_toLeftOf="@+id/ivSelect"
-            android:textColor="@color/themeClassRoom"
-            android:gravity="center_vertical"
-            />
+            android:layout_marginTop="@dimen/dp_10_classroom"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPrice"
+                android:textSize="24sp"
+                android:maxLines="1"
+                android:text="￥20"
+                android:textColor="@color/themeClassRoom"
+                android:gravity="center_vertical"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="满20可用"
+                android:id="@+id/tvMinPrice"
+                android:textColor="@color/themeClassRoom"
+                />
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:id="@+id/viewLine"
-            android:layout_marginTop="@dimen/dp_10_classroom"
-            android:layout_marginBottom="@dimen/dp_10_classroom"
+            android:layout_margin="@dimen/dp_10_classroom"
+
+
             android:background="@drawable/shape_line_dash_coupon_shoppingcenter"
             android:layout_below="@+id/tvTime"/>
         <TextView
@@ -66,8 +85,17 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:id="@+id/tvDes"
+            android:paddingLeft="@dimen/dp_10_classroom"
+            android:paddingBottom="@dimen/dp_10_classroom"
             android:layout_below="@+id/viewLine"
             android:lineSpacingExtra="2dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvTitle"
+            android:background="#22666666"
+            android:id="@+id/viewIsUser"
+            android:layout_alignBottom="@+id/tvDes"/>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

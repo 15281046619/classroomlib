@@ -71,6 +71,15 @@ public class AddressBean extends CommonEntity {
             private String city;
             private String phone;
             private String consignee;
+            private String regions;
+
+            public String getRegions() {
+                return regions;
+            }
+
+            public void setRegions(String regions) {
+                this.regions = regions;
+            }
 
             public String getId() {
                 return id;

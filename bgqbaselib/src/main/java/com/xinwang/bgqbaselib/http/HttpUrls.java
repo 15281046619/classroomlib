@@ -58,6 +58,17 @@ public class HttpUrls {
       return  URL_HOST+URL_NAME+"live/home/live/lists";
     }
 
+    /**
+     * 取消订单
+     * @return
+     */
+    public static final String URL_ORDER_CANCEL(){
+      return  URL_HOST+URL_NAME+"goods/user/order/cancel";
+    }
+    public static final String URL_ORDER_GET_PAY(){
+      return  URL_HOST+URL_NAME+"goods/user/order/get-pay-param";
+    }
+
     public static final String URL_LIVE_CATEGORY(){
       return  URL_HOST+URL_NAME+"live/home/category/lists";
     }
@@ -97,6 +108,20 @@ public class HttpUrls {
      */
     public static final String URL_USER_MY_ERP(){
       return  URL_HOST+URL_NAME+"user/user/my/my-erp";
+    }
+    /**
+     *创建订单
+     * @return
+     */
+    public static final String URL_USER_ORDER_CREATE(){
+      return  URL_HOST+URL_NAME+"goods/user/order/create";
+    }
+    /**
+     *订单列表
+     * @return
+     */
+    public static final String URL_USER_ORDER_LISTS(){
+      return  URL_HOST+URL_NAME+"goods/user/order/lists";
     }
 
     /**

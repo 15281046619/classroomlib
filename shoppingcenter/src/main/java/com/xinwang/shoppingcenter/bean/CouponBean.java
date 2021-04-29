@@ -80,6 +80,15 @@ public class CouponBean extends CommonEntity {
             private Object verification_context;
             private int create_time;
             private String create_from;
+            private double min_money;
+
+            public double getMin_money() {
+                return min_money;
+            }
+
+            public void setMin_money(double min_money) {
+                this.min_money = min_money;
+            }
 
             public int getId() {
                 return id;

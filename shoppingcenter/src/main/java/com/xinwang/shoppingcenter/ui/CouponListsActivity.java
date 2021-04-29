@@ -98,7 +98,7 @@ public class CouponListsActivity extends BaseNetActivity {
 
     private void initAdapter(int state ) {
         if (mAdapter==null) {
-            mAdapter = new CouponListAdapter(mData);
+            mAdapter = new CouponListAdapter(mData,getIntent().getDoubleExtra("price",0));
             mAdapter.curPos=getIntent().getIntExtra("pos",-1);
             if ( mAdapter.curPos!=-1){
                 tvSelect.setText("已选择1张");
@@ -106,14 +106,16 @@ public class CouponListsActivity extends BaseNetActivity {
             mAdapter.setOnItemClickListener(new BaseLoadMoreAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    if (mAdapter.curPos==position) {
-                        mAdapter.curPos = -1;//取消
-                        tvSelect.setText("");
-                    }else {
-                        mAdapter.curPos = position;
-                        tvSelect.setText("已选择1张");
+                    if (mAdapter.getCurPrice()>=mAdapter.mDatas.get(position).getMin_money()) {
+                        if (mAdapter.curPos == position) {
+                            mAdapter.curPos = -1;//取消
+                            tvSelect.setText("");
+                        } else {
+                            mAdapter.curPos = position;
+                            tvSelect.setText("已选择1张");
+                        }
+                        mAdapter.notifyDataSetChanged();
                     }
-                    mAdapter.notifyDataSetChanged();
                 }
             });
             mAdapter.setLoadStateNoNotify(state);

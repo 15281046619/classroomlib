@@ -75,11 +75,24 @@ public class ShoppingCenterLibUtils {
                         }
                     }
                 }
+
                 if (lookPos==-1) {
                     mLists.add(0, mBean);
                     EventBus.getDefault().post(new NumberBean(1));
-                }else
-                    mLists.get(lookPos).setAddSum(mLists.get(lookPos).getAddSum() + mBean.getAddSum());
+                }else {
+                    if(mLists.get(lookPos).getAddSum()+mBean.getAddSum()>mLists.get(lookPos).getStockQuantity()) {
+                          MyToast.myCenterFalseToast(activity, "添加失败，购物车库存不足");
+                        return;
+
+                    }else {
+                        if (mLists.get(lookPos).getAddSum() + mBean.getAddSum() > mLists.get(lookPos).getMaxBugSum()) {
+                            MyToast.myCenterFalseToast(activity, "添加失败，已到个人最大购买数目");
+                            return;
+                        }else
+                            mLists.get(lookPos).setAddSum(mLists.get(lookPos).getAddSum() + mBean.getAddSum());
+                    }
+
+                }
                 SharedPreferenceUntils.saveGoods(activity, GsonUtils.createGsonString(mLists));
             } else {
                 List<Sku> mLists = new ArrayList<>();
@@ -209,6 +222,7 @@ public class ShoppingCenterLibUtils {
      */
     public static void jumpChat(Activity activity,long userId, String text){
         if (userId==-1){
+            MyToast.myLongToast(activity,"你还没有技术老师，请联系客服分配技术老师!");
             CommentUtils.jumpWebBrowser(activity,HttpUrls.URL_CHAT);
         }else
             BeautyDefine.getOpenPageDefine(activity).toPersonalChatText(userId,text);

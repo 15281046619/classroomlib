@@ -22,7 +22,11 @@ import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.DeliveryaddrCallBack;
 import com.beautydefinelibrary.DeliveryaddrDefine;
 import com.beautydefinelibrary.OpenPageDefine;
+import com.xingwreslib.beautyreslibrary.BeautyObserver;
+import com.xingwreslib.beautyreslibrary.OrderInfo;
+import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
+import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
@@ -30,21 +34,29 @@ import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
 import com.xinwang.bgqbaselib.utils.AndroidBug5497Workaround;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.bean.AddressBean;
 import com.xinwang.shoppingcenter.bean.CouponBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
+import com.xinwang.shoppingcenter.bean.NumberBean;
+import com.xinwang.shoppingcenter.bean.OrderSuccessBean;
 
 
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -187,9 +199,9 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         }
         showTotalPrice();
     }
-
+    private Double mTotal;
     public void showTotalPrice(){
-        Double mTotal = CountUtil.sub(aDoublePrice, couponsBean == null ? 0D :
+        mTotal = CountUtil.sub(aDoublePrice, couponsBean == null ? 0D :
                 CountUtil.divide(couponsBean.getFee(), 100D));
         SpannableString spannableString =new SpannableString("总计:￥"+(mTotal>0?CountUtil.doubleToString(mTotal):0));
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.themeClassRoom)),3,spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -217,28 +229,31 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             @Override
             public void onSuccess(AddressBean commonEntity) {
                 if (selectData==null)
-                addressGetSuccess(GsonUtils.getGsonInstance().fromJson(commonEntity.getData().getDeliveryaddrs(),AddressBean.DataBean2.class));
+                    addressGetSuccess(GsonUtils.getGsonInstance().fromJson(commonEntity.getData().getDeliveryaddrs(),AddressBean.DataBean2.class));
             }
         });
     }
     private String selectData =null;
+    private String regions ="";//地区json [{"name":"辽宁省","provinceId":"210000000000"},{"city_id":"210500000000","name":"本溪市","province_id":"210000000000"},{"city_id":"210500000000","county_id":"210521000000","name":"本溪满族自治县"}]","phone":"18482131033"},{"accurateAddress":"华西大厦A座 1011","city":"成都","phone":"18482131033"}]
     private void addressGetSuccess(AddressBean.DataBean2 dataBean){
         if (dataBean!=null&&dataBean.getDeliveryaddrs().size()>0) {
-                tvAdd.setVisibility(View.GONE);
-                int defaultIndex =dataBean.getDeliveryaddrs().size()-1;
-                for (int i=0;i<dataBean.getDeliveryaddrs().size();i++){
-                    if (dataBean.getDefaultId().equals(dataBean.getDeliveryaddrs().get(i).getId())){
-                        defaultIndex =i;
-                        break;
-                    }
+            tvAdd.setVisibility(View.GONE);
+            int defaultIndex =dataBean.getDeliveryaddrs().size()-1;
+            for (int i=0;i<dataBean.getDeliveryaddrs().size();i++){
+                if (dataBean.getDefaultId().equals(dataBean.getDeliveryaddrs().get(i).getId())){
+                    defaultIndex =i;
+                    break;
                 }
-                tvAddress.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getAccurateAddress());
-                tvPhone.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getPhone());
-                tvName.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getConsignee());
+            }
+            tvAddress.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getAccurateAddress());
+            tvPhone.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getPhone());
+            tvName.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getConsignee());
+            regions =dataBean.getDeliveryaddrs().get(defaultIndex).getRegions();
         }else {
             tvAddress.setText("");
             tvPhone.setText("");
             tvName.setText("");
+            regions ="";
             tvAdd.setVisibility(View.VISIBLE);
         }
     }
@@ -303,7 +318,16 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             @Override
             public void onClick(View v) {
                 if (tvAdd.getVisibility()==View.GONE) {
-                    goRequestErp();
+                    CenterDefineDialog.getInstance("是否咨询技术老师",false).setCallback(new CenterDefineDialog.Callback1<Integer>() {
+                        @Override
+                        public void run(Integer integer) {
+                            if (integer==0){//是
+                                goRequestErp();
+                            }else {
+                                createOrder(false,null);
+                            }
+                        }
+                    }).showDialog(getSupportFragmentManager());
                 }else {
                     scrollview.smoothScrollTo(0,0);
                     MyToast.myToast(ShoppingOrderActivity.this,"请填写收货地址");
@@ -314,7 +338,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(ShoppingOrderActivity.this,CouponListsActivity.class)
-                        .putExtra("pos",couponPos),100);
+                        .putExtra("pos",couponPos)
+                        .putExtra("price",aDoublePrice),100);
             }
         });
     }
@@ -357,12 +382,89 @@ public class ShoppingOrderActivity extends BaseNetActivity {
 
             @Override
             public void onSuccess(ErpBean erpBean) {
+                createOrder(true,erpBean);
+            }
+        });
+    }
+
+    /**
+     * 创建订单
+     */
+    private void createOrder(boolean isChat,ErpBean erpBean){
+        if (!isChat)
+            BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
+
+        ApiParams apiParams =new ApiParams();
+        if (!TextUtils.isEmpty(etRemarks.getText().toString()))
+            apiParams.with("tips",etRemarks.getText().toString());
+        if (couponsBean!=null)
+            apiParams.with("apiParams",couponsBean.getId());
+        apiParams.with("nickname",tvName.getText().toString());
+        apiParams.with("tel",tvPhone.getText().toString());
+        apiParams.with("address",tvAddress.getText().toString());
+        try {
+            JSONArray jsonArray =new JSONArray(regions);
+            apiParams.with("area_code", jsonArray.getJSONObject(2).getString("county_id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        apiParams.with("items",getItems());
+        requestPost(HttpUrls.URL_USER_ORDER_CREATE(),apiParams, OrderSuccessBean.class, new HttpCallBack<OrderSuccessBean>() {
+
+            @Override
+            public void onFailure(String message) {
+                MyToast.myToast(getApplicationContext(),message);
                 BeautyDefine.getOpenPageDefine(ShoppingOrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-                ShoppingCenterLibUtils.jumpChat(ShoppingOrderActivity.this,erpBean.getData()==null?-1:erpBean.getData().getId(),
-                        getContent());
+            }
+
+            @Override
+            public void onSuccess(OrderSuccessBean orderSuccessBean) {
+                if (getIntent().getBooleanExtra("isShoppingCenter",false))
+                    removeOrderData();//只有购物车里面进入才移除
+                OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderSuccessBean.getData().getOrder_id(), Constants.PAY_STATE_NO));//广播
+                BeautyDefine.getOpenPageDefine(ShoppingOrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
+                if (isChat) {//跳转聊天
+                    ShoppingCenterLibUtils.jumpChat(ShoppingOrderActivity.this, erpBean.getData() == null ? -1 : erpBean.getData().getId(),
+                            getContent());
+                }else {//跳转支付
+                    String title =((TextView)llContent.getChildAt(0).findViewById(R.id.tvTitle)).getText().toString()+" "+((TextView)llContent.getChildAt(0).findViewById(R.id.tvSku)).getText().toString()+"等"+llContent.getChildCount()+"件商品";
+                    BeautyDefine.getCashierDeskDefine(ShoppingOrderActivity.this).jumpCashierPage(mTotal>0?CountUtil.doubleToString(mTotal):"0",
+                            title,orderSuccessBean.getData().getOrder_id()+"",null);
+                }
                 finish();
             }
         });
+    }
+
+    private void removeOrderData() {
+        String saveGoods = SharedPreferenceUntils.getGoods(this);
+        if (!TextUtils.isEmpty(saveGoods)){
+            List<Sku> mLists = GsonUtils.changeGsonToSafeList(saveGoods, Sku.class);
+            List<Sku> saveDate=new ArrayList<>();
+            for (int i=0;i<mLists.size();i++){
+                for (int j=0;j<skuList.size();j++){
+                    if ((skuList.get(j).getGoodId()==mLists.get(i).getGoodId())&&(mLists.get(i).getId()==null?(skuList.get(j).getId()==null):(
+                            mLists.get(i).getId().equals(skuList.get(j).getId())))){
+                        break;
+                    }
+                    if (j==skuList.size()-1){
+                        saveDate.add(mLists.get(i));
+                    }
+                }
+            }
+            EventBus.getDefault().post(new NumberBean(-skuList.size()));
+            SharedPreferenceUntils.saveGoods(this,GsonUtils.createGsonString(saveDate));
+        }
+
+
+    }
+
+    private String getItems(){
+        HashMap<String,Integer> map =new HashMap<>();
+        for (int i=0;i<skuList.size();i++) {
+            map.put(skuList.get(i).getId(),skuList.get(i).getAddSum());
+        }
+        return GsonUtils.createGsonString(map);
     }
 
     private String getContent() {

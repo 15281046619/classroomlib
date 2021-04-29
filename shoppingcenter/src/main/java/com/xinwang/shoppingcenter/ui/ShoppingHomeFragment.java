@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.internal.FlowLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -20,12 +21,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.xingwreslib.beautyreslibrary.BeautyObserver;
+import com.xingwreslib.beautyreslibrary.OrderInfo;
+import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.FragmentUtils;
 import com.xinwang.bgqbaselib.utils.GlideImageLoader;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
@@ -38,6 +43,7 @@ import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.bean.ADGroupBean;
 import com.xinwang.shoppingcenter.bean.FragmentUpdateBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
+import com.xinwang.shoppingcenter.bean.OrderListBean;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -65,14 +71,15 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     private AppBarLayout appBar;
     private Banner banner;
     private FlowLayout flowLayout;
-    private TextView tvAllShopping,tvNumber;
+    private TextView tvAllShopping,tvNumber,icOrderNumber;
     private LinearLayout llRoot;
     private RelativeLayout rlHot;
     private CustomToolbar toolbar;
-    private ImageView ivShoppingCenter;
+    private ImageView ivShoppingCenter,icOrderList;
     private List<ADGroupBean.DataBean> mTitleImages;
     private ProductListsFragment mFragment;
     private int number =0;
+    private int orderNoPayNumber =0;
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_shopping_home_shoppingcenter,container,false);
@@ -81,6 +88,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
 
         rlHot =view.findViewById(R.id.rlHot);
         tvNumber =view.findViewById(R.id.tvNumber);
+        icOrderNumber =view.findViewById(R.id.icOrderNumber);
         appBar =view.findViewById(R.id.app_bar_layout);
         llRoot =view.findViewById(R.id.llRoot);
         rlSearch =view.findViewById(R.id.rlSearch);
@@ -89,6 +97,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         banner =view.findViewById(R.id.banner);
         tvAllShopping =view.findViewById(R.id.tvAllShopping);
         ivShoppingCenter =view.findViewById(R.id.ivShoppingCenter);
+        icOrderList =view.findViewById(R.id.icOrderList);
         initSettingAppBarListener();
         return view;
     }
@@ -128,8 +137,10 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         requestAd();
         initSearchShow();
         initNumber();
-
+        initOrderNumber();
     }
+
+
 
     private void initNumber() {
         number = GsonUtils.changeGsonToSafeList( SharedPreferenceUntils.getGoods(getActivity()), Sku.class).size();
@@ -155,6 +166,49 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
             toolbar.setNavigationOnClickListener(v -> getActivity().finish());
     }
 
+    /**
+     * 订单数目
+     */
+    private void initOrderNumber() {
+        OrderLiveData.getInstance().beautyObserveNonSticky(this, new BeautyObserver<OrderInfo>() {
+            @Override
+            public void beautyOnChanged(@Nullable OrderInfo o) {
+                if (o.getPayState()==Constants.PAY_STATE_NO){//下单成功移除了选中的商品 未支付
+                    orderNoPayNumber +=1;
+                }else {//已支付
+                    orderNoPayNumber -=1;
+                }
+                showOrderNumber();
+            }
+        });
+        requestGet(HttpUrls.URL_USER_ORDER_LISTS(), new ApiParams().with("pay_state", Constants.PAY_STATE_NO).with("cancel_state","1").with("page", 1).with("page_num", 1), OrderListBean.class, new HttpCallBack<OrderListBean>() {
+            @Override
+            public void onFailure(String message) {
+                MyToast.myToast(getActivity(),message);
+            }
+
+            @Override
+            public void onSuccess(OrderListBean orderListBean) {
+                orderNoPayNumber = orderListBean.getData().getTotal();
+                showOrderNumber();
+            }
+        });
+    }
+
+    private void showOrderNumber(){
+        if (orderNoPayNumber<=99) {
+            if (orderNoPayNumber<=0){
+                icOrderNumber.setText("0");
+                icOrderNumber.setVisibility(View.GONE);
+            }else {
+                icOrderNumber.setVisibility(View.VISIBLE);
+                icOrderNumber.setText(orderNoPayNumber+"");
+            }
+        }else {
+            icOrderNumber.setVisibility(View.VISIBLE);
+            icOrderNumber.setText("99");
+        }
+    }
     private void requestAd() {
         requestGet(HttpUrls.URL_AD_LISTS(),new ApiParams().with("group", "商品推荐"), ADGroupBean.class, new HttpCallBack<ADGroupBean>(){
 
@@ -223,6 +277,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         rlSearch.setOnClickListener(v -> jumpSearchActivity());
         swipeRefreshLayout.setOnRefreshListener(() -> requestAd());
         ivShoppingCenter.setOnClickListener(v -> startActivity(new Intent(getActivity(),ShoppingCenterActivity.class)));
+        icOrderList.setOnClickListener(v -> startActivity(new Intent(getActivity(),OrderListActivity.class).putExtra("state", Constants.PAY_STATE_NO+"")));//跳转未支付列表
         banner.setOnBannerListener(position -> {
             if(mTitleImages!=null) {
                 try {

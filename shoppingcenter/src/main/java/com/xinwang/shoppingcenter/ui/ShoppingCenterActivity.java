@@ -2,7 +2,6 @@ package com.xinwang.shoppingcenter.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -10,6 +9,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,7 +42,8 @@ import java.util.List;
 public class ShoppingCenterActivity extends BaseNetActivity {
     private RecyclerView recyclerView;
     private CheckBox rbCheck;
-    private TextView tvSum,tvBuy;
+    private TextView tvSum;
+    private TextView tvBuy;
     private ImageView ivDelete;
     private List<Sku> mData;
     private ShoppingCenterAdapter mAdapter;
@@ -56,8 +57,18 @@ public class ShoppingCenterActivity extends BaseNetActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initView();
         initListener();
+      /*  OrderLiveData.getInstance().beautyObserveNonSticky(this, new BeautyObserver<OrderInfo>() {
+            @Override
+            public void beautyOnChanged(@Nullable OrderInfo o) {
+                LogUtil.i("beautyOnChanged");
+                if (o.getPayState()==1){//下单成功移除了选中的商品
+                    showTotalPrice(0D,0);
+                }
+            }
+        });*/
     }
 
     @Override
@@ -67,8 +78,6 @@ public class ShoppingCenterActivity extends BaseNetActivity {
     }
 
     private void initData() {
-
-
         mData=GsonUtils.changeGsonToSafeList( SharedPreferenceUntils.getGoods(this), Sku.class);
         if (mData.size()==0){
             requestFailureShow("暂未添加商品");
@@ -93,7 +102,7 @@ public class ShoppingCenterActivity extends BaseNetActivity {
 
                     }
                 });
-                rbCheck.setChecked(isAllCheck());
+
                 mAdapter.setOnClickListener(new AdapterItemClickListener() {
                     @Override
                     public void onClick(int pos, View view) {
@@ -120,11 +129,13 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                         }
                     }
                 });
+
                 recyclerView.setAdapter(mAdapter);
             }else {
                 mAdapter.mDatas =mData;
                 mAdapter.notifyDataSetChanged();
             }
+            rbCheck.setChecked(isAllCheck());
         }
     }
 
@@ -211,7 +222,9 @@ public class ShoppingCenterActivity extends BaseNetActivity {
             public void onClick(View v) {
                 if (selectSum>0){
                     ArrayList<Sku> mSelectData = getSelectData();
-                    startActivity(new Intent(ShoppingCenterActivity.this,ShoppingOrderActivity.class).putParcelableArrayListExtra("data",mSelectData));
+                    startActivity(new Intent(ShoppingCenterActivity.this,ShoppingOrderActivity.class)
+                            .putParcelableArrayListExtra("data",mSelectData)
+                    .putExtra("isShoppingCenter",true));
                 }
             }
         });
@@ -235,5 +248,11 @@ public class ShoppingCenterActivity extends BaseNetActivity {
         tvBuy = findViewById(R.id.tvBuy);
         ivDelete =findViewById(R.id.ivDelete);
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

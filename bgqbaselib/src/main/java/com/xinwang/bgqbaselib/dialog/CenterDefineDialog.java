@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -15,7 +16,7 @@ import com.xinwang.bgqbaselib.R;
 public class CenterDefineDialog extends BaseDialog {
 
     private Button btOk;
-
+    private Boolean isCancelable;
     @Override
     protected int layoutResId() {
         return R.layout.dialog_center_fine_classroom;
@@ -27,6 +28,15 @@ public class CenterDefineDialog extends BaseDialog {
         CenterDefineDialog instance = new CenterDefineDialog();
         Bundle bundle = new Bundle();
         bundle.putString("content",content);
+        bundle.putBoolean("isCancelable",true);
+        instance.setArguments(bundle);
+        return instance;
+    }
+    public static CenterDefineDialog getInstance(String content,boolean isCancelable){
+        CenterDefineDialog instance = new CenterDefineDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("content",content);
+        bundle.putBoolean("isCancelable",isCancelable);
         instance.setArguments(bundle);
         return instance;
     }
@@ -38,6 +48,8 @@ public class CenterDefineDialog extends BaseDialog {
 
         Dialog dialog = new Dialog(getContext(),R.style.DialogCenterClassRoom);
         dialog.setContentView(layoutResId());
+
+       // setCancelable(isCancelable);
         Window window = dialog.getWindow();
         if (window!=null) {
             WindowManager.LayoutParams layoutParams = window.getAttributes();
@@ -59,10 +71,25 @@ public class CenterDefineDialog extends BaseDialog {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        findViewById(R.id.btCancel).setOnClickListener(v -> dismissDialog());
-        ((TextView) findViewById(R.id.tvDes)).setText(getArguments().getString("content"));
+        Button  btCancel = findViewById(R.id.btCancel);
         btOk = findViewById(R.id.btOk);
+        isCancelable =getArguments().getBoolean("isCancelable");
+        if (!isCancelable) {
+            btCancel.setText("否");
+            btOk.setText("是");
+        }
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback1!=null&&!isCancelable){
+                    callback1.run(1);
+                }
+                dismissDialog();
+            }
+        });
+
+        ((TextView) findViewById(R.id.tvDes)).setText(getArguments().getString("content"));
+
         btOk.setOnClickListener(v -> {
             if (callback1!=null){
                 callback1.run(0);

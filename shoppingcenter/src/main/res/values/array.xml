@@ -39,5 +39,10 @@
         <item>待评论</item>
         <item>售后</item>
     </string-array>
+    <string-array name="order_state_pay_ShoppingCenter">
+        <item>全部</item>
+        <item>待付款</item>
+        <item>已付款</item>
+    </string-array>
 
 </resources>

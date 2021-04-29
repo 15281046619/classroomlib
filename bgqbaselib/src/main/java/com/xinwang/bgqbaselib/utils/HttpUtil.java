@@ -347,7 +347,7 @@ public class HttpUtil {
             }
 
             @Override
-            public void writeTo(BufferedSink sink) throws IOException {
+            public void writeTo(BufferedSink sink)  {
                 Source source;
                 try {
                     source = Okio.source(file);
@@ -423,6 +423,7 @@ public class HttpUtil {
         }
         for (Call call : getInstance().dispatcher().runningCalls()) {
             if (tag.equals(call.request().tag())) {
+
                 call.cancel();
             }
         }

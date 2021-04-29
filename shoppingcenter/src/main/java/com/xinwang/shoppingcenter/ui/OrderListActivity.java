@@ -18,7 +18,6 @@ import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.adapter.CategoryListViewpagerAdapter;
-import com.xinwang.shoppingcenter.bean.CategoryBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +89,7 @@ public class OrderListActivity extends BaseNetActivity {
         });
        // mKeyBoardHelper.setOnKeyBoardStatusChangeListener((visible, keyBoardHeight) -> borHelperVisible =visible);
         ivDelete.setOnClickListener(v -> etContent.setText(""));
+        initTabLayout();
     }
     private int initPos =0;
     private void initTabLayout() {
@@ -102,16 +102,15 @@ public class OrderListActivity extends BaseNetActivity {
         mFragments =new ArrayList<>();
         tabLayout.removeAllTabs();
         ArrayList<String> mTitles =new ArrayList<>();
-        String[] mLists = getResources().getStringArray(R.array.order_state_name_ShoppingCenter);
-    /*    for (int i=0;i<mLists.length;i++) {
-
-            if (!TextUtils.isEmpty(type)&& (categoryBean.getData().get(i).getId()+"").equals(type)&&initPos==0){
+        String[] mLists = getResources().getStringArray(R.array.order_state_pay_ShoppingCenter);
+        for (int i=0;i<mLists.length;i++) {
+            if (!TextUtils.isEmpty(type)&& (i+"").equals(type)&&initPos==0){
                 initPos =i;
             }
-            mFragments.add();
+            mFragments.add(OrderLitFragment.getInstance("",i+""));
             mTitles.add(mLists[i]);
             tabLayout.addTab(tabLayout.newTab().setText(mLists[i]));
-        }*/
+        }
         CategoryListViewpagerAdapter mViewPagerAdapter = new CategoryListViewpagerAdapter(getSupportFragmentManager(), mFragments,mTitles);
         viewPager.setAdapter(mViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

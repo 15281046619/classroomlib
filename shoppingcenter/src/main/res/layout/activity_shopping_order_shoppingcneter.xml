@@ -29,7 +29,7 @@
                 android:id="@+id/cdAddress"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardUseCompatPadding="true"
-               app:cardMaxElevation="0dp"
+                app:cardMaxElevation="0dp"
                 app:cardPreventCornerOverlap="false"
                 android:layout_height="100dp">
                 <RelativeLayout
@@ -42,40 +42,45 @@
                         android:layout_centerVertical="true"
                         android:src="@mipmap/ic_location_shoppingcenter"
                         android:layout_height="40dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="60dp"
-                        android:id="@+id/tvName"
-                        android:textStyle="bold"
-                        android:maxLength="10"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="50dp"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:id="@+id/tvPhone"
-                        android:layout_alignBottom="@+id/tvName"
-                        android:layout_toRightOf="@+id/tvName"
-                        android:layout_marginLeft="@dimen/dp_10_classroom"
-                        android:textSize="@dimen/sp_13_classroom"
-                        android:maxLength="11"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:textColor="@color/GrayClassRoom"
+                        android:layout_marginRight="30dp"
+                        android:layout_centerVertical="true">
 
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:textSize="@dimen/sp_13_classroom"
-                        android:layout_marginLeft="60dp"
-                        android:id="@+id/tvAddress"
-                        android:layout_marginRight="60dp"
-                        android:layout_marginTop="50dp"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/tvName"
+                            android:textStyle="bold"
+                            android:maxLength="10"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/tvPhone"
+                            android:layout_alignBottom="@+id/tvName"
+                            android:layout_toRightOf="@+id/tvName"
+                            android:layout_marginLeft="@dimen/dp_10_classroom"
+                            android:textSize="@dimen/sp_13_classroom"
+                            android:maxLength="11"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textColor="@color/GrayClassRoom"
+
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="@dimen/sp_13_classroom"
+                            android:layout_below="@+id/tvName"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/tvAddress"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -134,13 +139,13 @@
                             android:drawableLeft="@mipmap/ic_xxzf_shoppingcenter"
                             android:drawablePadding="10dp"
                             android:padding="@dimen/dp_10_classroom"
+
                             android:background="@android:color/transparent"
                             android:layout_height="wrap_content"/>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginLeft="@dimen/dp_10_classroom"
-
                             android:background="@color/LineClassRoom"/>
                         <RadioButton
                             android:layout_width="match_parent"
@@ -151,6 +156,7 @@
                             android:background="@android:color/transparent"
                             android:drawableRight="@drawable/select_order_checkbutton_shoppingcenter"
                             android:drawablePadding="10dp"
+
                             android:drawableLeft="@mipmap/ic_wx_shoppingcneter"
                             android:layout_height="wrap_content"/>
 
