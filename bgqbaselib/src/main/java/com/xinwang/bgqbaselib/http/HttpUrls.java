@@ -38,6 +38,9 @@ public class HttpUrls {
     public static final String URL_COMMENTLIST(){
         return URL_HOST+URL_NAME+"lecture/general/comment/lists";
     }
+    public static final String URL_ORDER_DETAIL(){
+        return URL_HOST+URL_NAME+"goods/user/order/detail";
+    }
     public static final String URL_COMMENTDETAIL(){
         return URL_HOST+URL_NAME+"lecture/general/comment/detail";
     }
@@ -122,6 +125,13 @@ public class HttpUrls {
      */
     public static final String URL_USER_ORDER_LISTS(){
       return  URL_HOST+URL_NAME+"goods/user/order/lists";
+    }
+    /**
+     *订单商品列表
+     * @return
+     */
+    public static final String URL_USER_ITEM_LISTS(){
+      return  URL_HOST+URL_NAME+"goods/user/item/lists";
     }
 
     /**

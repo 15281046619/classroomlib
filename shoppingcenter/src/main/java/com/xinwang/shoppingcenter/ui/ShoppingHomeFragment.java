@@ -170,7 +170,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
      * 订单数目
      */
     private void initOrderNumber() {
-        OrderLiveData.getInstance().beautyObserveNonSticky(this, new BeautyObserver<OrderInfo>() {
+        OrderLiveData.getInstance().beautyObserveForever(new BeautyObserver<OrderInfo>() {
             @Override
             public void beautyOnChanged(@Nullable OrderInfo o) {
                 if (o.getPayState()==Constants.PAY_STATE_NO){//下单成功移除了选中的商品 未支付

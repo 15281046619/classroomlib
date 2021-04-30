@@ -90,6 +90,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
             ImageView imageView =new ImageView(container.getContext());
+
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setBackgroundResource(R.color.black);
             GlideUtils.loadAvatar(mDate!=null?mDate.getPicBeans().get(position):"",R.color.BGPressedClassRoom,imageView);

@@ -72,7 +72,7 @@ public class OrderListActivity extends BaseNetActivity {
                     ivDelete.setVisibility(View.VISIBLE);
                 }else {
                     ivDelete.setVisibility(View.INVISIBLE);
-                  //  showFragment(0,null);
+                    //  showFragment(0,null);
                 }
             }
         });
@@ -107,7 +107,10 @@ public class OrderListActivity extends BaseNetActivity {
             if (!TextUtils.isEmpty(type)&& (i+"").equals(type)&&initPos==0){
                 initPos =i;
             }
-            mFragments.add(OrderLitFragment.getInstance("",i+""));
+            if (i==1)
+                mFragments.add(OrderListFragment.getInstance("",i+""));
+            else
+                mFragments.add(OrderGoodListFragment.getInstance("",i+""));
             mTitles.add(mLists[i]);
             tabLayout.addTab(tabLayout.newTab().setText(mLists[i]));
         }

@@ -42,7 +42,8 @@ public class ShoppingOrderListAdapter extends BaseLoadMoreAdapter<OrderListBean.
     protected void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         if (viewHolder instanceof BaseViewHolder){
             BaseViewHolder baseViewHolder = (BaseViewHolder) viewHolder;
-            GlideUtils.loadAvatar(mDatas.get(i).getItems().get(0).getGoods().getCover(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
+            GlideUtils.loadAvatar(TextUtils.isEmpty(mDatas.get(i).getItems().get(0).getSku().getCover())?mDatas.get(i).getItems().get(0).getGoods().getCover()
+                    :mDatas.get(i).getItems().get(0).getSku().getCover(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
             baseViewHolder.tvTime.setText(TimeUtil.getYMDHMS1(mDatas.get(i).getCreate_time()+""));
             if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_NO&&mDatas.get(i).getCancel_state()==1){//未支付并且未取消
                 baseViewHolder.tvState.setText("已下单");
@@ -89,14 +90,14 @@ public class ShoppingOrderListAdapter extends BaseLoadMoreAdapter<OrderListBean.
                             title.append("、");
                             title.append(mDatas.get(i).getItems().get(j).getGoods().getTitle());
                         }
-                    }else {
+                    }else if (j==2){
                         title.append("...");
                     }
                 }
 
             }
             baseViewHolder.tvTitle.setText(title+" 共"+sum+"件商品");
-            baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.doubleToString(mDatas.get(i).getPrice())));
+            baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.changeF2Y(mDatas.get(i).getPrice())));
         }
     }
     public void setOnClickButtonListener(OrderButtonListener orderButtonListener){

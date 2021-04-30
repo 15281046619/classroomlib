@@ -261,18 +261,18 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         ((RadioGroup)findViewById(R.id.radioGroup)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId!=R.id.rbXX){
-                    rbXX.setChecked(true);
+                if (checkedId!=R.id.rbWX){
+                    rbWX.setChecked(true);
                 }
             }
         });
         ((CustomToolbar)findViewById(R.id.toolbar)).setNavigationOnClickListener(v -> finish());
-        rbWX.setOnClickListener(new View.OnClickListener() {
+    /*    rbWX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MyToast.myToast(ShoppingOrderActivity.this,"暂未开通");
             }
-        });
+        });*/
         rbZFB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -427,15 +427,33 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     ShoppingCenterLibUtils.jumpChat(ShoppingOrderActivity.this, erpBean.getData() == null ? -1 : erpBean.getData().getId(),
                             getContent());
                 }else {//跳转支付
-                    String title =((TextView)llContent.getChildAt(0).findViewById(R.id.tvTitle)).getText().toString()+" "+((TextView)llContent.getChildAt(0).findViewById(R.id.tvSku)).getText().toString()+"等"+llContent.getChildCount()+"件商品";
+                    getTitle();
                     BeautyDefine.getCashierDeskDefine(ShoppingOrderActivity.this).jumpCashierPage(mTotal>0?CountUtil.changeF2Y(mTotal):"0",
-                            title,orderSuccessBean.getData().getOrder_id()+"",null);
+                            getPayTitle(),orderSuccessBean.getData().getOrder_id()+"",null);
                 }
                 finish();
             }
         });
     }
+    private String getPayTitle(){
+        StringBuffer title=new StringBuffer();
+        for(int j=0;j<skuList.size();j++){
 
+            if (j==0){
+                title.append(skuList.get(j).getGoodTitle());
+            }else {
+                if (j==1) {
+                    if (title.indexOf(skuList.get(j).getGoodTitle())==-1) {
+                        title.append("、");
+                        title.append(skuList.get(j).getGoodTitle());
+                    }
+                }else if (j==2) {
+                    title.append("...");
+                }
+            }
+        }
+        return title+" 共"+selectSum+"件商品";
+    }
     private void removeOrderData() {
         String saveGoods = SharedPreferenceUntils.getGoods(this);
         if (!TextUtils.isEmpty(saveGoods)){
