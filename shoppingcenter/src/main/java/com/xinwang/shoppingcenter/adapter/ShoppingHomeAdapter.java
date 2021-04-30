@@ -53,13 +53,13 @@ public class ShoppingHomeAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBean>
                 GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.ivContent,itemWidth,layoutParams.height);//必须设置宽高防止反复滑动图片显示问题
             else
                 GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.ivContent);
-            if (TextUtils.isEmpty(mDatas.get(i).getMin_price())||CountUtil.doubleToString(mDatas.get(i).getMin_price()).equals("0")){
+            if (mDatas.get(i).getMin_price()==0){
                 baseViewHolder.tvClick.setVisibility(View.VISIBLE);
                 baseViewHolder.tvPrice.setVisibility(View.GONE);
             }else {
                 baseViewHolder.tvPrice.setVisibility(View.VISIBLE);
                 baseViewHolder.tvClick.setVisibility(View.GONE);
-                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.doubleToString(mDatas.get(i).getMin_price())));
+                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.changeF2Y(mDatas.get(i).getMin_price())));
             }
         }
     }

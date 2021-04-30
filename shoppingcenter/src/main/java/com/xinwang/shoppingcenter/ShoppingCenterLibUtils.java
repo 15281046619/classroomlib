@@ -111,7 +111,7 @@ public class ShoppingCenterLibUtils {
     public static List<Sku> skuToBean(List<SkuBean.DataBean> dataBeans,GoodsBean.DataBean goodsBean){
         List<Sku> skuList =new ArrayList<>();
         if(dataBeans!=null&&dataBeans.size()>0) {
-            Double[] prices = {Double.parseDouble(dataBeans.get(0).getPrice()), Double.parseDouble(dataBeans.get(0).getPrice())};//第一个值最小值，第二个值最大值
+            int[] prices = {dataBeans.get(0).getPrice(), dataBeans.get(0).getPrice()};//第一个值最小值，第二个值最大值
             int totalSum =0;
             for (int i = 0; i < dataBeans.size(); i++) {
                 Sku sku = new Sku();
@@ -123,12 +123,12 @@ public class ShoppingCenterLibUtils {
                     sku.setStockQuantity(dataBeans.get(i).getStock());
                     totalSum =totalSum +dataBeans.get(i).getStock();
                     sku.setOriginPrice(dataBeans.get(i).getPrice());
-                    if (Double.parseDouble(dataBeans.get(i).getPrice()) > prices[0]) {
-                        if (Double.parseDouble(dataBeans.get(i).getPrice()) > prices[1]) {
-                            prices[1] = Double.parseDouble(dataBeans.get(i).getPrice());
+                    if (dataBeans.get(i).getPrice() > prices[0]) {
+                        if (dataBeans.get(i).getPrice()> prices[1]) {
+                            prices[1] = dataBeans.get(i).getPrice();
                         }
                     } else {
-                        prices[0] = Double.parseDouble(dataBeans.get(i).getPrice());
+                        prices[0] = dataBeans.get(i).getPrice();
                     }
                 } catch (Exception e) {
 
@@ -178,10 +178,10 @@ public class ShoppingCenterLibUtils {
                 skuList.add(sku);
             }
 
-            if (!prices[0].equals(prices[1]))
-                skuList.get(0).setShowPrice(CountUtil.doubleToString(prices[0]) + "-" + CountUtil.doubleToString(prices[1]));
+            if (prices[0]!=prices[1])
+                skuList.get(0).setShowPrice(CountUtil.changeF2Y(prices[0]) + "-" + CountUtil.changeF2Y(prices[1]));
             else
-                skuList.get(0).setShowPrice(CountUtil.doubleToString(prices[0]));
+                skuList.get(0).setShowPrice(CountUtil.changeF2Y(prices[0]));
             skuList.get(0).setTotalStock(totalSum);
         }else {//没有规格
             Sku sku =new Sku();

@@ -61,4 +61,14 @@ public class CountUtil {
         }
 
     }
+
+    /**
+     * 分转换元
+     * @param price
+     * @return
+     */
+    public static String changeF2Y(int price) {
+        return BigDecimal.valueOf(price).divide(new BigDecimal(100)).toString();
+    }
+
 }

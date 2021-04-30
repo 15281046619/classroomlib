@@ -105,10 +105,10 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
                 baseViewHolder.tvSku.setVisibility(View.INVISIBLE);
             }
 
-            if (TextUtils.isEmpty(mDatas.get(i).getSellingPrice()))
+            if (mDatas.get(i).getSellingPrice()==0)
                 baseViewHolder.tvPrice.setText("");
             else
-                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.doubleToString(mDatas.get(i).getSellingPrice())));
+                baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.changeF2Y(mDatas.get(i).getSellingPrice())));
             baseViewHolder.tvSub.setOnClickListener(v -> {
                 if (mDatas.get(i).getAddSum()>1){
                     mDatas.get(i).setAddSum(mDatas.get(i).getAddSum()-1);

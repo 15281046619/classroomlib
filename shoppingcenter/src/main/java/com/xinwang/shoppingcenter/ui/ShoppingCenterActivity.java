@@ -47,7 +47,7 @@ public class ShoppingCenterActivity extends BaseNetActivity {
     private ImageView ivDelete;
     private List<Sku> mData;
     private ShoppingCenterAdapter mAdapter;
-    private Double aDoublePrice;
+    private int aDoublePrice;
     private int selectSum;
     @Override
     protected int layoutResId() {
@@ -112,8 +112,8 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                     @Override
                     public void add(int pos) {
                         if (mAdapter.mDatas.get(pos).isCheck()) {
-                            if (!TextUtils.isEmpty(mAdapter.mDatas.get(pos).getSellingPrice()))
-                                aDoublePrice = CountUtil.add(aDoublePrice , Double.parseDouble(mAdapter.mDatas.get(pos).getSellingPrice()));
+                            if (mAdapter.mDatas.get(pos).getSellingPrice()!=0)
+                                aDoublePrice = aDoublePrice +mAdapter.mDatas.get(pos).getSellingPrice();
                             selectSum = selectSum + 1;
                             showTotalPrice(aDoublePrice, selectSum);
                         }
@@ -122,8 +122,8 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                     @Override
                     public void sub(int pos) {
                         if (mAdapter.mDatas.get(pos).isCheck()) {
-                            if (!TextUtils.isEmpty(mAdapter.mDatas.get(pos).getSellingPrice()))
-                                aDoublePrice =CountUtil.sub(aDoublePrice, Double.parseDouble(mAdapter.mDatas.get(pos).getSellingPrice()));
+                            if (mAdapter.mDatas.get(pos).getSellingPrice()!=0)
+                                aDoublePrice =aDoublePrice - mAdapter.mDatas.get(pos).getSellingPrice();
                             selectSum = selectSum - 1;
                             showTotalPrice(aDoublePrice, selectSum);
                         }
@@ -144,23 +144,25 @@ public class ShoppingCenterActivity extends BaseNetActivity {
      * 全选获取取消
      */
     public void allCheck(boolean isCheck){
-        Double price=0D;
+        int price=0;
         int selectSum=0;
         for (int i=0;i<mAdapter.mDatas.size();i++){
             mAdapter.mDatas.get(i).setCheck(isCheck);
             if (isCheck) {
-                if (!TextUtils.isEmpty(mAdapter.mDatas.get(i).getSellingPrice()))
-                price = CountUtil.add(price ,CountUtil.multiply(mAdapter.mDatas.get(i).getAddSum(),Double.parseDouble(mAdapter.mDatas.get(i).getSellingPrice())));
+                if (mAdapter.mDatas.get(i).getSellingPrice()!=0){
+                    price=price+mAdapter.mDatas.get(i).getAddSum()*mAdapter.mDatas.get(i).getSellingPrice();
+                }
+
                 selectSum+=mAdapter.mDatas.get(i).getAddSum();
             }
         }
         showTotalPrice(price,selectSum);
         mAdapter.saveUpdate(this);
     }
-    public void showTotalPrice(Double price,int sum){
+    public void showTotalPrice(int price,int sum){
         this.aDoublePrice =price;
         this.selectSum =sum;
-        SpannableString spannableString =new SpannableString("总计:￥"+CountUtil.doubleToString(price));
+        SpannableString spannableString =new SpannableString("总计:￥"+CountUtil.changeF2Y(price));
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.themeClassRoom)),3,spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new RelativeSizeSpan(0.6f),3,4,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         if (spannableString.toString().indexOf(".")!=-1&&(spannableString.toString().indexOf(".")!=spannableString.length()-1)){
@@ -179,13 +181,13 @@ public class ShoppingCenterActivity extends BaseNetActivity {
      */
     public boolean isAllCheck(){
         List<Sku> selectSku =new ArrayList<>();
-        Double price=0D;
+        int price=0;
         int selectSum=0;
         for (int i=0;i<mAdapter.mDatas.size();i++){
             if (mAdapter.mDatas.get(i).isCheck()){
                 selectSku.add(mAdapter.mDatas.get(i));
-                if (!TextUtils.isEmpty(mAdapter.mDatas.get(i).getSellingPrice())){
-                    price=CountUtil.add(price, CountUtil.multiply(mAdapter.mDatas.get(i).getAddSum(),Double.parseDouble(mAdapter.mDatas.get(i).getSellingPrice())));
+                if (mAdapter.mDatas.get(i).getSellingPrice()!=0){
+                    price= price+mAdapter.mDatas.get(i).getAddSum()*mAdapter.mDatas.get(i).getSellingPrice();
                 }
                 selectSum+=mAdapter.mDatas.get(i).getAddSum();
             }

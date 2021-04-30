@@ -29,9 +29,9 @@ public class Sku implements Parcelable {
 
     private boolean inStock;
 
-    private String originPrice;
+    private int originPrice;
 
-    private String sellingPrice;
+    private int sellingPrice;
 
     private List<SkuAttribute> attributes;
     private String showPrice;
@@ -161,7 +161,7 @@ public class Sku implements Parcelable {
 
 
 
-    public String getOriginPrice() {
+    public int getOriginPrice() {
 
         return originPrice;
 
@@ -169,7 +169,7 @@ public class Sku implements Parcelable {
 
 
 
-    public void setOriginPrice(String originPrice) {
+    public void setOriginPrice(int originPrice) {
 
         this.originPrice = originPrice;
 
@@ -177,7 +177,7 @@ public class Sku implements Parcelable {
 
 
 
-    public String getSellingPrice() {
+    public int getSellingPrice() {
 
         return sellingPrice;
 
@@ -185,7 +185,7 @@ public class Sku implements Parcelable {
 
 
 
-    public void setSellingPrice(String sellingPrice) {
+    public void setSellingPrice(int sellingPrice) {
 
         this.sellingPrice = sellingPrice;
 
@@ -262,9 +262,9 @@ public class Sku implements Parcelable {
 
         dest.writeByte(this.inStock ? (byte) 1 : (byte) 0);
 
-        dest.writeString(this.originPrice);
+        dest.writeInt(this.originPrice);
 
-        dest.writeString(this.sellingPrice);
+        dest.writeInt(this.sellingPrice);
 
         dest.writeTypedList(this.attributes);
         dest.writeString(this.goodTitle);
@@ -287,9 +287,9 @@ public class Sku implements Parcelable {
 
         this.inStock = in.readByte() != 0;
 
-        this.originPrice = in.readString();
+        this.originPrice = in.readInt();
 
-        this.sellingPrice = in.readString();
+        this.sellingPrice = in.readInt();
 
         this.attributes = in.createTypedArrayList(SkuAttribute.CREATOR);
         this.goodTitle =in.readString();

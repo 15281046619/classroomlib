@@ -114,7 +114,7 @@ public class BottomSkuDialog extends BaseDialog {
 
             @Override
             public void onSkuSelected(Sku sku) {
-                textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.doubleToString(sku.getSellingPrice())));
+                textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.changeF2Y(sku.getSellingPrice())));
                 tvStore.setText("库存"+sku.getStockQuantity()+"件");
                 GlideUtils.loadAvatarNoPlaceholder(sku.getMainImage(),ivImg);
                 showSelectTitle();

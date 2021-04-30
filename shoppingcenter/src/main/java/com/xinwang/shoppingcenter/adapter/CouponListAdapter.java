@@ -39,10 +39,10 @@ public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.C
             mViewHolder.ivSelect.setSelected(i==curPos);
             mViewHolder.tvDes.setText(mDatas.get(i).getInstructions());
             mViewHolder.tvTitle.setText(mDatas.get(i).getName());
-            mViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.doubleToString(CountUtil.divide(mDatas.get(i).getFee(),100D))));
+            mViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.doubleToString(CountUtil.changeF2Y(mDatas.get(i).getFee()))));
             mViewHolder.tvTime.setText("有效期至"+ TimeUtil.getYMD(mDatas.get(i).getExpire_at()+""));
             if (mDatas.get(i).getMin_money()>0)
-                mViewHolder.tvMinPrice.setText("满"+CountUtil.doubleToString(mDatas.get(i).getMin_money())+"可用");
+                mViewHolder.tvMinPrice.setText("满"+CountUtil.changeF2Y(mDatas.get(i).getMin_money())+"可用");
             else
                 mViewHolder.tvMinPrice.setText("");
             if (aDouble>=mDatas.get(i).getMin_money()){

@@ -72,7 +72,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private TextView tvCoupon;
     private NestedScrollView scrollview;
     private EditText etRemarks;
-    private Double aDoublePrice;
+    private int aDoublePrice;
     private int selectSum;
     private List<Sku> skuList =new ArrayList<>();
 
@@ -123,12 +123,12 @@ public class ShoppingOrderActivity extends BaseNetActivity {
      */
     private void initShowGoods() {
         llContent.removeAllViews();
-        aDoublePrice= 0D;
+        aDoublePrice= 0;
         selectSum =0;
         int dip10 = CommentUtils.dip2px(this, 10);
         for (int i=0;i<skuList.size();i++){
-            if (!TextUtils.isEmpty(skuList.get(i).getSellingPrice()))
-                aDoublePrice = CountUtil.add(aDoublePrice , CountUtil.multiply(skuList.get(i).getAddSum(),Double.parseDouble(skuList.get(i).getSellingPrice())));
+            if (skuList.get(i).getSellingPrice()!=0)
+                aDoublePrice = aDoublePrice + skuList.get(i).getAddSum()*skuList.get(i).getSellingPrice();
             selectSum+=skuList.get(i).getAddSum();
 
             View itemView = LayoutInflater.from(this).inflate(R.layout.layout_shopping_item_shoppingcenter,llContent,false);
@@ -150,8 +150,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     }
                     skuList.get(finalI).setAddSum(skuList.get(finalI).getAddSum() + 1);
                     tvSum.setText(String.valueOf(skuList.get(finalI).getAddSum()));
-                    if (!TextUtils.isEmpty(skuList.get(finalI).getSellingPrice()))
-                        aDoublePrice = CountUtil.add(aDoublePrice, Double.parseDouble(skuList.get(finalI).getSellingPrice()));
+                    if (skuList.get(finalI).getSellingPrice()!=0)
+                        aDoublePrice = aDoublePrice+ skuList.get(finalI).getSellingPrice();
                     selectSum = selectSum + 1;
                     showTotalPrice();
                 }else {
@@ -169,16 +169,16 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 tvSku.setVisibility(View.INVISIBLE);
             }
 
-            if (TextUtils.isEmpty(skuList.get(i).getSellingPrice()))
+            if (skuList.get(i).getSellingPrice()!=0)
                 tvPrice.setText("");
             else
-                tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+CountUtil.doubleToString(skuList.get(i).getSellingPrice())));
+                tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+CountUtil.changeF2Y(skuList.get(i).getSellingPrice())));
             tvSub.setOnClickListener(v -> {
                 if (skuList.get(finalI).getAddSum()>1){
                     skuList.get(finalI).setAddSum(skuList.get(finalI).getAddSum()-1);
                     tvSum.setText(String.valueOf(skuList.get(finalI).getAddSum()));
-                    if (!TextUtils.isEmpty(skuList.get(finalI).getSellingPrice()))
-                        aDoublePrice = CountUtil.sub(aDoublePrice ,Double.parseDouble(skuList.get(finalI).getSellingPrice()));
+                    if (skuList.get(finalI).getSellingPrice()!=0)
+                        aDoublePrice = aDoublePrice -skuList.get(finalI).getSellingPrice();
                     selectSum = selectSum - 1;
                     showTotalPrice();
 
@@ -199,11 +199,11 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         }
         showTotalPrice();
     }
-    private Double mTotal;
+    private int mTotal;
     public void showTotalPrice(){
-        mTotal = CountUtil.sub(aDoublePrice, couponsBean == null ? 0D :
-                CountUtil.divide(couponsBean.getFee(), 100D));
-        SpannableString spannableString =new SpannableString("总计:￥"+(mTotal>0?CountUtil.doubleToString(mTotal):0));
+        mTotal = aDoublePrice - (couponsBean == null ? 0:couponsBean.getFee());
+
+        SpannableString spannableString =new SpannableString("总计:￥"+(mTotal>0?CountUtil.changeF2Y(mTotal):0));
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.themeClassRoom)),3,spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new RelativeSizeSpan(0.6f),3,4,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         if (spannableString.toString().indexOf(".")!=-1&&(spannableString.toString().indexOf(".")!=spannableString.length()-1)){
@@ -357,7 +357,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 couponPos =-1;
             }else {// 选中优惠劵
                 couponsBean = (CouponBean.DataBean.CouponsBean) data.getSerializableExtra("data");
-                tvCoupon.setText(ShoppingCenterLibUtils.getPriceSpannableSub("-￥"+CountUtil.doubleToString(CountUtil.divide(couponsBean.getFee(),100D))));
+                tvCoupon.setText(ShoppingCenterLibUtils.getPriceSpannableSub("-￥"+CountUtil.doubleToString(CountUtil.changeF2Y(couponsBean.getFee()))));
                 couponPos =data.getIntExtra("pos",-1);
             }
             showTotalPrice();
@@ -428,7 +428,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                             getContent());
                 }else {//跳转支付
                     String title =((TextView)llContent.getChildAt(0).findViewById(R.id.tvTitle)).getText().toString()+" "+((TextView)llContent.getChildAt(0).findViewById(R.id.tvSku)).getText().toString()+"等"+llContent.getChildCount()+"件商品";
-                    BeautyDefine.getCashierDeskDefine(ShoppingOrderActivity.this).jumpCashierPage(mTotal>0?CountUtil.doubleToString(mTotal):"0",
+                    BeautyDefine.getCashierDeskDefine(ShoppingOrderActivity.this).jumpCashierPage(mTotal>0?CountUtil.changeF2Y(mTotal):"0",
                             title,orderSuccessBean.getData().getOrder_id()+"",null);
                 }
                 finish();

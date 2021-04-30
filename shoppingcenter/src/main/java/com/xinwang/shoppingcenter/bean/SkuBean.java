@@ -44,7 +44,7 @@ public class SkuBean extends CommonEntity {
 
         private int id;
         private int goods_id;
-        private String price;
+        private int price;//分
         private int stock;
         private int state;
         private String sku0;
@@ -83,11 +83,11 @@ public class SkuBean extends CommonEntity {
             this.goods_id = goods_id;
         }
 
-        public String getPrice() {
+        public int getPrice() {
             return price;
         }
 
-        public void setPrice(String price) {
+        public void setPrice(int price) {
             this.price = price;
         }
 
