@@ -53,6 +53,12 @@ public class HttpUrls {
     public static final String URL_FAVORITE(){
         return URL_HOST+URL_NAME+"favorite/user/api/favorite";
     }
+    public static final String URL_WAYBILL_DETAIL(){
+        return URL_HOST+URL_NAME+"goods/user/waybill/detail";
+    }
+    public static final String URL_WAYBILL_INFO(){
+        return URL_HOST+URL_NAME+"goods/user/waybill/get-waybill-info";
+    }
     public static final String URL_UNFAVORITE(){
         return URL_HOST+URL_NAME+"favorite/user/api/unFavorite";
     }

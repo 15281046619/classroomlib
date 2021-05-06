@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:paddingLeft="@dimen/dp_15_classroom"
         android:paddingTop="@dimen/dp_15_classroom"
+        android:clipChildren="true"
+        android:clipToPadding="false"
         android:paddingRight="@dimen/dp_15_classroom"
         android:layout_height="match_parent"/>
     <include

@@ -50,11 +50,26 @@ public class ShoppingGoodOrderListAdapter extends BaseLoadMoreAdapter<OrderListB
                     &&mDatas.get(i).getRefund_state()==1&&mDatas.get(i).getReview_state()==1){
                 baseViewHolder.tvState.setText("已发货");
                 baseViewHolder.btCancel.setVisibility(View.GONE);
-                baseViewHolder.btPay.setVisibility(View.GONE);
+                baseViewHolder.btPay.setVisibility(View.VISIBLE);
+                baseViewHolder.btPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (orderButtonListener!=null){
+                            orderButtonListener.onPay(baseViewHolder.tvState.getText().toString(),i);
+                        }
+                    }
+                });
+
             }else{
-                baseViewHolder.tvState.setText("已收货");
-                baseViewHolder.btCancel.setVisibility(View.GONE);
+                if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_NO){
+                    baseViewHolder.tvState.setText("已下单");
+                }else {
+                    baseViewHolder.tvState.setText("已收货");
+
+                }
                 baseViewHolder.btPay.setVisibility(View.GONE);
+                baseViewHolder.btCancel.setVisibility(View.GONE);
+
             }
             if (mDatas.get(i).getCancel_state()!=1){
                 baseViewHolder.tvState.setText("已取消");

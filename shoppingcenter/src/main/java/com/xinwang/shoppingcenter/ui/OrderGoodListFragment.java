@@ -191,6 +191,17 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
                     .putExtra("GoodId",mAdapter.mDatas.get(position).getId()+""));
                 }
             });
+            mAdapter.setOnClickButtonListener(new OrderButtonListener() {
+                @Override
+                public void onCancel(int pos) {
+
+                }
+
+                @Override
+                public void onPay(String title, int pos) {
+                    startActivity(new Intent(getActivity(),WaybillDetailActivity.class).putExtra("id",mAdapter.mDatas.get(pos).getWaybill_id()));
+                }
+            });
             mAdapter.setLoadStateNoNotify(state);
             recyclerView.setAdapter(mAdapter);
 

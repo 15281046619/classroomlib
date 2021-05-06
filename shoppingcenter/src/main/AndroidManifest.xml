@@ -2,7 +2,7 @@
     package="com.xinwang.shoppingcenter">
     <!--网络状态-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application android:hardwareAccelerated="true">
         <activity android:name=".ui.ShoppingHomeActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
@@ -42,7 +42,9 @@
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
+
             android:theme="@style/AppThemeClassRoom">
+
         </activity>
         <activity android:name=".ui.CouponListsActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
@@ -54,9 +56,24 @@
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:theme="@style/AppThemeClassRoom">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="classroom"
+                    android:host="${applicationId}.ddlist" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.OrderDetailActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
+        <activity android:name=".ui.WaybillDetailActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"

@@ -96,6 +96,7 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvName.setText(orderBean.getData().getNickname());
         tvPhone.setText(orderBean.getData().getTel());
         etRemarks.setText(orderBean.getData().getTips());
+        initProduceList();
         if (orderBean.getData().getPay_state()== Constants.PAY_STATE_NO&&orderBean.getData().getCancel_state()==1){
             tvPay.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,11 +113,20 @@ public class OrderDetailActivity extends BaseNetActivity {
                     goCancelOrder();
                 }
             });
-        }else {
-            tvPay.setVisibility(View.GONE);
+        }else if (goodPos!=-1&&orderBean.getData().getItems().get(goodPos).getWaybill_id()!=0) {
+            tvPay.setText("查看物流");
+            tvPay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(OrderDetailActivity.this,WaybillDetailActivity.class).putExtra("id",orderBean.getData().getItems().get(goodPos).getWaybill_id()));
+                }
+            });
             tvCancel.setVisibility(View.GONE);
+        }else {
+                tvPay.setVisibility(View.GONE);
+                tvCancel.setVisibility(View.GONE);
         }
-        initProduceList();
+
         if (goodId==null)
             initPrice(orderBean.getData().getPrice());
         else
@@ -179,10 +189,10 @@ public class OrderDetailActivity extends BaseNetActivity {
         }
         tvPrice.setText(spannableString);
     }
-
+    private int goodPos=-1;
     private void initProduceList() {
         llContent.removeAllViews();
-
+        goodPos=-1;
         int dip10 = CommentUtils.dip2px(this, 10);
         for (int i=0;i<orderBean.getData().getItems().size();i++){
 
@@ -229,6 +239,7 @@ public class OrderDetailActivity extends BaseNetActivity {
                 llContent.addView(view);
             }else {
                 if (goodId.equals(orderBean.getData().getItems().get(i).getId()+"")){//该产品
+                    goodPos =i;
                     goodPrice =orderBean.getData().getItems().get(i).getNum()*orderBean.getData().getItems().get(i).getSku().getPrice();
                     llContent.addView(itemView);
                     llContent.addView(view);

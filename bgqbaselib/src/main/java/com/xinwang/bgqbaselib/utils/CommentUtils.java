@@ -267,4 +267,20 @@ public class CommentUtils {
         return "<html>"+head+"<body style='margin:0;padding:0'>"+bodyHTML+"</body></html>";
        // return "<html>"+head+"<body>"+bodyHTML+"</body></html>";
     }
+    public static String getPhone(String sParam) {
+        if (sParam.length() <= 0)
+            return "";
+        Pattern pattern = Pattern.compile("(1|861)(3|4|5|7|8)\\d{9}$*");
+        Matcher matcher = pattern.matcher(sParam);
+        StringBuffer bf = new StringBuffer();
+        while (matcher.find()) {
+            bf.append(matcher.group()).append(",");
+        }
+        int len = bf.length();
+        if (len > 0) {
+            bf.deleteCharAt(len - 1);
+        }
+        return bf.toString();
+
+    }
 }
