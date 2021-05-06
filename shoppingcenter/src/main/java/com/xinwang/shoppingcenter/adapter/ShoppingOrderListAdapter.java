@@ -46,7 +46,7 @@ public class ShoppingOrderListAdapter extends BaseLoadMoreAdapter<OrderListBean.
                     :mDatas.get(i).getItems().get(0).getSku().getCover(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
             baseViewHolder.tvTime.setText(TimeUtil.getYMDHMS1(mDatas.get(i).getCreate_time()+""));
             if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_NO&&mDatas.get(i).getCancel_state()==1){//未支付并且未取消
-                baseViewHolder.tvState.setText("已下单");
+                baseViewHolder.tvState.setText("未付款");
                 baseViewHolder.btCancel.setVisibility(View.VISIBLE);
                 baseViewHolder.btPay.setVisibility(View.VISIBLE);
                 baseViewHolder.btCancel.setOnClickListener(new View.OnClickListener() {

@@ -2,6 +2,7 @@ package com.xinwang.shoppingcenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
@@ -18,6 +19,7 @@ import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.bean.SkuBean;
+import com.xinwang.shoppingcenter.ui.OrderDetailActivity;
 import com.xinwang.shoppingcenter.ui.ShoppingDetailActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,12 +34,6 @@ import java.util.List;
  * author:baiguiqiang
  */
 public class ShoppingCenterLibUtils {
-    public static int ORDER_STATE_DFK=1;//待付款 订单
-    public static int ORDER_STATE_DSH=2;//待收货 物流
-    public static int ORDER_STATE_DPL=3;//待评价 商品
-    public static int ORDER_STATE_YWC=4;//已完成 商品
-    public static int ORDER_STATE_YQX=5;//已取消 订单
-    public static int ORDER_STATE_SH=6;//售后
     public static String[] getHotSearch(Context context){
 
         switch (HttpUrls.URL_TYPE){
@@ -226,7 +222,14 @@ public class ShoppingCenterLibUtils {
             CommentUtils.jumpWebBrowser(activity,HttpUrls.URL_CHAT);
         }else
             BeautyDefine.getOpenPageDefine(activity).toPersonalChatText(userId,text);
+    }
 
-
+    /**
+     * 跳转订单详情
+     * @param activity
+     * @param id
+     */
+    public static void startOrderDetailActivity(Activity activity,String id){
+        activity.startActivity(new Intent(activity, OrderDetailActivity.class).putExtra("id",id));
     }
 }

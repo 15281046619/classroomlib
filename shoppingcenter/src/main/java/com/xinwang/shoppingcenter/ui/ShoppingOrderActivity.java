@@ -405,7 +405,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         try {
             JSONArray jsonArray =new JSONArray(regions);
             apiParams.with("area_code", jsonArray.getJSONObject(2).getString("county_id").substring(0,6));
-        } catch (JSONException e) {
+        }catch (JSONException e) {
             e.printStackTrace();
         }
         apiParams.with("items",getItems());

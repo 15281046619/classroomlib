@@ -126,7 +126,6 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         initRequest();
         initListener();
         initNumber();
-
     }
     @Subscribe()
     public void updateNumber(NumberBean numberBean){
@@ -232,8 +231,9 @@ public class ShoppingDetailActivity extends BaseNetActivity {
 
             webView.getSettings().setDefaultTextEncodingName("utf-8");
             String htmlText = mDate.getBody();
-            webView.loadData(CommentUtils.getWebNewData(htmlText), "text/html;charset=utf-8", "utf-8");
             webView.addJavascriptInterface(this, "App");
+            webView.loadData(CommentUtils.getWebNewData(htmlText), "text/html;charset=utf-8", "utf-8");
+
             if (TextUtils.isEmpty(skuList.get(0).getShowPrice())){
                 tvPrice.setVisibility(View.GONE);
             }else {
@@ -258,6 +258,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             public void run() {
                 //Toast.makeText(getActivity(), height + "", Toast.LENGTH_LONG).show();
                 webView.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (height * getResources().getDisplayMetrics().density)));
+                webView.setVisibility(View.VISIBLE);
             }
         });
     }

@@ -264,7 +264,17 @@ public class CommentUtils {
                 "img{max-width: 100%; width:100%; height:auto;}" +
                 "video{max-width: 100%; width:100%; height:auto;}</style>" +
                 "</head>");
-        return "<html>"+head+"<body style='margin:0;padding:0'>"+bodyHTML+"</body></html>";
+        return "<html>"+head+"<body style='margin:0;padding:0'>"+bodyHTML+" <script>" +
+                "window.onload=function(){var objs = document.getElementsByTagName(\"img\"); " +
+                "for(var i=0;i<objs.length;i++)  "+
+                "{"
+                +"    objs[i].onclick=function()  "+
+                "    {  "
+                +"        window.imagelistner.openImage(this.src);  "+
+                "    }  "+
+                "} "+
+                "App.resize(document.body.getBoundingClientRect().height)"+
+                "}"+"</script></body></html>";
        // return "<html>"+head+"<body>"+bodyHTML+"</body></html>";
     }
     public static String getPhone(String sParam) {

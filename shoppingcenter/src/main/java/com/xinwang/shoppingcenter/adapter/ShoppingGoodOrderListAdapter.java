@@ -62,7 +62,7 @@ public class ShoppingGoodOrderListAdapter extends BaseLoadMoreAdapter<OrderListB
 
             }else{
                 if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_NO){
-                    baseViewHolder.tvState.setText("已下单");
+                    baseViewHolder.tvState.setText("未付款");
                 }else {
                     baseViewHolder.tvState.setText("已收货");
 

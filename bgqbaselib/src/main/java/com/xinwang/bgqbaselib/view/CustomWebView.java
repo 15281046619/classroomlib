@@ -45,7 +45,7 @@ public class CustomWebView extends X5WebView {
             //  SharedPreferenceUntils.saveX5State(this,false);
             MyToast.myToast(getContext(),"x5内核安装失败，播放异常,关闭应用重试");
         }
-        setWebViewClient(new MyWebViewClient());
+      //  setWebViewClient(new MyWebViewClient());
         setWebViewSetting();
         addJavascriptInterface(new JavaScriptInterface(getContext()),"imagelistner");
 
@@ -70,21 +70,20 @@ public class CustomWebView extends X5WebView {
         @Override
         public void onPageFinished(WebView view, String url) {
             addImageClickListner();
-            loadUrl("javascript:App.resize(document.body.getBoundingClientRect().height)");//加载完成通过接口设置webview高度
             super.onPageFinished(view, url);
         }
     }
     private void addImageClickListner() {
         // 这段js函数的功能就是，遍历所有的img节点，并添加onclick函数，函数的功能是在图片点击的时候调用本地java接口并传递url过去
-        loadUrl("javascript:(function(){" +
-                "var objs = document.getElementsByTagName(\"img\"); " +
+        loadUrl("javascript:(function(){var objs = document.getElementsByTagName(\"img\"); " +
                 "for(var i=0;i<objs.length;i++)  " +
                 "{"
                 + "    objs[i].onclick=function()  " +
                 "    {  "
                 + "        window.imagelistner.openImage(this.src);  " +
                 "    }  " +
-                "}" +
+                "} " +
+                "App.resize(document.body.getBoundingClientRect().height)" +//加载完成通过接口设置webview高度
                 "})()");
     }
     public  class JavaScriptInterface {
