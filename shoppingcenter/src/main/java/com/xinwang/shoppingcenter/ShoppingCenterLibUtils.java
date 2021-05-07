@@ -54,8 +54,10 @@ public class ShoppingCenterLibUtils {
      */
     public static void addShoppingCenter(Activity activity, Sku mBean ){
         if (mBean!=null) {
+            mBean.setCheck(true);//默认选中
             String saveGoods = SharedPreferenceUntils.getGoods(activity);
             if (!TextUtils.isEmpty(saveGoods)) {
+
                 List<Sku> mLists = GsonUtils.changeGsonToSafeList(saveGoods, Sku.class);
                 int lookPos= -1;//查找pos
                 for (int i = 0; i < mLists.size(); i++) {

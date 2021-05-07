@@ -20,6 +20,7 @@ import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
+import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
@@ -227,6 +228,8 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                     startActivity(new Intent(ShoppingCenterActivity.this,ShoppingOrderActivity.class)
                             .putParcelableArrayListExtra("data",mSelectData)
                     .putExtra("isShoppingCenter",true));
+                }else {
+                    MyToast.myToast(ShoppingCenterActivity.this,"请选择后结算");
                 }
             }
         });

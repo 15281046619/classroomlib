@@ -42,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:descendantFocusability="blocksDescendants"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -130,9 +131,10 @@
                 android:layout_width="match_parent"
                 android:focusable="false"
                 android:visibility="invisible"
-                android:animateLayoutChanges="true"
+
+
                 android:focusableInTouchMode="false"
-                android:layout_height="10dp"
+                android:layout_height="100dp"
                 />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

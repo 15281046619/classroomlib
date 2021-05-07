@@ -243,13 +243,13 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         }else {
             rlViewPager.getLayoutParams().height = CommentUtils.getScreenWidth(this);
         }
+
         rlViewPager.post(new Runnable() {
             @Override
             public void run() {
                 findViewById(R.id.rl_empty).setVisibility(View.GONE);
             }
         });
-
     }
     @JavascriptInterface
     public void resize(final float height) {
@@ -259,12 +259,12 @@ public class ShoppingDetailActivity extends BaseNetActivity {
                 //Toast.makeText(getActivity(), height + "", Toast.LENGTH_LONG).show();
                 webView.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (height * getResources().getDisplayMetrics().density)));
                 webView.setVisibility(View.VISIBLE);
+
             }
         });
     }
     private void showNameValue() {
         llContent.removeAllViews();
-
         LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mLayoutParams.setMargins(0,0,0,CommentUtils.dip2px(this,10));
         for(int i=0;i<categoryData.getData().size();i++){

@@ -97,6 +97,8 @@ public class WaybillDetailActivity extends BaseNetActivity {
         waybillId = getIntent().getIntExtra("id",0);
         if (waybillId!=0) {
             requestWaybillDetail();
+        }else {
+            requestFailureShow("没有相关物流信息");
         }
     }
 

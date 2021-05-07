@@ -169,7 +169,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 tvSku.setVisibility(View.INVISIBLE);
             }
 
-            if (skuList.get(i).getSellingPrice()!=0)
+            if (skuList.get(i).getSellingPrice()==0)
                 tvPrice.setText("");
             else
                 tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+CountUtil.changeF2Y(skuList.get(i).getSellingPrice())));
