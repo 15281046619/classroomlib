@@ -53,6 +53,14 @@ public class OrderDetailActivity extends BaseNetActivity {
     private OrderBean orderBean;
     private String goodId;//为null订单详情 ，不为null订单商品详情
     private int goodPrice;
+    private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
+        @Override
+        public void beautyOnChanged(@Nullable OrderInfo o) {
+            if (o.getPayState()==Constants.PAY_STATE_YES&&orderBean!=null&&orderBean.getData().getId()==o.getOrderId()){
+                finish();
+            }
+        }
+    };
     @Override
     protected int layoutResId() {
         return R.layout.activity_order_detail_shoppingcenter;
@@ -65,14 +73,7 @@ public class OrderDetailActivity extends BaseNetActivity {
         initView();
         initListener();
         initRequest();
-        OrderLiveData.getInstance().beautyObserveForever(new BeautyObserver<OrderInfo>() {//收到状态列表刷新
-            @Override
-            public void beautyOnChanged(@Nullable OrderInfo o) {
-                if (o.getPayState()==Constants.PAY_STATE_YES&&orderBean!=null&&orderBean.getData().getId()==o.getOrderId()){
-                    finish();
-                }
-            }
-        });
+        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
     }
 
     private void initRequest() {
@@ -311,5 +312,11 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvPrice= findViewById(R.id.tvPrice);
         tvCancel= findViewById(R.id.tvCancel);
         tvPay= findViewById(R.id.tvPay);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
     }
 }

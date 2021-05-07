@@ -62,7 +62,7 @@ public class ShoppingGoodOrderListAdapter extends BaseLoadMoreAdapter<OrderListB
 
             }else{
                 if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_NO){
-                    baseViewHolder.tvState.setText("未付款");
+                    baseViewHolder.tvState.setText("已下单");
                 }else {
                     baseViewHolder.tvState.setText("已收货");
 
@@ -88,8 +88,8 @@ public class ShoppingGoodOrderListAdapter extends BaseLoadMoreAdapter<OrderListB
     }
     private String getSkus(GoodsBean.DataBean dataBeans, SkuBean.DataBean skuBean){
         StringBuffer stringBuffer =new StringBuffer();
-        for (int j = 0; j < dataBeans.getSkus().length; j++) {
-            switch (j) {
+                for (int j = 0; j < dataBeans.getSkus().length; j++) {
+                    switch (j) {
                 case 0:
                     stringBuffer.append(skuBean.getSku0()).append(" ");
                     break;

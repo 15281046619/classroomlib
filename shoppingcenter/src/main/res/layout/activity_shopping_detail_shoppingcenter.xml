@@ -130,6 +130,7 @@
                 android:layout_width="match_parent"
                 android:focusable="false"
                 android:visibility="invisible"
+                android:animateLayoutChanges="true"
                 android:focusableInTouchMode="false"
                 android:layout_height="10dp"
                 />

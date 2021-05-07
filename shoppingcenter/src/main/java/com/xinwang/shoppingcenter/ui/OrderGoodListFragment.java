@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
+import com.xingwreslib.beautyreslibrary.BeautyLiveData;
 import com.xingwreslib.beautyreslibrary.BeautyObserver;
 import com.xingwreslib.beautyreslibrary.OrderInfo;
 import com.xingwreslib.beautyreslibrary.OrderLiveData;
@@ -57,6 +58,15 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
     private String q;
     private List<OrderListBean.DataBean.OrdersBean.ItemsBean> mData = new ArrayList<>();
     private ShoppingGoodOrderListAdapter mAdapter;
+    private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {//收到状态列表刷新
+        @Override
+        public void beautyOnChanged(@Nullable OrderInfo o) {
+            recyclerView.scrollToPosition(0);
+            curPage=1;
+            goRequestData(Constants.LOAD_DATA_TYPE_INIT);
+        }
+    };
+
     public static OrderGoodListFragment getInstance(String q, String pay_state){
         OrderGoodListFragment orderLitFragment =new OrderGoodListFragment();
         Bundle bundle =new Bundle();
@@ -81,8 +91,9 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
         tvMsg.setText(error);
         CustomProgressBar progressbar = view.findViewById(R.id.progressbar);
         progressbar .setVisibility(View.GONE);
+       rl_empty.setVisibility(View.VISIBLE);
         if (!error.equals(getString(R.string.no_data_ClassRoom)))
-            view.findViewById(R.id.rl_empty).setOnClickListener(v -> {
+            rl_empty.setOnClickListener(v -> {
                 progressbar.setVisibility(View.VISIBLE);
                 tvMsg.setText("加载中...");
                 goRequestData(Constants.LOAD_DATA_TYPE_INIT);
@@ -159,14 +170,7 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
         q =getArguments().getString("q");
         initListener();
         goRequestData(Constants.LOAD_DATA_TYPE_INIT);
-        OrderLiveData.getInstance().beautyObserveForever(new BeautyObserver<OrderInfo>() {//收到状态列表刷新
-            @Override
-            public void beautyOnChanged(@Nullable OrderInfo o) {
-                recyclerView.scrollToPosition(0);
-                curPage=1;
-                goRequestData(Constants.LOAD_DATA_TYPE_REFRESH);
-            }
-        });
+        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
 
     }
     private void initListener(){
@@ -213,5 +217,9 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
 
 
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
+    }
 }

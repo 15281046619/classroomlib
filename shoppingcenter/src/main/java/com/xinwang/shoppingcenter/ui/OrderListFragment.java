@@ -55,6 +55,14 @@ public class OrderListFragment extends BaseLazyLoadFragment {
     private String q;
     private List<OrderListBean.DataBean.OrdersBean> mData = new ArrayList<>();
     private ShoppingOrderListAdapter mAdapter;
+    private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
+        @Override
+        public void beautyOnChanged(@Nullable OrderInfo o) {
+            recyclerView.scrollToPosition(0);
+            curPage=1;
+            goRequestData(Constants.LOAD_DATA_TYPE_INIT);
+        }
+    };
     public static OrderListFragment getInstance(String q, String pay_state){
         OrderListFragment orderLitFragment =new OrderListFragment();
         Bundle bundle =new Bundle();
@@ -79,8 +87,9 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         tvMsg.setText(error);
         CustomProgressBar progressbar = view.findViewById(R.id.progressbar);
         progressbar .setVisibility(View.GONE);
+        rl_empty.setVisibility(View.VISIBLE);
         if (!error.equals(getString(R.string.no_data_ClassRoom)))
-            view.findViewById(R.id.rl_empty).setOnClickListener(v -> {
+            rl_empty.setOnClickListener(v -> {
                 progressbar.setVisibility(View.VISIBLE);
                 tvMsg.setText("加载中...");
                 goRequestData(Constants.LOAD_DATA_TYPE_INIT);
@@ -149,14 +158,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         q =getArguments().getString("q");
         initListener();
         goRequestData(Constants.LOAD_DATA_TYPE_INIT);
-        OrderLiveData.getInstance().beautyObserveForever(new BeautyObserver<OrderInfo>() {//收到状态列表刷新
-            @Override
-            public void beautyOnChanged(@Nullable OrderInfo o) {
-                recyclerView.scrollToPosition(0);
-                curPage=1;
-                goRequestData(Constants.LOAD_DATA_TYPE_REFRESH);
-            }
-        });
+        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
 
     }
     private void initListener(){
@@ -222,7 +224,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             @Override
             public void onSuccess(CommonEntity commonEntity) {
                 int orderId = mAdapter.mDatas.get(pos).getId();
-
+                MyToast.myToast(getActivity(),"取消成功");
                 if (pay_state.equals(Constants.PAY_STATE_ALL+"")){//全部
                     OrderListBean.DataBean.OrdersBean mBean = mAdapter.mDatas.get(pos);
                     mBean.setCancel_state(2);
@@ -237,5 +239,17 @@ public class OrderListFragment extends BaseLazyLoadFragment {
                 OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderId, Constants.PAY_STATE_CANCEL));//广播
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
     }
 }

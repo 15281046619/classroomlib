@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.internal.FlowLayout;
 import android.support.design.widget.AppBarLayout;
@@ -80,6 +81,20 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     private ProductListsFragment mFragment;
     private int number =0;
     private int orderNoPayNumber =0;
+    private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {
+        @Override
+        public void beautyOnChanged(@Nullable OrderInfo o) {
+            if (o.getPayState()==Constants.PAY_STATE_NO){//下单成功移除了选中的商品 未支付
+                orderNoPayNumber +=1;
+            }else {//已支付
+                orderNoPayNumber -=1;
+            }
+            showOrderNumber();
+        }
+    };
+
+
+
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_shopping_home_shoppingcenter,container,false);
@@ -123,7 +138,14 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
+        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
     }
 
     @Override
@@ -170,17 +192,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
      * 订单数目
      */
     private void initOrderNumber() {
-        OrderLiveData.getInstance().beautyObserveForever(new BeautyObserver<OrderInfo>() {
-            @Override
-            public void beautyOnChanged(@Nullable OrderInfo o) {
-                if (o.getPayState()==Constants.PAY_STATE_NO){//下单成功移除了选中的商品 未支付
-                    orderNoPayNumber +=1;
-                }else {//已支付
-                    orderNoPayNumber -=1;
-                }
-                showOrderNumber();
-            }
-        });
+        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
         requestGet(HttpUrls.URL_USER_ORDER_LISTS(), new ApiParams().with("pay_state", Constants.PAY_STATE_NO).with("cancel_state","1").with("page", 1).with("page_num", 1), OrderListBean.class, new HttpCallBack<OrderListBean>() {
             @Override
             public void onFailure(String message) {
@@ -359,5 +371,6 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         mFragment.scrollTop();
         appBar.setExpanded(true,true);
     }
+
 
 }
