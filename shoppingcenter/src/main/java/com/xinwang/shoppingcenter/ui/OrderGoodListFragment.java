@@ -62,6 +62,7 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
             recyclerView.scrollToPosition(0);
+            rl_empty.setVisibility(View.VISIBLE);
             curPage=1;
             goRequestData(Constants.LOAD_DATA_TYPE_INIT);
         }
@@ -91,7 +92,7 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
         tvMsg.setText(error);
         CustomProgressBar progressbar = view.findViewById(R.id.progressbar);
         progressbar .setVisibility(View.GONE);
-       rl_empty.setVisibility(View.VISIBLE);
+
         if (!error.equals(getString(R.string.no_data_ClassRoom)))
             rl_empty.setOnClickListener(v -> {
                 progressbar.setVisibility(View.VISIBLE);

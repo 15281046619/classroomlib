@@ -173,11 +173,27 @@ public class ShoppingDetailActivity extends BaseNetActivity {
 
             }
         });
-        webView.setOnClickImgListener(url -> {
-            ArrayList<String> mLists = new ArrayList<>();
-            mLists.add(url);
-            jumpBigPic(mLists,0);
+        webView.setOnJavaScriptInterfaceListener(new CustomWebView.OnJavaScriptInterfaceListener() {
+            @Override
+            public void onclickImg(String url) {
+                ArrayList<String> mLists = new ArrayList<>();
+                mLists.add(url);
+                jumpBigPic(mLists,0);
+            }
+
+            @Override
+            public void onWebViewHeight(float height) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        webView.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (height * getResources().getDisplayMetrics().density)));
+                        webView.setVisibility(View.VISIBLE);
+
+                    }
+                });
+            }
         });
+
         findViewById(R.id.tvBuy).setOnClickListener(v -> showSkuDialog(1));
         findViewById(R.id.llSeek).setOnClickListener(v -> goRequestErp());//咨询
         findViewById(R.id.llShopping).setOnClickListener(v ->startActivity(new Intent(this,ShoppingCenterActivity.class)));//跳转购物车
@@ -229,10 +245,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             tvSum.setText("1/" + mDate.getPicBeans().size());
             showNameValue();
 
-            webView.getSettings().setDefaultTextEncodingName("utf-8");
-            String htmlText = mDate.getBody();
-            webView.addJavascriptInterface(this, "App");
-            webView.loadData(CommentUtils.getWebNewData(htmlText), "text/html;charset=utf-8", "utf-8");
+
+            webView.loadData(CommentUtils.getWebNewData( mDate.getBody()), "text/html;charset=utf-8", "utf-8");
 
             if (TextUtils.isEmpty(skuList.get(0).getShowPrice())){
                 tvPrice.setVisibility(View.GONE);
@@ -251,18 +265,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             }
         });
     }
-    @JavascriptInterface
-    public void resize(final float height) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //Toast.makeText(getActivity(), height + "", Toast.LENGTH_LONG).show();
-                webView.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (height * getResources().getDisplayMetrics().density)));
-                webView.setVisibility(View.VISIBLE);
 
-            }
-        });
-    }
     private void showNameValue() {
         llContent.removeAllViews();
         LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

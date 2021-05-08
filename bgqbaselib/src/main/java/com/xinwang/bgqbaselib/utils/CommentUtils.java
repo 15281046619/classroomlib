@@ -270,10 +270,10 @@ public class CommentUtils {
                 "{"
                 +"    objs[i].onclick=function()  "+
                 "    {  "
-                +"        window.imagelistner.openImage(this.src);  "+
+                +"        window.javaInterFace.openImage(this.src);  "+
                 "    }  "+
                 "} "+
-                "App.resize(document.body.getBoundingClientRect().height)"+
+                "javaInterFace.resize(document.body.getBoundingClientRect().height)"+
                 "}"+"</script></body></html>";
        // return "<html>"+head+"<body>"+bodyHTML+"</body></html>";
     }

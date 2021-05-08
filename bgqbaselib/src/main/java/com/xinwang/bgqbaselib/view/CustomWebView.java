@@ -3,8 +3,11 @@ package com.xinwang.bgqbaselib.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
+import android.widget.LinearLayout;
+
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -23,7 +26,7 @@ import com.ycbjie.webviewlib.X5WebView;
  * author:baiguiqiang
  */
 public class CustomWebView extends X5WebView {
-    private OnClickImgListener onClickImgListener;
+    private OnJavaScriptInterfaceListener onClickImgListener;
 
     public CustomWebView(Context arg0) {
         super(arg0,null);
@@ -47,7 +50,7 @@ public class CustomWebView extends X5WebView {
         }
       //  setWebViewClient(new MyWebViewClient());
         setWebViewSetting();
-        addJavascriptInterface(new JavaScriptInterface(getContext()),"imagelistner");
+        addJavascriptInterface(new JavaScriptInterface(getContext()),"javaInterFace");
 
     }
 
@@ -80,10 +83,10 @@ public class CustomWebView extends X5WebView {
                 "{"
                 + "    objs[i].onclick=function()  " +
                 "    {  "
-                + "        window.imagelistner.openImage(this.src);  " +
+                + "        window.javaInterFace.openImage(this.src);  " +
                 "    }  " +
                 "} " +
-                "App.resize(document.body.getBoundingClientRect().height)" +//加载完成通过接口设置webview高度
+                "javaInterFace.resize(document.body.getBoundingClientRect().height)" +//加载完成通过接口设置webview高度
                 "})()");
     }
     public  class JavaScriptInterface {
@@ -98,7 +101,12 @@ public class CustomWebView extends X5WebView {
               onClickImgListener.onclickImg(img);
           }
         }
-
+        @JavascriptInterface()
+        public void resize(final float height) {
+            if (onClickImgListener!=null){
+                onClickImgListener.onWebViewHeight(height);
+            }
+        }
     }
 
 
@@ -111,7 +119,7 @@ public class CustomWebView extends X5WebView {
         websettings.setAllowFileAccess(true);    // 可以读取文件缓存
         websettings.setAppCacheEnabled(true);    //开启H5(APPCache)缓存功能
 
-
+        websettings.setDefaultTextEncodingName("utf-8");
         websettings.setBuiltInZoomControls(false);
         websettings.setSupportZoom(false);
         websettings.setDisplayZoomControls(false);
@@ -159,7 +167,7 @@ public class CustomWebView extends X5WebView {
         public void showTitle(String title) {
         }
     };
-    public void setOnClickImgListener(OnClickImgListener onClickImgListener){
+    public void setOnJavaScriptInterfaceListener(OnJavaScriptInterfaceListener onClickImgListener){
         this.onClickImgListener = onClickImgListener;
     }
     public void onDestroy() {
@@ -178,7 +186,8 @@ public class CustomWebView extends X5WebView {
             removeJavascriptInterface("imagelistner");
         }
     }
-   public interface  OnClickImgListener{
+   public interface  OnJavaScriptInterfaceListener{
         void onclickImg(String url);
+        void onWebViewHeight(float height);
     }
 }

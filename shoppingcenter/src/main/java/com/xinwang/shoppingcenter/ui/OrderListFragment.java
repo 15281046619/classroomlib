@@ -59,6 +59,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
             recyclerView.scrollToPosition(0);
+            rl_empty.setVisibility(View.VISIBLE);
             curPage=1;
             goRequestData(Constants.LOAD_DATA_TYPE_INIT);
         }
@@ -87,7 +88,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         tvMsg.setText(error);
         CustomProgressBar progressbar = view.findViewById(R.id.progressbar);
         progressbar .setVisibility(View.GONE);
-        rl_empty.setVisibility(View.VISIBLE);
+
         if (!error.equals(getString(R.string.no_data_ClassRoom)))
             rl_empty.setOnClickListener(v -> {
                 progressbar.setVisibility(View.VISIBLE);
@@ -225,7 +226,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             public void onSuccess(CommonEntity commonEntity) {
                 int orderId = mAdapter.mDatas.get(pos).getId();
                 MyToast.myToast(getActivity(),"取消成功");
-                if (pay_state.equals(Constants.PAY_STATE_ALL+"")){//全部
+               /* if (pay_state.equals(Constants.PAY_STATE_ALL+"")){//全部
                     OrderListBean.DataBean.OrdersBean mBean = mAdapter.mDatas.get(pos);
                     mBean.setCancel_state(2);
                     mAdapter.mDatas.set(pos,mBean);
@@ -234,7 +235,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
 
                     mAdapter.mDatas.remove(pos);
                     mAdapter.notifyDataSetChanged();
-                }
+                }*/
 
                 OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderId, Constants.PAY_STATE_CANCEL));//广播
             }

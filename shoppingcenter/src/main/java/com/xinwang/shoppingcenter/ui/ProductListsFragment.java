@@ -103,7 +103,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
         CustomProgressBar progressbar = view.findViewById(R.id.progressbar);
         progressbar .setVisibility(View.GONE);
         if (!error.equals(getString(R.string.no_data_ClassRoom)))
-            view.findViewById(R.id.rl_empty).setOnClickListener(v -> {
+            rl_empty.setOnClickListener(v -> {
                 progressbar.setVisibility(View.VISIBLE);
                 tvMsg.setText("加载中...");
                 goRequestData(Constants.LOAD_DATA_TYPE_INIT);
@@ -272,6 +272,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
         curPage=1;
         if (object instanceof HashMap) {
             HashMap<String,Object> map = (HashMap<String, Object>) object;
+
             goRequestData(map,Constants.LOAD_DATA_TYPE_REFRESH);
         }else {
             goRequestData(new HashMap(),Constants.LOAD_DATA_TYPE_REFRESH);
