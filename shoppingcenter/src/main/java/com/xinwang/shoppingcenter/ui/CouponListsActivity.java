@@ -15,11 +15,15 @@ import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
+import com.xinwang.bgqbaselib.utils.AsyncTaskUtils;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.TimeUtil;
+import com.xinwang.bgqbaselib.utils.asynctask.IDoInBackground;
+import com.xinwang.bgqbaselib.utils.asynctask.IPostExecute;
+import com.xinwang.bgqbaselib.utils.asynctask.IPublishProgress;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
@@ -49,6 +53,7 @@ public class CouponListsActivity extends BaseNetActivity {
     private boolean isRequesting =false;
     private List<Sku> mSKu=new ArrayList<>();
     private int mPrice;
+    private AsyncTaskUtils.Builder<List<CouponBean.DataBean.CouponsBean>, Void, List<CouponBean.DataBean.CouponsBean>> mAsyncTask;
     private List<CouponBean.DataBean.CouponsBean> mData =new ArrayList<>();
     @Override
     protected int layoutResId() {
@@ -78,33 +83,53 @@ public class CouponListsActivity extends BaseNetActivity {
 
                     @Override
                     public void onSuccess(CouponBean commonEntity) {
-                        swipeRefreshLayout.setRefreshing(false);
-                        if (lodeType!=Constants.LOAD_DATA_TYPE_MORE){
-                            mData.clear();
-                            if (lodeType==Constants.LOAD_DATA_TYPE_INIT&&(commonEntity.getData()==null||commonEntity.getData().getCoupons().size()==0)){
-                                requestFailureShow(getString(R.string.no_data_ClassRoom));
-                            }else {
-                                findViewById(R.id.rl_empty).setVisibility(View.GONE);
-                            }
-                        }
-                        if (commonEntity.getData()!=null) {
-                            mData.addAll(getNoUseArrayList(commonEntity));
-                            curPage++;
-                            if (commonEntity.getData().getCoupons().size() < pageSum) {
-                                initAdapter(3);
-                            } else {
-                                initAdapter(1);
-                            }
-                        }
-                        isRequesting =false;
+                        createAsyTask(lodeType,commonEntity);
                     }
                 });
     }
-    private List<CouponBean.DataBean.CouponsBean> getNoUseArrayList(CouponBean commonEntity){
+    private void createAsyTask(int lodeType,CouponBean commonEntity) {
+       mAsyncTask = AsyncTaskUtils.<List<CouponBean.DataBean.CouponsBean>, Void, List<CouponBean.DataBean.CouponsBean>>newBuilder()
+                .setDoInBackground(new IDoInBackground<List<CouponBean.DataBean.CouponsBean>, Void, List<CouponBean.DataBean.CouponsBean>>() {
+                    @Override
+                    public List<CouponBean.DataBean.CouponsBean> doInBackground(IPublishProgress<Void> publishProgress, List<CouponBean.DataBean.CouponsBean>... lists) {
+                        if (lists[0]!=null)
+                            return  getNoUseArrayList(lists[0]);
+                        else
+                            return null;
+                    }
+                })
+        .setPostExecute(new IPostExecute<List<CouponBean.DataBean.CouponsBean>>() {
+            @Override
+            public void onPostExecute(List<CouponBean.DataBean.CouponsBean> couponsBeans) {
+                swipeRefreshLayout.setRefreshing(false);
+                if (lodeType!=Constants.LOAD_DATA_TYPE_MORE){
+                    mData.clear();
+                    if (lodeType==Constants.LOAD_DATA_TYPE_INIT&&(couponsBeans==null||commonEntity.getData().getCoupons().size()==0)){
+                        requestFailureShow(getString(R.string.no_data_ClassRoom));
+                    }else {
+                        findViewById(R.id.rl_empty).setVisibility(View.GONE);
+                    }
+                }
+                if (couponsBeans!=null) {
+                    mData.addAll(couponsBeans);
+                    curPage++;
+                    if (couponsBeans.size() < pageSum) {
+                        initAdapter(3);
+                    } else {
+                        initAdapter(1);
+                    }
+                }
+                isRequesting =false;
+            }
+        });
+        mAsyncTask.start(commonEntity.getData().getCoupons());
+    }
+
+    private List<CouponBean.DataBean.CouponsBean> getNoUseArrayList(List<CouponBean.DataBean.CouponsBean> commonEntity){
         List<CouponBean.DataBean.CouponsBean> mData =new ArrayList<>();
-        for (int i=0;i<commonEntity.getData().getCoupons().size();i++){
-            commonEntity.getData().getCoupons().get(i).setNoUseCause(getNoUseCause(commonEntity.getData().getCoupons().get(i)));
-            mData.add( commonEntity.getData().getCoupons().get(i));
+        for (int i=0;i<commonEntity.size();i++){
+            commonEntity.get(i).setNoUseCause(getNoUseCause(commonEntity.get(i)));
+            mData.add( commonEntity.get(i));
         }
         return mData;
     }
@@ -244,6 +269,15 @@ public class CouponListsActivity extends BaseNetActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mAsyncTask != null) {
+            mAsyncTask.cancel();
+        }
+    }
+
     private void initData() {
         mSKu = getIntent().getParcelableArrayListExtra("data");
         mPrice = getIntent().getIntExtra("price",0);
