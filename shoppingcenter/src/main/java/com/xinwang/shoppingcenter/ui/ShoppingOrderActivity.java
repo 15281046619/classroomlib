@@ -2,6 +2,7 @@ package com.xinwang.shoppingcenter.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.text.SpannableString;
@@ -339,7 +340,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             public void onClick(View v) {
                 startActivityForResult(new Intent(ShoppingOrderActivity.this,CouponListsActivity.class)
                         .putExtra("pos",couponPos)
-                        .putExtra("price",aDoublePrice),100);
+                        .putExtra("price",aDoublePrice)
+                        .putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) skuList),100);
             }
         });
     }
@@ -398,7 +400,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         if (!TextUtils.isEmpty(etRemarks.getText().toString()))
             apiParams.with("tips",etRemarks.getText().toString());
         if (couponsBean!=null)
-            apiParams.with("apiParams",couponsBean.getId());
+            apiParams.with("discounts",couponsBean.getId()+"");
         apiParams.with("nickname",tvName.getText().toString());
         apiParams.with("tel",tvPhone.getText().toString());
         apiParams.with("address",tvAddress.getText().toString());

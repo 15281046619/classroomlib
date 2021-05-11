@@ -40,28 +40,6 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
         super(mDatas);
         setLoadState(2);//加载完成 不显示footer
     }
-/*
-    *//**
-     * 全选获取取消
-     *//*
-    public void allCheck(Context context,boolean isCheck){
-        for (int i=0;i<mDatas.size();i++){
-            mDatas.get(i).setCheck(isCheck);
-        }
-        saveUpdate(context);
-    }
-    *//**
-     * 是不是全选
-     * @return
-     *//*
-    public boolean isAllCheck(){
-        for (int i=0;i<mDatas.size();i++){
-            if (!mDatas.get(i).isCheck()){
-                return false;
-            }
-        }
-        return true;
-    }*/
 
     /**
      * 保存更新adaptr

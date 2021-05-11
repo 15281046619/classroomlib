@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,9 @@ import com.xingwang.classroom.dialog.BottomGifSubmitDialog;
 
 import com.xingwang.classroom.dialog.CenterRedPackDialog;
 
+import com.xingwreslib.beautyreslibrary.BeautyObserver;
+import com.xingwreslib.beautyreslibrary.OrderInfo;
+import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.dialog.CenterBuyDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.CommonEntity;
@@ -76,7 +80,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     private int maxSum =15;
     private String channel;
     private TextView btSend,tvFixed,tvNewMessage;
-    private ImageView ivPic,ivBug;
+    private ImageView ivPic;
     private EditText etContent;
     private int newMessageSum =0;
     private KeyBoardHelper mKeyBoardHelper;
@@ -99,7 +103,14 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         }
     };
     private CenterBuyDialog mDialog;
-
+    private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {//收到状态列表刷新
+        @Override
+        public void beautyOnChanged(@Nullable OrderInfo o) {
+            if (o.getPayState()==1){//下单成功
+                goSendComment(o.getOrderId()+"","3");
+            }
+        }
+    };
     public static LiveChatFragment getInstance(String id,String fixedStr,String speaker){
         LiveChatFragment mFragment = new LiveChatFragment();
         Bundle bundle = new Bundle();
@@ -127,9 +138,9 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         giftView = view.findViewById(R.id.giftView);
 
         tvFixed = view.findViewById(R.id.tvFixed);
-        ivBug = view.findViewById(R.id.ivBug);
-        ivBug.setAlpha(0.7f);
-        GlideUtils.loadGif(R.mipmap.ic_qg_classroom,ivBug);
+      //  ivBug = view.findViewById(R.id.ivBug);
+      //  ivBug.setAlpha(0.7f);
+      //  GlideUtils.loadGif(R.mipmap.ic_qg_classroom,ivBug);
         setFixed(getArguments().getString("fixedStr"));
         etContent = view.findViewById(R.id.et_content);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -530,7 +541,13 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     @Override
     public void initData() {
         requestData(Constants.LOAD_DATA_TYPE_INIT,Integer.MAX_VALUE);
+        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
     }
 
     private void showGifSubmitDialog(){
@@ -562,7 +579,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     }
 
     private void initSend() {
-        ivBug.setOnClickListener(new View.OnClickListener() {
+       /* ivBug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                mDialog= CenterBuyDialog.getInstance("订单","下单之后，兴旺技术老师会在24小时内联系您。根据您的养殖情况，定制用药方案！");
@@ -579,7 +596,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
                 });
                 mDialog.showDialog(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
             }
-        });
+        });*/
 
         btSend.setOnClickListener(v -> goSendComment(etContent.getText().toString(),"1"));
         etContent.addTextChangedListener(new TextWatcher() {

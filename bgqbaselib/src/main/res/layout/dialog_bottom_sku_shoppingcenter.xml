@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_alignBottom="@+id/cdCove"
+
                     android:layout_alignParentRight="true"
                     android:orientation="horizontal"
                     android:background="@drawable/shape_shop_ceneter_item_bg_shoppingcenter"

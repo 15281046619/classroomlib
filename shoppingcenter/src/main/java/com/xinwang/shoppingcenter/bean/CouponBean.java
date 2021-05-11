@@ -81,6 +81,42 @@ public class CouponBean extends CommonEntity {
             private int create_time;
             private String create_from;
             private int min_money;
+            private int expire_from;//开始时间
+            private String sku_ids; //规格限制
+            private String goods_ids;//商品限制
+            private String noUseCause;//不能使用愿意。 空代表可以使用
+
+            public String getNoUseCause() {
+                return noUseCause;
+            }
+
+            public void setNoUseCause(String noUseCause) {
+                this.noUseCause = noUseCause;
+            }
+
+            public String getSku_ids() {
+                return sku_ids;
+            }
+
+            public void setSku_ids(String sku_ids) {
+                this.sku_ids = sku_ids;
+            }
+
+            public String getGoods_ids() {
+                return goods_ids;
+            }
+
+            public void setGoods_ids(String goods_ids) {
+                this.goods_ids = goods_ids;
+            }
+
+            public int getExpire_from() {
+                return expire_from;
+            }
+
+            public void setExpire_from(int expire_from) {
+                this.expire_from = expire_from;
+            }
 
             public int getMin_money() {
                 return min_money;

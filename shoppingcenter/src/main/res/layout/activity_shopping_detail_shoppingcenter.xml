@@ -131,8 +131,6 @@
                 android:layout_width="match_parent"
                 android:focusable="false"
                 android:visibility="invisible"
-
-
                 android:focusableInTouchMode="false"
                 android:layout_height="100dp"
                 />

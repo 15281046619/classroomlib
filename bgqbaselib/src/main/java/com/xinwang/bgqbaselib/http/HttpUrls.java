@@ -191,9 +191,12 @@ public class HttpUrls {
     public static String LIVE_CHANNEL="live.";//直播channel
     public static String CHANNEL_WS_URL ="ws://zyapp.app.xw518.com/subscribe";
     public static String URL_ZHI_BO ="http://zhibo.xw518.com/zhibo/";//直播地址
-
+    //已经弃用 2021 5 11
     public static final String URL_GOOD_LISTS(){
         return  URL_HOST+URL_NAME+"live/home/goods/lists";
+    }
+    public static final String URL_GOOD2_LISTS(){
+        return  URL_HOST+URL_NAME+"live/home/goods2/lists";
     }
     public static final String URL_GIFT_TOPS(){
         return  URL_HOST+URL_NAME+"live/home/gift/tops";

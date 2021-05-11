@@ -7,12 +7,14 @@
     <color name="backgroundClassRoom">#eeeeee</color>
     <color name="GrayClassRoom">#999999</color>
     <color name="LineClassRoom">#E0DEDE</color>
+    <color name="LineClass1Room">#CAC7C7</color>
     <color name="toolbarBgClassRoom">#222132</color>
     <color name="yellowClassRoom">#FFFF00</color>
     <color name="SwipeRefreshLayoutClassRoom">#FFC400</color>
    <!-- <color name="themeClassRoom">#0058bd</color>-->
     <color name="themeClassRoom">#0055BC</color>
     <color name="theme1ClassRoom">#3F75B6</color>
+    <color name="theme2ClassRoom">#A3C9F6</color>
    <!-- <color name="themeClassRoom">@color/reslib_colorPrimary</color>-->
 
     <color name="BGClassRoom">#f2f2f2</color>

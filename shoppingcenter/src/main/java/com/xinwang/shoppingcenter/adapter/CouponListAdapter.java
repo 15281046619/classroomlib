@@ -1,9 +1,13 @@
 package com.xinwang.shoppingcenter.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,20 +28,21 @@ import java.util.List;
  */
 public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.CouponsBean> {
     public int curPos =-1;//选中pos
-    private Double aDouble;
-    public CouponListAdapter(List<CouponBean.DataBean.CouponsBean> mDatas,Double mCurPrice) {
+    private int aDouble;
+    public CouponListAdapter(List<CouponBean.DataBean.CouponsBean> mDatas,int mCurPrice) {
         super(mDatas);
         aDouble =mCurPrice;
     }
-    public Double getCurPrice(){
+    public int getCurPrice(){
         return aDouble;
     }
     @Override
     protected void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         if (viewHolder instanceof BaseViewHolder ){
             BaseViewHolder mViewHolder = (BaseViewHolder) viewHolder;
+
             mViewHolder.ivSelect.setSelected(i==curPos);
-            mViewHolder.tvDes.setText(mDatas.get(i).getInstructions());
+
             mViewHolder.tvTitle.setText(mDatas.get(i).getName());
             mViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.doubleToString(CountUtil.changeF2Y(mDatas.get(i).getFee()))));
             mViewHolder.tvTime.setText("有效期至"+ TimeUtil.getYMD(mDatas.get(i).getExpire_at()+""));
@@ -45,10 +50,24 @@ public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.C
                 mViewHolder.tvMinPrice.setText("满"+CountUtil.changeF2Y(mDatas.get(i).getMin_money())+"可用");
             else
                 mViewHolder.tvMinPrice.setText("");
-            if (aDouble>=mDatas.get(i).getMin_money()){
-                mViewHolder.viewIsUser.setVisibility(View.VISIBLE);
+            mViewHolder.tvDes.setText(mDatas.get(i).getInstructions());
+            if (TextUtils.isEmpty(mDatas.get(i).getNoUseCause())){
+                mViewHolder.llNoUse.setVisibility(View.GONE);
+                mViewHolder.tvTitle.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),android.R.color.black));
+                mViewHolder.tvTime.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),R.color.textColorClassRoom));
+                mViewHolder.tvDes.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),R.color.textColorClassRoom));
+                mViewHolder.tvPrice.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),R.color.themeClassRoom));
+                mViewHolder.tvMinPrice.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),R.color.themeClassRoom));
+                mViewHolder.ivSelect.setImageResource(R.drawable.select_order_checkbutton_shoppingcenter);
             }else {
-                mViewHolder.viewIsUser.setVisibility(View.GONE);
+                mViewHolder.tvTitle.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),R.color.LineClass1Room));
+                mViewHolder.tvTime.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),R.color.LineClass1Room));
+                mViewHolder.tvDes.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),R.color.LineClass1Room));
+                mViewHolder.tvPrice.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),R.color.theme2ClassRoom));
+                mViewHolder.tvMinPrice.setTextColor(ContextCompat.getColor(mViewHolder.tvTitle.getContext(),R.color.theme2ClassRoom));
+                mViewHolder.ivSelect.setImageResource(R.drawable.ic_baseline_radio_button_unchecked_24_nouse_shoppingcenter);
+                mViewHolder.llNoUse.setVisibility(View.VISIBLE);
+                mViewHolder.tvNoUse.setText(mDatas.get(i).getNoUseCause());
             }
         }
     }
@@ -64,8 +83,8 @@ public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.C
     }
     class BaseViewHolder extends RecyclerView.ViewHolder {
         ImageView ivSelect;
-        TextView tvDes,tvPrice,tvTitle,tvTime,tvMinPrice;
-        View viewIsUser;
+        TextView tvDes,tvPrice,tvTitle,tvTime,tvMinPrice,tvNoUse;
+        LinearLayout llNoUse;
 
 
         BaseViewHolder(@NonNull View itemView) {
@@ -76,7 +95,9 @@ public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.C
             tvPrice = itemView.findViewById(R.id.tvPrice);
             tvMinPrice = itemView.findViewById(R.id.tvMinPrice);
             tvTime = itemView.findViewById(R.id.tvTime);
-            viewIsUser = itemView.findViewById(R.id.viewIsUser);
+            tvNoUse = itemView.findViewById(R.id.tvNoUse);
+            llNoUse = itemView.findViewById(R.id.llNoUse);
+
         }
     }
 }
