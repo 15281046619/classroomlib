@@ -221,8 +221,42 @@ android:visibility="gone"
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
-                        android:id="@+id/llCoupon"
+                        android:id="@+id/llExpress"
 
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="配送费用"
+                            android:textSize="@dimen/sp_14_classroom"
+                            android:paddingTop="@dimen/dp_10_classroom"
+                            android:paddingBottom="@dimen/dp_10_classroom"
+                            android:layout_marginLeft="@dimen/dp_10_classroom"
+                            android:gravity="right|center_vertical"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:id="@+id/tvExpress"
+                            android:gravity="right|center_vertical"
+                            android:singleLine="true"
+                            android:drawableRight="@drawable/ic_baseline_navigate_next_24_shoppingcneter"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/sp_14_classroom"
+                            android:paddingLeft="@dimen/dp_10_classroom"
+                            android:paddingTop="@dimen/dp_10_classroom"
+                            android:paddingBottom="@dimen/dp_10_classroom"
+                            />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/dp_10_classroom"
+                        android:background="@color/LineClassRoom"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/llCoupon"
                         android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="100dp"
@@ -241,7 +275,7 @@ android:visibility="gone"
                             android:gravity="right|center_vertical"
                             android:singleLine="true"
                             android:drawableRight="@drawable/ic_baseline_navigate_next_24_shoppingcneter"
-                            android:textColor="@color/red"
+                            android:textColor="@color/themeClassRoom"
                             android:textSize="@dimen/sp_14_classroom"
                             android:paddingLeft="@dimen/dp_10_classroom"
                             android:paddingTop="@dimen/dp_10_classroom"
@@ -256,7 +290,6 @@ android:visibility="gone"
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
-
                         android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="100dp"

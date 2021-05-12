@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,6 +36,8 @@ import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -92,8 +95,22 @@ public class CouponListsActivity extends BaseNetActivity {
                 .setDoInBackground(new IDoInBackground<List<CouponBean.DataBean.CouponsBean>, Void, List<CouponBean.DataBean.CouponsBean>>() {
                     @Override
                     public List<CouponBean.DataBean.CouponsBean> doInBackground(IPublishProgress<Void> publishProgress, List<CouponBean.DataBean.CouponsBean>... lists) {
-                        if (lists[0]!=null)
-                            return  getNoUseArrayList(lists[0]);
+                        if (lists[0]!=null) {
+                            List<CouponBean.DataBean.CouponsBean> mList = getNoUseArrayList(lists[0]);
+                            Collections.sort(mList, new Comparator<CouponBean.DataBean.CouponsBean>() {
+                                @Override
+                                public int compare(CouponBean.DataBean.CouponsBean o1, CouponBean.DataBean.CouponsBean o2) {
+                                    if (TextUtils.isEmpty(o1.getNoUseCause())){
+                                        return -1;
+                                    }else if (TextUtils.isEmpty(o2.getNoUseCause())){
+                                        return 1;
+                                    }else {
+                                        return 0;
+                                    }
+                                }
+                            });
+                            return mList;
+                        }
                         else
                             return null;
                     }

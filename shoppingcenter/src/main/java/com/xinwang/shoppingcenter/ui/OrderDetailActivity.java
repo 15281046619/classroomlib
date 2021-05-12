@@ -3,6 +3,7 @@ package com.xinwang.shoppingcenter.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -48,7 +49,7 @@ import com.xinwang.shoppingcenter.bean.SkuBean;
  * author:baiguiqiang
  */
 public class OrderDetailActivity extends BaseNetActivity {
-    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel;
+    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress;
     private LinearLayout llContent;
     private OrderBean orderBean;
     private String goodId;//为null订单详情 ，不为null订单商品详情
@@ -97,6 +98,13 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvName.setText(orderBean.getData().getNickname());
         tvPhone.setText(orderBean.getData().getTel());
         etRemarks.setText(orderBean.getData().getTips());
+        if (orderBean.getData().getPost_price()==0){
+            tvExpress.setTextColor(ContextCompat.getColor(this,R.color.textColorClassRoom));
+            tvExpress.setText("邮费 包邮");
+        }else {
+            tvExpress.setTextColor(ContextCompat.getColor(this,R.color.red));
+            tvExpress.setText("+"+CountUtil.changeF2Y(orderBean.getData().getPost_price()));
+        }
         initProduceList();
         if (orderBean.getData().getPay_state()== Constants.PAY_STATE_NO&&orderBean.getData().getCancel_state()==1){
             tvPay.setOnClickListener(new View.OnClickListener() {
@@ -128,10 +136,14 @@ public class OrderDetailActivity extends BaseNetActivity {
                 tvCancel.setVisibility(View.GONE);
         }
 
-        if (goodId==null)
+        if (goodId==null) {
             initPrice(orderBean.getData().getPrice());
-        else
+
+        }else {
+            findViewById(R.id.llExpress).setVisibility(View.GONE);
+            findViewById(R.id.viewLine).setVisibility(View.GONE);
             initPrice(goodPrice);
+        }
     }
 
     private String getPayTitle(){
@@ -312,6 +324,7 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvPrice= findViewById(R.id.tvPrice);
         tvCancel= findViewById(R.id.tvCancel);
         tvPay= findViewById(R.id.tvPay);
+        tvExpress= findViewById(R.id.tvExpress);
     }
 
     @Override

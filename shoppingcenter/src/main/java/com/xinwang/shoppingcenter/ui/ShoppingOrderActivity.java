@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -67,7 +68,7 @@ import java.util.List;
  * author:baiguiqiang
  */
 public class ShoppingOrderActivity extends BaseNetActivity {
-    private TextView tvAdd,tvAddress,tvPhone,tvName,tvSum,tvPrice;
+    private TextView tvAdd,tvAddress,tvPhone,tvName,tvSum,tvPrice,tvExpress;
     private RadioButton rbXX,rbWX,rbZFB;
     private LinearLayout llContent;
     private TextView tvCoupon;
@@ -80,8 +81,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private CouponBean.DataBean.CouponsBean couponsBean;//当前选中的优惠劵
     private int couponPos =-1;
     private int totalCoupon=0;
-    private   DeliveryaddrDefine mADDrDefine;
-
+    private DeliveryaddrDefine mADDrDefine;
+    private int expressPrice=0;//邮费价格
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     public void onSuccess(CouponBean commonEntity) {
                         if (commonEntity.getData()!=null&&commonEntity.getData().getCoupons().size()>0) {
                             totalCoupon =commonEntity.getData().getTotal();
-                            tvCoupon.setText(totalCoupon+"张可用");
+                            tvCoupon.setText(totalCoupon+"张未使用");
                         }
                     }
                 });
@@ -175,7 +176,13 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             else
                 tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+CountUtil.changeF2Y(skuList.get(i).getSellingPrice())));
             tvSub.setOnClickListener(v -> {
+
                 if (skuList.get(finalI).getAddSum()>1){
+                    if (couponsBean!=null){
+                        couponsBean =null;
+                        tvCoupon.setText(totalCoupon+"张未使用");
+                        couponPos =-1;
+                    }
                     skuList.get(finalI).setAddSum(skuList.get(finalI).getAddSum()-1);
                     tvSum.setText(String.valueOf(skuList.get(finalI).getAddSum()));
                     if (skuList.get(finalI).getSellingPrice()!=0)
@@ -202,7 +209,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     }
     private int mTotal;
     public void showTotalPrice(){
-        mTotal = aDoublePrice - (couponsBean == null ? 0:couponsBean.getFee());
+        countExpress();//计算邮费
+        mTotal = aDoublePrice - (couponsBean == null ? 0:couponsBean.getFee())+expressPrice;
 
         SpannableString spannableString =new SpannableString("总计:￥"+(mTotal>0?CountUtil.changeF2Y(mTotal):0));
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.themeClassRoom)),3,spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -257,6 +265,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             regions ="";
             tvAdd.setVisibility(View.VISIBLE);
         }
+        showTotalPrice();
     }
     private void initListener() {
         ((RadioGroup)findViewById(R.id.radioGroup)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -344,6 +353,12 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                         .putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) skuList),100);
             }
         });
+        findViewById(R.id.llExpress).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              CenterDefineDialog.getInstance("1.包邮条件：\n   海南  新疆 西藏  内蒙  青海 宁夏满500包邮 \n   其他地方满300包邮\n2.邮费价格：\n   四川重庆10元\n   其他地区全都15元").showDialog(getSupportFragmentManager());
+            }
+        });
     }
 
     @Override
@@ -355,7 +370,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         if (requestCode==100&&resultCode==100){
             if (data==null){//取消优惠劵
                 couponsBean =null;
-                tvCoupon.setText(totalCoupon+"张可用");
+                tvCoupon.setText(totalCoupon+"张未使用");
                 couponPos =-1;
             }else {// 选中优惠劵
                 couponsBean = (CouponBean.DataBean.CouponsBean) data.getSerializableExtra("data");
@@ -400,7 +415,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         if (!TextUtils.isEmpty(etRemarks.getText().toString()))
             apiParams.with("tips",etRemarks.getText().toString());
         if (couponsBean!=null)
-            apiParams.with("discounts",couponsBean.getId()+"");
+            apiParams.with("coupon_ids",couponsBean.getId()+"");
         apiParams.with("nickname",tvName.getText().toString());
         apiParams.with("tel",tvPhone.getText().toString());
         apiParams.with("address",tvAddress.getText().toString());
@@ -535,9 +550,63 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         tvSum= findViewById(R.id.tvSum);
         tvCoupon =findViewById(R.id.tvCoupon);
         scrollview =findViewById(R.id.scrollview);
+        tvExpress =findViewById(R.id.tvExpress);
 
     }
 
+    /**
+     * 计算邮费
+     */
+    private void countExpress(){
+        String[] m500 =new String[]{"63","64","15","54","65","46"};
+        String[] m10Price =new String[]{"50","51"};
+        int price300 =30000;//分
+        int price500 =50000;
+        try {
+            JSONArray jsonArray =new JSONArray(regions);
+            String curRegions = jsonArray.getJSONObject(2).getString("county_id").substring(0,2);
+            if (isContain(m500,curRegions)){//5大区域
+                if (aDoublePrice>=price500){
+                    expressPrice =0;
+                }else {
+                    expressPrice =1500;
+                }
+            }else {
+                if (isContain(m10Price,curRegions)){//四川 重新邮费 10块钱
+                    if (aDoublePrice>=price300){
+                        expressPrice =0;
+                    }else {
+                        expressPrice =1000;
+                    }
+                }else {
+                    if (aDoublePrice>=price300){
+                        expressPrice =0;
+                    }else {
+                        expressPrice =1500;
+                    }
+                }
+            }
+
+        }catch (JSONException e) {//没有地区
+            e.printStackTrace();
+            expressPrice =0;
+        }
+        if (expressPrice==0){
+            tvExpress.setTextColor(ContextCompat.getColor(this,R.color.textColorClassRoom));
+            tvExpress.setText("邮费 包邮");
+        }else {
+            tvExpress.setTextColor(ContextCompat.getColor(this,R.color.red));
+            tvExpress.setText("+"+CountUtil.changeF2Y(expressPrice));
+        }
+    }
+    private boolean isContain(String[] strings,String s){
+        for (int i=0;i<strings.length;i++){
+            if (strings[i].equals(s)){
+             return true;
+            }
+        }
+        return false;
+    }
     @Override
     protected int layoutResId() {
         return R.layout.activity_shopping_order_shoppingcneter;

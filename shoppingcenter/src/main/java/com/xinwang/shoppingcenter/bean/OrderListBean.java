@@ -81,11 +81,20 @@ public class OrderListBean extends CommonEntity {
             private String tips;
             private int create_time;
             private int price;
+            private int post_price;
             private int pay_state;
             private String admin_tips;
             private int cancel_state;
             private int state;
             private List<ItemsBean> items;
+
+            public int getPost_price() {
+                return post_price;
+            }
+
+            public void setPost_price(int post_price) {
+                this.post_price = post_price;
+            }
 
             public int getId() {
                 return id;
