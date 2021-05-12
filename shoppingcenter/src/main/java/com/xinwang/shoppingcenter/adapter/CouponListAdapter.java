@@ -28,14 +28,12 @@ import java.util.List;
  */
 public class CouponListAdapter extends BaseLoadMoreAdapter<CouponBean.DataBean.CouponsBean> {
     public int curPos =-1;//选中pos
-    private int aDouble;
-    public CouponListAdapter(List<CouponBean.DataBean.CouponsBean> mDatas,int mCurPrice) {
+
+    public CouponListAdapter(List<CouponBean.DataBean.CouponsBean> mDatas) {
         super(mDatas);
-        aDouble =mCurPrice;
+
     }
-    public int getCurPrice(){
-        return aDouble;
-    }
+
     @Override
     protected void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         if (viewHolder instanceof BaseViewHolder ){

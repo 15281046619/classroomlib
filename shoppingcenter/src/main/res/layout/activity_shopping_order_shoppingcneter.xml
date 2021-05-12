@@ -267,6 +267,7 @@ android:visibility="gone"
                             android:paddingBottom="@dimen/dp_10_classroom"
                             android:layout_marginLeft="@dimen/dp_10_classroom"
                             android:gravity="right|center_vertical"/>
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

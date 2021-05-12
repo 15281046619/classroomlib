@@ -49,7 +49,7 @@ import com.xinwang.shoppingcenter.bean.SkuBean;
  * author:baiguiqiang
  */
 public class OrderDetailActivity extends BaseNetActivity {
-    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress;
+    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress,tvCoupon;
     private LinearLayout llContent;
     private OrderBean orderBean;
     private String goodId;//为null订单详情 ，不为null订单商品详情
@@ -100,11 +100,13 @@ public class OrderDetailActivity extends BaseNetActivity {
         etRemarks.setText(orderBean.getData().getTips());
         if (orderBean.getData().getPost_price()==0){
             tvExpress.setTextColor(ContextCompat.getColor(this,R.color.textColorClassRoom));
-            tvExpress.setText("邮费 包邮");
+            tvExpress.setText("+0");
         }else {
             tvExpress.setTextColor(ContextCompat.getColor(this,R.color.red));
             tvExpress.setText("+"+CountUtil.changeF2Y(orderBean.getData().getPost_price()));
         }
+
+        tvCoupon.setText(getCouponPrice());
         initProduceList();
         if (orderBean.getData().getPay_state()== Constants.PAY_STATE_NO&&orderBean.getData().getCancel_state()==1){
             tvPay.setOnClickListener(new View.OnClickListener() {
@@ -132,20 +134,25 @@ public class OrderDetailActivity extends BaseNetActivity {
             });
             tvCancel.setVisibility(View.GONE);
         }else {
-                tvPay.setVisibility(View.GONE);
-                tvCancel.setVisibility(View.GONE);
+            tvPay.setVisibility(View.GONE);
+            tvCancel.setVisibility(View.GONE);
         }
 
-        if (goodId==null) {
-            initPrice(orderBean.getData().getPrice());
+        //  if (goodId==null) {
+        initPrice(orderBean.getData().getPrice());
 
-        }else {
-            findViewById(R.id.llExpress).setVisibility(View.GONE);
-            findViewById(R.id.viewLine).setVisibility(View.GONE);
+       /* }else {
             initPrice(goodPrice);
-        }
+        }*/
     }
-
+    private String getCouponPrice(){
+        int price=0;
+        if (orderBean.getData().getCoupons()!=null)
+            for (int i=0;i<orderBean.getData().getCoupons().size();i++){
+                price += orderBean.getData().getCoupons().get(i).getFee();
+            }
+        return "-"+CountUtil.changeF2Y(price);
+    }
     private String getPayTitle(){
         StringBuffer title=new StringBuffer();
         int number =0;
@@ -247,18 +254,18 @@ public class OrderDetailActivity extends BaseNetActivity {
             layoutParams.setMargins(dip10, 0, 0, 0);
             view.setLayoutParams(layoutParams);
             view.setBackgroundResource(R.color.LineClassRoom);
-            if (goodId==null) {
-                llContent.addView(itemView);
-                llContent.addView(view);
-            }else {
-                if (goodId.equals(orderBean.getData().getItems().get(i).getId()+"")){//该产品
-                    goodPos =i;
-                    goodPrice =orderBean.getData().getItems().get(i).getNum()*orderBean.getData().getItems().get(i).getSku().getPrice();
+            //  if (goodId==null) {
+            llContent.addView(itemView);
+            llContent.addView(view);
+            //   }else {
+            if (goodId!=null&&goodId.equals(orderBean.getData().getItems().get(i).getId()+"")){//该产品
+                goodPos =i;
+                   /* goodPrice =orderBean.getData().getItems().get(i).getNum()*orderBean.getData().getItems().get(i).getSku().getPrice();
                     llContent.addView(itemView);
                     llContent.addView(view);
-                    break;
-                }
+                    break;*/
             }
+            //    }
         }
     }
     private String getSkus(GoodsBean.DataBean dataBeans, SkuBean.DataBean skuBean){
@@ -325,6 +332,7 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvCancel= findViewById(R.id.tvCancel);
         tvPay= findViewById(R.id.tvPay);
         tvExpress= findViewById(R.id.tvExpress);
+        tvCoupon= findViewById(R.id.tvCoupon);
     }
 
     @Override

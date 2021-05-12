@@ -52,10 +52,12 @@ public class CouponListsActivity extends BaseNetActivity {
     private RecyclerView recyclerView;
     private VpSwipeRefreshLayout swipeRefreshLayout;
     private TextView tvSelect;
+    private TextView tvTip;
     private CouponListAdapter mAdapter;
     private boolean isRequesting =false;
     private List<Sku> mSKu=new ArrayList<>();
     private int mPrice;
+    private boolean isInclude= false;//该订单是否包含不能使用优惠劵的商品
     private AsyncTaskUtils.Builder<List<CouponBean.DataBean.CouponsBean>, Void, List<CouponBean.DataBean.CouponsBean>> mAsyncTask;
     private List<CouponBean.DataBean.CouponsBean> mData =new ArrayList<>();
     @Override
@@ -91,11 +93,12 @@ public class CouponListsActivity extends BaseNetActivity {
                 });
     }
     private void createAsyTask(int lodeType,CouponBean commonEntity) {
-       mAsyncTask = AsyncTaskUtils.<List<CouponBean.DataBean.CouponsBean>, Void, List<CouponBean.DataBean.CouponsBean>>newBuilder()
+        mAsyncTask = AsyncTaskUtils.<List<CouponBean.DataBean.CouponsBean>, Void, List<CouponBean.DataBean.CouponsBean>>newBuilder()
                 .setDoInBackground(new IDoInBackground<List<CouponBean.DataBean.CouponsBean>, Void, List<CouponBean.DataBean.CouponsBean>>() {
                     @Override
                     public List<CouponBean.DataBean.CouponsBean> doInBackground(IPublishProgress<Void> publishProgress, List<CouponBean.DataBean.CouponsBean>... lists) {
                         if (lists[0]!=null) {
+
                             List<CouponBean.DataBean.CouponsBean> mList = getNoUseArrayList(lists[0]);
                             Collections.sort(mList, new Comparator<CouponBean.DataBean.CouponsBean>() {
                                 @Override
@@ -115,47 +118,79 @@ public class CouponListsActivity extends BaseNetActivity {
                             return null;
                     }
                 })
-        .setPostExecute(new IPostExecute<List<CouponBean.DataBean.CouponsBean>>() {
-            @Override
-            public void onPostExecute(List<CouponBean.DataBean.CouponsBean> couponsBeans) {
-                swipeRefreshLayout.setRefreshing(false);
-                if (lodeType!=Constants.LOAD_DATA_TYPE_MORE){
-                    mData.clear();
-                    if (lodeType==Constants.LOAD_DATA_TYPE_INIT&&(couponsBeans==null||commonEntity.getData().getCoupons().size()==0)){
-                        requestFailureShow(getString(R.string.no_data_ClassRoom));
-                    }else {
-                        findViewById(R.id.rl_empty).setVisibility(View.GONE);
+                .setPostExecute(new IPostExecute<List<CouponBean.DataBean.CouponsBean>>() {
+                    @Override
+                    public void onPostExecute(List<CouponBean.DataBean.CouponsBean> couponsBeans) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        if (lodeType!=Constants.LOAD_DATA_TYPE_MORE){
+                            mData.clear();
+                            if (lodeType==Constants.LOAD_DATA_TYPE_INIT&&(couponsBeans==null||commonEntity.getData().getCoupons().size()==0)){
+                                requestFailureShow(getString(R.string.no_data_ClassRoom));
+                            }else {
+                                findViewById(R.id.rl_empty).setVisibility(View.GONE);
+                            }
+                        }
+                        if (couponsBeans!=null) {
+                            mData.addAll(couponsBeans);
+                            curPage++;
+                            if (couponsBeans.size() < pageSum) {
+                                initAdapter(3);
+                            } else {
+                                initAdapter(1);
+                            }
+                        }
+                        isRequesting =false;
                     }
-                }
-                if (couponsBeans!=null) {
-                    mData.addAll(couponsBeans);
-                    curPage++;
-                    if (couponsBeans.size() < pageSum) {
-                        initAdapter(3);
-                    } else {
-                        initAdapter(1);
-                    }
-                }
-                isRequesting =false;
-            }
-        });
+                });
         mAsyncTask.start(commonEntity.getData().getCoupons());
+    }
+
+    private void countPrice() {
+        mPrice =0;
+        List<Sku> mCurSku =new ArrayList<>();
+        for (int i=0;i<mSKu.size();i++){
+
+            if (mSKu.get(i).getAllow_coupon()==1){
+                mPrice  = mPrice + mSKu.get(i).getAddSum()*mSKu.get(i).getSellingPrice();
+                mCurSku.add(mSKu.get(i));
+            }else {
+                isInclude =true;
+            }
+        }
+        mSKu =mCurSku;
     }
 
     private List<CouponBean.DataBean.CouponsBean> getNoUseArrayList(List<CouponBean.DataBean.CouponsBean> commonEntity){
         List<CouponBean.DataBean.CouponsBean> mData =new ArrayList<>();
-        for (int i=0;i<commonEntity.size();i++){
-            commonEntity.get(i).setNoUseCause(getNoUseCause(commonEntity.get(i)));
+        for (int i=0;i<commonEntity.size();i++){//优惠劵
+
+            commonEntity.get(i).setNoUseCause(getNoUseCause(commonEntity.get(i),getCouponPrice(commonEntity.get(i))));
             mData.add( commonEntity.get(i));
         }
         return mData;
     }
-    private String getNoUseCause(CouponBean.DataBean.CouponsBean couponsBean){
-        if (mPrice>=couponsBean.getMin_money()) {
+
+    private int getCouponPrice(CouponBean.DataBean.CouponsBean couponsBean) {
+        int mCouponPrice =mPrice;
+        if (!TextUtils.isEmpty(couponsBean.getWithout_sku_ids())){
+            String[] mList = couponsBean.getWithout_sku_ids().split(",");
+            for (int i=0;i<mSKu.size();i++){
+                if (isContain(mList,mSKu.get(i).getId())){
+                    mCouponPrice =mCouponPrice - mSKu.get(i).getAddSum()*mSKu.get(i).getSellingPrice();
+                }
+            }
+        }
+        return mCouponPrice;
+
+    }
+
+
+    private String getNoUseCause(CouponBean.DataBean.CouponsBean couponsBean,int couponPrice){
+        if (couponPrice>=couponsBean.getMin_money()) {
             long curTime = System.currentTimeMillis()/1000;
             if (couponsBean.getExpire_from()==0||couponsBean.getExpire_from()<=curTime){
                 if (couponsBean.getExpire_at()==0||couponsBean.getExpire_at()>=curTime) {
-                    if (mPrice>couponsBean.getFee()) {
+                    if (couponPrice>couponsBean.getFee()) {
                         return isGoodOrSkuId(couponsBean);
                     }else {
                         return "订单不足"+ CountUtil.changeF2Y(couponsBean.getFee());
@@ -174,8 +209,13 @@ public class CouponListsActivity extends BaseNetActivity {
 
     private void initAdapter(int state ) {
         if (mAdapter==null) {
-
-            mAdapter = new CouponListAdapter(mData,mPrice);
+            if(isInclude) {
+                tvTip.setText("温馨提示：该订单中包含了不可使用优惠劵商品");
+                tvTip.setVisibility(View.VISIBLE);
+            }else {
+                tvTip.setVisibility(View.GONE);
+            }
+            mAdapter = new CouponListAdapter(mData);
             mAdapter.curPos=getIntent().getIntExtra("pos",-1);
             if ( mAdapter.curPos!=-1){
                 tvSelect.setText("已选择1张");
@@ -297,7 +337,7 @@ public class CouponListsActivity extends BaseNetActivity {
 
     private void initData() {
         mSKu = getIntent().getParcelableArrayListExtra("data");
-        mPrice = getIntent().getIntExtra("price",0);
+        countPrice();
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
         swipeRefreshLayout.setRefreshing(true);
@@ -323,6 +363,7 @@ public class CouponListsActivity extends BaseNetActivity {
     private void initView() {
         recyclerView= findViewById(R.id.recyclerView);
         tvSelect= findViewById(R.id.tvSelect);
+        tvTip= findViewById(R.id.tvTip);
         swipeRefreshLayout= findViewById(R.id.swipeRefreshLayout);
     }
 }

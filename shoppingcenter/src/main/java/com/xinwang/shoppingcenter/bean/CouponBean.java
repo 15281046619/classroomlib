@@ -84,7 +84,16 @@ public class CouponBean extends CommonEntity {
             private int expire_from;//开始时间
             private String sku_ids; //规格限制
             private String goods_ids;//商品限制
+            private String without_sku_ids;//禁止某些规格使用  不计算这些规格的商品
             private String noUseCause;//不能使用愿意。 空代表可以使用
+
+            public String getWithout_sku_ids() {
+                return without_sku_ids;
+            }
+
+            public void setWithout_sku_ids(String without_sku_ids) {
+                this.without_sku_ids = without_sku_ids;
+            }
 
             public String getNoUseCause() {
                 return noUseCause;

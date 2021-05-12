@@ -44,6 +44,15 @@ public class Sku implements Parcelable {
     public void setTotalStock(long totalStock) {
         this.totalStock = totalStock;
     }
+    private int allow_coupon;//1允许(默认) 0不允许
+
+    public int getAllow_coupon() {
+        return allow_coupon;
+    }
+
+    public void setAllow_coupon(int allow_coupon) {
+        this.allow_coupon = allow_coupon;
+    }
 
     private int goodId;//商品id
 
@@ -53,6 +62,8 @@ public class Sku implements Parcelable {
     private boolean isCheck;
 
     private int addSum;
+
+
 
     public boolean isCheck() {
         return isCheck;
@@ -273,6 +284,7 @@ public class Sku implements Parcelable {
         dest.writeString(this.showPrice);
         dest.writeLong(this.totalStock);
         dest.writeInt(this.maxBugSum);
+        dest.writeInt(this.allow_coupon);
     }
 
 
@@ -298,6 +310,7 @@ public class Sku implements Parcelable {
         this.showPrice =in.readString();
         this.totalStock =in.readLong();
         this.maxBugSum =in.readInt();
+        this.allow_coupon =in.readInt();
     }
 
 

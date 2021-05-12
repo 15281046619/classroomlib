@@ -114,6 +114,7 @@ public class ShoppingCenterLibUtils {
             for (int i = 0; i < dataBeans.size(); i++) {
                 Sku sku = new Sku();
                 sku.setInStock(true);
+                sku.setAllow_coupon(dataBeans.get(i).getAllow_coupon());
                 sku.setId(dataBeans.get(i).getId() + "");
                 sku.setGoodId(dataBeans.get(i).getGoods_id());
                 sku.setGoodTitle(goodsBean.getTitle());

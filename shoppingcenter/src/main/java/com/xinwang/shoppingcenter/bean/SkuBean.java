@@ -47,6 +47,7 @@ public class SkuBean extends CommonEntity {
         private int price;//分
         private int stock;
         private int state;
+        private int allow_coupon;
         private String sku0;
         private String sku1;
         private String sku2;
@@ -58,6 +59,14 @@ public class SkuBean extends CommonEntity {
         private String sku8;
         private String sku9;
         private String cover;
+
+        public int getAllow_coupon() {
+            return allow_coupon;
+        }
+
+        public void setAllow_coupon(int allow_coupon) {
+            this.allow_coupon = allow_coupon;
+        }
 
         public String getCover() {
             return cover;

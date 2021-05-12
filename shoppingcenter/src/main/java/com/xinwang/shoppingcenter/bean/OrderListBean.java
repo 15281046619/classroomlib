@@ -87,6 +87,15 @@ public class OrderListBean extends CommonEntity {
             private int cancel_state;
             private int state;
             private List<ItemsBean> items;
+            private List<CouponBean.DataBean.CouponsBean> coupons;
+
+            public List<CouponBean.DataBean.CouponsBean> getCoupons() {
+                return coupons;
+            }
+
+            public void setCoupons(List<CouponBean.DataBean.CouponsBean> coupons) {
+                this.coupons = coupons;
+            }
 
             public int getPost_price() {
                 return post_price;

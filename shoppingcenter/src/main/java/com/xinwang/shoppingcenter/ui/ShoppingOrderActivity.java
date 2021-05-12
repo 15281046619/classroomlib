@@ -188,6 +188,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     if (skuList.get(finalI).getSellingPrice()!=0)
                         aDoublePrice = aDoublePrice -skuList.get(finalI).getSellingPrice();
                     selectSum = selectSum - 1;
+
                     showTotalPrice();
 
                 }else {
