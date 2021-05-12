@@ -254,10 +254,10 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     break;
                 }
             }
-            tvAddress.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getAccurateAddress());
+            regions =dataBean.getDeliveryaddrs().get(defaultIndex).getRegions();
+            showAddress(dataBean.getDeliveryaddrs().get(defaultIndex).getAccurateAddress());
             tvPhone.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getPhone());
             tvName.setText(dataBean.getDeliveryaddrs().get(defaultIndex).getConsignee());
-            regions =dataBean.getDeliveryaddrs().get(defaultIndex).getRegions();
         }else {
             tvAddress.setText("");
             tvPhone.setText("");
@@ -311,10 +311,13 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                         try {
                             selectData =s;
                             JSONObject jsonObject = new JSONObject(s);
-                            tvAddress.setText(jsonObject.getString("accurateAddress"));
+                            regions =jsonObject.getString("regions");
+                            showAddress(jsonObject.getString("accurateAddress"));
+
                             tvPhone.setText(jsonObject.getString("phone"));
                             tvName.setText(jsonObject.getString("consignee"));
                             tvAdd.setVisibility(View.GONE);
+                            showTotalPrice();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -360,7 +363,17 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             }
         });
     }
+    private void showAddress(String address){
+        try {
+            JSONArray jsonArray =new JSONArray(regions);
+            tvAddress.setText(jsonArray.getJSONObject(0).getString("name")+" "+jsonArray.getJSONObject(1).getString("name")
+            +" "+jsonArray.getJSONObject(2).getString("name")+" "+address);
+          //  apiParams.with("area_code", jsonArray.getJSONObject(2).getString("county_id").substring(0,6));
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
