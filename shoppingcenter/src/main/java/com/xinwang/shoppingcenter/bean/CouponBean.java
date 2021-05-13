@@ -73,15 +73,15 @@ public class CouponBean extends CommonEntity {
             private String name;
             private String instructions;
             private int fee;
-            private int expire_at;
+            private long expire_at;
             private String conditions;
             private int is_verification;
             private int verification_time;
             private Object verification_context;
-            private int create_time;
+            private long create_time;
             private String create_from;
             private int min_money;
-            private int expire_from;//开始时间
+            private long expire_from;//开始时间
             private String sku_ids; //规格限制
             private String goods_ids;//商品限制
             private String without_sku_ids;//禁止某些规格使用  不计算这些规格的商品
@@ -119,11 +119,11 @@ public class CouponBean extends CommonEntity {
                 this.goods_ids = goods_ids;
             }
 
-            public int getExpire_from() {
+            public long getExpire_from() {
                 return expire_from;
             }
 
-            public void setExpire_from(int expire_from) {
+            public void setExpire_from(long expire_from) {
                 this.expire_from = expire_from;
             }
 
@@ -175,11 +175,11 @@ public class CouponBean extends CommonEntity {
                 this.fee = fee;
             }
 
-            public int getExpire_at() {
+            public long getExpire_at() {
                 return expire_at;
             }
 
-            public void setExpire_at(int expire_at) {
+            public void setExpire_at(long expire_at) {
                 this.expire_at = expire_at;
             }
 
@@ -215,11 +215,11 @@ public class CouponBean extends CommonEntity {
                 this.verification_context = verification_context;
             }
 
-            public int getCreate_time() {
+            public long getCreate_time() {
                 return create_time;
             }
 
-            public void setCreate_time(int create_time) {
+            public void setCreate_time(long create_time) {
                 this.create_time = create_time;
             }
 

@@ -47,7 +47,7 @@ public class WaybillInfoBean extends CommonEntity {
          * update : 1620267920777
          */
 
-        private int queryTimes;
+        private long queryTimes;
         private String upgrade_info;
         private int fee_num;
         @SerializedName("status")
@@ -66,11 +66,11 @@ public class WaybillInfoBean extends CommonEntity {
 
         private List<DataBean> data;
 
-        public int getQueryTimes() {
+        public long getQueryTimes() {
             return queryTimes;
         }
 
-        public void setQueryTimes(int queryTimes) {
+        public void setQueryTimes(long queryTimes) {
             this.queryTimes = queryTimes;
         }
 

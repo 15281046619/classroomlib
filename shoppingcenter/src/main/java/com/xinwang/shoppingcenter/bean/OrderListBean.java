@@ -79,7 +79,7 @@ public class OrderListBean extends CommonEntity {
             private String address;
             private String nickname;
             private String tips;
-            private int create_time;
+            private long create_time;
             private int price;
             private int post_price;
             private int pay_state;
@@ -161,11 +161,11 @@ public class OrderListBean extends CommonEntity {
                 this.tips = tips;
             }
 
-            public int getCreate_time() {
+            public long getCreate_time() {
                 return create_time;
             }
 
-            public void setCreate_time(int create_time) {
+            public void setCreate_time(long create_time) {
                 this.create_time = create_time;
             }
 
