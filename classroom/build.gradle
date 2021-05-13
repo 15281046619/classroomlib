@@ -89,8 +89,8 @@ dependencies {
     implementation 'com.blankj:utilcode:1.8.2'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
     //城市选择dialog
-    implementation 'com.contrarywind:Android-PickerView:4.1.9'
-    implementation 'com.github.NewHuLe:NumberPickerView:v1.2'
+    /*implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    implementation 'com.github.NewHuLe:NumberPickerView:v1.2'*/
     //图表
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

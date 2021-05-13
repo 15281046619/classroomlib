@@ -14,7 +14,7 @@
             android:textSize="12sp"
             android:id="@+id/tvTime"
             android:layout_marginTop="@dimen/dp_5_classroom"
-            android:textColor="@color/divider"
+            android:textColor="@color/GrayClassRoom"
             />
         <LinearLayout
             android:layout_width="match_parent"

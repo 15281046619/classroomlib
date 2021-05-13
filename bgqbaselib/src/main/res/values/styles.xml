@@ -163,12 +163,7 @@
         <item name="android:background">@drawable/order_bg_classroom</item>
     </style>
 
-    <style name="OrderUserInfoCLineClassRoom">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_25_classroom</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
+
 
     <!--  android:layout_width="0dp"
                     android:layout_height="match_parent"

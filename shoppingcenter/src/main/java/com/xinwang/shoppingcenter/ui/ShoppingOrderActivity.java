@@ -68,7 +68,7 @@ import java.util.List;
  * author:baiguiqiang
  */
 public class ShoppingOrderActivity extends BaseNetActivity {
-    private TextView tvAdd,tvAddress,tvPhone,tvName,tvSum,tvPrice,tvExpress;
+    private TextView tvAdd,tvAddress,tvPhone,tvName,tvSum,tvPrice,tvExpress,tvProductPrice;
     private RadioButton rbXX,rbWX,rbZFB;
     private LinearLayout llContent;
     private TextView tvCoupon;
@@ -219,12 +219,10 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         if (spannableString.toString().indexOf(".")!=-1&&(spannableString.toString().indexOf(".")!=spannableString.length()-1)){
             spannableString.setSpan(new RelativeSizeSpan(0.6f),spannableString.toString().indexOf("."),spannableString.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         }
+        tvProductPrice.setText(CountUtil.changeF2Y(aDoublePrice));
         tvPrice.setText(spannableString);
         if (selectSum>0) {
             tvSum.setText("共" + selectSum + "件，\n");
-           /* if(couponsBean!=null){
-                tvSum.append("优惠￥"+CountUtil.doubleToString( CountUtil.divide(couponsBean.getFee(),100D)));
-            }*/
         }
 
     }
@@ -565,6 +563,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         tvCoupon =findViewById(R.id.tvCoupon);
         scrollview =findViewById(R.id.scrollview);
         tvExpress =findViewById(R.id.tvExpress);
+        tvProductPrice =findViewById(R.id.tvProductPrice);
 
     }
 

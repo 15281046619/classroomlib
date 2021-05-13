@@ -225,7 +225,7 @@ public class CouponListsActivity extends BaseNetActivity {
                     if (couponPrice>couponsBean.getFee()) {
                         return "";
                     }else {
-                        return str+"订单价格小于优惠劵"+ CountUtil.changeF2Y(couponsBean.getFee());
+                        return str+"订单价格小于优惠劵"+ CountUtil.changeF2Y(couponsBean.getFee())+"(不含配送费用)";
                     }
                 }else {
                     return "截止时间："+TimeUtil.getYMDHMS1(couponsBean.getExpire_at()+"");
@@ -235,7 +235,7 @@ public class CouponListsActivity extends BaseNetActivity {
             }
 
         }else {
-            return "限定"+str+"订单满"+ CountUtil.changeF2Y(couponsBean.getMin_money());
+            return "限定"+str+"订单满"+ CountUtil.changeF2Y(couponsBean.getMin_money())+"(不含配送费用)";
         }
     }
 

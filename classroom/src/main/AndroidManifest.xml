@@ -123,13 +123,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.live.LiveOrderActivity"
-            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeClassRoom">
 
-        </activity>
 
 
         <service

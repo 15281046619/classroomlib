@@ -49,11 +49,12 @@ import com.xinwang.shoppingcenter.bean.SkuBean;
  * author:baiguiqiang
  */
 public class OrderDetailActivity extends BaseNetActivity {
-    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress,tvCoupon;
+    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress,tvCoupon,tvProductPrice;
     private LinearLayout llContent;
     private OrderBean orderBean;
+    private int totalPrice=0;
     private String goodId;//为null订单详情 ，不为null订单商品详情
-    private int goodPrice;
+    //private int goodPrice;
     private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
@@ -108,6 +109,7 @@ public class OrderDetailActivity extends BaseNetActivity {
 
         tvCoupon.setText(getCouponPrice());
         initProduceList();
+        tvProductPrice.setText(CountUtil.changeF2Y(totalPrice));
         if (orderBean.getData().getPay_state()== Constants.PAY_STATE_NO&&orderBean.getData().getCancel_state()==1){
             tvPay.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -214,6 +216,7 @@ public class OrderDetailActivity extends BaseNetActivity {
         llContent.removeAllViews();
         goodPos=-1;
         int dip10 = CommentUtils.dip2px(this, 10);
+        totalPrice =0;
         for (int i=0;i<orderBean.getData().getItems().size();i++){
 
             View itemView = LayoutInflater.from(this).inflate(R.layout.layout_order_item_shoppingcenter,llContent,false);
@@ -224,6 +227,7 @@ public class OrderDetailActivity extends BaseNetActivity {
             TextView tvSku =itemView.findViewById(R.id.tvSku);
             tvTitle.setText(orderBean.getData().getItems().get(i).getGoods().getTitle());
             tvSum.setText("×"+orderBean.getData().getItems().get(i).getNum());
+            totalPrice =totalPrice +orderBean.getData().getItems().get(i).getNum()*orderBean.getData().getItems().get(i).getSku().getPrice();
             String sku = getSkus( orderBean.getData().getItems().get(i).getGoods(), orderBean.getData().getItems().get(i).getSku());
             int finalI = i;
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -333,6 +337,7 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvPay= findViewById(R.id.tvPay);
         tvExpress= findViewById(R.id.tvExpress);
         tvCoupon= findViewById(R.id.tvCoupon);
+        tvProductPrice= findViewById(R.id.tvProductPrice);
     }
 
     @Override
