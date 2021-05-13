@@ -180,7 +180,7 @@ public class CouponListsActivity extends BaseNetActivity {
 
     private String[] getCouponPrice(CouponBean.DataBean.CouponsBean couponsBean) {
         int mCouponPrice =mPrice;
-        String[] mStr =new String[]{};
+        String[] mStr =new String[2];
         if (!TextUtils.isEmpty(couponsBean.getSku_ids())){
             String[] mList = couponsBean.getSku_ids().split(",");
             mCouponPrice =0;
@@ -225,7 +225,7 @@ public class CouponListsActivity extends BaseNetActivity {
                     if (couponPrice>couponsBean.getFee()) {
                         return "";
                     }else {
-                        return "订单不足"+ CountUtil.changeF2Y(couponsBean.getFee());
+                        return str+"订单价格小于优惠劵"+ CountUtil.changeF2Y(couponsBean.getFee());
                     }
                 }else {
                     return "截止时间："+TimeUtil.getYMDHMS1(couponsBean.getExpire_at()+"");
