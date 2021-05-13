@@ -56,7 +56,7 @@ public class CouponListsActivity extends BaseNetActivity {
     private CouponListAdapter mAdapter;
     private boolean isRequesting =false;
     private List<Sku> mSKu=new ArrayList<>();
-    private int mPrice;
+    private int mPrice;//不包含allow_coupon=0得订单价格
     private boolean isInclude= false;//该订单是否包含不能使用优惠劵的商品
     private AsyncTaskUtils.Builder<List<CouponBean.DataBean.CouponsBean>, Void, List<CouponBean.DataBean.CouponsBean>> mAsyncTask;
     private List<CouponBean.DataBean.CouponsBean> mData =new ArrayList<>();
@@ -163,35 +163,67 @@ public class CouponListsActivity extends BaseNetActivity {
     private List<CouponBean.DataBean.CouponsBean> getNoUseArrayList(List<CouponBean.DataBean.CouponsBean> commonEntity){
         List<CouponBean.DataBean.CouponsBean> mData =new ArrayList<>();
         for (int i=0;i<commonEntity.size();i++){//优惠劵
-
-            commonEntity.get(i).setNoUseCause(getNoUseCause(commonEntity.get(i),getCouponPrice(commonEntity.get(i))));
+            String[] str =getCouponPrice(commonEntity.get(i));
+            if (mPrice==0) {
+                commonEntity.get(i).setNoUseCause("该订单中所有商品不能使用优惠劵");
+            }else {
+                if (str[0].equals("限定商品使用")){
+                    commonEntity.get(i).setNoUseCause("限定商品使用");
+                }else {
+                    commonEntity.get(i).setNoUseCause(getNoUseCause(commonEntity.get(i),Integer.parseInt(str[1]),str[0]));
+                }
+            }
             mData.add( commonEntity.get(i));
         }
         return mData;
     }
 
-    private int getCouponPrice(CouponBean.DataBean.CouponsBean couponsBean) {
+    private String[] getCouponPrice(CouponBean.DataBean.CouponsBean couponsBean) {
         int mCouponPrice =mPrice;
-        if (!TextUtils.isEmpty(couponsBean.getWithout_sku_ids())){
-            String[] mList = couponsBean.getWithout_sku_ids().split(",");
+        String[] mStr =new String[]{};
+        if (!TextUtils.isEmpty(couponsBean.getSku_ids())){
+            String[] mList = couponsBean.getSku_ids().split(",");
+            mCouponPrice =0;
             for (int i=0;i<mSKu.size();i++){
                 if (isContain(mList,mSKu.get(i).getId())){
-                    mCouponPrice =mCouponPrice - mSKu.get(i).getAddSum()*mSKu.get(i).getSellingPrice();
+                    mCouponPrice=mCouponPrice +mSKu.get(i).getAddSum()*mSKu.get(i).getSellingPrice();
                 }
             }
-        }
-        return mCouponPrice;
+            if (mCouponPrice ==0){
+                mStr[0] ="限定商品使用";
+            }else {
+                mStr[0]="商品";
+            }
+        }else {
+            if (!TextUtils.isEmpty(couponsBean.getWithout_sku_ids())){
+                String[] mList = couponsBean.getWithout_sku_ids().split(",");
+                for (int i=0;i<mSKu.size();i++){
+                    if (isContain(mList,mSKu.get(i).getId())){
+                        mCouponPrice =mCouponPrice - mSKu.get(i).getAddSum()*mSKu.get(i).getSellingPrice();
+                    }
+                }
+                if (mCouponPrice==mPrice){
+                    mStr[0]="限定商品使用";
+                }else {
+                    mStr[0]="商品";
+                }
+            }else {
+                mStr[0] ="";
+            }
 
+        }
+        mStr[1] =mCouponPrice+"";
+        return mStr;
     }
 
 
-    private String getNoUseCause(CouponBean.DataBean.CouponsBean couponsBean,int couponPrice){
+    private String getNoUseCause(CouponBean.DataBean.CouponsBean couponsBean,int couponPrice,String str){
         if (couponPrice>=couponsBean.getMin_money()) {
             long curTime = System.currentTimeMillis()/1000;
             if (couponsBean.getExpire_from()==0||couponsBean.getExpire_from()<=curTime){
                 if (couponsBean.getExpire_at()==0||couponsBean.getExpire_at()>=curTime) {
                     if (couponPrice>couponsBean.getFee()) {
-                        return isGoodOrSkuId(couponsBean);
+                        return "";
                     }else {
                         return "订单不足"+ CountUtil.changeF2Y(couponsBean.getFee());
                     }
@@ -203,7 +235,7 @@ public class CouponListsActivity extends BaseNetActivity {
             }
 
         }else {
-            return "限定订单满"+ CountUtil.changeF2Y(couponsBean.getMin_money());
+            return "限定"+str+"订单满"+ CountUtil.changeF2Y(couponsBean.getMin_money());
         }
     }
 
