@@ -77,7 +77,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     private RelativeLayout rlHot;
     private CustomToolbar toolbar;
     private ImageView ivShoppingCenter,icOrderList;
-    private List<ADGroupBean.DataBean> mTitleImages;
+    private List<ADGroupBean.DataBean> mTitleImages =new ArrayList<>();
     private ProductListsFragment mFragment;
     private int number =0;
     private int orderNoPayNumber =0;
@@ -310,13 +310,16 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
 
     }
     void showTitleImages(List<ADGroupBean.DataBean> mTitleImages){
-        if (mTitleImages!=null&&mTitleImages.size()>0) {
+        if (mTitleImages==null) {
+            this.mTitleImages =new ArrayList<>();
+        }else
             this.mTitleImages = mTitleImages;
-            banner.setImages(getTitleImages()).setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)
-                    .setBannerTitles(getTitleDes()).setImageLoader(new GlideImageLoader()).setDelayTime(3000).start();
-            llRoot.setVisibility(View.VISIBLE);
-            rlHot.setVisibility(View.VISIBLE);
-        }
+
+        banner.setImages(getTitleImages()).setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)
+                .setBannerTitles(getTitleDes()).setImageLoader(new GlideImageLoader()).setDelayTime(3000).start();
+        llRoot.setVisibility(View.VISIBLE);
+        rlHot.setVisibility(View.VISIBLE);
+
     }
 
 

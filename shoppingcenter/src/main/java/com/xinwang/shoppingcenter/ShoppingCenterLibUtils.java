@@ -78,16 +78,20 @@ public class ShoppingCenterLibUtils {
                     mLists.add(0, mBean);
                     EventBus.getDefault().post(new NumberBean(1));
                 }else {
-                    if(mLists.get(lookPos).getAddSum()+mBean.getAddSum()>mLists.get(lookPos).getStockQuantity()) {
+                    if(mLists.get(lookPos).getAddSum()+mBean.getAddSum()>mBean.getStockQuantity()) {
                           MyToast.myCenterFalseToast(activity, "添加失败，购物车库存不足");
                         return;
 
                     }else {
-                        if (mLists.get(lookPos).getAddSum() + mBean.getAddSum() > mLists.get(lookPos).getMaxBugSum()) {
+                        if (mLists.get(lookPos).getAddSum() + mBean.getAddSum() >mLists.get(lookPos).getMaxBugSum()) {
                             MyToast.myCenterFalseToast(activity, "添加失败，已到个人最大购买数目");
                             return;
-                        }else
-                            mLists.get(lookPos).setAddSum(mLists.get(lookPos).getAddSum() + mBean.getAddSum());
+                        }else {
+                            mBean.setAddSum(mBean.getAddSum()+ mLists.get(lookPos).getAddSum());
+                            mLists.set(lookPos,mBean);
+                           // mLists.get(lookPos).setAddSum(mLists.get(lookPos).getAddSum() + mBean.getAddSum());
+
+                        }
                     }
 
                 }

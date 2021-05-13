@@ -269,45 +269,7 @@ public class CouponListsActivity extends BaseNetActivity {
         }
     }
 
-    /**
-     * 改优惠劵是否可在改订单商品中使用
 
-     * @return
-     */
-    private String isGoodOrSkuId(CouponBean.DataBean.CouponsBean couponsBean){
-        String[] goodIds;
-        String[] skuIds;
-        if (TextUtils.isEmpty(couponsBean.getGoods_ids()))
-            goodIds=new String[]{};
-        else
-            goodIds =couponsBean.getGoods_ids().split(",");
-        if (TextUtils.isEmpty(couponsBean.getSku_ids()))
-            skuIds =new String[]{};
-        else
-            skuIds =couponsBean.getSku_ids().split(",");
-
-        if (goodIds.length==0){
-            if (skuIds.length==0){
-                return "";
-            }else {
-                for (int i=0;i<mSKu.size();i++){
-                    if (isContain(skuIds,mSKu.get(i).getId() + "")){
-                        return "";
-                    }
-                }
-                return "不满足限定规格";
-
-            }
-        }else {
-            for (int i=0;i<mSKu.size();i++){
-                if (isContain(goodIds,mSKu.get(i).getGoodId()+"")&&(skuIds.length==0||isContain(skuIds,mSKu.get(i).getId()))){
-                    return "";
-                }
-            }
-            return "不满足限定商品";
-
-        }
-    }
     private boolean isContain(String[] Ids,String id){
         for (int i=0;i<Ids.length;i++){
             if (Ids[i].equals(id)){
