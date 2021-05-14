@@ -1,7 +1,9 @@
 package com.xinwang.shoppingcenter.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -23,6 +25,7 @@ import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
+import com.xinwang.shoppingcenter.dialog.CenterEditNumberDialog;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 
 
@@ -99,6 +102,27 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
                     MyToast.myToast(  baseViewHolder.tvSub.getContext(),"数值低于范围");
                 }
 
+            });
+            baseViewHolder.tvSum.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CenterEditNumberDialog.getInstance(mDatas.get(0).getMaxBugSum(),mDatas.get(i).getStockQuantity(),baseViewHolder.tvSum.getText().toString())
+                            .setCallback(new CenterEditNumberDialog.Callback1<Integer>() {
+                                @Override
+                                public void run(Integer integer) {
+                                    mDatas.get(i).setAddSum(integer);
+                                    int curNumber =Integer.parseInt(baseViewHolder.tvSum.getText().toString());
+                                    if (curNumber!=integer){
+                                        int countNumber =integer-curNumber;
+                                        int countPrice = integer * mDatas.get(i).getSellingPrice()-curNumber * mDatas.get(i).getSellingPrice() ;
+                                        saveUpdate(baseViewHolder.tvSub.getContext());
+                                        if (adapterItemClickListener != null) {
+                                            adapterItemClickListener.setNumber(i,countNumber,countPrice);
+                                        }
+                                    }
+                                }
+                            }).showDialog(((FragmentActivity)baseViewHolder.tvSub.getContext()).getSupportFragmentManager());
+                }
             });
             GlideUtils.loadAvatar(mDatas.get(i).getMainImage(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
             baseViewHolder.rbCheck.setOnClickListener(new View.OnClickListener() {

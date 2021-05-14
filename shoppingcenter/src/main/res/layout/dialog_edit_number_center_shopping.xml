@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10_classroom"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_15_classroom"
+        android:text="数量"
+        android:gravity="center"
+        android:textColor="@color/textColorClassRoom"
+        android:textStyle="bold"
+        android:id="@+id/tvTitle"
+        android:textSize="@dimen/sp_16_classroom"
+        android:paddingBottom="@dimen/dp_15_classroom"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/LineClassRoom"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/tvDes"
+        android:paddingTop="@dimen/dp_15_classroom"
+        android:lineSpacingExtra="@dimen/dp_5_classroom"
+        android:paddingBottom="@dimen/dp_15_classroom"
+        android:text="请填写你的内容"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:hint=""
+        android:id="@+id/etNumber"
+        android:inputType="number"
+        android:digits="0123456789"
+        android:maxLength="5"
+        android:padding="@dimen/dp_15_classroom"
+        android:textSize="@dimen/sp_14_classroom"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+        <Button
+            android:id="@+id/btCancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="取消"
+            android:background="@color/backgroundClassRoom"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btOk"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="确定"
+            android:background="@android:color/holo_red_dark"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="@dimen/dp_10_classroom"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

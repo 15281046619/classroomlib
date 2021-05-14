@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.text.SpannableString;
@@ -51,6 +52,7 @@ import com.xinwang.shoppingcenter.bean.CouponBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.bean.OrderSuccessBean;
+import com.xinwang.shoppingcenter.dialog.CenterEditNumberDialog;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -161,6 +163,30 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 }
             });
             tvSum.setText(String.valueOf(skuList.get(i).getAddSum()));
+            tvSum.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CenterEditNumberDialog.getInstance(skuList.get(0).getMaxBugSum(),skuList.get(finalI).getStockQuantity(),tvSum.getText().toString())
+                            .setCallback(new CenterEditNumberDialog.Callback1<Integer>() {
+                                @Override
+                                public void run(Integer integer) {
+
+                                    int curNumber =Integer.parseInt(tvSum.getText().toString());
+                                    if (curNumber!=integer){
+
+                                        int countNumber =integer-curNumber;
+                                        int countPrice = integer * skuList.get(finalI).getSellingPrice()-curNumber * skuList.get(finalI).getSellingPrice() ;
+                                        skuList.get(finalI).setAddSum(integer);
+                                        tvSum.setText(String.valueOf(integer));
+                                        aDoublePrice = aDoublePrice+ countPrice;
+                                        selectSum = selectSum + countNumber;
+                                        showTotalPrice();
+                                    }
+                                }
+                            }).showDialog(getSupportFragmentManager());
+                }
+            });
+
             tvSku.setText("");
             if (skuList.get(i).getAttributes()!=null&&skuList.get(i).getAttributes().size()>0) {
                 for (SkuAttribute skuAttribute : skuList.get(i).getAttributes()) {

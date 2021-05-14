@@ -26,6 +26,7 @@ import com.xinwang.bgqbaselib.utils.asynctask.IDoInBackground;
 import com.xinwang.bgqbaselib.utils.asynctask.IPostExecute;
 import com.xinwang.bgqbaselib.utils.asynctask.IPublishProgress;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
+import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.shoppingcenter.R;
@@ -303,7 +304,7 @@ public class CouponListsActivity extends BaseNetActivity {
             });
     }
     private void initListener() {
-        findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
+        ((CustomToolbar)findViewById(R.id.toolbar)).setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

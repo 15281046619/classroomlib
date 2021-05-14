@@ -18,7 +18,7 @@ public class Sku implements Parcelable {
     private int maxBugSum;//个人最大购买数目
 
     public int getMaxBugSum() {
-        return maxBugSum==0?999:maxBugSum;//最大数目三位数
+        return maxBugSum==0?99999:maxBugSum;//最大数目三位数
     }
 
     public void setMaxBugSum(int maxBugSum) {

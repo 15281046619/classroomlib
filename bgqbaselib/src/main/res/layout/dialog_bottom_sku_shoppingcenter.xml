@@ -104,10 +104,11 @@
                         android:layout_height="match_parent"
                         android:background="@color/LineClassRoom"/>
                     <TextView
-                        android:layout_width="35dp"
+                        android:layout_width="55dp"
                         android:gravity="center"
                         android:id="@+id/tvSum"
                         android:text="1"
+                        android:maxLength="5"
                         android:layout_height="match_parent"/>
                     <View
                         android:layout_width="@dimen/dp_1_classroom"

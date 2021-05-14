@@ -129,6 +129,17 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                             showTotalPrice(aDoublePrice, selectSum);
                         }
                     }
+
+                    @Override
+                    public void setNumber(int pos, int sum, int price) {
+                        if (mAdapter.mDatas.get(pos).isCheck()) {
+                            aDoublePrice = aDoublePrice +price;
+                            selectSum = selectSum + sum;
+                            showTotalPrice(aDoublePrice, selectSum);
+                        }
+                    }
+
+
                 });
 
                 recyclerView.setAdapter(mAdapter);
@@ -227,7 +238,7 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                     ArrayList<Sku> mSelectData = getSelectData();
                     startActivity(new Intent(ShoppingCenterActivity.this,ShoppingOrderActivity.class)
                             .putParcelableArrayListExtra("data",mSelectData)
-                    .putExtra("isShoppingCenter",true));
+                            .putExtra("isShoppingCenter",true));
                 }else {
                     MyToast.myToast(ShoppingCenterActivity.this,"请选择后结算");
                 }
@@ -241,7 +252,7 @@ public class ShoppingCenterActivity extends BaseNetActivity {
         ArrayList<Sku> skus =new ArrayList<>();
         for (Sku sku :mAdapter.mDatas){
             if (sku.isCheck())
-            skus.add(sku);
+                skus.add(sku);
         }
         return skus;
     }

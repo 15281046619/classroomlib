@@ -121,7 +121,20 @@ public class BottomSkuDialog extends BaseDialog {
 
             }
         });
-
+        tvSum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CenterEditNumberDialog.getInstance(skuList.get(0).getMaxBugSum()
+                        ,(skuSelectScrollView.getSelectedSku()==null)?(skuList.get(0).getTotalStock()):(skuSelectScrollView.getSelectedSku().getStockQuantity())
+                ,tvSum.getText().toString()).setCallback(new CenterEditNumberDialog.Callback1<Integer>() {
+                    @Override
+                    public void run(Integer integer) {
+                        tvSum.setText(integer+"");
+                        showSelectTitle();
+                    }
+                }).showDialog(getFragmentManager());
+            }
+        });
 
         if (skuList.size()>0&&!TextUtils.isEmpty(skuList.get(0).getShowPrice())) {
             GlideUtils.loadAvatarNoPlaceholder(skuList.get(0).getMainImage(),ivImg);

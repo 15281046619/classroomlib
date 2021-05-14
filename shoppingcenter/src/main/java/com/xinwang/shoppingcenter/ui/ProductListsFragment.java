@@ -213,6 +213,11 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
                     public void sub(int pos) {
 
                     }
+
+                    @Override
+                    public void setNumber(int pos, int sum, int price) {
+
+                    }
                 });
                 mAdapter.setOnItemClickListener((view, position) -> jumpDetailActivity(mData.get(position),view));
                 mAdapter.setLoadStateNoNotify(state);
