@@ -46,6 +46,7 @@ public class CenterEditNumberDialog extends BaseDialog {
         Dialog dialog = new Dialog(getContext(), com.xinwang.bgqbaselib.R.style.DialogCenterClassRoom);
         dialog.setContentView(layoutResId());
         Window window = dialog.getWindow();
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);//总是显示输入框
         if (window!=null) {
             WindowManager.LayoutParams layoutParams = window.getAttributes();
             layoutParams.gravity = Gravity.CENTER;
@@ -86,6 +87,7 @@ public class CenterEditNumberDialog extends BaseDialog {
         etNumber.setSelection(etNumber.getText().toString().length());
         etNumber.requestFocus();
         etNumber.setSelected(true);
+
         findViewById(R.id.btCancel).setOnClickListener(v -> dismissDialog());
         btOk = findViewById(com.xinwang.bgqbaselib.R.id.btOk);
         btOk.setOnClickListener(v -> {
@@ -111,8 +113,6 @@ public class CenterEditNumberDialog extends BaseDialog {
             }catch (Exception e){
                 MyToast.myToast(getContext(),"输入不合法");
             }
-
-
         });
 
     }
