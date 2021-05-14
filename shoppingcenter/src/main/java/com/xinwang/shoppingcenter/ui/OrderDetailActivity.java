@@ -49,7 +49,7 @@ import com.xinwang.shoppingcenter.bean.SkuBean;
  * author:baiguiqiang
  */
 public class OrderDetailActivity extends BaseNetActivity {
-    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress,tvCoupon,tvProductPrice;
+    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress,tvCoupon,tvProductPrice,tvAdminPrice;
     private LinearLayout llContent;
     private OrderBean orderBean;
     private int totalPrice=0;
@@ -142,7 +142,14 @@ public class OrderDetailActivity extends BaseNetActivity {
 
         //  if (goodId==null) {
         initPrice(orderBean.getData().getPrice());
-
+        if (orderBean.getData().getReduction_price()!=0){
+            tvAdminPrice.setText("-"+CountUtil.changeF2Y(orderBean.getData().getReduction_price()));
+            findViewById(R.id.llAdminPrice).setVisibility(View.VISIBLE);
+            findViewById(R.id.viewLine1).setVisibility(View.VISIBLE);
+        }else {
+            findViewById(R.id.llAdminPrice).setVisibility(View.GONE);
+            findViewById(R.id.viewLine1).setVisibility(View.GONE);
+        }
        /* }else {
             initPrice(goodPrice);
         }*/
@@ -338,6 +345,7 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvExpress= findViewById(R.id.tvExpress);
         tvCoupon= findViewById(R.id.tvCoupon);
         tvProductPrice= findViewById(R.id.tvProductPrice);
+        tvAdminPrice= findViewById(R.id.tvAdminPrice);
     }
 
     @Override

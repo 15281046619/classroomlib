@@ -152,9 +152,9 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-
                         android:layout_marginLeft="@dimen/dp_10_classroom"
                         android:background="@color/LineClassRoom"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
@@ -216,7 +216,38 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-
+                        android:layout_marginLeft="@dimen/dp_10_classroom"
+                        android:background="@color/LineClassRoom"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/llAdminPrice"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="减免费用"
+                            android:textSize="@dimen/sp_14_classroom"
+                            android:paddingTop="@dimen/dp_10_classroom"
+                            android:paddingBottom="@dimen/dp_10_classroom"
+                            android:layout_marginLeft="@dimen/dp_10_classroom"
+                            android:gravity="right|center_vertical"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:id="@+id/tvAdminPrice"
+                            android:gravity="right|center_vertical"
+                            android:singleLine="true"
+                            android:textColor="@color/themeClassRoom"
+                            android:textSize="@dimen/sp_14_classroom"
+                            android:padding="@dimen/dp_10_classroom"
+                            />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:id="@+id/viewLine1"
                         android:layout_marginLeft="@dimen/dp_10_classroom"
                         android:background="@color/LineClassRoom"/>
                     <LinearLayout

@@ -81,11 +81,21 @@ public class OrderListBean extends CommonEntity {
             private String tips;
             private long create_time;
             private int price;
+            private int reduction_price;//后台减免
             private int post_price;
             private int pay_state;
             private String admin_tips;
             private int cancel_state;
             private int state;
+
+            public int getReduction_price() {
+                return reduction_price;
+            }
+
+            public void setReduction_price(int reduction_price) {
+                this.reduction_price = reduction_price;
+            }
+
             private List<ItemsBean> items;
             private List<CouponBean.DataBean.CouponsBean> coupons;
 
