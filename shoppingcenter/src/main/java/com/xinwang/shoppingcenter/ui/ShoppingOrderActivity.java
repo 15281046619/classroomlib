@@ -545,6 +545,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         stringBuffer.append("姓名："+tvName.getText().toString()+"\n");
         stringBuffer.append("电话："+tvPhone.getText().toString()+"\n");
         stringBuffer.append("地址："+tvAddress.getText().toString()+"\n");
+        stringBuffer.append("注册手机号码："+BeautyDefine.getUserInfoDefine(this).getPhone()+"\n");
         for (int i=0;i<skuList.size();i++) {
             stringBuffer.append(skuList.get(i).getGoodTitle() + "：" );
             if (skuList.get(i).getAttributes()!=null&&skuList.get(i).getAttributes().size()>0) {
