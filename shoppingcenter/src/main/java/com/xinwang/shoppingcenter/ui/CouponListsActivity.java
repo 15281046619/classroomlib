@@ -202,7 +202,7 @@ public class CouponListsActivity extends BaseNetActivity {
                         mCouponPrice =mCouponPrice - mSKu.get(i).getAddSum()*mSKu.get(i).getSellingPrice();
                     }
                 }
-                if (mCouponPrice==mPrice){
+                if (mCouponPrice==0){
                     mStr[0]="限定商品使用";
                 }else {
                     mStr[0]="商品";
