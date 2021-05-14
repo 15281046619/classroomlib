@@ -173,7 +173,11 @@ public class ShoppingOrderActivity extends BaseNetActivity {
 
                                     int curNumber =Integer.parseInt(tvSum.getText().toString());
                                     if (curNumber!=integer){
-
+                                        if (couponsBean!=null){
+                                            couponsBean =null;
+                                            tvCoupon.setText(totalCoupon+"张未使用");
+                                            couponPos =-1;
+                                        }
                                         int countNumber =integer-curNumber;
                                         int countPrice = integer * skuList.get(finalI).getSellingPrice()-curNumber * skuList.get(finalI).getSellingPrice() ;
                                         skuList.get(finalI).setAddSum(integer);
