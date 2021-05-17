@@ -12,6 +12,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,8 @@ import com.xinwang.shoppingcenter.bean.ADGroupBean;
 import com.xinwang.shoppingcenter.bean.FragmentUpdateBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.bean.OrderListBean;
+import com.xinwang.shoppingcenter.interfaces.FragmentSendActivityListener;
+import com.xinwang.shoppingcenter.interfaces.FragmentStateListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -81,6 +84,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     private ProductListsFragment mFragment;
     private int number =0;
     private int orderNoPayNumber =0;
+    private FragmentStateListener fragmentStateListener;
     private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
@@ -114,6 +118,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         ivShoppingCenter =view.findViewById(R.id.ivShoppingCenter);
         icOrderList =view.findViewById(R.id.icOrderList);
         initSettingAppBarListener();
+
         return view;
     }
 
@@ -237,6 +242,14 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
                     getChildFragmentManager().beginTransaction().remove(mFragment).commitAllowingStateLoss();*/
                 if (mFragment==null) {
                     mFragment = ProductListsFragment.getInstance(null, null);
+                    mFragment.setFragmentStateListener(new FragmentStateListener() {
+                        @Override
+                        public void fragmentInitViewSuccess(AppBarLayout appBarLayout, RecyclerView recyclerView) {
+                            if (fragmentStateListener!=null){
+                                fragmentStateListener.fragmentInitViewSuccess(appBar,recyclerView);
+                            }
+                        }
+                    });
                     FragmentUtils.showChildFragment(ShoppingHomeFragment.this, R.id.flameLayout, mFragment);
                 } else
                     mFragment.onActivitySendFragment(new HashMap<String,Object>());
@@ -377,5 +390,12 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         appBar.setExpanded(true,true);
     }
 
+    /**
+     * 获取appbarlayout 与 recy 控件
+     * @param fragmentStateListener
+     */
+    public void setFragmentStateListener(FragmentStateListener fragmentStateListener){
+        this.fragmentStateListener = fragmentStateListener;
+    }
 
 }

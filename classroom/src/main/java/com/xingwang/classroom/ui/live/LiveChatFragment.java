@@ -4,9 +4,11 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PatternMatcher;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -15,8 +17,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.method.ScrollingMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +59,7 @@ import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xingwang.classroom.view.WrapContentLinearLayoutManager;
@@ -66,6 +76,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  * Date:2020/8/13
@@ -233,6 +244,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
 
         if (!TextUtils.isEmpty(content)) {
             tvFixed.setText(Html.fromHtml(content));
+            setTvFixedOnclick(content);
             tvFixed.setVisibility(View.VISIBLE);
             tvFixed.requestFocus();
             tvFixed.setSelected(true);
@@ -240,8 +252,43 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
             tvFixed.setSelected(false);
             tvFixed.clearFocus();
             tvFixed.setVisibility(View.GONE);
+            tvFixed.setOnClickListener(null);
+
         }
     }
+
+    private void setTvFixedOnclick(String content){
+        if (content.contains("</a>")&&content.contains("<a")&&content.contains("href=\"")){
+            String[] mSplits = content.split(" ");
+            for (String mSplit:mSplits){
+                if (mSplit.contains("=")&&mSplit.contains("href")){
+                    if (mSplit.length()>7) {
+                        String url = mSplit.substring(6, mSplit.length() - 1);
+                        tvFixed.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    Uri mRui = Uri.parse(url);
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, mRui);
+                                    getActivity().startActivity(intent);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }else {
+            tvFixed.setOnClickListener(null);
+        }
+    }
+
+
+
+
     private void requestPermission(){
         requestDangerousPermissions(new String[]{
                 Manifest.permission.READ_EXTERNAL_STORAGE,

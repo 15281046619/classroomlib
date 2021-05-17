@@ -40,6 +40,7 @@ import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.dialog.BottomSkuDialog;
 import com.xinwang.shoppingcenter.interfaces.ActivitySendFragmentListener;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
+import com.xinwang.shoppingcenter.interfaces.FragmentStateListener;
 import com.xinwang.shoppingcenter.view.WrapContentStaggeredGridLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,6 +65,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
     private List<GoodsBean.DataBean> mData = new ArrayList<>();
     private RecyclerView recyclerView;
     private  View view;
+    private FragmentStateListener fragmentStateListener;
     /**
      * 获得单列
      * @param q  不用搜索 为null
@@ -93,7 +95,9 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new StaggeredDividerItemDecoration(getContext(), 10,2));
-
+        if (fragmentStateListener!=null){
+            fragmentStateListener.fragmentInitViewSuccess(null,recyclerView);
+        }
         return view;
     }
     private void requestFailureShow(String error){
@@ -294,5 +298,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
     public void scrollTop(){
         recyclerView.scrollToPosition(0);
     }
-
+    public void setFragmentStateListener(FragmentStateListener fragmentStateListener){
+        this.fragmentStateListener = fragmentStateListener;
+    }
 }
