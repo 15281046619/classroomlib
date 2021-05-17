@@ -601,7 +601,7 @@ public class LiveDetailActivity extends BaseNetActivity {
                 LiveChatFragment.getInstance(String.valueOf(mLiveDetailBean.getData().getLive().getId()),
                         mLiveDetailBean.getData().getLive().getFixed_state()==1?mLiveDetailBean.getData().getLive().getFixed_str():""
                         ,mLiveDetailBean.getData().getLive().getSpeaker()),
-                LiveDesFragment.getInstance(mLiveDetailBean.getData().getLive().getBody()),LiveGoodListFragment.getInstance(mId)
+                LiveDesFragment.getInstance(mLiveDetailBean.getData().getLive().getBody(),mLiveDetailBean.getData().getLive().getId()),LiveGoodListFragment.getInstance(mId)
             ,LiveGiftTopsFragment.getInstance(mId)};
         tabLayout.removeAllTabs();
         HomeViewpagerAdapter mViewPagerAdapter = new HomeViewpagerAdapter(getSupportFragmentManager(), Arrays.asList(mArrayLists), Arrays.asList(mTitle));

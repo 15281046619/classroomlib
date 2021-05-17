@@ -1,17 +1,28 @@
 package com.xingwang.classroom.ui.live;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tencent.smtt.sdk.CacheManager;
 import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebStorage;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.xingwang.classroom.R;
+import com.xingwang.classroom.bean.LiveDetailBean;
+import com.xingwang.classroom.view.EmptyControlVideo;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
+import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.HttpCallBack;
+import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.Constants;
+import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.ycbjie.webviewlib.WvWebView;
+
+import java.io.File;
 
 /**
  * Date:2020/8/13
@@ -22,11 +33,13 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
 
     protected WvWebView webView;
     protected String htmlText;
-
-    public static LiveDesFragment getInstance(String des){
+    private VpSwipeRefreshLayout swipeRefreshLayout;
+    private   String appCachePath;
+    public static LiveDesFragment getInstance(String des,int id){
         LiveDesFragment mFragment = new LiveDesFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.DATA,des);
+        bundle.putInt("id",id);
         mFragment.setArguments(bundle);
         return mFragment;
     }
@@ -35,28 +48,51 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
         View view =  inflater.inflate(R.layout.fragment_live_des_classroom,container,false);
 
         webView=view.findViewById(R.id.web_live_des);
-
+        swipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getDetailContent();
+            }
+        });
         return view;
     }
+    private void getDetailContent(){
+        if (getArguments()!=null)
+        requestGet(HttpUrls.URL_LIVE_DETAIL(),new ApiParams().with("id",getArguments().getInt("id")),
+                LiveDetailBean.class, new HttpCallBack<LiveDetailBean>() {
 
+                    @Override
+                    public void onFailure(String message) {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onSuccess(LiveDetailBean liveDetailBean) {
+                        loadData(liveDetailBean.getData().getLive().getBody());
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+    }
     @Override
     public void initData() {
         htmlText=getArguments().getString(Constants.DATA);
         setWebViewSetting();
-        htmlText = htmlText.replace("<img", "<img style=\"max-width:100%;height:auto\"");
-        webView.loadData(htmlText, "text/html;charset=utf-8", "utf-8");
-        webView.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView webView, String s) {
-                return true;
-            }
-        });
+        loadData(htmlText);
     }
+    private void loadData(String content){
+        content = content.replace("<img", "<img style=\"max-width:100%;height:auto\"");
+        webView.loadData(content, "text/html;charset=utf-8", "utf-8");
+    }
+
     private void setWebViewSetting(){
+        appCachePath =getActivity().getApplicationContext().getCacheDir().getAbsolutePath();
         WebSettings websettings = webView.getSettings();
         websettings.setDomStorageEnabled(true);  // 开启 DOM storage 功能
         websettings.setAppCacheMaxSize(1024*1024*8);
-        String appCachePath =getActivity().getApplicationContext().getCacheDir().getAbsolutePath();
+
+        websettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         websettings.setAppCachePath(appCachePath);
         websettings.setAllowFileAccess(true);    // 可以读取文件缓存
         websettings.setAppCacheEnabled(true);    //开启H5(APPCache)缓存功能
