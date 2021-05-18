@@ -238,8 +238,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
             @Override
             public void onSuccess(ADGroupBean adGroupBean) {
                 showTitleImages(adGroupBean.getData());
-           /*     if (mFragment!=null)//如果创建过，就清空 免得不断刷新出现内存溢出
-                    getChildFragmentManager().beginTransaction().remove(mFragment).commitAllowingStateLoss();*/
+
                 if (mFragment==null) {
                     mFragment = ProductListsFragment.getInstance(null, null);
                     mFragment.setFragmentStateListener(new FragmentStateListener() {
@@ -370,24 +369,28 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
      * @param searchWord 搜索词
      */
     private void jumpSearchActivity(String searchWord){
-        Intent intent = new Intent(getActivity(), ShoppingSearchActivity.class);
-        if (searchWord!=null){
-            intent.putExtra("search",searchWord);
+        if(getActivity()!=null) {
+            Intent intent = new Intent(getActivity(), ShoppingSearchActivity.class);
+            if (searchWord != null) {
+                intent.putExtra("search", searchWord);
+            }
+            if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+                ActivityCompat.startActivity(getActivity(), intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), rlSearch, "shoppingSearch").toBundle());
+            } else {
+                startActivity(intent);
+            }
+            getActivity().overridePendingTransition(0, 0);
         }
-        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
-            ActivityCompat.startActivity(getActivity(),intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), rlSearch, "shoppingSearch").toBundle());
-        } else {
-            startActivity(intent);
-        }
-        getActivity().overridePendingTransition(0,0);
     }
 
     /**
      * 滑动到顶部部
      */
     public void scrollViewTop(){
-        mFragment.scrollTop();
-        appBar.setExpanded(true,true);
+        if (mFragment!=null) {
+            mFragment.scrollTop();
+            appBar.setExpanded(true, true);
+        }
     }
 
     /**
