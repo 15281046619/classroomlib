@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -54,6 +55,10 @@ public class WaybillDetailActivity extends BaseNetActivity {
     private LinearLayout llRoot;
     private int waybillId;
     private WaybillDetailBean waybillDetailBean;
+    private LinearLayout llWaybillSum;
+    private String[] mWaybillNos;
+    private int curPosition=0;//当前物流号序列
+    private TextView tvCopy,tvCall;
     @Override
     protected int layoutResId() {
         return R.layout.activity_waybill_detail_shoppingcenter;
@@ -68,13 +73,7 @@ public class WaybillDetailActivity extends BaseNetActivity {
     }
 
     private void initListener() {
-        findViewById(R.id.tvCopy).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (waybillDetailBean!=null)
-                copy(waybillDetailBean.getData().getWaybill_no());
-            }
-        });
+
         ((CustomToolbar)findViewById(R.id.toolbar)).setNavigationOnClickListener(v -> finish());
     }
     //复制
@@ -111,14 +110,39 @@ public class WaybillDetailActivity extends BaseNetActivity {
 
             @Override
             public void onSuccess(WaybillDetailBean waybillDetailBean) {
-               WaybillDetailActivity.this.waybillDetailBean =waybillDetailBean;
-               requestWaybillList();
+                WaybillDetailActivity.this.waybillDetailBean =waybillDetailBean;
+                mWaybillNos = waybillDetailBean.getData().getWaybill_no().split(",");
+                if (mWaybillNos.length>1){
+                    for (int i=0;i<mWaybillNos.length;i++){
+                        TextView textView =new TextView(WaybillDetailActivity.this);
+                        textView.setPadding(CommentUtils.dip2px(WaybillDetailActivity.this,20),CommentUtils.dip2px(WaybillDetailActivity.this,10),
+                                CommentUtils.dip2px(WaybillDetailActivity.this,20),CommentUtils.dip2px(WaybillDetailActivity.this,10));
+                        textView.setText("物流"+(i+1));
+                        if (curPosition==i){
+                            textView.setTextColor(ContextCompat.getColor(WaybillDetailActivity.this,R.color.themeClassRoom));
+                        }else {
+                            textView.setTextColor(ContextCompat.getColor(WaybillDetailActivity.this,R.color.textColorClassRoom));
+                        }
+                        int finalI = i;
+                        textView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ((TextView)llWaybillSum.getChildAt(curPosition)).setTextColor(ContextCompat.getColor(WaybillDetailActivity.this,R.color.textColorClassRoom));
+                                ((TextView)llWaybillSum.getChildAt(finalI)).setTextColor(ContextCompat.getColor(WaybillDetailActivity.this,R.color.themeClassRoom));
+                                curPosition = finalI;
+                                requestWaybillList(false);
+                            }
+                        });
+                        llWaybillSum.addView(textView);
+                    }
+                }
+                requestWaybillList(true);
             }
         });
     }
 
-    private void requestWaybillList() {
-        ApiParams mApiParams = new ApiParams().with("waybill_no", waybillDetailBean.getData().getWaybill_no());
+    private void requestWaybillList(boolean isFrist) {
+        ApiParams mApiParams = new ApiParams().with("waybill_no", mWaybillNos[curPosition]);
         if (!TextUtils.isEmpty(waybillDetailBean.getData().getType())) {
             mApiParams.with("type", waybillDetailBean.getData().getType());
         }
@@ -131,8 +155,11 @@ public class WaybillDetailActivity extends BaseNetActivity {
 
             @Override
             public void onSuccess(WaybillInfoBean waybillInfoBean) {
-                if (waybillInfoBean.getData().getData().size()>0){
+                if (waybillInfoBean.getData()!=null&&waybillInfoBean.getData().getData()!=null&&waybillInfoBean.getData().getData().size()>0){
                     findViewById(R.id.rl_empty).setVisibility(View.GONE);
+                    if (isFrist){
+                        initDetail();
+                    }
                     initShow(waybillInfoBean);
                 }else {
                     requestFailureShow(getString(R.string.no_data_ClassRoom));
@@ -140,19 +167,22 @@ public class WaybillDetailActivity extends BaseNetActivity {
             }
         });
     }
-
-    private void initShow(WaybillInfoBean waybillInfoBean) {
+    private void initDetail(){
         GlideUtils.loadAvatar(TextUtils.isEmpty(waybillDetailBean.getData().getItems().get(0).getSku().getCover())?waybillDetailBean.getData().getItems().get(0).getGoods().getCover()
                 :waybillDetailBean.getData().getItems().get(0).getSku().getCover(),R.color.BGPressedClassRoom,icCove);
-       tvSku.setText(getSkus(waybillDetailBean.getData().getItems().get(0).getGoods(),waybillDetailBean.getData().getItems().get(0).getSku()));
-      number.setText("×"+waybillDetailBean.getData().getItems().get(0).getNum());
-       tvTitle.setText(waybillDetailBean.getData().getItems().get(0).getGoods().getTitle());
-       tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.changeF2Y(waybillDetailBean.getData().getItems().get(0).getSku().getPrice())));
+        tvSku.setText(getSkus(waybillDetailBean.getData().getItems().get(0).getGoods(),waybillDetailBean.getData().getItems().get(0).getSku()));
+        number.setText("×"+waybillDetailBean.getData().getItems().get(0).getNum());
+        tvTitle.setText(waybillDetailBean.getData().getItems().get(0).getGoods().getTitle());
+        tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.changeF2Y(waybillDetailBean.getData().getItems().get(0).getSku().getPrice())));
+
+    }
+    private void initShow(WaybillInfoBean waybillInfoBean) {
         tvWaybillName.setText(waybillInfoBean.getData().getExpTextName()+" "+waybillInfoBean.getData().getMailNo());
         GlideUtils.loadAvatar(waybillInfoBean.getData().getLogo(),ivWaybillSrc);
+        llRoot.removeAllViews();
         for (int i=0;i<waybillInfoBean.getData().getData().size();i++){
             View view =LayoutInflater.from(this).inflate(R.layout.item_waybill_detail_shoppingcenter,llRoot,false);
-           TextView tvTime= view.findViewById(R.id.tvTime);
+            TextView tvTime= view.findViewById(R.id.tvTime);
             TextView tvContent = view.findViewById(R.id.tvContent);
             tvTime.setText(waybillInfoBean.getData().getData().get(i).getTime());
             setContent(waybillInfoBean.getData().getData().get(i).getContext(),tvContent);
@@ -163,10 +193,17 @@ public class WaybillDetailActivity extends BaseNetActivity {
             }
             llRoot.addView(view);
         }
-        findViewById(R.id.tvCall).setOnClickListener(new View.OnClickListener() {
+        tvCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callPhone(waybillInfoBean.getData().getTel());
+            }
+        });
+        tvCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (waybillInfoBean.getData()!=null)
+                    copy(waybillInfoBean.getData().getMailNo());
             }
         });
     }
@@ -267,6 +304,9 @@ public class WaybillDetailActivity extends BaseNetActivity {
         tvTitle = findViewById(R.id.tvTitle);
         tvPrice = findViewById(R.id.tvPrice);
         llRoot = findViewById(R.id.llRoot);
+        tvCopy = findViewById(R.id.tvCopy);
+        tvCall = findViewById(R.id.tvCall);
+        llWaybillSum = findViewById(R.id.llWaybillSum);
 
         tvSku = findViewById(R.id.tvSku);
         number = findViewById(R.id.number);

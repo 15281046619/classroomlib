@@ -74,7 +74,7 @@ public class CouponBean extends CommonEntity {
             private String instructions;
             private int fee;
             private long expire_at;
-            private String conditions;
+
             private int is_verification;
             private int verification_time;
             private Object verification_context;
@@ -183,13 +183,7 @@ public class CouponBean extends CommonEntity {
                 this.expire_at = expire_at;
             }
 
-            public String getConditions() {
-                return conditions;
-            }
 
-            public void setConditions(String conditions) {
-                this.conditions = conditions;
-            }
 
             public int getIs_verification() {
                 return is_verification;

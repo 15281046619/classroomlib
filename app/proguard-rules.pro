@@ -528,3 +528,8 @@ native <methods>;
 # tinker混淆规则
 -dontwarn com.tencent.tinker.**
 -keep class com.tencent.tinker.** { *; }
+
+-keep class com.ycbjie.webviewlib.** {
+    *;
+}
+-dontwarn com.ycbjie.webviewlib.**

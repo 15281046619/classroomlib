@@ -3,21 +3,25 @@ package com.xinwang.bgqbaselib.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.view.View;
+
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
-import android.widget.LinearLayout;
 
+
+import com.tencent.smtt.export.external.interfaces.WebResourceError;
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
-import com.ycbjie.webviewlib.InterWebListener;
-import com.ycbjie.webviewlib.X5WebChromeClient;
-import com.ycbjie.webviewlib.X5WebUtils;
-import com.ycbjie.webviewlib.X5WebView;
 
+import com.ycbjie.webviewlib.client.JsX5WebViewClient;
+import com.ycbjie.webviewlib.inter.InterWebListener;
+import com.ycbjie.webviewlib.inter.VideoWebListener;
+import com.ycbjie.webviewlib.utils.X5WebUtils;
+import com.ycbjie.webviewlib.view.X5WebView;
 
 
 /**
@@ -41,21 +45,31 @@ public class CustomWebView extends X5WebView {
             Bundle data = new Bundle();
             data.putBoolean("standardFullScreen", true);// true表示标准全屏，false表示X5全屏；不设置默认false，
             data.putBoolean("supportLiteWnd", false);// false：关闭小窗；true：开启小窗；不设置默认true，
-            data.putInt("DefaultVideoScreen", 1);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
+            data.putInt("DefaultVideoScreen",1);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
             getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
             SharedPreferenceUntils.saveX5State(getContext(),true);
         }else {
             //  SharedPreferenceUntils.saveX5State(this,false);
             MyToast.myToast(getContext(),"x5内核安装失败，播放异常,关闭应用重试");
         }
-      //  setWebViewClient(new MyWebViewClient());
+        // setWebViewClient(new MyWebViewClient(this,getContext()));
         setWebViewSetting();
         addJavascriptInterface(new JavaScriptInterface(getContext()),"javaInterFace");
 
     }
 
-    class MyWebViewClient extends WebViewClient {
+    class MyWebViewClient extends JsX5WebViewClient {
 
+
+        /**
+         * 构造方法
+         *
+         * @param webView 需要传进来webview
+         * @param context 上下文
+         */
+        public MyWebViewClient(X5WebView webView, Context context) {
+            super(webView, context);
+        }
 
         /**
          * 点击页面的某条链接进行跳转的话，会启动系统的默认浏览器进行加载，
@@ -71,8 +85,18 @@ public class CustomWebView extends X5WebView {
         }
 
         @Override
+        public void onReceivedError(WebView webView, int i, String s, String s1) {
+            super.onReceivedError(webView, i, s, s1);
+        }
+
+        @Override
+        public void onReceivedError(WebView webView, WebResourceRequest webResourceRequest, WebResourceError webResourceError) {
+            super.onReceivedError(webView, webResourceRequest, webResourceError);
+        }
+
+        @Override
         public void onPageFinished(WebView view, String url) {
-            addImageClickListner();
+            // addImageClickListner();
             super.onPageFinished(view, url);
         }
     }
@@ -97,9 +121,9 @@ public class CustomWebView extends X5WebView {
         //必须添加注解,否则无法响应
         @JavascriptInterface()
         public void openImage(String img) {//统一跳转图片浏览器
-          if (onClickImgListener!=null){
-              onClickImgListener.onclickImg(img);
-          }
+            if (onClickImgListener!=null){
+                onClickImgListener.onclickImg(img);
+            }
         }
         @JavascriptInterface()
         public void resize(final float height) {
@@ -123,6 +147,8 @@ public class CustomWebView extends X5WebView {
         websettings.setBuiltInZoomControls(false);
         websettings.setSupportZoom(false);
         websettings.setDisplayZoomControls(false);
+
+
     }
 
 
@@ -159,13 +185,15 @@ public class CustomWebView extends X5WebView {
 
             if (newProgress==100){
 
-              //  webView.loadUrl("javascript:document.body.style.margin=\"0%\"; void 0");//去掉webview边框
+                //  webView.loadUrl("javascript:document.body.style.margin=\"0%\"; void 0");//去掉webview边框
             }
         }
 
         @Override
         public void showTitle(String title) {
         }
+
+
     };
     public void setOnJavaScriptInterfaceListener(OnJavaScriptInterfaceListener onClickImgListener){
         this.onClickImgListener = onClickImgListener;
@@ -186,7 +214,7 @@ public class CustomWebView extends X5WebView {
             removeJavascriptInterface("imagelistner");
         }
     }
-   public interface  OnJavaScriptInterfaceListener{
+    public interface  OnJavaScriptInterfaceListener{
         void onclickImg(String url);
         void onWebViewHeight(float height);
     }

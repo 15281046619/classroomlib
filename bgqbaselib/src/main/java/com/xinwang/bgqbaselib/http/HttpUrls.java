@@ -8,7 +8,7 @@ package com.xinwang.bgqbaselib.http;
 public class HttpUrls {
     // public static   String URL_HOST="http://zyapp.test.xw518.com/";
     public static   String URL_HOST="http://zyapp.app.xw518.com/";
-    private static final String URL_NAME="";
+    public static final String URL_NAME="";
     public static String URL_TYPE="zy";
     /*private static final String URL_HOST="http://192.168.65.74/";
     private static final String URL_NAME="xwapp/public/";*/
@@ -17,6 +17,9 @@ public class HttpUrls {
     public static final String URL_CHAT="http://kefu.xw518.com/chat.php?c=1";
     public static final String URL_CATEGORYS(){
         return URL_HOST+URL_NAME+"lecture/general/category/lists";
+    }
+    public static final String URL_GET_INFO(){
+        return URL_HOST+URL_NAME+"user/user/my/info";
     }
 
     /**

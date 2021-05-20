@@ -137,7 +137,12 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         BeautyDefine.getImagePreviewDefine(this).showImagePreview(mLists, position);
     }
     private void initNumber() {
-        number = GsonUtils.changeGsonToSafeList( SharedPreferenceUntils.getGoods(this), Sku.class).size();
+        try {
+            number = GsonUtils.changeGsonToSafeList( SharedPreferenceUntils.getGoods(this), Sku.class).size();
+
+        }catch (Exception e){
+
+        }
         showNumber();
     }
 

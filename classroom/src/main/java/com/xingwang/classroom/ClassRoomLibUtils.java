@@ -25,8 +25,11 @@ import com.xingwang.classroom.ui.live.LiveWebActivity;
 import com.xingwang.classroom.ui.statistic.StatisticPriceActivity;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
-import com.ycbjie.webviewlib.X5LogUtils;
+import com.ycbjie.webviewlib.utils.X5LogUtils;
+import com.ycbjie.webviewlib.utils.X5WebUtils;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -95,7 +98,6 @@ public class ClassRoomLibUtils {
         //1.确认您的App为非X86架构，x86架构无法发起内核下载
         //2.确认您的APN为wifi。由于非wifi下内核下载可能会消耗用户流量，建议提示用户。如果在非wifi下仍需要下载内核，请使用QbSdk.setDownloadWithoutWifi(true)接口
         QbSdk.setDownloadWithoutWifi(true);
-      //  X5WebUtils.init(context);
 
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
             @Override
@@ -113,7 +115,6 @@ public class ClassRoomLibUtils {
         };
         //x5内核初始化接口
         QbSdk.initX5Environment(context,  cb);
-        X5LogUtils.setIsLog(false);
         QbSdk.setTbsListener(new TbsListener(){
 
             @Override

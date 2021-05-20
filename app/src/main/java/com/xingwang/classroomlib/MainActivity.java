@@ -4,9 +4,7 @@ package com.xingwang.classroomlib;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -16,16 +14,27 @@ import android.webkit.WebView;
 import com.xingwang.classroom.ClassRoomLibUtils;
 import com.xingwang.classroom.ui.live.LiveListActivity;
 import com.xingwang.classroomlib.html.WebViewDelegate;
+import com.xinwang.bgqbaselib.base.BaseNetActivity;
+import com.xinwang.bgqbaselib.http.ApiParams;
+import com.xinwang.bgqbaselib.http.CommonEntity;
+import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.shoppingcenter.ui.ShoppingHomeActivity;
 
+import static com.xinwang.bgqbaselib.http.HttpUrls.URL_HOST;
+import static com.xinwang.bgqbaselib.http.HttpUrls.URL_NAME;
 
-public class MainActivity extends AppCompatActivity implements WebViewDelegate {
 
+public class MainActivity extends BaseNetActivity implements WebViewDelegate {
+
+
+    @Override
+    protected int layoutResId() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
      //   Log.d("TAG","ArrayList："+(System.currentTimeMillis()-cur));
         // ClassRoomLibUtils.startListActivity(this,"栏目");
 
@@ -58,8 +67,21 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
         Uri uri = Uri.parse("classroom://"+getPackageName()+".spdetail?id=5");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
     //    startActivity(intent);
+      // getAuthStr("15281046619");
     }
+        private void getAuthStr(String phone){
+            requestGet(URL_HOST + URL_NAME + "user/base/auth/get-authstr", new ApiParams().with("phone", phone).with("code", "99889988"), CommonEntity.class, new HttpCallBack<CommonEntity>() {
+                @Override
+                public void onFailure(String message) {
 
+                }
+
+                @Override
+                public void onSuccess(CommonEntity commonEntity) {
+
+                }
+            });
+        }
 
     public void onClick(View view){
         String tag =(String) view.getTag();
@@ -74,10 +96,10 @@ public class MainActivity extends AppCompatActivity implements WebViewDelegate {
           case "3":
                 startActivity(new Intent(this, ShoppingHomeActivity.class));
                 break;
-           /*   case "4":
-                startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("essay://"+getPackageName()+".host.essaylist?tag=1")));
+              case "4":
+                //startActivity( new Intent(this, WebViewActivity.class).putExtra("title","ces").putExtra("url","http://oss.xw518app.xw518.com/2021/02/18/091026_91db52b2ade14a2bb9e4e2b76629578a5833zy.mp4"));
                 break;
-            case "5":
+            /*case "5":
                GroupListActivity.getIntent(MainActivity.this);
                 break;*/
             case "6":

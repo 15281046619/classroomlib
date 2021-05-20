@@ -20,9 +20,7 @@ import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
-import com.ycbjie.webviewlib.WvWebView;
-
-import java.io.File;
+import com.ycbjie.webviewlib.wv.WvWebView;
 
 /**
  * Date:2020/8/13

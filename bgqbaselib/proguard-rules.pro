@@ -245,7 +245,10 @@
 	public <fields>;
 	public <methods>;
 }
-
+-keep class com.ycbjie.webviewlib.** {
+    *;
+}
+-dontwarn com.ycbjie.webviewlib.**
 -keep public class com.tencent.smtt.sdk.Tbs* {
 	public <fields>;
 	public <methods>;
