@@ -12,7 +12,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //必须主项目加入关键代码 ，不然腾讯x5启动不了
         ndk {
-            abiFilters"armeabi","armeabi-v7a"
+            abiFilters"armeabi","armeabi-v7a，'x86', 'mips'"
 
         }
 
