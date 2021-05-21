@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.GoodListAdapter;
-
+import com.xingwreslib.beautyreslibrary.BeautyObserver;
+import com.xingwreslib.beautyreslibrary.OrderInfo;
+import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;

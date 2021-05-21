@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
-
+import com.xingwreslib.beautyreslibrary.BeautyObserver;
+import com.xingwreslib.beautyreslibrary.OrderInfo;
+import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
@@ -53,14 +55,14 @@ public class OrderDetailActivity extends BaseNetActivity {
     private int totalPrice=0;
     private String goodId;//为null订单详情 ，不为null订单商品详情
     //private int goodPrice;
- /*   private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
+    private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
             if (o.getPayState()==Constants.PAY_STATE_YES&&orderBean!=null&&orderBean.getData().getId()==o.getOrderId()){
                 finish();
             }
         }
-    };*/
+    };
     @Override
     protected int layoutResId() {
         return R.layout.activity_order_detail_shoppingcenter;
@@ -73,7 +75,7 @@ public class OrderDetailActivity extends BaseNetActivity {
         initView();
         initListener();
         initRequest();
-        //OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
+        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
     }
 
     private void initRequest() {
@@ -201,7 +203,7 @@ public class OrderDetailActivity extends BaseNetActivity {
             public void onSuccess(CommonEntity commonEntity) {
                 BeautyDefine.getOpenPageDefine(OrderDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
                 MyToast.myToast(OrderDetailActivity.this,"取消成功");
-                //OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderBean.getData().getId(), Constants.PAY_STATE_CANCEL));//广播
+                OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderBean.getData().getId(), Constants.PAY_STATE_CANCEL));//广播
                 finish();
             }
         });
@@ -349,6 +351,6 @@ public class OrderDetailActivity extends BaseNetActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
+        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
     }
 }

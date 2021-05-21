@@ -24,6 +24,9 @@ import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.DeliveryaddrCallBack;
 import com.beautydefinelibrary.DeliveryaddrDefine;
 import com.beautydefinelibrary.OpenPageDefine;
+import com.xingwreslib.beautyreslibrary.BeautyObserver;
+import com.xingwreslib.beautyreslibrary.OrderInfo;
+import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
@@ -476,7 +479,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             public void onSuccess(OrderSuccessBean orderSuccessBean) {
                 if (getIntent().getBooleanExtra("isShoppingCenter",false))
                     removeOrderData();//只有购物车里面进入才移除
-           //     OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderSuccessBean.getData().getOrder_id(), Constants.PAY_STATE_NO));//广播
+                OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderSuccessBean.getData().getOrder_id(), Constants.PAY_STATE_NO));//广播
                 BeautyDefine.getOpenPageDefine(ShoppingOrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
                 if (isChat) {//跳转聊天
                     ShoppingCenterLibUtils.jumpChat(ShoppingOrderActivity.this, erpBean.getData() == null ? -1 : erpBean.getData().getId(),

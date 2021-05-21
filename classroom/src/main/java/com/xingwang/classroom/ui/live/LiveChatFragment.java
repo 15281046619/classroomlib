@@ -47,7 +47,9 @@ import com.xingwang.classroom.dialog.BottomGifSubmitDialog;
 
 import com.xingwang.classroom.dialog.CenterRedPackDialog;
 
-
+import com.xingwreslib.beautyreslibrary.BeautyObserver;
+import com.xingwreslib.beautyreslibrary.OrderInfo;
+import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.dialog.CenterBuyDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.CommonEntity;
@@ -112,7 +114,14 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         }
     };
     private CenterBuyDialog mDialog;
-
+    private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {//收到状态列表刷新
+        @Override
+        public void beautyOnChanged(@Nullable OrderInfo o) {
+            if (o.getPayState()==1){//下单成功
+                goSendComment(o.getOrderId()+"","3");
+            }
+        }
+    };
     public static LiveChatFragment getInstance(String id,String fixedStr,String speaker){
         LiveChatFragment mFragment = new LiveChatFragment();
         Bundle bundle = new Bundle();
@@ -579,13 +588,13 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
     @Override
     public void initData() {
         requestData(Constants.LOAD_DATA_TYPE_INIT,Integer.MAX_VALUE);
-       // OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
+        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
+        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
     }
 
     private void showGifSubmitDialog(){
