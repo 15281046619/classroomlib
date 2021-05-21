@@ -23,9 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
-import com.xingwreslib.beautyreslibrary.BeautyObserver;
-import com.xingwreslib.beautyreslibrary.OrderInfo;
-import com.xingwreslib.beautyreslibrary.OrderLiveData;
+
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.CommonEntity;
@@ -86,7 +84,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     private int number =0;
     private int orderNoPayNumber =0;
     private FragmentStateListener fragmentStateListener;
-    private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {
+  /*  private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
             if (o.getPayState()==Constants.PAY_STATE_NO){//下单成功移除了选中的商品 未支付
@@ -96,7 +94,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
             }
             showOrderNumber();
         }
-    };
+    };*/
 
 
 
@@ -151,7 +149,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
+        //OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
     }
 
     @Override
@@ -198,7 +196,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
      * 订单数目
      */
     private void initOrderNumber() {
-        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
+      //  OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
         requestGet(HttpUrls.URL_USER_ORDER_LISTS(), new ApiParams().with("pay_state", Constants.PAY_STATE_NO).with("cancel_state","1").with("page", 1).with("page_num", 1), OrderListBean.class, new HttpCallBack<OrderListBean>() {
             @Override
             public void onFailure(String message) {

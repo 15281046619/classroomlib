@@ -6,17 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tencent.smtt.sdk.CacheManager;
 import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebStorage;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.LiveDetailBean;
+import com.xingwang.classroom.view.EmptyControlVideo;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
-import com.ycbjie.webviewlib.WvWebView;
-
+import com.ycbjie.webviewlib.wv.WvWebView;
 
 /**
  * Date:2020/8/13

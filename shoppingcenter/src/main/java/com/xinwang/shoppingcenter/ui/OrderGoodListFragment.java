@@ -13,10 +13,7 @@ import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
-import com.xingwreslib.beautyreslibrary.BeautyLiveData;
-import com.xingwreslib.beautyreslibrary.BeautyObserver;
-import com.xingwreslib.beautyreslibrary.OrderInfo;
-import com.xingwreslib.beautyreslibrary.OrderLiveData;
+
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
@@ -58,15 +55,7 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
     private String q;
     private List<OrderListBean.DataBean.OrdersBean.ItemsBean> mData = new ArrayList<>();
     private ShoppingGoodOrderListAdapter mAdapter;
-    private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {//收到状态列表刷新
-        @Override
-        public void beautyOnChanged(@Nullable OrderInfo o) {
-            recyclerView.scrollToPosition(0);
-            rl_empty.setVisibility(View.VISIBLE);
-            curPage=1;
-            goRequestData(Constants.LOAD_DATA_TYPE_INIT);
-        }
-    };
+
 
     public static OrderGoodListFragment getInstance(String q, String pay_state){
         OrderGoodListFragment orderLitFragment =new OrderGoodListFragment();
@@ -171,7 +160,7 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
         q =getArguments().getString("q");
         initListener();
         goRequestData(Constants.LOAD_DATA_TYPE_INIT);
-        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
+        //OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
 
     }
     private void initListener(){
@@ -221,6 +210,6 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
+       // OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
     }
 }

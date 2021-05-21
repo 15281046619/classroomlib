@@ -17,11 +17,11 @@ import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
-import com.ycbjie.webviewlib.InterWebListener;
-import com.ycbjie.webviewlib.WebProgress;
-import com.ycbjie.webviewlib.X5WebChromeClient;
-import com.ycbjie.webviewlib.X5WebUtils;
-import com.ycbjie.webviewlib.X5WebView;
+import com.ycbjie.webviewlib.base.X5WebChromeClient;
+import com.ycbjie.webviewlib.inter.InterWebListener;
+import com.ycbjie.webviewlib.utils.X5WebUtils;
+import com.ycbjie.webviewlib.view.X5WebView;
+import com.ycbjie.webviewlib.widget.WebProgress;
 
 
 /**

@@ -13,9 +13,6 @@ import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
-import com.xingwreslib.beautyreslibrary.BeautyObserver;
-import com.xingwreslib.beautyreslibrary.OrderInfo;
-import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
@@ -55,7 +52,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
     private String q;
     private List<OrderListBean.DataBean.OrdersBean> mData = new ArrayList<>();
     private ShoppingOrderListAdapter mAdapter;
-    private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
+    /*private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
             recyclerView.scrollToPosition(0);
@@ -63,7 +60,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             curPage=1;
             goRequestData(Constants.LOAD_DATA_TYPE_INIT);
         }
-    };
+    };*/
     public static OrderListFragment getInstance(String q, String pay_state){
         OrderListFragment orderLitFragment =new OrderListFragment();
         Bundle bundle =new Bundle();
@@ -159,7 +156,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         q =getArguments().getString("q");
         initListener();
         goRequestData(Constants.LOAD_DATA_TYPE_INIT);
-        OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
+        //OrderLiveData.getInstance().beautyObserveNonStickyForever(beautyObserver);
 
     }
     private void initListener(){
@@ -237,7 +234,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
                     mAdapter.notifyDataSetChanged();
                 }*/
 
-                OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderId, Constants.PAY_STATE_CANCEL));//广播
+             //   OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderId, Constants.PAY_STATE_CANCEL));//广播
             }
         });
     }
@@ -251,6 +248,6 @@ public class OrderListFragment extends BaseLazyLoadFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
+      //  OrderLiveData.getInstance().beautyObserveNonStickyForeverRemove(beautyObserver);
     }
 }
