@@ -171,6 +171,11 @@ public class LiveWebActivity extends BaseNetActivity {
 
         }
 
+        @Override
+        public void onPageFinished(String url) {
+
+        }
+
 
     };
     @Override

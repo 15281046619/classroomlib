@@ -11,6 +11,9 @@ buildscript {
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        //添加下面两句，进行配置
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
 
@@ -18,7 +21,10 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://jitpack.io' }
+        maven {
+            url 'https://jitpack.io'
+            name 'Google'
+        }
 
         maven {
             url "https://gitee.com/zhangmanji/beautydefinelibrary/raw/master"
@@ -26,6 +32,14 @@ allprojects {
         maven {
             url "https://gitee.com/zhangmanji/beautyreslibrary/raw/master"
         }
+        maven {
+            url 'https://maven.google.com/'
+
+        }
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
+
     }
 }
 

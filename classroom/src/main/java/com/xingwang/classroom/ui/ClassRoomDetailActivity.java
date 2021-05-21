@@ -758,6 +758,11 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
         public void showTitle(String title) {
         }
 
+        @Override
+        public void onPageFinished(String url) {
+
+        }
+
 
     };
 

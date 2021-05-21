@@ -193,6 +193,11 @@ public class CustomWebView extends X5WebView {
         public void showTitle(String title) {
         }
 
+        @Override
+        public void onPageFinished(String url) {
+
+        }
+
 
     };
     public void setOnJavaScriptInterfaceListener(OnJavaScriptInterfaceListener onClickImgListener){

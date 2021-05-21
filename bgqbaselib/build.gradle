@@ -34,6 +34,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     api 'com.android.support:appcompat-v7:28.0.0'
+    api project(path: ':WebViewLib')
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -50,11 +52,11 @@ dependencies {
     api 'com.github.bumptech.glide:glide:3.7.0'
 
     api 'com.shuyu:gsyVideoPlayer-java:6.0.2'
-    api 'cn.yc:WebViewLib:1.4.0'//x5webview
+   // api 'cn.yc:WebViewLib:1.4.0'//x5webview
 
 
-    //api 'com.tencent.tbs.tbssdk:sdk:+'
-    //implementation 'cn.yc:YCSlideLib:1.1.2'
+
+
     api 'org.greenrobot:eventbus:3.0.0'
     api 'com.android.support.constraint:constraint-layout:1.1.3'
     api 'com.android.support:design:28.0.0'

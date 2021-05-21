@@ -1,3 +1,4 @@
+include ':WebViewLib'
 include ':shoppingcenter'
 include ':bgqbaselib'
 include ':app', ':classroom-release', ':classroom'
