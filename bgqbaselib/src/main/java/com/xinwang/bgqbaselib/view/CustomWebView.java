@@ -16,12 +16,9 @@ import com.tencent.smtt.sdk.WebViewClient;
 import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
-
-import com.ycbjie.webviewlib.client.JsX5WebViewClient;
-import com.ycbjie.webviewlib.inter.InterWebListener;
-import com.ycbjie.webviewlib.inter.VideoWebListener;
-import com.ycbjie.webviewlib.utils.X5WebUtils;
-import com.ycbjie.webviewlib.view.X5WebView;
+import com.ycbjie.webviewlib.InterWebListener;
+import com.ycbjie.webviewlib.X5WebUtils;
+import com.ycbjie.webviewlib.X5WebView;
 
 
 /**
@@ -58,23 +55,23 @@ public class CustomWebView extends X5WebView {
 
     }
 
-    class MyWebViewClient extends JsX5WebViewClient {
+/*    class MyWebViewClient extends JsX5WebViewClient {
 
 
-        /**
+        *//**
          * 构造方法
          *
          * @param webView 需要传进来webview
          * @param context 上下文
-         */
+         *//*
         public MyWebViewClient(X5WebView webView, Context context) {
             super(webView, context);
         }
 
-        /**
+        *//**
          * 点击页面的某条链接进行跳转的话，会启动系统的默认浏览器进行加载，
          * 调出了我们本身的应用 因此，要在shouldOverrideUrlLoading方法中
-         */
+         *//*
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             if (url.startsWith("http:") || url.startsWith("https:")) {
@@ -99,7 +96,7 @@ public class CustomWebView extends X5WebView {
             // addImageClickListner();
             super.onPageFinished(view, url);
         }
-    }
+    }*/
     private void addImageClickListner() {
         // 这段js函数的功能就是，遍历所有的img节点，并添加onclick函数，函数的功能是在图片点击的时候调用本地java接口并传递url过去
         loadUrl("javascript:(function(){var objs = document.getElementsByTagName(\"img\"); " +

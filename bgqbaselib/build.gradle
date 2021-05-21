@@ -50,7 +50,7 @@ dependencies {
     api 'com.github.bumptech.glide:glide:3.7.0'
 
     api 'com.shuyu:gsyVideoPlayer-java:6.0.2'
-    api 'cn.yc:WebViewLib:1.4.0'//x5webview
+    api 'cn.yc:WebViewLib:1.2.2'//x5webview
 
 
     //api 'com.tencent.tbs.tbssdk:sdk:+'

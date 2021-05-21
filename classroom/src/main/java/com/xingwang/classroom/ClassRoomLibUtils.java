@@ -27,8 +27,7 @@ import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
-import com.ycbjie.webviewlib.utils.X5LogUtils;
-import com.ycbjie.webviewlib.utils.X5WebUtils;
+
 
 
 import org.greenrobot.eventbus.EventBus;
