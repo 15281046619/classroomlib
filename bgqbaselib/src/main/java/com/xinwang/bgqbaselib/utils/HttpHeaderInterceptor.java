@@ -31,8 +31,8 @@ public class HttpHeaderInterceptor implements Interceptor {
         Request.Builder builder = chain.request().newBuilder();
         String mAuth;
         if (Constants.APP_DBG) {
-            mAuth = "Yt7daGui/aoyy7Q1vj4A/azFlG8oeOOEMiISto6P6ZtO3qKgeZcj6xHoz0yykhVpZtK2wbys7b0DSFdo79LolM3gopkMdJ2J";//我的用户信息
-          //   mAuth = "Yt7daGui/aoyy7Q1vj4A/akuHF6VPNdOwqx4dVdBJbtIKYtqqN2oFM5C9PS0voN0TFoMttttzkoHvk0jHGt+jjxOR99CBxqz";//张满级用户
+            //mAuth = "Yt7daGui/aoyy7Q1vj4A/azFlG8oeOOEMiISto6P6ZtO3qKgeZcj6xHoz0yykhVpZtK2wbys7b0DSFdo79LolM3gopkMdJ2J";//我的用户信息
+           mAuth = "Yt7daGui/aoyy7Q1vj4A/QJMKyyeMuHM+cdTXYTCFSdIUrSaYV37J96Xjub3+3i847UybbiDyuP5EHmwUi7IbEvmYzYrKfyW";//张满级用户
             //             //mAuth = "Yt7daGui/arohoSc7Kzgam07KF+iDO9M/dM1k/cZ/eG17lL99fvNn7utihSkxEKaMx4HqCrW/1ooz5zTOeHLoHqt2AIfuHEmh/LB1qxB2Rk=";
         }
         else

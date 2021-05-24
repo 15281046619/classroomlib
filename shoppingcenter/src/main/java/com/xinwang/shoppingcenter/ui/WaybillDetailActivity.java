@@ -209,16 +209,20 @@ public class WaybillDetailActivity extends BaseNetActivity {
     }
     private void setContent(String desc,TextView mContactNone) {
         SpannableString mStyledText = new SpannableString(desc);
-        String str = CommentUtils.getPhone(desc);
+      //  String str = CommentUtils.getPhone(desc);
         //   mStyledText.setSpan(new ForegroundColorSpan(Color.BLUE), 7, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        Pattern mPattern = Pattern.compile(str);
+        Pattern mPattern = Pattern.compile("((1|861)(3|4|5|7|8)\\d{9}$*)|((0\\d{2}-\\d{8}(-\\d{1,4})?)|(0\\d{3}-\\d{7,8}(-\\d{1,4})?))");
+
         Matcher mMatcher = mPattern.matcher(desc);
         boolean isPhone =false;
         while (mMatcher.find()) {
+            String str= mMatcher.group();
             ClickableSpan what = new ClickableSpan() {
                 @Override
                 public void onClick(View view) {
-                    callPhone(str);
+
+                   if (!TextUtils.isEmpty(str))
+                   callPhone(str);
                 }
 
                 @Override
@@ -229,14 +233,19 @@ public class WaybillDetailActivity extends BaseNetActivity {
 
                 }
             };
-            mStyledText.setSpan(what, mMatcher.start(), mMatcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            mContactNone.setText(mStyledText);
-            mContactNone.setMovementMethod(LinkMovementMethod.getInstance());
-            mContactNone.setHighlightColor(getResources().getColor(android.R.color.transparent));
+            if (mMatcher.start()<mMatcher.end()) {
+                mStyledText.setSpan(what, mMatcher.start(), mMatcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            }
+
             isPhone =true;
         }
         if (!isPhone){
             mContactNone.setText(desc);
+        }else {
+            mContactNone.setText(mStyledText);
+            mContactNone.setMovementMethod(LinkMovementMethod.getInstance());
+            mContactNone.setHighlightColor(getResources().getColor(android.R.color.transparent));
         }
     }
 

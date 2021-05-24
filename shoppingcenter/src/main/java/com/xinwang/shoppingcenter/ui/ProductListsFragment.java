@@ -72,13 +72,14 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
      * @param category_id  不用搜索 为null
      * @return
      */
-    public static ProductListsFragment getInstance(String q,String category_id){
+    public static ProductListsFragment getInstance(String q,String category_id,boolean  isClipToPadding){
         ProductListsFragment productListsFragment =new ProductListsFragment();
         Bundle bundle =new Bundle();
         if (q!=null)
             bundle.putString("q",q);
         if (category_id!=null)
             bundle.putString("category_id",category_id);
+        bundle.putBoolean("isClipToPadding",isClipToPadding);
         productListsFragment.setArguments(bundle);
         return productListsFragment;
     }
@@ -98,8 +99,11 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
         if (fragmentStateListener!=null){
             fragmentStateListener.fragmentInitViewSuccess(null,recyclerView);
         }
+        assert getArguments() != null;
+        recyclerView.setClipToPadding(getArguments().getBoolean("isClipToPadding",false));
         return view;
     }
+
     private void requestFailureShow(String error){
 
         TextView tvMsg = view.findViewById(R.id.tv_msg);

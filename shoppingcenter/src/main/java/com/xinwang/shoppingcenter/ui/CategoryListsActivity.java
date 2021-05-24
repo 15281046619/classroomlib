@@ -84,7 +84,7 @@ public class CategoryListsActivity extends BaseNetActivity {
             if (!TextUtils.isEmpty(type)&& (categoryBean.getData().get(i).getId()+"").equals(type)&&initPos==0){
                 initPos =i;
             }
-            mFragments.add(ProductListsFragment.getInstance(null,i==0?null:categoryBean.getData().get(i).getId()+""));
+            mFragments.add(ProductListsFragment.getInstance(null,i==0?null:categoryBean.getData().get(i).getId()+"",false));
             mTitles.add(categoryBean.getData().get(i).getTitle());
             tabLayout.addTab(tabLayout.newTab().setText(categoryBean.getData().get(i).getTitle()));
         }

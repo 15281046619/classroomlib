@@ -241,7 +241,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
                 showTitleImages(adGroupBean.getData());
 
                 if (mFragment==null) {
-                    mFragment = ProductListsFragment.getInstance(null, null);
+                    mFragment = ProductListsFragment.getInstance(null, null,true);
                     mFragment.setFragmentStateListener(new FragmentStateListener() {
                         @Override
                         public void fragmentInitViewSuccess(AppBarLayout appBarLayout, RecyclerView recyclerView) {

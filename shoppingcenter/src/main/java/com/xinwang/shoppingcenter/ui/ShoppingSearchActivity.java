@@ -120,7 +120,7 @@ public class ShoppingSearchActivity extends BaseActivity {
 
             goSaveSearch(searchWord); etContent.setSelection(etContent.getText().toString().length());
             mKeyBoardHelper.closeInputMethodManager();
-            FragmentUtils.replaceFragment(this,R.id.flameLayout,ProductListsFragment.getInstance(searchWord,null));
+            FragmentUtils.replaceFragment(this,R.id.flameLayout,ProductListsFragment.getInstance(searchWord,null,false));
         }
     }
    private void goSaveSearch(String searchWord){
