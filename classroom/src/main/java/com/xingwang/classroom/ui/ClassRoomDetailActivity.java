@@ -629,7 +629,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private X5WebViewClient x5WebViewClient;
     private WebProgress progress;
     private void initWebView(String content) {
-        // QbSdk.setDownloadWithoutWifi(true);
+
         showWebView(content);
     }
     int mScreenWidth = 1280;

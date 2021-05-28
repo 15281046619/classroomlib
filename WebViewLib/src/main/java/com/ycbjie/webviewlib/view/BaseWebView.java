@@ -259,7 +259,12 @@ public class BaseWebView extends WebView {
      */
     public void setDayOrNight(boolean dayOrNight){
         // enable:true(日间模式)，enable：false（夜间模式）
-        //this.getSettingsExtension().setDayOrNight(dayOrNight);
+        try {
+            this.getSettingsExtension().setDayOrNight(dayOrNight);
+        }catch (Exception e){
+
+        }
+
     }
 
     /**

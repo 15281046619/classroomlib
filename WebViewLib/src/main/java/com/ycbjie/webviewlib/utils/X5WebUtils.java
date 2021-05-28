@@ -110,6 +110,20 @@ public final class X5WebUtils {
             throw new UnsupportedOperationException("context must be application...");
         }
     }
+    /**
+     * 初始化腾讯x5浏览器webView，建议在application初始化
+     * @param context                       上下文
+     */
+    public static void initNoWebView(Context context){
+        if(context instanceof Application){
+            application = (Application) context;
+            ToastUtils.init(application);
+            X5WebView.isLongClick = true;
+            X5LogUtils.setIsLog(true);
+        }else {
+            throw new UnsupportedOperationException("context must be application...");
+        }
+    }
 
     /**
      * 初始化缓存

@@ -10,14 +10,14 @@
     <!--悬浮窗-->
 <!--    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
     <!--启用通知栏需使用-->
-    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!--tencent x5添加-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+   <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
    <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     &lt;!&ndash; 硬件加速对X5视频播放非常重要，建议开启 &ndash;&gt;
     <uses-permission android:name="android.permission.GET_TASKS" />-->
@@ -122,9 +122,6 @@
                     android:host="${applicationId}.zblist" />
             </intent-filter>
         </activity>
-
-
-
 
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"

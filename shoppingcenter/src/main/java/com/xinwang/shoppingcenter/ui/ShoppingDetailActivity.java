@@ -12,7 +12,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
@@ -118,6 +120,14 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (webView!=null){
+            return webView.onViewKeyDown(keyCode,event);
+        }else
+            return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
@@ -178,26 +188,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
 
             }
         });
-        webView.setOnJavaScriptInterfaceListener(new CustomWebView.OnJavaScriptInterfaceListener() {
-            @Override
-            public void onclickImg(String url) {
-                ArrayList<String> mLists = new ArrayList<>();
-                mLists.add(url);
-                jumpBigPic(mLists,0);
-            }
 
-            @Override
-            public void onWebViewHeight(float height) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        webView.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (height * getResources().getDisplayMetrics().density)));
-                        webView.setVisibility(View.VISIBLE);
-
-                    }
-                });
-            }
-        });
 
         findViewById(R.id.tvBuy).setOnClickListener(v -> showSkuDialog(1));
         findViewById(R.id.llSeek).setOnClickListener(v -> goRequestErp());//咨询
@@ -250,8 +241,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             tvSum.setText("1/" + mDate.getPicBeans().size());
             showNameValue();
 
+            webView.loadData(mDate.getBody());
 
-            webView.loadData(CommentUtils.getWebNewData( mDate.getBody()), "text/html;charset=utf-8", "utf-8");
 
             if (TextUtils.isEmpty(skuList.get(0).getShowPrice())){
                 tvPrice.setVisibility(View.GONE);

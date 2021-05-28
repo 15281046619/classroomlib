@@ -27,7 +27,9 @@ import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
-
+import com.ycbjie.webviewlib.utils.X5LogUtils;
+import com.ycbjie.webviewlib.utils.X5WebUtils;
+import com.ycbjie.webviewlib.wv.X5WvWebView;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -114,6 +116,8 @@ public class ClassRoomLibUtils {
         };
         //x5内核初始化接口
         QbSdk.initX5Environment(context,  cb);
+        X5WebUtils.initNoWebView(context);
+        X5LogUtils.setIsLog(false);
         QbSdk.setTbsListener(new TbsListener(){
 
             @Override
@@ -126,7 +130,7 @@ public class ClassRoomLibUtils {
                 if (i == 232){//经过测试232 是最后一次收到的状态{
                     SharedPreferenceUntils.saveX5State(context,true);
                     EventBus.getDefault().post(new X5InstallSuccessBean(1,100));
-                   // MyToast.myToast(context,"安装x5内核成功");
+                    // MyToast.myToast(context,"安装x5内核成功");
                 }else {
                     EventBus.getDefault().post(new X5InstallSuccessBean(1,0));
                 }

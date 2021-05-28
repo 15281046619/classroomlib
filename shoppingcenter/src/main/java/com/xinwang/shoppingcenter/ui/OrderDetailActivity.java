@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
@@ -48,10 +50,12 @@ import com.xinwang.shoppingcenter.bean.SkuBean;
  * author:baiguiqiang
  */
 public class OrderDetailActivity extends BaseNetActivity {
-    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress,tvCoupon,tvProductPrice,tvAdminPrice;
+    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress,tvCoupon,tvProductPrice,tvAdminPrice,tvProductName;
     private LinearLayout llContent;
     private OrderBean orderBean;
     private int totalPrice=0;
+    private NestedScrollView scrollview;
+    private CardView cdAddress;
     private String goodId;//为null订单详情 ，不为null订单商品详情
     //private int goodPrice;
     private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
@@ -233,7 +237,7 @@ public class OrderDetailActivity extends BaseNetActivity {
             TextView tvSku =itemView.findViewById(R.id.tvSku);
             tvTitle.setText(orderBean.getData().getItems().get(i).getGoods().getTitle());
             tvSum.setText("×"+orderBean.getData().getItems().get(i).getNum());
-            totalPrice =totalPrice +orderBean.getData().getItems().get(i).getNum()*orderBean.getData().getItems().get(i).getSku().getPrice();
+            totalPrice =totalPrice +orderBean.getData().getItems().get(i).getNum()*orderBean.getData().getItems().get(i).getPrice();
             String sku = getSkus( orderBean.getData().getItems().get(i).getGoods(), orderBean.getData().getItems().get(i).getSku());
             int finalI = i;
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -255,7 +259,7 @@ public class OrderDetailActivity extends BaseNetActivity {
             if (orderBean.getData().getItems().get(i).getSku().getPrice()==0)
                 tvPrice.setText("");
             else
-                tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+CountUtil.changeF2Y(orderBean.getData().getItems().get(i).getSku().getPrice())));
+                tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+CountUtil.changeF2Y(orderBean.getData().getItems().get(i).getPrice())));
             GlideUtils.loadAvatar(
                     TextUtils.isEmpty(orderBean.getData().getItems().get(i).getSku().getCover())?orderBean.getData().getItems().get(i).getGoods().getCover():orderBean.getData().getItems().get(i).getSku().getCover(),R.color.BGPressedClassRoom,icCove);
 
@@ -264,20 +268,37 @@ public class OrderDetailActivity extends BaseNetActivity {
             layoutParams.setMargins(dip10, 0, 0, 0);
             view.setLayoutParams(layoutParams);
             view.setBackgroundResource(R.color.LineClassRoom);
-            //  if (goodId==null) {
+
             llContent.addView(itemView);
             llContent.addView(view);
-            //   }else {
+
             if (goodId!=null&&goodId.equals(orderBean.getData().getItems().get(i).getId()+"")){//该产品
                 goodPos =i;
-                   /* goodPrice =orderBean.getData().getItems().get(i).getNum()*orderBean.getData().getItems().get(i).getSku().getPrice();
-                    llContent.addView(itemView);
-                    llContent.addView(view);
-                    break;*/
+                if (orderBean.getData().getItems().size()>1)
+                itemView.setBackgroundResource(R.color.LineClassRoom);
+
             }
-            //    }
+
         }
+        if (goodPos!=-1&&orderBean.getData().getItems().size()>1)
+        llContent.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollview.smoothScrollTo(0,getCurGoodY());
+            }
+        });
+
     }
+    //当前产品y坐标
+    private int getCurGoodY() {
+        int y =0;
+        for (int i=0;i<goodPos;i++){
+            y =y+ llContent.getChildAt(i*2).getMeasuredHeight();
+        }
+       return (int) (CommentUtils.dip2px(this, 15) + cdAddress.getMeasuredHeight() +3* CommentUtils.dip2px(this, 10)
+             +tvProductName.getMeasuredHeight()+(goodPos)*CommentUtils.dip2px(this, 0.5f)+ y);
+    }
+
     private String getSkus(GoodsBean.DataBean dataBeans, SkuBean.DataBean skuBean){
         StringBuffer stringBuffer =new StringBuffer();
         for (int j = 0; j < dataBeans.getSkus().length; j++) {
@@ -345,6 +366,9 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvCoupon= findViewById(R.id.tvCoupon);
         tvProductPrice= findViewById(R.id.tvProductPrice);
         tvAdminPrice= findViewById(R.id.tvAdminPrice);
+        scrollview= findViewById(R.id.scrollview);
+        cdAddress= findViewById(R.id.cdAddress);
+        tvProductName= findViewById(R.id.tvProductName);
     }
 
     @Override

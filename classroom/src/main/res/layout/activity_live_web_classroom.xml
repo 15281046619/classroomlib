@@ -5,27 +5,28 @@
     android:orientation="vertical"
     android:id="@+id/coordinator"
     xmlns:app="http://schemas.android.com/apk/res-auto"
->
+    >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/rlContent"
         android:layout_height="match_parent">
-    <com.xinwang.bgqbaselib.view.CustomToolbar
-        android:id="@+id/toolbar"
-        style="@style/ToolbarStyleClassRoom"
-        android:text="@string/live_title_ClassRoom"
-        />
+        <com.xinwang.bgqbaselib.view.CustomToolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarStyleClassRoom"
+            android:text="@string/live_title_ClassRoom"
+            />
 
-    <com.ycbjie.webviewlib.view.X5WebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar" />
-    <com.ycbjie.webviewlib.widget.WebProgress
-        android:id="@+id/progress1"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:layout_height="3dp"/>
+        <com.xinwang.bgqbaselib.view.CustomWebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar" />
+        <com.ycbjie.webviewlib.widget.WebProgress
+            android:id="@+id/progress1"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:layout_height="3dp"/>
     </RelativeLayout>
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

@@ -145,11 +145,16 @@ public class VideoWebChromeClient extends WebChromeClient {
                 X5LogUtils.i("--Video-----onHideCustomView----切换方向---");
                 Activity activity = (Activity) context;
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                FrameLayout decor = (FrameLayout) activity.getWindow().getDecorView();
+                if (decor!=null&&getVideoFullView() != null){
+                    decor.removeView(getVideoFullView());
+                }
             }
             customView.setVisibility(View.GONE);
             if (getVideoFullView() != null) {
                 X5LogUtils.i("--Video-----onHideCustomView----移除---");
                 getVideoFullView().removeView(customView);
+
             }
             customView = null;
             customViewCallback.onCustomViewHidden();

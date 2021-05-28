@@ -63,6 +63,8 @@ public final class SaveImageProcessor {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (hasExtStoragePermission(mContext)){
                     saveImage(mContext, webView);
+                }else {
+                    ToastUtils.showRoundRectToast("请设置文件权限");
                 }
             }
         });

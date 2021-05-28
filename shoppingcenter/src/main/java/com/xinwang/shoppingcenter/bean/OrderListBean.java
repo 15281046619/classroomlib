@@ -251,7 +251,7 @@ public class OrderListBean extends CommonEntity {
                 private int order_id;
                 private int sku_id;
                 private int num;
-                private String price;
+                private int price;
                 private String admin_tips;
                 private int waybill_id;
                 private int state;
@@ -302,11 +302,11 @@ public class OrderListBean extends CommonEntity {
                     this.num = num;
                 }
 
-                public String getPrice() {
+                public int getPrice() {
                     return price;
                 }
 
-                public void setPrice(String price) {
+                public void setPrice(int price) {
                     this.price = price;
                 }
 
