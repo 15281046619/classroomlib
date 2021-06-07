@@ -63,7 +63,8 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
     private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {//收到状态列表刷新
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
-            if (pay_state.equals(Constants.PAY_STATE_ALL)||(pay_state.equals("2")&&o.getPayState()==Constants.PAY_STATE_YES)||
+
+            if (pay_state.equals(Constants.PAY_STATE_ALL+"")||(pay_state.equals("2")&&o.getPayState()==Constants.PAY_STATE_YES)||
                     (pay_state.equals("4")&&o.getPayState()==Constants.PAY_STATE_REVIEW)) {//全部页面 或者 待发货页面收到付款成功 或者在待评论界面收到 评论推送
                 recyclerView.scrollToPosition(0);
                 rl_empty.setVisibility(View.VISIBLE);

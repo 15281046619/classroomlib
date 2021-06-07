@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.bumptech.glide.Glide;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
@@ -74,6 +75,8 @@ public class ReviewDetailActivity extends BaseNetActivity {
         tv_datetime.setText(TimeUtil.getYMDHMS1(mEntity.getReview_time()+""));
         if (TextUtils.isEmpty(mEntity.getReply())) {
             findViewById(R.id.llReplay).setVisibility(View.GONE);
+            tvReply.setVisibility(View.GONE);
+            tvReplyTime.setVisibility(View.GONE);
         }else {
             tvReply.setText(mEntity.getReply());
             if (mEntity.getReview_time() != 0)
@@ -86,10 +89,13 @@ public class ReviewDetailActivity extends BaseNetActivity {
         for (int i=0;i<mListPhotos.size();i++){
             ImageView imageView =new ImageView(this);
             imageView.setAdjustViewBounds(true);
-            LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            mLayoutParams.setMargins(0,0,0,CommentUtils.dip2px(this,5));
+            LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(CommentUtils.getScreenWidth(this)-CommentUtils.dip2px(this,20), LinearLayout.LayoutParams.WRAP_CONTENT);
+            mLayoutParams.setMargins(0,0,0,CommentUtils.dip2px(this,10));
             imageView.setLayoutParams(mLayoutParams);
-            GlideUtils.loadAvatar(mListPhotos.get(i),R.color.BGPressedClassRoom,imageView);
+
+           imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+           GlideUtils.loadAvatarNoCenterCrop(mListPhotos.get(i),R.color.BGPressedClassRoom,imageView);
             int finalI = i;
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override

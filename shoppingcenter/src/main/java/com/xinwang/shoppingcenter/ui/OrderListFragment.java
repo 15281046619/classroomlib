@@ -60,8 +60,9 @@ public class OrderListFragment extends BaseLazyLoadFragment {
     private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
-            if ((pay_state.equals(Constants.PAY_STATE_NO)&&(o.getPayState()==Constants.PAY_STATE_CANCEL||o.getPayState()==Constants.PAY_STATE_YES))
-                    ||(pay_state.equals(3)&&o.getPayState()==Constants.PAY_STATE_SIGN)) {//待付款页面 中 收到付款成功或者取消订单 或者在待收货界面 收到确认收货通知会刷新界面
+            if ((pay_state.equals(Constants.PAY_STATE_NO+"")&&(o.getPayState()==Constants.PAY_STATE_CANCEL
+                    ||o.getPayState()==Constants.PAY_STATE_YES))
+                    ||(pay_state.equals("3")&&o.getPayState()==Constants.PAY_STATE_SIGN)) {//待付款页面 中 收到付款成功或者取消订单 或者在待收货界面 收到确认收货通知会刷新界面
                 recyclerView.scrollToPosition(0);
                 rl_empty.setVisibility(View.VISIBLE);
                 curPage = 1;
@@ -314,7 +315,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             public void onSuccess(CommonEntity commonEntity) {
                 int orderId = mAdapter.mDatas.get(pos).getId();
                 MyToast.myToast(getActivity(),"取消成功");
-
+                BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
                 OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderId, Constants.PAY_STATE_CANCEL));//广播
             }
         });
