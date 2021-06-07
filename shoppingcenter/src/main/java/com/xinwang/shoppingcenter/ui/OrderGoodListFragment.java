@@ -209,7 +209,7 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
             mAdapter.setOnClickButtonListener(new OrderButtonListener() {
                 @Override
                 public void onCancel(int pos) {// 评价
-                    if (pay_state.equals("4")){
+                    if (pay_state.equals("4")||pay_state.equals("0")){
                         startActivity(new Intent(getActivity(),ShoppingReviewActivity.class).putExtra(
                                 "id",mAdapter.mDatas.get(pos).getId()+"")
                                 .putExtra("icon", TextUtils.isEmpty(mAdapter.mDatas.get(pos).getSku().getCover())?mAdapter.mDatas.get(pos).getGoods().getCover()

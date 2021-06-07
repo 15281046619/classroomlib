@@ -283,6 +283,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
 
                     @Override
                     public void onSuccess(CommonEntity commonEntity) {
+                        BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
                         int orderId = mAdapter.mDatas.get(pos).getId();
                         MyToast.myToast(getActivity(),"确认收货成功");
                         OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderId, Constants.PAY_STATE_SIGN));//广播

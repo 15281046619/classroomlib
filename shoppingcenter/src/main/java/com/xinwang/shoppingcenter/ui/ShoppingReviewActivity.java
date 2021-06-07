@@ -181,8 +181,10 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
             @Override
             public void onResult(List<String> list, ImagePickerDefine.MediaType mediaType, List<String> list1) {
                 if (list!=null&&list.size()>0) {
-                    mSelectPhoto = list1;
+                    mSelectPhoto = list;
                     showPicList(true);
+                }else {
+                    MyToast.myToast(ShoppingReviewActivity.this,"请选择图片");
                 }
             }
 
