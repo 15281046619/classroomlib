@@ -42,7 +42,8 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
         super(mDatas);
         this.isListPage = isListPage;
         this.activity =activity;
-        photoWith = CommentUtils.getScreenWidth(activity)-CommentUtils.dip2px(activity,40);
+
+        photoWith = CommentUtils.getScreenWidth(activity)-CommentUtils.dip2px(activity,isListPage?20:40);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
                 baseViewHolder.tv_name.setText(mEntity.getUser().getNickname());
                 GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(50, 50, mEntity.getUser().getAvatar()), R.mipmap.default_teammate_avatar_classroom, baseViewHolder.iv_avatar);
                 baseViewHolder.iv_avatar.setOnClickListener(v -> BeautyDefine.getOpenPageDefine(activity).toPersonal(mEntity.getUser().getId()));//跳转个人中心
-                String badge = mEntity.getUser().getBadge();
+
 
             }else {
                 baseViewHolder.tv_name.setText("****");
@@ -77,7 +78,7 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
             showPic(baseViewHolder.llPhoto,mEntity.getMediaList());
             if (!TextUtils.isEmpty(mEntity.getContent()))
                 baseViewHolder.tvContent.setText(mEntity.getContent());
-            baseViewHolder.tv_datetime.setText(TimeUtil.getTimeFormatText(mEntity.getReview_time()+""));
+            baseViewHolder.tv_datetime.setText(TimeUtil.getTimeFormatText(TimeUtil.getYMDHMS2(mEntity.getReview_time()+"")));
 
         }
     }
