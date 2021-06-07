@@ -32,6 +32,7 @@ import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.adapter.ShoppingOrderListAdapter;
 import com.xinwang.shoppingcenter.bean.OrderListBean;
+import com.xinwang.shoppingcenter.bean.WaybillListBean;
 import com.xinwang.shoppingcenter.interfaces.OrderButtonListener;
 import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
 
@@ -41,6 +42,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * 待付款 与待签收 列表
  * Date:2021/4/23
  * Time;9:21
  * author:baiguiqiang
@@ -58,10 +60,13 @@ public class OrderListFragment extends BaseLazyLoadFragment {
     private BeautyObserver beautyObserver =new BeautyObserver<OrderInfo>() {//收到状态列表刷新
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
-            recyclerView.scrollToPosition(0);
-            rl_empty.setVisibility(View.VISIBLE);
-            curPage=1;
-            goRequestData(Constants.LOAD_DATA_TYPE_INIT);
+            if ((pay_state.equals(Constants.PAY_STATE_NO)&&(o.getPayState()==Constants.PAY_STATE_CANCEL||o.getPayState()==Constants.PAY_STATE_YES))
+                    ||(pay_state.equals(3)&&o.getPayState()==Constants.PAY_STATE_SIGN)) {//待付款页面 中 收到付款成功或者取消订单 或者在待收货界面 收到确认收货通知会刷新界面
+                recyclerView.scrollToPosition(0);
+                rl_empty.setVisibility(View.VISIBLE);
+                curPage = 1;
+                goRequestData(Constants.LOAD_DATA_TYPE_INIT);
+            }
         }
     };
     public static OrderListFragment getInstance(String q, String pay_state){
@@ -100,7 +105,10 @@ public class OrderListFragment extends BaseLazyLoadFragment {
 
     boolean isRequesting =false;
     private void goRequestData(int loadDataTypeInit){
-        goRequestData(new HashMap<>(),loadDataTypeInit);
+        if (pay_state.equals(Constants.PAY_STATE_NO+""))
+            goRequestData(new HashMap<>(),loadDataTypeInit);
+        else
+            goRequestWaybillListData(new HashMap<>(),loadDataTypeInit);
     }
     private void goRequestData(HashMap<String, Object> stringObjectHashMap,int loadDataTypeInit) {
         if (!pay_state.equals(Constants.PAY_STATE_ALL+"")){
@@ -148,6 +156,49 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             }
         });
     }
+    private void goRequestWaybillListData(HashMap<String, Object> stringObjectHashMap,int loadDataTypeInit) {
+
+        stringObjectHashMap.put("state","1");
+        stringObjectHashMap.put("page",curPage);
+        stringObjectHashMap.put("page_num",pageNum);
+        isRequesting =true;
+        HttpUtil.cancelTag(this);
+        requestGet(HttpUrls.URL_USER_WAYBILL_LISTS(),stringObjectHashMap, WaybillListBean.class, new HttpCallBack<WaybillListBean>() {
+            @Override
+            public void onFailure(String message) {
+                if (loadDataTypeInit!= Constants.LOAD_DATA_TYPE_MORE){
+                    stopRefreshAnimation();
+                    if (loadDataTypeInit==Constants.LOAD_DATA_TYPE_INIT){
+                        requestFailureShow(message);
+                    }
+                }
+                isRequesting =false;
+                MyToast.myToast(getContext(),message);
+            }
+
+            @Override
+            public void onSuccess(WaybillListBean orderListBean) {
+                if (loadDataTypeInit!=Constants.LOAD_DATA_TYPE_MORE){ stopRefreshAnimation();
+                    mData.clear();
+                    if (loadDataTypeInit==Constants.LOAD_DATA_TYPE_INIT&&orderListBean.getData().getWaybills().size()==0){
+                        requestFailureShow(getString(R.string.no_data_ClassRoom));
+                    }else {
+                        rl_empty.setVisibility(View.GONE);
+                    }
+                }
+
+                mData.addAll(orderListBean.getData().getWaybills());
+                curPage++;
+                if(orderListBean.getData().getWaybills().size()<pageNum){
+                    initAdapter(3);
+                }else {
+                    initAdapter(1);
+                }
+                isRequesting =false;
+            }
+        });
+    }
+
 
     private void stopRefreshAnimation() {
         BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
@@ -178,21 +229,34 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             mAdapter.setOnClickButtonListener(new OrderButtonListener() {
                 @Override
                 public void onCancel(int pos) {
-                    goCancelOrder(pos);
+                    if (pay_state.equals(Constants.PAY_STATE_NO + ""))
+                        goCancelOrder(pos);
+                    else{// 查看物流
+                        startActivity(WaybillDetailActivity.getInstance(getActivity(),mAdapter.mDatas.get(pos).getItems().get(0).getWaybill_id(),0));
+                    }
+
                 }
 
                 @Override
                 public void onPay(String title,int pos) {
-                      BeautyDefine.getCashierDeskDefine((AppCompatActivity) getActivity()).
-                              jumpCashierPage(mAdapter.mDatas.get(pos).getPrice()>0?
-                                              CountUtil.changeF2Y(mAdapter.mDatas.get(pos).getPrice()):"0",
-                            title,mAdapter.mDatas.get(pos).getId()+"",null);
+                    if (pay_state.equals(Constants.PAY_STATE_NO+"")) {
+                        BeautyDefine.getCashierDeskDefine((AppCompatActivity) getActivity()).
+                                jumpCashierPage(mAdapter.mDatas.get(pos).getPrice() > 0 ?
+                                                CountUtil.changeF2Y(mAdapter.mDatas.get(pos).getPrice()) : "0",
+                                        title, mAdapter.mDatas.get(pos).getId() + "", null);
+                    }else {
+                        requestSign(pos);
+                    }
                 }
             });
             mAdapter.setOnItemClickListener(new BaseLoadMoreAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    startActivity(new Intent(getActivity(),OrderDetailActivity.class).putExtra("id",mAdapter.mDatas.get(position).getId()+""));
+                    if (pay_state.equals(Constants.PAY_STATE_NO+""))
+                        startActivity(new Intent(getActivity(),OrderDetailActivity.class).putExtra("id",mAdapter.mDatas.get(position).getId()+""));
+                    else
+                        startActivity(WaybillDetailActivity.getInstance(getActivity(),mAdapter.mDatas.get(position).getItems().get(0).getWaybill_id(),0));
+
                 }
             });
             mAdapter.setLoadStateNoNotify(state);
@@ -203,7 +267,30 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             mAdapter.notifyDataSetChanged();
         }
     }
+    private void requestSign(int pos){
+        CenterDefineDialog.getInstance("确认收货嘛？").setCallback(new CenterDefineDialog.Callback1<Integer>() {
+            @Override
+            public void run(Integer integer) {
 
+
+                BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
+                requestPost(HttpUrls.URL_WAYBILL_SIGN(), new ApiParams().with("id", mAdapter.mDatas.get(pos).getId()+""), CommonEntity.class, new HttpCallBack<CommonEntity>() {
+                    @Override
+                    public void onFailure(String message) {
+                        MyToast.myToast(getActivity(),message);
+                        BeautyDefine.getOpenPageDefine(getActivity()).progressControl(new OpenPageDefine.ProgressController.Hider());
+                    }
+
+                    @Override
+                    public void onSuccess(CommonEntity commonEntity) {
+                        int orderId = mAdapter.mDatas.get(pos).getId();
+                        MyToast.myToast(getActivity(),"确认收货成功");
+                        OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderId, Constants.PAY_STATE_SIGN));//广播
+                    }
+                });
+            }
+        }).showDialog(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+    }
 
     private void goCancelOrder(int pos){
         CenterDefineDialog.getInstance("确认取消该订单嘛？").setCallback(new CenterDefineDialog.Callback1<Integer>() {
@@ -226,16 +313,6 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             public void onSuccess(CommonEntity commonEntity) {
                 int orderId = mAdapter.mDatas.get(pos).getId();
                 MyToast.myToast(getActivity(),"取消成功");
-               /* if (pay_state.equals(Constants.PAY_STATE_ALL+"")){//全部
-                    OrderListBean.DataBean.OrdersBean mBean = mAdapter.mDatas.get(pos);
-                    mBean.setCancel_state(2);
-                    mAdapter.mDatas.set(pos,mBean);
-                    mAdapter.notifyDataSetChanged();
-                }else if (pay_state.equals(Constants.PAY_STATE_NO+"")) {
-
-                    mAdapter.mDatas.remove(pos);
-                    mAdapter.notifyDataSetChanged();
-                }*/
 
                 OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderId, Constants.PAY_STATE_CANCEL));//广播
             }

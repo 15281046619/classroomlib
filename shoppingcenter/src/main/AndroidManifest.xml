@@ -53,7 +53,7 @@
             android:theme="@style/AppThemeClassRoom">
         </activity>
         <activity android:name=".ui.OrderListActivity"
-            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:exported="true"
@@ -72,11 +72,40 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
+
             android:hardwareAccelerated="true"
             android:theme="@style/AppThemeClassRoom">
+         <!--   <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="classroom"
+                    android:host="${applicationId}.dddetail" />
+            </intent-filter>-->
         </activity>
 
         <activity android:name=".ui.WaybillDetailActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
+        <activity android:name=".ui.ShoppingReviewActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
+        <activity android:name=".ui.ReviewDetailActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
+        <activity android:name=".ui.ReviewListActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"

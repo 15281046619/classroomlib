@@ -44,7 +44,10 @@ public class ShoppingOrderListAdapter extends BaseLoadMoreAdapter<OrderListBean.
             BaseViewHolder baseViewHolder = (BaseViewHolder) viewHolder;
             GlideUtils.loadAvatar(TextUtils.isEmpty(mDatas.get(i).getItems().get(0).getSku().getCover())?mDatas.get(i).getItems().get(0).getGoods().getCover()
                     :mDatas.get(i).getItems().get(0).getSku().getCover(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
-            baseViewHolder.tvTime.setText(TimeUtil.getYMDHMS1(mDatas.get(i).getCreate_time()+""));
+            if (mDatas.get(i).getCreate_time()==0){
+                baseViewHolder.tvTime.setText("");
+            }else
+                baseViewHolder.tvTime.setText(TimeUtil.getYMDHMS1(mDatas.get(i).getCreate_time()+""));
             if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_NO&&mDatas.get(i).getCancel_state()==1){//未支付并且未取消
                 baseViewHolder.tvState.setText("已下单");
                 baseViewHolder.btCancel.setVisibility(View.VISIBLE);
@@ -63,13 +66,29 @@ public class ShoppingOrderListAdapter extends BaseLoadMoreAdapter<OrderListBean.
                             orderButtonListener.onPay(baseViewHolder.tvTitle.getText().toString(),i);
                     }
                 });
-            }else if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_YES){
-                baseViewHolder.tvState.setText("已支付");
-                baseViewHolder.btCancel.setVisibility(View.GONE);
-                baseViewHolder.btPay.setVisibility(View.GONE);
+            }else if (!TextUtils.isEmpty(mDatas.get(i).getWaybill_no())){
+                baseViewHolder.tvState.setText("已发货");
+                baseViewHolder.btCancel.setVisibility(View.VISIBLE);
+                baseViewHolder.btPay.setVisibility(View.VISIBLE);
+                baseViewHolder.btCancel.setText("查看物流");
+                baseViewHolder.btPay.setText("确认收货");
+                baseViewHolder.btCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (orderButtonListener!=null)
+                            orderButtonListener.onCancel(i);
+                    }
+                });
+                baseViewHolder.btPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (orderButtonListener!=null)
+                            orderButtonListener.onPay(baseViewHolder.tvTitle.getText().toString(),i);
+                    }
+                });
             }else {
                 if (mDatas.get(i).getCancel_state()==2)
-                  baseViewHolder.tvState.setText("已取消");
+                    baseViewHolder.tvState.setText("已取消");
                 else if(mDatas.get(i).getCancel_state()==3)
                     baseViewHolder.tvState.setText("取消中");
                 baseViewHolder.btCancel.setVisibility(View.GONE);
@@ -79,9 +98,11 @@ public class ShoppingOrderListAdapter extends BaseLoadMoreAdapter<OrderListBean.
 
 
             int sum=0;
+            int price=0;
             StringBuffer title=new StringBuffer();
             for(int j=0;j<mDatas.get(i).getItems().size();j++){
                 sum+=mDatas.get(i).getItems().get(j).getNum();
+                price+=mDatas.get(i).getItems().get(j).getNum()*mDatas.get(i).getItems().get(j).getPrice();
                 if (j==0){
                     title.append(mDatas.get(i).getItems().get(j).getGoods().getTitle());
                 }else {
@@ -97,6 +118,9 @@ public class ShoppingOrderListAdapter extends BaseLoadMoreAdapter<OrderListBean.
 
             }
             baseViewHolder.tvTitle.setText(title+" 共"+sum+"件商品");
+            if (mDatas.get(i).getPrice()==0){
+                mDatas.get(i).setPrice(price);
+            }
             baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.changeF2Y(mDatas.get(i).getPrice())));
         }
     }
@@ -111,7 +135,7 @@ public class ShoppingOrderListAdapter extends BaseLoadMoreAdapter<OrderListBean.
     class BaseViewHolder extends RecyclerView.ViewHolder {
         ImageView icCove;
 
-        TextView tvTitle,tvPrice,tvState,tvTime;
+        TextView tvTitle,tvPrice,tvState,tvTime,tvPriceName;
         TextView btPay,btCancel;
         BaseViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -122,6 +146,7 @@ public class ShoppingOrderListAdapter extends BaseLoadMoreAdapter<OrderListBean.
             tvState = itemView.findViewById(R.id.tvState);
             btPay = itemView.findViewById(R.id.btPay);
             btCancel = itemView.findViewById(R.id.btCancel);
+            tvPriceName = itemView.findViewById(R.id.tvPriceName);
         }
     }
     @Override

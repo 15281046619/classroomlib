@@ -214,65 +214,245 @@
                             android:padding="@dimen/dp_10_classroom"
                             />
                     </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginLeft="@dimen/dp_10_classroom"
-                        android:background="@color/LineClassRoom"/>
-                    <LinearLayout
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:id="@+id/llAdminPrice"
                         android:layout_height="wrap_content">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:id="@+id/viewAdminPrice"
+                            android:layout_marginLeft="@dimen/dp_10_classroom"
+                            android:background="@color/LineClassRoom"/>
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="减免费用"
+                            android:layout_below="@+id/viewAdminPrice"
                             android:textSize="@dimen/sp_14_classroom"
                             android:paddingTop="@dimen/dp_10_classroom"
                             android:paddingBottom="@dimen/dp_10_classroom"
+                            android:id="@+id/tvAdminPriceName"
                             android:layout_marginLeft="@dimen/dp_10_classroom"
                             android:gravity="right|center_vertical"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
+                            android:layout_below="@+id/viewAdminPrice"
                             android:id="@+id/tvAdminPrice"
                             android:gravity="right|center_vertical"
                             android:singleLine="true"
+                            android:layout_toRightOf="@+id/tvAdminPriceName"
                             android:textColor="@color/themeClassRoom"
                             android:textSize="@dimen/sp_14_classroom"
                             android:padding="@dimen/dp_10_classroom"
                             />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:id="@+id/viewLine1"
-                        android:layout_marginLeft="@dimen/dp_10_classroom"
-                        android:background="@color/LineClassRoom"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
+
+
+                    </RelativeLayout>
+
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                app:cardCornerRadius="@dimen/dp_5_classroom"
+                app:cardMaxElevation="0dp"
+                app:cardBackgroundColor="@android:color/white"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardUseCompatPadding="true"
+                android:layout_marginTop="@dimen/dp_10_classroom"
+                app:cardPreventCornerOverlap="false"
+                android:animateLayoutChanges="true"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:animateLayoutChanges="true"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:layout_width="100dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="订单备注"
-                            android:textSize="@dimen/sp_14_classroom"
-                            android:paddingTop="13dp"
-                            android:paddingBottom="13dp"
-                            android:layout_marginLeft="@dimen/dp_10_classroom"
-                            android:gravity="right"/>
-                        <TextView
+                            android:id="@+id/tvProductInfor"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/dp_10_classroom"
+                            android:text="订单信息"/>
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvMore"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/dp_10_classroom"
+                            android:layout_alignParentRight="true"
+                            android:textSize="14sp"
+                            android:button="@null"
+                            android:drawableRight="@drawable/select_order_detail_more_shoppingcenter"
+                            android:text="查看更多"/>
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/llInformation"
+                        android:visibility="gone"
+
+                        android:orientation="vertical">
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:id="@+id/etRemarks"
-                            android:textColor="@color/GrayClassRoom"
-                            android:textSize="@dimen/sp_14_classroom"
-                            android:padding="13dp"
-                            android:gravity="right"/>
+                            android:orientation="horizontal"
+                            android:id="@+id/rlOrderNo"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:id="@+id/viewOrderNo"
+                                android:layout_marginLeft="@dimen/dp_10_classroom"
+                                android:background="@color/LineClassRoom"/>
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="订单编号"
+                                android:textSize="@dimen/sp_14_classroom"
+                                android:paddingTop="@dimen/dp_10_classroom"
+                                android:paddingBottom="@dimen/dp_10_classroom"
+                                android:id="@+id/tvOrderNoName"
+                                android:layout_below="@+id/viewOrderNo"
+                                android:layout_marginLeft="@dimen/dp_10_classroom"
+                                android:gravity="right|center_vertical"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:id="@+id/tvOrderNo"
+                                android:gravity="right|center_vertical"
+                                android:layout_below="@+id/viewOrderNo"
+                                android:singleLine="true"
+                                android:focusableInTouchMode="true"
+                                android:focusable="true"
+                                android:ellipsize="marquee"
+                                android:layout_toRightOf="@+id/tvOrderNoName"
+                                android:textSize="@dimen/sp_14_classroom"
+                                android:padding="@dimen/dp_10_classroom"
+                                />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:id="@+id/rlCreateTime"
+                            android:paddingLeft="@dimen/dp_10_classroom"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:id="@+id/viewCreateTime"
+                                android:layout_marginLeft="@dimen/dp_10_classroom"
+                                android:background="@color/LineClassRoom"/>
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="创建时间"
+                                android:textSize="@dimen/sp_14_classroom"
+                                android:paddingTop="@dimen/dp_10_classroom"
+                                android:paddingBottom="@dimen/dp_10_classroom"
+                                android:id="@+id/tvCreateTimeName"
+                                android:layout_below="@+id/viewCreateTime"
+                                android:layout_marginLeft="@dimen/dp_10_classroom"
+                                android:gravity="right|center_vertical"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:id="@+id/tvCreateTime"
+                                android:layout_below="@+id/viewCreateTime"
+                                android:gravity="right|center_vertical"
+                                android:singleLine="true"
+                                android:layout_toRightOf="@+id/tvCreateTimeName"
+
+                                android:textSize="@dimen/sp_14_classroom"
+                                android:padding="@dimen/dp_10_classroom"
+                                />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:id="@+id/rlPayTime"
+                            android:paddingLeft="@dimen/dp_10_classroom"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:id="@+id/viewPayTime"
+                                android:layout_marginLeft="@dimen/dp_10_classroom"
+                                android:background="@color/LineClassRoom"/>
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="支付时间"
+                                android:textSize="@dimen/sp_14_classroom"
+                                android:paddingTop="@dimen/dp_10_classroom"
+                                android:paddingBottom="@dimen/dp_10_classroom"
+                                android:id="@+id/tvPayTimeName"
+                                android:layout_below="@+id/viewPayTime"
+                                android:layout_marginLeft="@dimen/dp_10_classroom"
+                                android:gravity="right|center_vertical"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:id="@+id/tvPayTime"
+                                android:layout_below="@+id/viewPayTime"
+                                android:gravity="right|center_vertical"
+                                android:singleLine="true"
+                                android:layout_toRightOf="@+id/tvPayTimeName"
+
+                                android:textSize="@dimen/sp_14_classroom"
+                                android:padding="@dimen/dp_10_classroom"
+                                />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:id="@+id/rlRemarks"
+                            android:paddingLeft="@dimen/dp_10_classroom"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:id="@+id/viewLine1"
+
+                                android:layout_marginLeft="@dimen/dp_10_classroom"
+                                android:background="@color/LineClassRoom"/>
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="订单备注"
+                                android:textSize="@dimen/sp_14_classroom"
+                                android:paddingTop="@dimen/dp_10_classroom"
+                                android:layout_below="@+id/viewLine1"
+                                android:id="@+id/tvRemarksName"
+                                android:paddingBottom="@dimen/dp_10_classroom"
+                                android:layout_marginLeft="@dimen/dp_10_classroom"
+                                android:gravity="right"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:id="@+id/etRemarks"
+                                android:layout_below="@+id/viewLine1"
+                                android:layout_toRightOf="@+id/tvRemarksName"
+
+                                android:textSize="@dimen/sp_14_classroom"
+                                android:padding="@dimen/dp_10_classroom"
+                                android:gravity="right"/>
+                        </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>

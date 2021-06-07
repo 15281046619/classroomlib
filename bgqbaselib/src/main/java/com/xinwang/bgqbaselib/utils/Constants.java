@@ -31,6 +31,8 @@ public class Constants {
     public final static int PAY_STATE_NO =1; //支付状态未支付
     public final static int PAY_STATE_YES =2;//支付状态已支付
     public final static int PAY_STATE_CANCEL =3;//取消订单
+    public final static int PAY_STATE_SIGN =4;//确认收货
+    public final static int PAY_STATE_REVIEW=5;//评价订单
     public static void init(Context context){
         APP_DBG = isApkDebugable(context);
     }

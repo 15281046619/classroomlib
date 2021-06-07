@@ -36,7 +36,7 @@ public class OrderListActivity extends BaseNetActivity {
     private List<Fragment> mFragments;
     @Override
     protected int layoutResId() {
-        return R.layout.activity_order_list;
+        return R.layout.activity_order_list_shoppingcenter;
     }
 
     @Override
@@ -107,7 +107,7 @@ public class OrderListActivity extends BaseNetActivity {
             if (!TextUtils.isEmpty(type)&& (i+"").equals(type)&&initPos==0){
                 initPos =i;
             }
-            if (i==1)
+            if (i==1||i==3)
                 mFragments.add(OrderListFragment.getInstance("",i+""));
             else
                 mFragments.add(OrderGoodListFragment.getInstance("",i+""));

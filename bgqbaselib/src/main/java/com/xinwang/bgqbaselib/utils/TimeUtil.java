@@ -68,6 +68,14 @@ public class TimeUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return sdf.format(date);
     }
+
+    public static final String getYMDHMS2(String s) {
+        if (TextUtils.isEmpty(s))
+            return "";
+        Date date = new Date(Long.parseLong(s) * 1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
+    }
     /**
      *
      * @param mTime yyyy-MM-dd HH:mm:ss这种格式

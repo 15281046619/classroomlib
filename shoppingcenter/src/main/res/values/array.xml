@@ -44,6 +44,7 @@
         <item>待付款</item>
         <item>待发货</item>
         <item>待收货</item>
+        <item>待评价</item>
     </string-array>
 
 

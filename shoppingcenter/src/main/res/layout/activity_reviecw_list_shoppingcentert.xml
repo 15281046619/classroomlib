@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BGClassRoom"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.xinwang.bgqbaselib.view.CustomToolbar
+        android:id="@+id/toolbar"
+        app:layout_collapseMode="pin"
+        android:text="商品评价"
+        app:layout_scrollFlags="scroll|enterAlways"
+        style="@style/ToolbarStyleClassRoom"
+        />
+    <include
+        layout="@layout/layout_empty_classroom"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
+    <com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_height="0dp"
+
+        android:layout_weight="1">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"/>
+    </com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout>
+
+</LinearLayout>

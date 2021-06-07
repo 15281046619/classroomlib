@@ -35,6 +35,7 @@ import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
+import com.xinwang.bgqbaselib.utils.TimeUtil;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
@@ -50,8 +51,9 @@ import com.xinwang.shoppingcenter.bean.SkuBean;
  * author:baiguiqiang
  */
 public class OrderDetailActivity extends BaseNetActivity {
-    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvPay,tvCancel,tvExpress,tvCoupon,tvProductPrice,tvAdminPrice,tvProductName;
-    private LinearLayout llContent;
+    private TextView tvAddress,tvPhone,tvName,tvPrice,etRemarks,tvMore,
+            tvPay,tvCancel,tvExpress,tvCoupon,tvProductPrice,tvAdminPrice,tvProductName,tvPayTime,tvCreateTime,tvOrderNo;
+    private LinearLayout llContent,llInformation;
     private OrderBean orderBean;
     private int totalPrice=0;
     private NestedScrollView scrollview;
@@ -101,7 +103,29 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvAddress.setText(orderBean.getData().getAddress());
         tvName.setText(orderBean.getData().getNickname());
         tvPhone.setText(orderBean.getData().getTel());
-        etRemarks.setText(orderBean.getData().getTips());
+        if (TextUtils.isEmpty(orderBean.getData().getTips())) {
+            findViewById(R.id.rlRemarks).setVisibility(View.GONE);
+
+        }else {
+            etRemarks.setText(orderBean.getData().getTips());
+        }
+        if (orderBean.getData().getCreate_time()==0){
+            findViewById(R.id.rlCreateTime).setVisibility(View.GONE);
+        }else {
+            tvCreateTime.setText(TimeUtil.getYMDHMS2(orderBean.getData().getCreate_time()+""));
+        }
+        if (orderBean.getData().getPay_time()==0){
+            findViewById(R.id.rlPayTime).setVisibility(View.GONE);
+        }else {
+            tvPayTime.setText(TimeUtil.getYMDHMS2(orderBean.getData().getPay_time()+""));
+        }
+        if (TextUtils.isEmpty(orderBean.getData().getOrder_no())){
+            findViewById(R.id.rlOrderNo).setVisibility(View.GONE);
+        }else {
+            tvOrderNo.setText(orderBean.getData().getOrder_no());
+            tvOrderNo.requestFocus();
+            tvOrderNo.setSelected(true);
+        }
         if (orderBean.getData().getPost_price()==0){
             tvExpress.setTextColor(ContextCompat.getColor(this,R.color.textColorClassRoom));
             tvExpress.setText("+0");
@@ -129,33 +153,60 @@ public class OrderDetailActivity extends BaseNetActivity {
                     goCancelOrder();
                 }
             });
-        }else if (goodPos!=-1&&orderBean.getData().getItems().get(goodPos).getWaybill_id()!=0) {
+        }else if (goodPos!=-1&& orderBean.getData().getItems().get(goodPos).getPay_state()== Constants.PAY_STATE_YES
+                &&orderBean.getData().getItems().get(goodPos).getWaybill_state()==2
+                &&orderBean.getData().getItems().get(goodPos).getRefund_state()==1&&
+                orderBean.getData().getItems().get(goodPos).getReview_state()==1) {
             tvPay.setText("查看物流");
             tvPay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(OrderDetailActivity.this,WaybillDetailActivity.class).putExtra("id",orderBean.getData().getItems().get(goodPos).getWaybill_id()));
+                    startActivity(
+                            WaybillDetailActivity.getInstance(OrderDetailActivity.this,orderBean.getData().getItems().get(goodPos).getWaybill_id(),
+                                    orderBean.getData().getItems().get(goodPos).getId()));
+
                 }
             });
             tvCancel.setVisibility(View.GONE);
+        }else if (goodPos!=-1&& orderBean.getData().getItems().get(goodPos).getPay_state()== Constants.PAY_STATE_YES
+                &&orderBean.getData().getItems().get(goodPos).getWaybill_state()==3
+                &&orderBean.getData().getItems().get(goodPos).getRefund_state()==1&&
+                orderBean.getData().getItems().get(goodPos).getReview_state()==1){//
+            tvPay.setText("查看物流");
+            tvPay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(
+                            WaybillDetailActivity.getInstance(OrderDetailActivity.this,orderBean.getData().getItems().get(goodPos).getWaybill_id(),
+                                    orderBean.getData().getItems().get(goodPos).getId()));
+
+                }
+            });
+            tvCancel.setText("评价");
+            tvCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(OrderDetailActivity.this,ShoppingReviewActivity.class).putExtra(
+                            "id",orderBean.getData().getItems().get(goodPos).getId()+"")
+                            .putExtra("icon", TextUtils.isEmpty(orderBean.getData().getItems().get(goodPos).getSku().getCover())?orderBean.getData().getItems().get(goodPos).getGoods().getCover()
+                                    :orderBean.getData().getItems().get(goodPos).getSku().getCover()).putExtra("title",orderBean.getData().getItems().get(goodPos).getGoods().getTitle())
+                            .putExtra("orderId",orderBean.getData().getItems().get(goodPos).getOrder_id()));
+                }
+            });
         }else {
             tvPay.setVisibility(View.GONE);
             tvCancel.setVisibility(View.GONE);
         }
 
-        //  if (goodId==null) {
+
         initPrice(orderBean.getData().getPrice());
         if (orderBean.getData().getReduction_price()!=0){
             tvAdminPrice.setText("-"+CountUtil.changeF2Y(orderBean.getData().getReduction_price()));
             findViewById(R.id.llAdminPrice).setVisibility(View.VISIBLE);
-            findViewById(R.id.viewLine1).setVisibility(View.VISIBLE);
         }else {
             findViewById(R.id.llAdminPrice).setVisibility(View.GONE);
-            findViewById(R.id.viewLine1).setVisibility(View.GONE);
         }
-       /* }else {
-            initPrice(goodPrice);
-        }*/
+
     }
     private String getCouponPrice(){
         int price=0;
@@ -340,6 +391,19 @@ public class OrderDetailActivity extends BaseNetActivity {
     }
     private void initListener() {
         ((CustomToolbar)findViewById(R.id.toolbar)).setNavigationOnClickListener(v -> finish());
+        tvMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (llInformation.getVisibility() ==View.GONE){
+                    llInformation.setVisibility(View.VISIBLE);
+                    tvMore.setSelected(true);
+                    tvOrderNo.requestFocus();
+                }else {
+                    llInformation.setVisibility(View.GONE);
+                    tvMore.setSelected(false);
+                }
+            }
+        });
     }
     private void requestFailureShow(String error){
         TextView tvMsg = findViewById(R.id.tv_msg);
@@ -363,12 +427,17 @@ public class OrderDetailActivity extends BaseNetActivity {
         tvCancel= findViewById(R.id.tvCancel);
         tvPay= findViewById(R.id.tvPay);
         tvExpress= findViewById(R.id.tvExpress);
+        tvOrderNo= findViewById(R.id.tvOrderNo);
+        tvCreateTime= findViewById(R.id.tvCreateTime);
+        tvPayTime= findViewById(R.id.tvPayTime);
         tvCoupon= findViewById(R.id.tvCoupon);
         tvProductPrice= findViewById(R.id.tvProductPrice);
         tvAdminPrice= findViewById(R.id.tvAdminPrice);
         scrollview= findViewById(R.id.scrollview);
         cdAddress= findViewById(R.id.cdAddress);
         tvProductName= findViewById(R.id.tvProductName);
+        llInformation= findViewById(R.id.llInformation);
+        tvMore= findViewById(R.id.tvMore);
     }
 
     @Override

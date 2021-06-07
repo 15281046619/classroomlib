@@ -1,6 +1,5 @@
 package com.xinwang.shoppingcenter.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -11,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.ShareResultCallBack;
+import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.CommonEntity;
@@ -42,19 +43,23 @@ import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.bgqbaselib.view.CustomWebView;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
+import com.xinwang.shoppingcenter.adapter.ShoppingReviewAdapter;
 import com.xinwang.shoppingcenter.bean.CategoryBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.bean.GoodsDetailBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.bean.PicBean;
+import com.xinwang.shoppingcenter.bean.ReviewListBean;
 import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.dialog.BottomSkuDialog;
 import com.xinwang.shoppingcenter.interfaces.OnClickOkListener;
+import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,13 +72,15 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     private ViewPager viewPager;
     private CustomToolbar toolbar;
     private RelativeLayout rlViewPager;
-    private TextView tvSum,tvTitle,tvPrice,tvNumber;
+    private TextView tvSum,tvTitle,tvPrice,tvNumber,tvDes;
     private LinearLayout llContent;
+    private RecyclerView rcvReview;
     private int mId;
     private GoodsBean.DataBean mDate;
     private CategoryBean categoryData;
     private CustomWebView webView;
     private List<Sku> skuList =new ArrayList<>();
+    private List<ReviewListBean.DataBean> mReviewList =new ArrayList<>();
     private PagerAdapter mAdapter = new PagerAdapter() {
 
         @Override
@@ -195,6 +202,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         findViewById(R.id.llShopping).setOnClickListener(v ->startActivity(new Intent(this,ShoppingCenterActivity.class)));//跳转购物车
         findViewById(R.id.tvAdd).setOnClickListener(v -> showSkuDialog(0));//加入购物车
         findViewById(R.id.ivShare).setOnClickListener(v -> goShape(v));
+        findViewById(R.id.tvAllReview).setOnClickListener(v -> startActivity(new Intent(ShoppingDetailActivity.this,ReviewListActivity.class)
+        .putExtra("id",mId+"").putExtra("data", (Serializable) mReviewList)));
     }
 
     /**
@@ -254,12 +263,36 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             rlViewPager.getLayoutParams().height = CommentUtils.getScreenWidth(this);
         }
 
+        if (mReviewList.size()>0){
+            rcvReview.setLayoutManager(new WrapContentLinearLayoutManager(this));
+            tvDes.setText("商品评价（"+mDate.getReview_count()+"）");
+            List<ReviewListBean.DataBean> mDatas =new ArrayList<>();
+            mDatas.add(mReviewList.get(0));
+            if (mReviewList.size()>1){
+                mDatas.add(mReviewList.get(1));
+            }
+
+            ShoppingReviewAdapter mAdapter = new ShoppingReviewAdapter(this,mDatas,false);
+            mAdapter.setOnItemClickListener(new BaseLoadMoreAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    startActivity(new Intent(ShoppingDetailActivity.this,ReviewDetailActivity.class).putExtra("data",mAdapter.mDatas.get(position)));
+                }
+            });
+            mAdapter.setLoadState(2);
+            rcvReview.setAdapter(mAdapter);
+            findViewById(R.id.rlReview).setVisibility(View.VISIBLE);
+        }
+
+
         rlViewPager.post(new Runnable() {
             @Override
             public void run() {
                 findViewById(R.id.rl_empty).setVisibility(View.GONE);
             }
         });
+
+
     }
 
     private void showNameValue() {
@@ -387,6 +420,25 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             @Override
             public void onSuccess(CategoryBean categoryBean) {
                 categoryData = categoryBean;
+                getReviewList();
+            }
+        });
+    }
+
+    private void  getReviewList(){
+        requestGet(HttpUrls.URL_GOODS_REVIEW_LISTS(),new ApiParams().with("goods_id",mId).with("page","1").with("page_num",10), ReviewListBean.class, new HttpCallBack<ReviewListBean>() {
+
+            @Override
+            public void onFailure(String message) {
+                requestFailureShow(message);
+                MyToast.myToast(getApplicationContext(),message);
+            }
+
+            @Override
+            public void onSuccess(ReviewListBean categoryBean) {
+                if (categoryBean.getData()!=null&&categoryBean.getData().size()>0){
+                    mReviewList =categoryBean.getData();
+                }
                 requestSkuData();
             }
         });
@@ -400,13 +452,13 @@ public class ShoppingDetailActivity extends BaseNetActivity {
 
             @Override
             public void onFailure(String message) {
+                requestFailureShow(message);
+                MyToast.myToast(getApplicationContext(),message);
             }
 
             @Override
             public void onSuccess(SkuBean skuBean) {
-
                 requestDetail(skuBean);
-                //  showSkuDialog(ShoppingCenterLibUtils.skuToBean(skuBean.getData(),mData.get(pos)));
             }
         });
     }
@@ -461,6 +513,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         tvNumber =findViewById(R.id.tvNumber);
         webView = findViewById(R.id.webview);
         tvPrice = findViewById(R.id.tvPrice);
+        tvDes = findViewById(R.id.tvDes);
+        rcvReview = findViewById(R.id.rcvReview);
     }
 
     /**

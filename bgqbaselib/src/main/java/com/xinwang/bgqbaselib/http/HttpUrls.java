@@ -77,6 +77,20 @@ public class HttpUrls {
     public static final String URL_ORDER_CANCEL(){
       return  URL_HOST+URL_NAME+"goods/user/order/cancel";
     }
+    /**
+     * 评论
+     * @return
+     */
+    public static final String URL_REVIEW_LISTS(){
+      return  URL_HOST+URL_NAME+"goods/user/review/create";
+    }
+    /**
+     * 签收
+     * @return
+     */
+    public static final String URL_WAYBILL_SIGN(){
+      return  URL_HOST+URL_NAME+"goods/user/waybill/sign";
+    }
     public static final String URL_ORDER_GET_PAY(){
       return  URL_HOST+URL_NAME+"goods/user/order/get-pay-param";
     }
@@ -115,6 +129,14 @@ public class HttpUrls {
     }
 
     /**
+     * 商品评论列表
+     * @return
+     */
+    public static final String URL_GOODS_REVIEW_LISTS(){
+      return  URL_HOST+URL_NAME+"goods/home/review/lists";
+    }
+
+    /**
      * 获取技术老师信息
      * @return
      */
@@ -134,6 +156,13 @@ public class HttpUrls {
      */
     public static final String URL_USER_ORDER_LISTS(){
       return  URL_HOST+URL_NAME+"goods/user/order/lists";
+    }
+    /**
+     *物流列表
+     * @return
+     */
+    public static final String URL_USER_WAYBILL_LISTS(){
+      return  URL_HOST+URL_NAME+"goods/user/waybill/lists";
     }
     /**
      *订单商品列表

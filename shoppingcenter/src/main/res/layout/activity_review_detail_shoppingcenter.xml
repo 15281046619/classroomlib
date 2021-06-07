@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BGClassRoom">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+        <com.xinwang.bgqbaselib.view.CustomToolbar
+            android:id="@+id/toolbar"
+            app:layout_collapseMode="pin"
+            android:text="评价详情"
+            app:layout_scrollFlags="scroll|enterAlways"
+            style="@style/ToolbarStyleClassRoom">
+        </com.xinwang.bgqbaselib.view.CustomToolbar>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:background="@android:color/white"
+            android:id="@+id/rl_gov"
+            android:padding="10dp" >
+            <com.xinwang.shoppingcenter.view.CircularImage
+                android:id="@+id/iv_avatar"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/default_teammate_avatar_classroom"
+                style="@style/chatAvatarClassRoom"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@+id/ll_vip"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@+id/iv_avatar"
+                >
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="加载中"
+                    android:includeFontPadding="false"
+                    android:layout_marginRight="5dp"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/llStart"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/ll_vip"
+                android:layout_alignTop="@+id/ll_vip"
+                android:layout_alignBottom="@+id/ll_vip"
+                android:orientation="horizontal">
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/GrayClassRoom"
+                android:id="@+id/tv_datetime"
+                android:text="加载中"
+
+                android:includeFontPadding="false"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="3dp"
+                android:layout_toRightOf="@+id/iv_avatar"
+                />
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10_classroom"
+            android:layout_marginRight="@dimen/dp_10_classroom"
+            android:layout_marginTop="@dimen/dp_10_classroom"
+            android:layout_marginBottom="@dimen/dp_5_classroom"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:lineSpacingExtra="5dp"
+                android:text="加载中"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/white"
+                android:id="@+id/llPhoto">
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center_vertical"
+            android:background="@android:color/white"
+            android:padding="10dp"
+            android:id="@+id/llReplay"
+
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@mipmap/ic_pl_classroom"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+
+                android:text="官方回复"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:id="@+id/tvReply"
+            android:textColor="@android:color/black"
+            android:textSize="13sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+
+            android:id="@+id/tvReplyTime"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/GrayClassRoom"/>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

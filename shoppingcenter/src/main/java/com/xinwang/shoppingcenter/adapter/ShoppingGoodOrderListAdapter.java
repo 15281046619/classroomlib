@@ -40,16 +40,17 @@ public class ShoppingGoodOrderListAdapter extends BaseLoadMoreAdapter<OrderListB
             BaseViewHolder baseViewHolder = (BaseViewHolder) viewHolder;
             GlideUtils.loadAvatar(TextUtils.isEmpty(mDatas.get(i).getSku().getCover())?mDatas.get(i).getGoods().getCover()
                     :mDatas.get(i).getSku().getCover(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
-            if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_YES&&mDatas.get(i).getWaybill_id()==0
+            if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_YES&&mDatas.get(i).getWaybill_state()==1
                     &&mDatas.get(i).getRefund_state()==1&&mDatas.get(i).getReview_state()==1){//已付款未发货
                 baseViewHolder.tvState.setText("已付款");
                 baseViewHolder.btCancel.setVisibility(View.GONE);
                 baseViewHolder.btPay.setVisibility(View.GONE);
 
-            }else if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_YES&&mDatas.get(i).getWaybill_id()!=0
+            }else if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_YES&&mDatas.get(i).getWaybill_state()==2
                     &&mDatas.get(i).getRefund_state()==1&&mDatas.get(i).getReview_state()==1){
                 baseViewHolder.tvState.setText("已发货");
                 baseViewHolder.btCancel.setVisibility(View.GONE);
+
                 baseViewHolder.btPay.setVisibility(View.VISIBLE);
                 baseViewHolder.btPay.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -60,7 +61,43 @@ public class ShoppingGoodOrderListAdapter extends BaseLoadMoreAdapter<OrderListB
                     }
                 });
 
+            }else if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_YES&&mDatas.get(i).getWaybill_state()==3
+                    &&mDatas.get(i).getRefund_state()==1&&mDatas.get(i).getReview_state()==1){//未评价
+                baseViewHolder.tvState.setText("已签收");
+                baseViewHolder.btPay.setVisibility(View.VISIBLE);
+                baseViewHolder.btCancel.setVisibility(View.VISIBLE);
+                baseViewHolder.btPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (orderButtonListener!=null){
+                            orderButtonListener.onPay(baseViewHolder.tvState.getText().toString(),i);
+                        }
+                    }
+                });
+                baseViewHolder.btCancel.setText("评价");
+                baseViewHolder.btCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (orderButtonListener!=null){
+                            orderButtonListener.onCancel(i);
+                        }
+                    }
+                });
+            }else if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_YES&&mDatas.get(i).getWaybill_state()==3
+                    &&mDatas.get(i).getRefund_state()==1&&mDatas.get(i).getReview_state()==2){//已评价
+                baseViewHolder.tvState.setText("已评价");
+                baseViewHolder.btPay.setVisibility(View.VISIBLE);
+                baseViewHolder.btCancel.setVisibility(View.GONE);
+                baseViewHolder.btPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (orderButtonListener!=null){
+                            orderButtonListener.onPay(baseViewHolder.tvState.getText().toString(),i);
+                        }
+                    }
+                });
             }else{
+
                 if (mDatas.get(i).getPay_state()== Constants.PAY_STATE_NO){
                     baseViewHolder.tvState.setText("已下单");
                 }else {
@@ -80,7 +117,7 @@ public class ShoppingGoodOrderListAdapter extends BaseLoadMoreAdapter<OrderListB
             baseViewHolder.tvSku.setText(getSkus(mDatas.get(i).getGoods(),mDatas.get(i).getSku()));
             baseViewHolder.number.setText("×"+mDatas.get(i).getNum());
             baseViewHolder.tvTitle.setText(mDatas.get(i).getGoods().getTitle());
-            baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.changeF2Y(mDatas.get(i).getSku().getPrice())));
+            baseViewHolder.tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.changeF2Y(mDatas.get(i).getPrice())));
         }
     }
     public void setOnClickButtonListener(OrderButtonListener orderButtonListener){

@@ -61,7 +61,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
     }
 
     @Override
-   public void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof BaseViewHolder){
             BaseViewHolder mBaseViewHolder = (BaseViewHolder) viewHolder;
             mBaseViewHolder.tvName.setText(mDatas.get(position).getUser().getshowName());
@@ -113,14 +113,14 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
                     activity.finish();
                 });
                 if (mDatas.get(position).isCurPosition()){
-                        if (isShowAnimator){
-                            isShowAnimator = false;
-                            CommentUtils.showGradualChangeAnimator(mBaseViewHolder.llRoot, Color.parseColor("#ffffff"),Color.parseColor("#E4DCC0"));
-                        }else {
-                            mBaseViewHolder.llRoot.setBackgroundResource(android.R.color.white);
-                        }
+                    if (isShowAnimator){
+                        isShowAnimator = false;
+                        CommentUtils.showGradualChangeAnimator(mBaseViewHolder.llRoot, Color.parseColor("#ffffff"),Color.parseColor("#E4DCC0"));
+                    }else {
+                        mBaseViewHolder.llRoot.setBackgroundResource(android.R.color.white);
+                    }
                 }else
-                         mBaseViewHolder.llRoot.setBackgroundResource(android.R.color.white);
+                    mBaseViewHolder.llRoot.setBackgroundResource(android.R.color.white);
 
             }else {
                 mBaseViewHolder.tvBack.setVisibility(View.GONE);
@@ -151,6 +151,8 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
 
         }
     }
+
+
     private SpannableString getSpannableStr(Context context,CommentBean.DataBean.CommentsBean mItem){
 
         String mShowToCustomer = mItem.getTo_user().getshowName();
@@ -161,8 +163,8 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
             spannableString = new SpannableString("回复"+mShowToCustomer+"：");
         }
         if (mShowToCustomer.length()!=0)
-        spannableString.setSpan(new MyCheckTextView(context,mItem.getTo_user().getId()),2,
-                mShowToCustomer.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new MyCheckTextView(context,mItem.getTo_user().getId()),2,
+                    mShowToCustomer.length()+2,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
     @Override
@@ -173,7 +175,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
     class MyCheckTextView extends ClickableSpan {
         private Context context;
         private int clickId;
-         MyCheckTextView(Context context,int id) {
+        MyCheckTextView(Context context,int id) {
             this.context = context;
             this.clickId = id;
         }
@@ -227,7 +229,7 @@ public class CommentDetailAdapter extends BaseLoadMoreAdapter<CommentBean.DataBe
 
 
     @Override
-   public int getViewLayout(int viewType) {
+    public int getViewLayout(int viewType) {
         return R.layout.item_comment_detail_classroom;
     }
 

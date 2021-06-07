@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * 目前 全部 待发货 两个状态
  * Date:2021/4/23
  * Time;9:21
  * author:baiguiqiang
@@ -61,10 +63,13 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
     private BeautyObserver beautyObserver= new BeautyObserver<OrderInfo>() {//收到状态列表刷新
         @Override
         public void beautyOnChanged(@Nullable OrderInfo o) {
-            recyclerView.scrollToPosition(0);
-            rl_empty.setVisibility(View.VISIBLE);
-            curPage=1;
-            goRequestData(Constants.LOAD_DATA_TYPE_INIT);
+            if (pay_state.equals(Constants.PAY_STATE_ALL)||(pay_state.equals("2")&&o.getPayState()==Constants.PAY_STATE_YES)||
+                    (pay_state.equals("4")&&o.getPayState()==Constants.PAY_STATE_REVIEW)) {//全部页面 或者 待发货页面收到付款成功 或者在待评论界面收到 评论推送
+                recyclerView.scrollToPosition(0);
+                rl_empty.setVisibility(View.VISIBLE);
+                curPage = 1;
+                goRequestData(Constants.LOAD_DATA_TYPE_INIT);
+            }
         }
     };
 
@@ -108,17 +113,22 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
     }
     private void goRequestData(HashMap<String, Object> stringObjectHashMap,int loadDataTypeInit) {
         if (!pay_state.equals(Constants.PAY_STATE_ALL+"")){
-          if (pay_state.equals(Constants.PAY_STATE_YES+"")){//待发货商品
-              stringObjectHashMap.put("waybill_state","1");
-              stringObjectHashMap.put("pay_state","2");
-              stringObjectHashMap.put("refund_state","1");//未退款
-              stringObjectHashMap.put("review_state","1");
-          }else if (pay_state.equals("3")){//待收货商品
-              stringObjectHashMap.put("waybill_state","2");
-              stringObjectHashMap.put("pay_state","2");
-              stringObjectHashMap.put("refund_state","1");//未退款
-              stringObjectHashMap.put("review_state","1");
-          }
+            if (pay_state.equals(Constants.PAY_STATE_YES+"")){//待发货商品
+                stringObjectHashMap.put("waybill_state","1");//未发货
+                stringObjectHashMap.put("pay_state","2");
+                stringObjectHashMap.put("refund_state","1");//未退款
+                stringObjectHashMap.put("review_state","1");
+            }else if (pay_state.equals("3")){//待收货商品
+                stringObjectHashMap.put("waybill_state","2");//未签收
+                stringObjectHashMap.put("pay_state","2");
+                stringObjectHashMap.put("refund_state","1");//未退款
+                stringObjectHashMap.put("review_state","1");
+            }else if (pay_state.equals("4")){//待评价
+                stringObjectHashMap.put("waybill_state","3");//已签收
+                stringObjectHashMap.put("pay_state","2");
+                stringObjectHashMap.put("refund_state","1");//未退款
+                stringObjectHashMap.put("review_state","1");//未评论
+            }
         }
         stringObjectHashMap.put("page",curPage);
         stringObjectHashMap.put("page_num",pageNum);
@@ -139,7 +149,7 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
 
             @Override
             public void onSuccess(OrderGoodBean orderGoodBean) {
-               if (loadDataTypeInit!=Constants.LOAD_DATA_TYPE_MORE){
+                if (loadDataTypeInit!=Constants.LOAD_DATA_TYPE_MORE){
                     stopRefreshAnimation();
                     mData.clear();
                     if (loadDataTypeInit==Constants.LOAD_DATA_TYPE_INIT&&orderGoodBean.getData().getItems().size()==0){
@@ -193,18 +203,25 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
                 public void onItemClick(View view, int position) {
                     startActivity(new Intent(getActivity(),OrderDetailActivity.class)
                             .putExtra("id",mAdapter.mDatas.get(position).getOrder_id()+"")
-                    .putExtra("GoodId",mAdapter.mDatas.get(position).getId()+""));
+                            .putExtra("GoodId",mAdapter.mDatas.get(position).getId()+""));
                 }
             });
             mAdapter.setOnClickButtonListener(new OrderButtonListener() {
                 @Override
-                public void onCancel(int pos) {
-
+                public void onCancel(int pos) {// 评价
+                    if (pay_state.equals("4")){
+                        startActivity(new Intent(getActivity(),ShoppingReviewActivity.class).putExtra(
+                                "id",mAdapter.mDatas.get(pos).getId()+"")
+                                .putExtra("icon", TextUtils.isEmpty(mAdapter.mDatas.get(pos).getSku().getCover())?mAdapter.mDatas.get(pos).getGoods().getCover()
+                                        :mAdapter.mDatas.get(pos).getSku().getCover()).putExtra("title",mAdapter.mDatas.get(pos).getGoods().getTitle())
+                                .putExtra("orderId",mAdapter.mDatas.get(pos).getOrder_id()));
+                    }
                 }
 
                 @Override
                 public void onPay(String title, int pos) {
-                    startActivity(new Intent(getActivity(),WaybillDetailActivity.class).putExtra("id",mAdapter.mDatas.get(pos).getWaybill_id()));
+                    startActivity(WaybillDetailActivity.getInstance(getActivity(),mAdapter.mDatas.get(pos).getWaybill_id(),
+                            mAdapter.mDatas.get(pos).getId()));
                 }
             });
             mAdapter.setLoadStateNoNotify(state);

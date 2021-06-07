@@ -68,7 +68,7 @@ public class MainActivity extends BaseNetActivity implements WebViewDelegate {
         Uri uri = Uri.parse("classroom://"+getPackageName()+".spdetail?id=5");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
     //    startActivity(intent);
-       getAuthStr("18202839759");
+       getAuthStr("18285603081");
     }
         private void getAuthStr(String phone){
             requestGet(URL_HOST + URL_NAME + "user/base/auth/get-authstr", new ApiParams().with("phone", phone).with("code", "99889988"), CommonEntity.class, new HttpCallBack<CommonEntity>() {

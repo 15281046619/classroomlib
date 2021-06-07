@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -20,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.beautydefinelibrary.BeautyDefine;
+import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.CommonEntity;
@@ -34,10 +37,12 @@ import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
+import com.xinwang.shoppingcenter.adapter.WayBillGoodListViewPagerAdapter;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.bean.WaybillDetailBean;
 import com.xinwang.shoppingcenter.bean.WaybillInfoBean;
+import com.xinwang.shoppingcenter.bean.WaybillListBean;
 import com.xinwang.shoppingcenter.view.CircularImage;
 
 import java.util.regex.Matcher;
@@ -49,9 +54,10 @@ import java.util.regex.Pattern;
  * author:baiguiqiang
  */
 public class WaybillDetailActivity extends BaseNetActivity {
-    private ImageView icCove;
+
     private CircularImage ivWaybillSrc;
-    private TextView tvTitle,tvPrice,number,tvSku,tvWaybillName;
+    private TextView tvWaybillName;
+    private ViewPager viewPager;
     private LinearLayout llRoot;
     private int waybillId;
     private WaybillDetailBean waybillDetailBean;
@@ -64,6 +70,23 @@ public class WaybillDetailActivity extends BaseNetActivity {
         return R.layout.activity_waybill_detail_shoppingcenter;
     }
 
+    /**
+     *
+     * @param context 必传
+     * @param waybillId 必传
+     * @param goodId 不传为0
+     *
+     * @return
+     */
+    public static Intent getInstance(Context context,int waybillId,int goodId){
+        Intent intent =new Intent(context, WaybillDetailActivity.class);
+        intent.putExtra("id",waybillId);
+        if (goodId!=0){
+            intent.putExtra("goodId",goodId);
+        }
+
+        return intent;
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +96,14 @@ public class WaybillDetailActivity extends BaseNetActivity {
     }
 
     private void initListener() {
-
+        findViewById(R.id.ivMore).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (waybillDetailBean!=null){
+                    ShoppingCenterLibUtils.startOrderDetailActivity(WaybillDetailActivity.this,waybillDetailBean.getData().getItems().get(0).getOrder_id()+"");
+                }
+            }
+        });
         ((CustomToolbar)findViewById(R.id.toolbar)).setNavigationOnClickListener(v -> finish());
     }
     //复制
@@ -146,15 +176,20 @@ public class WaybillDetailActivity extends BaseNetActivity {
         if (!TextUtils.isEmpty(waybillDetailBean.getData().getType())) {
             mApiParams.with("type", waybillDetailBean.getData().getType());
         }
-
+        if (!isFrist)
+        BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
         requestGet(HttpUrls.URL_WAYBILL_INFO(),mApiParams , WaybillInfoBean.class, new HttpCallBack<WaybillInfoBean>() {
             @Override
             public void onFailure(String message) {
                 requestFailureShow(message);
+                if (!isFrist)
+                BeautyDefine.getOpenPageDefine(WaybillDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
             }
 
             @Override
             public void onSuccess(WaybillInfoBean waybillInfoBean) {
+                if (!isFrist)
+                    BeautyDefine.getOpenPageDefine(WaybillDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
                 if (waybillInfoBean.getData()!=null&&waybillInfoBean.getData().getData()!=null&&waybillInfoBean.getData().getData().size()>0){
                     findViewById(R.id.rl_empty).setVisibility(View.GONE);
                     if (isFrist){
@@ -168,14 +203,25 @@ public class WaybillDetailActivity extends BaseNetActivity {
         });
     }
     private void initDetail(){
-        GlideUtils.loadAvatar(TextUtils.isEmpty(waybillDetailBean.getData().getItems().get(0).getSku().getCover())?waybillDetailBean.getData().getItems().get(0).getGoods().getCover()
-                :waybillDetailBean.getData().getItems().get(0).getSku().getCover(),R.color.BGPressedClassRoom,icCove);
-        tvSku.setText(getSkus(waybillDetailBean.getData().getItems().get(0).getGoods(),waybillDetailBean.getData().getItems().get(0).getSku()));
-        number.setText("×"+waybillDetailBean.getData().getItems().get(0).getNum());
-        tvTitle.setText(waybillDetailBean.getData().getItems().get(0).getGoods().getTitle());
-        tvPrice.setText(ShoppingCenterLibUtils.getPriceSpannable("￥"+ CountUtil.changeF2Y(waybillDetailBean.getData().getItems().get(0).getSku().getPrice())));
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(new WayBillGoodListViewPagerAdapter(this,waybillDetailBean.getData().getItems()));
+        setViewPagerPos();
 
     }
+
+    private void setViewPagerPos() {
+        int gooId= getIntent().getIntExtra("goodId",0);
+
+        if (gooId!=0){
+            for (int i=0;i<waybillDetailBean.getData().getItems().size();i++){
+                if (waybillDetailBean.getData().getItems().get(i).getId()==gooId){
+                    viewPager.setCurrentItem(i);
+                    break;
+                }
+            }
+        }
+    }
+
     private void initShow(WaybillInfoBean waybillInfoBean) {
         tvWaybillName.setText(waybillInfoBean.getData().getExpTextName()+" "+waybillInfoBean.getData().getMailNo());
         GlideUtils.loadAvatar(waybillInfoBean.getData().getLogo(),ivWaybillSrc);
@@ -209,8 +255,6 @@ public class WaybillDetailActivity extends BaseNetActivity {
     }
     private void setContent(String desc,TextView mContactNone) {
         SpannableString mStyledText = new SpannableString(desc);
-      //  String str = CommentUtils.getPhone(desc);
-        //   mStyledText.setSpan(new ForegroundColorSpan(Color.BLUE), 7, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         Pattern mPattern = Pattern.compile("((1|861)(3|4|5|7|8)\\d{9}$*)|((0\\d{2}-\\d{8}(-\\d{1,4})?)|(0\\d{3}-\\d{7,8}(-\\d{1,4})?))");
 
         Matcher mMatcher = mPattern.matcher(desc);
@@ -221,8 +265,8 @@ public class WaybillDetailActivity extends BaseNetActivity {
                 @Override
                 public void onClick(View view) {
 
-                   if (!TextUtils.isEmpty(str))
-                   callPhone(str);
+                    if (!TextUtils.isEmpty(str))
+                        callPhone(str);
                 }
 
                 @Override
@@ -249,45 +293,6 @@ public class WaybillDetailActivity extends BaseNetActivity {
         }
     }
 
-    private String getSkus(GoodsBean.DataBean dataBeans, SkuBean.DataBean skuBean){
-        StringBuffer stringBuffer =new StringBuffer();
-        for (int j = 0; j < dataBeans.getSkus().length; j++) {
-            switch (j) {
-                case 0:
-                    stringBuffer.append(skuBean.getSku0()).append(" ");
-                    break;
-                case 1:
-                    stringBuffer.append(skuBean.getSku1()).append(" ");
-                    break;
-                case 2:
-                    stringBuffer.append(skuBean.getSku2()).append(" ");
-                    break;
-                case 3:
-                    stringBuffer.append(skuBean.getSku3()).append(" ");
-                    break;
-                case 4:
-                    stringBuffer.append(skuBean.getSku4()).append(" ");
-                    break;
-                case 5:
-                    stringBuffer.append(skuBean.getSku5()).append(" ");
-                    break;
-                case 6:
-                    stringBuffer.append(skuBean.getSku6()).append(" ");
-                    break;
-                case 7:
-                    stringBuffer.append(skuBean.getSku7()).append(" ");
-                    break;
-                case 8:
-                    stringBuffer.append(skuBean.getSku8()).append(" ");
-                    break;
-                case 9:
-                    stringBuffer.append(skuBean.getSku9()).append(" ");
-                    break;
-            }
-
-        }
-        return stringBuffer.toString();
-    }
     private void requestFailureShow(String error){
         TextView tvMsg = findViewById(R.id.tv_msg);
         tvMsg.setText(error);
@@ -309,18 +314,16 @@ public class WaybillDetailActivity extends BaseNetActivity {
     }
 
     private void initViews() {
-        icCove = findViewById(R.id.icCove);
-        tvTitle = findViewById(R.id.tvTitle);
-        tvPrice = findViewById(R.id.tvPrice);
+
         llRoot = findViewById(R.id.llRoot);
         tvCopy = findViewById(R.id.tvCopy);
         tvCall = findViewById(R.id.tvCall);
         llWaybillSum = findViewById(R.id.llWaybillSum);
 
-        tvSku = findViewById(R.id.tvSku);
-        number = findViewById(R.id.number);
+
         tvWaybillName = findViewById(R.id.tvWaybillName);
         ivWaybillSrc = findViewById(R.id.ivWaybillSrc);
+        viewPager = findViewById(R.id.viewPager);
 
     }
 }
