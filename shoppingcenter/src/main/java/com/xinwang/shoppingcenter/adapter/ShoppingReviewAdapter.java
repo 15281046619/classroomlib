@@ -52,7 +52,7 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
             BaseViewHolder baseViewHolder = (BaseViewHolder) viewHolder;
             ReviewListBean.DataBean mEntity = mDatas.get(i);
 
-            if (mEntity.getAnonymous_state()==1) {
+            if (mEntity.getAnonymous_state()==1||(mEntity.getUser().getId()+"").equals(BeautyDefine.getUserInfoDefine(activity).getUserId())) {
                 baseViewHolder.tv_name.setText(mEntity.getUser().getNickname());
                 GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(50, 50, mEntity.getUser().getAvatar()), R.mipmap.default_teammate_avatar_classroom, baseViewHolder.iv_avatar);
                 baseViewHolder.iv_avatar.setOnClickListener(v -> BeautyDefine.getOpenPageDefine(activity).toPersonal(mEntity.getUser().getId()));//跳转个人中心
@@ -91,7 +91,7 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
                 case 1:
                     View mRoot = LayoutInflater.from(activity).inflate(R.layout.item_review_photo_1_shoppingcenter, llPhoto,false);
                     ImageView imageView = mRoot.findViewById(R.id.iv1);
-                    RelativeLayout.LayoutParams layout = new RelativeLayout.LayoutParams(photoWith / 2 + 50, photoWith / 2 + 50);
+                    RelativeLayout.LayoutParams layout = new RelativeLayout.LayoutParams(photoWith/ 3*2, photoWith / 3*2);
                     mRoot.setLayoutParams(layout);
                     imageView.setLayoutParams(layout);
                     imageView.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +100,7 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
                             jumpBigPic(mListPhotos,0);
                         }
                     });
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(photoWith / 2 + 50,photoWith / 2 + 50,mListPhotos.get(0)),R.color.BGPressedClassRoom,imageView,5);
+                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(photoWith / 3*2,photoWith / 3*2,mListPhotos.get(0)),R.color.BGPressedClassRoom,imageView,5);
                     llPhoto.addView(mRoot);
                     break;
                 case 2:

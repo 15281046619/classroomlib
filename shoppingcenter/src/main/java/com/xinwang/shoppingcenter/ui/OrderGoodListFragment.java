@@ -65,7 +65,7 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
         public void beautyOnChanged(@Nullable OrderInfo o) {
 
             if (pay_state.equals(Constants.PAY_STATE_ALL+"")||(pay_state.equals("2")&&o.getPayState()==Constants.PAY_STATE_YES)||
-                    (pay_state.equals("4")&&o.getPayState()==Constants.PAY_STATE_REVIEW)) {//全部页面 或者 待发货页面收到付款成功 或者在待评论界面收到 评论推送
+                    ((pay_state.equals("4")||pay_state.equals("5"))&&o.getPayState()==Constants.PAY_STATE_REVIEW)) {//全部页面 或者 待发货页面收到付款成功 或者在待评论界面收到 评论推送
                 recyclerView.scrollToPosition(0);
                 rl_empty.setVisibility(View.VISIBLE);
                 curPage = 1;
@@ -129,6 +129,11 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
                 stringObjectHashMap.put("pay_state","2");
                 stringObjectHashMap.put("refund_state","1");//未退款
                 stringObjectHashMap.put("review_state","1");//未评论
+            }else if (pay_state.equals("5")){
+                stringObjectHashMap.put("waybill_state","3");//已签收
+                stringObjectHashMap.put("pay_state","2");
+                stringObjectHashMap.put("refund_state","1");//未退款
+                stringObjectHashMap.put("review_state","2");//未评论
             }
         }
         stringObjectHashMap.put("page",curPage);
@@ -202,9 +207,12 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
             mAdapter.setOnItemClickListener(new BaseLoadMoreAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    startActivity(new Intent(getActivity(),OrderDetailActivity.class)
-                            .putExtra("id",mAdapter.mDatas.get(position).getOrder_id()+"")
-                            .putExtra("GoodId",mAdapter.mDatas.get(position).getId()+""));
+                    if (pay_state.equals("5")){
+                        startActivity(new Intent(getActivity(),ReviewDetailActivity.class).putExtra("id",mAdapter.mDatas.get(position).getId()+""));
+                    }else
+                        startActivity(new Intent(getActivity(),OrderDetailActivity.class)
+                                .putExtra("id",mAdapter.mDatas.get(position).getOrder_id()+"")
+                                .putExtra("GoodId",mAdapter.mDatas.get(position).getId()+""));
                 }
             });
             mAdapter.setOnClickButtonListener(new OrderButtonListener() {

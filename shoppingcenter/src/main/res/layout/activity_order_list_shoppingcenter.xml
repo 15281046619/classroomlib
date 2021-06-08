@@ -58,7 +58,7 @@
         app:tabIndicatorHeight="2dp"
         android:background="@color/toolbarBgClassRoom"
         app:tabSelectedTextColor="@color/themeClassRoom"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabTextColor="#fff"/>
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"

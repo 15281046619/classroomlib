@@ -202,6 +202,12 @@ public class ReviewListBean extends CommonEntity {
             public UserBean() {
             }
 
+            public UserBean(int id, String avatar, String nickname) {
+                this.id = id;
+                this.avatar = avatar;
+                this.nickname = nickname;
+            }
+
             /**
              * id : 42
              * phone : 182****9759

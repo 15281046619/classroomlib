@@ -171,6 +171,13 @@ public class HttpUrls {
     public static final String URL_USER_ITEM_LISTS(){
       return  URL_HOST+URL_NAME+"goods/user/item/lists";
     }
+    /**
+     *订单商品详情
+     * @return
+     */
+    public static final String URL_USER_ITEM_DETAIL(){
+      return  URL_HOST+URL_NAME+"goods/user/item/detail";
+    }
 
     /**
      * 商城详情
