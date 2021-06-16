@@ -17,7 +17,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,24 +24,18 @@ import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
-import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
-import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
-import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.adapter.WayBillGoodListViewPagerAdapter;
-import com.xinwang.shoppingcenter.bean.GoodsBean;
-import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.bean.WaybillDetailBean;
 import com.xinwang.shoppingcenter.bean.WaybillInfoBean;
-import com.xinwang.shoppingcenter.bean.WaybillListBean;
 import com.xinwang.shoppingcenter.view.CircularImage;
 
 import java.util.regex.Matcher;
@@ -319,8 +312,6 @@ public class WaybillDetailActivity extends BaseNetActivity {
         tvCopy = findViewById(R.id.tvCopy);
         tvCall = findViewById(R.id.tvCall);
         llWaybillSum = findViewById(R.id.llWaybillSum);
-
-
         tvWaybillName = findViewById(R.id.tvWaybillName);
         ivWaybillSrc = findViewById(R.id.ivWaybillSrc);
         viewPager = findViewById(R.id.viewPager);

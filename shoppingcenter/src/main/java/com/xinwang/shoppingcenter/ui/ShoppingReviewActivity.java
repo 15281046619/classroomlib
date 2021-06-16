@@ -3,14 +3,12 @@ package com.xinwang.shoppingcenter.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +24,6 @@ import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.UploadResultCallBack;
-import com.beautydefinelibrary.VideoCameraCallBack;
-import com.beautydefinelibrary.VideoCameraDefine;
 import com.xingwreslib.beautyreslibrary.OrderInfo;
 import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
@@ -45,7 +41,6 @@ import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.bean.MediaBean;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -344,14 +339,14 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
             }
         }
         File[] file=new File[mSelectMedia.size()+(isVideoPos==-1?0:1)];
-        ArrayList<String> mFiles =new ArrayList<>();
+        ArrayList<File> mFiles =new ArrayList<>();
 
        for (int i=0;i<mSelectMedia.size();i++) {
           if (isVideoPos==i){
-              mFiles.add(0,mSelectMedia.get(i).getPath());
-              mFiles.add(1,mSelectMedia.get(i).getPicPath());
+              mFiles.add(0,new File(mSelectMedia.get(i).getPath()));
+              mFiles.add(1,new File(mSelectMedia.get(i).getPicPath()));
           }else {
-              mFiles.add(mSelectMedia.get(i).getPath());
+              mFiles.add(new File(mSelectMedia.get(i).getPath()));
           }
        }
         int finalIsVideoPos = isVideoPos;

@@ -3,14 +3,12 @@ package com.xinwang.shoppingcenter.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.internal.FlowLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.shoppingcenter.R;

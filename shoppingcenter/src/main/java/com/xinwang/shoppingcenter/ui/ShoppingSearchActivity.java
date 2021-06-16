@@ -7,16 +7,12 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.xinwang.bgqbaselib.base.BaseActivity;
-import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.FragmentUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.KeyBoardHelper;

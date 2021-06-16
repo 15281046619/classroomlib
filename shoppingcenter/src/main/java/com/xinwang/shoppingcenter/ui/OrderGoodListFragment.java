@@ -14,26 +14,20 @@ import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.beautydefinelibrary.OpenPageDefine;
-import com.xingwreslib.beautyreslibrary.BeautyLiveData;
 import com.xingwreslib.beautyreslibrary.BeautyObserver;
 import com.xingwreslib.beautyreslibrary.OrderInfo;
 import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
-import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
-import com.xinwang.bgqbaselib.http.ApiParams;
-import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.utils.Constants;
-import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.HttpUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.adapter.ShoppingGoodOrderListAdapter;
-import com.xinwang.shoppingcenter.adapter.ShoppingOrderListAdapter;
 import com.xinwang.shoppingcenter.bean.OrderGoodBean;
 import com.xinwang.shoppingcenter.bean.OrderListBean;
 import com.xinwang.shoppingcenter.interfaces.OrderButtonListener;
@@ -42,7 +36,6 @@ import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 目前 全部 待发货 两个状态

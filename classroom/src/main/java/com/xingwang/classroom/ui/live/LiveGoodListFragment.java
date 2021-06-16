@@ -54,10 +54,8 @@ public class LiveGoodListFragment extends BaseLazyLoadFragment {
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_live_good_list_classroom,container,false);
-
         recycler_view=view.findViewById(R.id.recycler_view);
         swipeRefreshLayout =view.findViewById(R.id.swipeRefreshLayout);
-
         return view;
     }
 
@@ -66,19 +64,16 @@ public class LiveGoodListFragment extends BaseLazyLoadFragment {
 
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);
         swipeRefreshLayout.setRefreshing(true);
-
         recycler_view.setLayoutManager(new WrapContentLinearLayoutManager(getActivity()));
         goodListAdapter=new GoodListAdapter(getActivity());
         recycler_view.setAdapter(goodListAdapter);
-
         swipeRefreshLayout.setOnRefreshListener(() -> getRequestData());
-
         goodListAdapter.setOnChildItemClickListener(goodBean ->requestSkuData(goodBean) );
-
         getRequestData();
     }
 
     private void getRequestData(){
+        assert getArguments() != null;
         requestGet(HttpUrls.URL_GOOD2_LISTS(),new ApiParams().with("live_id",getArguments().getString(Constants.DATA)), GoodsBean.class, new HttpCallBack<GoodsBean>() {
 
             @Override
@@ -93,7 +88,6 @@ public class LiveGoodListFragment extends BaseLazyLoadFragment {
                 swipeRefreshLayout.setRefreshing(false);
                 if (goodListBean.getData().size()>0)
                     goodListAdapter.setDatas(goodListBean.getData());
-
             }
         });
     }
@@ -109,8 +103,6 @@ public class LiveGoodListFragment extends BaseLazyLoadFragment {
 
             @Override
             public void onSuccess(SkuBean skuBean) {
-
-
                 showSkuDialog(ShoppingCenterLibUtils.skuToBean(skuBean.getData(),dataBean));
             }
         });

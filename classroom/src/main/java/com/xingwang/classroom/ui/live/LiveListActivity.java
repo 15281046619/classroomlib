@@ -95,7 +95,6 @@ public class LiveListActivity extends BaseNetActivity {
         outState.putInt("clickPos",clickPos);
         outState.putSerializable("mData", (Serializable) mData);
         super.onSaveInstanceState(outState);
-
     }
 
     private int categoryId =-1;

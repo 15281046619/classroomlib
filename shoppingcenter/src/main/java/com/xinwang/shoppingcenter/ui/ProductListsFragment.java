@@ -1,12 +1,9 @@
 package com.xinwang.shoppingcenter.ui;
 
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -15,9 +12,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.beautydefinelibrary.BeautyDefine;
-import com.beautydefinelibrary.OpenPageDefine;
-import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
@@ -26,7 +20,6 @@ import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.HttpUtil;
-import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.StaggeredDividerItemDecoration;

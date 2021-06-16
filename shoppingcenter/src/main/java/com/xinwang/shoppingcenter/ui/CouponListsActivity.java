@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,7 +16,6 @@ import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.utils.AsyncTaskUtils;
-import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.MyToast;
@@ -31,9 +29,7 @@ import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.adapter.CouponListAdapter;
-import com.xinwang.shoppingcenter.adapter.ShoppingHomeAdapter;
 import com.xinwang.shoppingcenter.bean.CouponBean;
-import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
 
 import java.util.ArrayList;

@@ -2,16 +2,11 @@ package com.xinwang.shoppingcenter.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 
 
 import com.xinwang.bgqbaselib.base.BaseActivity;
 import com.xinwang.bgqbaselib.utils.FragmentUtils;
-import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.shoppingcenter.R;
-import com.xinwang.shoppingcenter.interfaces.FragmentStateListener;
 
 /**
  * Date:2021/3/15
