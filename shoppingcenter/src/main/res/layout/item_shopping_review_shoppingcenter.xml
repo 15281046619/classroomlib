@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
     android:id="@+id/ll_root"
+    android:paddingTop="10dp"
     android:background="@drawable/shape_shopping_review_item_bg"
     android:orientation="vertical">
 
@@ -22,32 +22,33 @@
             android:src="@mipmap/ic_zfb_shoppingcneter"
             style="@style/chatAvatarClassRoom"
             />
+
         <LinearLayout
+            android:id="@+id/ll_vip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:id="@+id/ll_vip"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="4dp"
             android:layout_toRightOf="@+id/iv_avatar"
-         >
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:text="右边"
-                android:includeFontPadding="false"
                 android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:text="右边"
                 android:textSize="13sp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/llStart"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/ll_vip"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/ll_vip"
             android:layout_alignTop="@+id/ll_vip"
             android:layout_alignBottom="@+id/ll_vip"
             android:orientation="horizontal">
@@ -61,7 +62,7 @@
             android:text="12天"
             android:includeFontPadding="false"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="5dp"
             android:layout_toRightOf="@+id/iv_avatar"
          />
 
@@ -69,19 +70,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10_classroom"
+        android:layout_marginLeft="@dimen/dp_10_classroom"
+        android:layout_marginRight="@dimen/dp_10_classroom"
+        android:layout_marginTop="@dimen/dp_5_classroom"
+        android:layout_marginBottom="@dimen/dp_10_classroom"
         android:orientation="vertical">
         <TextView
             android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="10dp"
             android:maxLines="3"
+
             android:lineSpacingExtra="3dp"
             android:ellipsize="end"
+            android:includeFontPadding="false"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,6 +97,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:includeFontPadding="false"
+            android:paddingTop="5dp"
             android:id="@+id/tvMore"/>
     </LinearLayout>
 </LinearLayout>

@@ -63,9 +63,7 @@ public class ShoppingSearchHistoryFragment extends BaseLazyLoadFragment {
                 mActivity.showFragment(1,mActivity.mSearchData.get(position));
             }
         });
-        recyclerView.setAdapter(mAdapter);
-
-    }
+        recyclerView.setAdapter(mAdapter);}
 
     /**
      *热门搜索

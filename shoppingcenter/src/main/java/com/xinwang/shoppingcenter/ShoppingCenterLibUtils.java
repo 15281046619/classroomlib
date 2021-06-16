@@ -237,6 +237,7 @@ public class ShoppingCenterLibUtils {
      * @param id
      */
     public static void startOrderDetailActivity(Activity activity,String id){
+
         activity.startActivity(new Intent(activity, OrderDetailActivity.class).putExtra("id",id));
     }
 }

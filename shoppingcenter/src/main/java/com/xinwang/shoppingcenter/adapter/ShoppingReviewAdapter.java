@@ -1,6 +1,7 @@
 package com.xinwang.shoppingcenter.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -23,10 +24,13 @@ import com.xinwang.bgqbaselib.utils.TimeUtil;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
+import com.xinwang.shoppingcenter.bean.MediaBean;
 import com.xinwang.shoppingcenter.bean.ReviewListBean;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
+import com.xinwang.shoppingcenter.ui.SimplePlayerActivity;
 import com.xinwang.shoppingcenter.view.CircularImage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,14 +70,19 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
             }
             if (isListPage) {
                 showStart(baseViewHolder.llStart, mEntity);
-                baseViewHolder.tvMore.setText("");
-            }
-            else {
-                baseViewHolder.llStart.removeAllViews();
+
                 if (TextUtils.isEmpty(mEntity.getReply())){
                     baseViewHolder.tvMore.setText("");
-                }else
+                    baseViewHolder.tvMore.setVisibility(View.GONE);
+                }else {
                     baseViewHolder.tvMore.setText("...");
+                    baseViewHolder.tvMore.setVisibility(View.VISIBLE);
+                }
+
+            } else {
+                baseViewHolder.tvMore.setVisibility(View.GONE);
+                baseViewHolder.llStart.removeAllViews();
+
             }
             showPic(baseViewHolder.llPhoto,mEntity.getMediaList());
             if (!TextUtils.isEmpty(mEntity.getContent()))
@@ -84,32 +93,42 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
     }
 
 
-    private void showPic(LinearLayout llPhoto, List<String> mListPhotos) {
+    private void showPic(LinearLayout llPhoto, List<MediaBean> mListPhotos) {
         llPhoto.removeAllViews();
         if (mListPhotos.size()>0)
             switch (mListPhotos.size()) {
                 case 1:
                     View mRoot = LayoutInflater.from(activity).inflate(R.layout.item_review_photo_1_shoppingcenter, llPhoto,false);
                     ImageView imageView = mRoot.findViewById(R.id.iv1);
+                    ImageView ivVideoIcon = mRoot.findViewById(R.id.ivVideoIcon);
                     RelativeLayout.LayoutParams layout = new RelativeLayout.LayoutParams(photoWith/ 3*2, photoWith / 3*2);
                     mRoot.setLayoutParams(layout);
                     imageView.setLayoutParams(layout);
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
                             jumpBigPic(mListPhotos,0);
                         }
                     });
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(photoWith / 3*2,photoWith / 3*2,mListPhotos.get(0)),R.color.BGPressedClassRoom,imageView,5);
-                    llPhoto.addView(mRoot);
+                    if (mListPhotos.get(0).getType()==1) {
+                        ivVideoIcon.setVisibility(View.VISIBLE);
+                        GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(photoWith / 3 * 2, photoWith / 3 * 2, mListPhotos.get(0).getPicPath()), R.color.BGPressedClassRoom, imageView, 5);
+                    } else {
+                        ivVideoIcon.setVisibility(View.GONE);
+                        GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(photoWith / 3 * 2, photoWith / 3 * 2, mListPhotos.get(0).getPath()), R.color.BGPressedClassRoom, imageView, 5);
+                    }llPhoto.addView(mRoot);
                     break;
                 case 2:
                     View mRoot1 = LayoutInflater.from(activity).inflate(R.layout.item_review_photo_2_shoppingcenter, llPhoto,false);
                     int  width = (photoWith-CommentUtils.dip2px(activity,2))/2;
                     ImageView iv11= mRoot1.findViewById(R.id.iv1);
                     ImageView iv12 = mRoot1.findViewById(R.id.iv2);
+                    ImageView ivVideoIcon1 = mRoot1.findViewById(R.id.ivVideoIcon);
                     iv11.getLayoutParams().height =width;
                     iv11.getLayoutParams().width =width;
+                    ivVideoIcon1.getLayoutParams().height =width;
+                    ivVideoIcon1.getLayoutParams().width =width;
                     iv12.getLayoutParams().height =width;
                     iv12.getLayoutParams().width =width;
                     iv11.setOnClickListener(new View.OnClickListener() {
@@ -124,8 +143,14 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
                             jumpBigPic(mListPhotos,1);
                         }
                     });
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(width,width,mListPhotos.get(0)),R.color.BGPressedClassRoom,iv11,5);
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(width,width,mListPhotos.get(1)),R.color.BGPressedClassRoom,iv12,5);
+                    if (mListPhotos.get(0).getType()==1){
+                        GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(width,width,mListPhotos.get(0).getPicPath()),R.color.BGPressedClassRoom,iv11,5);
+                        ivVideoIcon1.setVisibility(View.VISIBLE);
+                    }else {
+                        GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(width,width,mListPhotos.get(0).getPath()),R.color.BGPressedClassRoom,iv11,5);
+                        ivVideoIcon1.setVisibility(View.GONE);
+                    }
+                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(width,width,mListPhotos.get(1).getPath()),R.color.BGPressedClassRoom,iv12,5);
                     llPhoto.addView(mRoot1);
                     break;
                 case 3:
@@ -133,10 +158,14 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
                     ImageView iv1 = mRoot2.findViewById(R.id.iv1);
                     ImageView iv2 = mRoot2.findViewById(R.id.iv2);
                     ImageView iv3 = mRoot2.findViewById(R.id.iv3);
+                    ImageView ivVideoIcon3 = mRoot2.findViewById(R.id.ivVideoIcon);
                     int iv1Width = (photoWith-CommentUtils.dip2px(activity,2))/3*2;
                     int iv2Width = (photoWith-2*CommentUtils.dip2px(activity,2))/3*1;
                     iv1.getLayoutParams().width = iv1Width;
                     iv1.getLayoutParams().height = iv1Width;
+                    ivVideoIcon3.getLayoutParams().height = iv1Width;
+                    ivVideoIcon3.getLayoutParams().width = iv1Width;
+
                     iv2.getLayoutParams().height = iv2Width;
                     iv2.getLayoutParams().width = iv2Width;
                     iv3.getLayoutParams().width = iv2Width;
@@ -159,9 +188,16 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
                             jumpBigPic(mListPhotos,2);
                         }
                     });
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv1Width,iv1Width,mListPhotos.get(0)),R.color.BGPressedClassRoom,iv1,5);
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv2Width,iv2Width,mListPhotos.get(1)),R.color.BGPressedClassRoom,iv2,5);
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv2Width,iv2Width,mListPhotos.get(2)),R.color.BGPressedClassRoom,iv3,5);
+                    if (mListPhotos.get(0).getType()==1){
+                        ivVideoIcon3.setVisibility(View.VISIBLE);
+                        GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv1Width,iv1Width,mListPhotos.get(0).getPicPath()),R.color.BGPressedClassRoom,iv1,5);
+
+                    }else {
+                        GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv1Width,iv1Width,mListPhotos.get(0).getPath()),R.color.BGPressedClassRoom,iv1,5);
+                        ivVideoIcon3.setVisibility(View.GONE);
+                    }
+                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv2Width,iv2Width,mListPhotos.get(1).getPath()),R.color.BGPressedClassRoom,iv2,5);
+                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv2Width,iv2Width,mListPhotos.get(2).getPath()),R.color.BGPressedClassRoom,iv3,5);
                     llPhoto.addView(mRoot2);
                     break;
                 default:
@@ -171,10 +207,13 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
                     ImageView iv33 = mRoot3.findViewById(R.id.iv3);
                     ImageView iv34 = mRoot3.findViewById(R.id.iv4);
                     TextView tvMore = mRoot3.findViewById(R.id.tvMore);
+                    TextView ivVideoIcon4 = mRoot3.findViewById(R.id.ivVideoIcon);
                     int iv11Width = (photoWith-CommentUtils.dip2px(activity,2))/3*2;
                     int iv12Width = (photoWith-2*CommentUtils.dip2px(activity,2))/3*1;
                     iv31.getLayoutParams().height =iv11Width;
                     iv31.getLayoutParams().width =photoWith;
+                    ivVideoIcon4.getLayoutParams().height =iv11Width;
+                    ivVideoIcon4.getLayoutParams().width =photoWith;
                     iv32.getLayoutParams().width =iv12Width;
                     iv32.getLayoutParams().height =iv12Width;
                     iv33.getLayoutParams().height =iv12Width;
@@ -213,10 +252,16 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
                             jumpBigPic(mListPhotos,3);
                         }
                     });
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(photoWith,iv11Width,mListPhotos.get(0)),R.color.BGPressedClassRoom,iv31,5);
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv12Width,iv12Width,mListPhotos.get(1)),R.color.BGPressedClassRoom,iv32,5);
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv12Width,iv12Width,mListPhotos.get(2)),R.color.BGPressedClassRoom,iv33,5);
-                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv12Width,iv12Width,mListPhotos.get(3)),R.color.BGPressedClassRoom,iv34,5);
+                    if (mListPhotos.get(0).getType()==1){
+                        GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(photoWith,iv11Width,mListPhotos.get(0).getPicPath()),R.color.BGPressedClassRoom,iv31,5);
+                        ivVideoIcon4.setVisibility(View.VISIBLE);
+                    }else {
+                        GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(photoWith,iv11Width,mListPhotos.get(0).getPath()),R.color.BGPressedClassRoom,iv31,5);
+                        ivVideoIcon4.setVisibility(View.GONE);
+                    }
+                        GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv12Width,iv12Width,mListPhotos.get(1).getPath()),R.color.BGPressedClassRoom,iv32,5);
+                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv12Width,iv12Width,mListPhotos.get(2).getPath()),R.color.BGPressedClassRoom,iv33,5);
+                    GlideUtils.loadRoundedCorners(BeautyDefine.getThumbUrlDefine().createThumbUrl(iv12Width,iv12Width,mListPhotos.get(3).getPath()),R.color.BGPressedClassRoom,iv34,5);
                     if (mListPhotos.size()>4){
                         tvMore.setVisibility(View.VISIBLE);
                         tvMore.setText("+"+(mListPhotos.size()-4));
@@ -232,9 +277,27 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
      * @param mLists
      * @param pos
      */
-    private void jumpBigPic( List<String> mLists,int pos ){
-        BeautyDefine.getImagePreviewDefine(activity).showImagePreview(mLists,pos);
+    private void jumpBigPic(List<MediaBean> mLists,int pos ){
+        if (mLists.get(0).getType()==1){//有视频
+            if (pos==0){
+                activity.startActivity(new Intent(activity, SimplePlayerActivity.class).putExtra("url",mLists.get(0).getPath()));
+            }else {
+                ArrayList<String> mPics =new ArrayList<>();
+                for (int i=0;i<mLists.size()-1;i++){
+                    mPics.add(mLists.get(i+1).getPath());
+                }
+                BeautyDefine.getImagePreviewDefine(activity).showImagePreview(mPics,pos-1);
+            }
+        }else {
+            ArrayList<String> mPics =new ArrayList<>();
+            for (int i=0;i<mLists.size();i++){
+                mPics.add(mLists.get(i).getPath());
+            }
+            BeautyDefine.getImagePreviewDefine(activity).showImagePreview(mPics,pos);
+        }
+
     }
+
     private void showStart(LinearLayout llStart,ReviewListBean.DataBean mEntity) {
         llStart.removeAllViews();
         for (int i=0;i<mEntity.getScore();i++){

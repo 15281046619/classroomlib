@@ -135,12 +135,22 @@ public class ReviewListBean extends CommonEntity {
         public String getMedia() {
             return media;
         }
-        public List<String> getMediaList(){
+        public List<MediaBean> getMediaList(){
             if (!TextUtils.isEmpty(media)){
                 try {
-                    return GsonUtils.changeGsonToSafeList(media,String.class);
+                    return GsonUtils.changeGsonToSafeList(media,MediaBean.class);
                 }catch (Exception e){
-                    return new ArrayList<>();
+                    try {
+                        List<String> mString =GsonUtils.changeGsonToSafeList(media,String.class);
+                        List<MediaBean> mediaBeans =new ArrayList<>();
+                        for (int i=0;i<mString.size();i++)
+                            mediaBeans.add(new MediaBean(mString.get(i),0,mString.get(i)));
+                        return mediaBeans;
+                    }catch (Exception e1){
+                        e1.printStackTrace();
+                        return new ArrayList<>();
+                    }
+
                 }
 
             }

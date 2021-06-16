@@ -26,6 +26,8 @@ import com.beautydefinelibrary.ImagePickerCallBack;
 import com.beautydefinelibrary.ImagePickerDefine;
 import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.UploadResultCallBack;
+import com.beautydefinelibrary.VideoCameraCallBack;
+import com.beautydefinelibrary.VideoCameraDefine;
 import com.xingwreslib.beautyreslibrary.OrderInfo;
 import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
@@ -40,8 +42,10 @@ import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
+import com.xinwang.shoppingcenter.bean.MediaBean;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,9 +64,9 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
     private CheckBox cbTrue;
     private int score=5;//评分
     private String[] scoreDess=new String[]{"非常差","差","一般","好","非常好"};
-    private List<String> mSelectPhoto=new ArrayList<>();//选择的图片
+    private List<MediaBean> mSelectMedia=new ArrayList<>();//选择的图片
     private ImagePickerDefine imagePickerDefine;
-
+    private int maxSelectSum =9;
     @Override
     protected int layoutResId() {
         return R.layout.activity_shopping_review_shoppingcenter;
@@ -148,10 +152,10 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
         }else if (v.getId()==R.id.ivScore5){
             submitScore(5);
         }else if (v.getId()==R.id.tvAdd){
-            if (mSelectPhoto.size()<10) {
+            if (mSelectMedia.size()<maxSelectSum) {
                 requestPermission();
             }else {
-                MyToast.myToast(ShoppingReviewActivity.this,"最多上传10张");
+                MyToast.myToast(ShoppingReviewActivity.this,"最多上传"+maxSelectSum+"张");
             }
         }
 
@@ -174,17 +178,25 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
     }
 
     private void jumpPic(){
-
         imagePickerDefine = BeautyDefine.getImagePickerDefine(this);
         //先不加视频功能
-        imagePickerDefine.showMultiplePicker((ArrayList<String>) mSelectPhoto,false, new ImagePickerCallBack() {
+        imagePickerDefine.showMultiplePicker(maxSelectSum-mSelectMedia.size(),new ArrayList<>(),isAddVideo(), new ImagePickerCallBack() {
             @Override
             public void onResult(List<String> list, ImagePickerDefine.MediaType mediaType, List<String> list1) {
                 if (list!=null&&list.size()>0) {
-                    mSelectPhoto = list;
+                    if (mediaType== ImagePickerDefine.MediaType.IMG) {
+                        for (int i=0;i<list.size();i++) {
+                            mSelectMedia.add(new MediaBean(list.get(i),0,list.get(i)));
+                        }
+                    }else {
+                        if (list.size()>1) {
+                            MyToast.myToast(ShoppingReviewActivity.this,"只能选择一个视频");
+                        }
+                        mSelectMedia.add(new MediaBean(list.get(0),1,(list1!=null&&list1.size()>0)?list1.get(0):""));
+                    }
                     showPicList(true);
                 }else {
-                    MyToast.myToast(ShoppingReviewActivity.this,"请选择图片");
+                    MyToast.myToast(ShoppingReviewActivity.this,"请选择图片/视频");
                 }
             }
 
@@ -194,18 +206,34 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
             }
         });
     }
+    private boolean isAddVideo(){
+        for (int i=0;i<mSelectMedia.size();i++){
+            if (mSelectMedia.get(i).getType()==1){
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void showPicList(boolean isScrollBottom){
         llHead.removeAllViews();
-        for (int i=0;i<mSelectPhoto.size();i++){
+        for (int i=0;i<mSelectMedia.size();i++){
             View mRoot = LayoutInflater.from(this).inflate(R.layout.item_photo_review_shoppingcentger, llHead, false);
             ImageView ivPhoto =mRoot.findViewById(R.id.ivPhoto);
             ImageView ivDelete =mRoot.findViewById(R.id.ivDelete);
-            GlideUtils.loadAvatar(mSelectPhoto.get(i),R.mipmap.bg_default_placeholder_classroom,ivPhoto);
+            ImageView ivVideoIcon =mRoot.findViewById(R.id.ivVideoIcon);
+            if (mSelectMedia.get(i).getType()==0) {
+                ivVideoIcon.setVisibility(View.GONE);
+                GlideUtils.loadAvatar(mSelectMedia.get(i).getPath(), R.mipmap.bg_default_placeholder_classroom, ivPhoto);
+            }else {
+                ivVideoIcon.setVisibility(View.VISIBLE);
+                GlideUtils.loadAvatar(mSelectMedia.get(i).getPicPath(), R.mipmap.bg_default_placeholder_classroom, ivPhoto);
+            }
             int finalI = i;
             ivDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSelectPhoto.remove(finalI);
+                    mSelectMedia.remove(finalI);
                     showPicList(false);
                 }
             });
@@ -268,7 +296,7 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
         if (TextUtils.isEmpty(etContent.getText().toString())){
             MyToast.myToast(this,"请评价该商品");
         }else {
-            if (mSelectPhoto!=null&&mSelectPhoto.size()>0){
+            if (mSelectMedia!=null&&mSelectMedia.size()>0){
                 goUploadPic();
             }else {
                 submitData(null);
@@ -276,7 +304,7 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
 
         }
     }
-    private void  submitData(String[] mSelectPhoto){
+    private void  submitData(ArrayList<MediaBean> mSelectPhoto){
         ApiParams mApiParams = new ApiParams().with("item_id", getIntent().getStringExtra("id")).with("score", score + "").with("content", etContent.getText().toString())
                 .with("anonymous_state", cbTrue.isChecked() ? "1" : "2");
         if (mSelectPhoto!=null)
@@ -307,21 +335,50 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
      * 上传图片
      */
     private void goUploadPic() {
-        BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
-       File[] file=new File[mSelectPhoto.size()];
-       for (int i=0;i<mSelectPhoto.size();i++) {
-           file[i] =new File(mSelectPhoto.get(i));
+        BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("上传中",false));
+        int  isVideoPos=-1;//是不是有视频，如果有得话视频放第一张。 并且上传图片
+        for (int j=0; j<mSelectMedia.size();j++){
+            if (mSelectMedia.get(j).getType()==1){
+                isVideoPos =j;
+                break;
+            }
+        }
+        File[] file=new File[mSelectMedia.size()+(isVideoPos==-1?0:1)];
+        ArrayList<String> mFiles =new ArrayList<>();
+
+       for (int i=0;i<mSelectMedia.size();i++) {
+          if (isVideoPos==i){
+              mFiles.add(0,mSelectMedia.get(i).getPath());
+              mFiles.add(1,mSelectMedia.get(i).getPicPath());
+          }else {
+              mFiles.add(mSelectMedia.get(i).getPath());
+          }
        }
-        BeautyDefine.getUploadDefine().upload(file,new UploadResultCallBack(){
+        int finalIsVideoPos = isVideoPos;
+        BeautyDefine.getUploadDefine().upload(mFiles.toArray(file),new UploadResultCallBack(){
 
             @Override
             public void onSucceed(String[] strings) {
-                submitData(strings);
+                ArrayList<MediaBean> mSelectPhoto =new ArrayList<>();
+                if (finalIsVideoPos ==-1) {
+                    for(int i=0;i<strings.length;i++){
+                        mSelectPhoto.add(new MediaBean(strings[i],0,strings[i]));
+                    }
+
+                }else {
+                    for(int i=0;i<strings.length-1;i++){
+                        if (i==0){
+                            mSelectPhoto.add(new MediaBean(strings[0],1,strings[1]));
+                        }else {
+                            mSelectPhoto.add(new MediaBean(strings[i+1],0,strings[i+1]));
+                        }
+                    }
+                }
+                submitData(mSelectPhoto);
             }
 
             @Override
             public void onFailure() {
-
                 MyToast.myToast(ShoppingReviewActivity.this,"上传图片失败");
                 BeautyDefine.getOpenPageDefine(ShoppingReviewActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
             }

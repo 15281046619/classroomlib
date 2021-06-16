@@ -47,19 +47,16 @@ public class CountUtil {
         }catch (Exception e){
             return d;
         }
-
     }
     public static String doubleToString(Double d){
 
        DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
         try {
-
             //return NumberFormat.getInstance().format(d);  //这个比如1000 会显示成 1,000
            return decimalFormat.format(d);
         }catch (Exception e){
             return d+"";
         }
-
     }
 
     /**

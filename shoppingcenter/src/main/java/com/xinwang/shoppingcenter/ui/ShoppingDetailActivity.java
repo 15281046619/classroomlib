@@ -1,10 +1,8 @@
 package com.xinwang.shoppingcenter.ui;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -14,10 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,7 +25,6 @@ import com.beautydefinelibrary.ShareResultCallBack;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
-import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
@@ -49,7 +44,6 @@ import com.xinwang.shoppingcenter.bean.ErpBean;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.bean.GoodsDetailBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
-import com.xinwang.shoppingcenter.bean.PicBean;
 import com.xinwang.shoppingcenter.bean.ReviewListBean;
 import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.dialog.BottomSkuDialog;
@@ -80,6 +74,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     private CategoryBean categoryData;
     private CustomWebView webView;
     private List<Sku> skuList =new ArrayList<>();
+    long curTime =0;
     private List<ReviewListBean.DataBean> mReviewList =new ArrayList<>();
     private PagerAdapter mAdapter = new PagerAdapter() {
 
@@ -105,10 +100,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             GlideUtils.loadAvatar(mDate!=null?mDate.getPicBeans().get(position):"",R.color.BGPressedClassRoom,imageView);
             container.addView(imageView);
             imageView.setOnClickListener(v -> {
-                ArrayList<String> mLists = new ArrayList<>();
-                for (String mBean:mDate.getPicBeans()){
-                    mLists.add(mBean);
-                }
+                ArrayList<String> mLists = new ArrayList<>(mDate.getPicBeans());
                 jumpBigPic(mLists,position);
             });
             return imageView;
@@ -143,6 +135,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         initRequest();
         initListener();
         initNumber();
+
     }
     @Subscribe()
     public void updateNumber(NumberBean numberBean){
@@ -249,9 +242,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             rlViewPager.getLayoutParams().height = (int) (coverRate*(CommentUtils.getScreenWidth(this)));
             tvSum.setText("1/" + mDate.getPicBeans().size());
             showNameValue();
-
+            curTime =System.currentTimeMillis();
             webView.loadData(mDate.getBody());
-
 
             if (TextUtils.isEmpty(skuList.get(0).getShowPrice())){
                 tvPrice.setVisibility(View.GONE);
@@ -268,7 +260,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             tvDes.setText("商品评价（"+mDate.getReview_count()+"）");
             List<ReviewListBean.DataBean> mDatas =new ArrayList<>();
             mDatas.add(mReviewList.get(0));
-            if (mReviewList.size()>1){
+            if (mReviewList.size()>1&&TextUtils.isEmpty(mReviewList.get(0).getMedia())&&TextUtils.isEmpty(mReviewList.get(1).getMedia())){
                 mDatas.add(mReviewList.get(1));
             }
 
@@ -291,10 +283,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
                 findViewById(R.id.rl_empty).setVisibility(View.GONE);
             }
         });
-
-
     }
-
     private void showNameValue() {
         llContent.removeAllViews();
         LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -499,6 +488,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             return;
         }
         String actionData = uri.getQueryParameter("id");
+
         if (actionData!=null)
             mId =Integer.parseInt(actionData);
     }

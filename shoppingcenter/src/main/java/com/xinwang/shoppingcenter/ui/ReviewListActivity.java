@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,7 +22,6 @@ import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.shoppingcenter.R;
-import com.xinwang.shoppingcenter.adapter.CouponListAdapter;
 import com.xinwang.shoppingcenter.adapter.ShoppingReviewAdapter;
 import com.xinwang.shoppingcenter.bean.ReviewListBean;
 import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
@@ -63,7 +63,7 @@ public class ReviewListActivity extends BaseNetActivity {
             requestFailureShow(getString(R.string.no_data_ClassRoom));
         }else {
             findViewById(R.id.rl_empty).setVisibility(View.GONE);
-           mData.addAll(mIntentData);
+            mData.addAll(mIntentData);
             curPage++;
             if (mIntentData.size() < pageSum) {
                 initAdapter(3);
@@ -135,21 +135,21 @@ public class ReviewListActivity extends BaseNetActivity {
 
     private void initAdapter(int state) {
 
-            if (mAdapter==null) {
-                mAdapter = new ShoppingReviewAdapter(this,mData,true);
-                mAdapter.setOnItemClickListener(new BaseLoadMoreAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                      startActivity(new Intent(ReviewListActivity.this,ReviewDetailActivity.class).putExtra("data",mData.get(position)));
-                    }
-                });
-                mAdapter.setLoadStateNoNotify(state);
-                recyclerView.setAdapter(mAdapter);
+        if (mAdapter==null) {
+            mAdapter = new ShoppingReviewAdapter(this,mData,true);
+            mAdapter.setOnItemClickListener(new BaseLoadMoreAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    startActivity(new Intent(ReviewListActivity.this,ReviewDetailActivity.class).putExtra("data",mData.get(position)));
+                }
+            });
+            mAdapter.setLoadStateNoNotify(state);
+            recyclerView.setAdapter(mAdapter);
 
-            }else {
-                mAdapter.setLoadStateNoNotify(state);
-                mAdapter.notifyDataSetChanged();
-            }
+        }else {
+            mAdapter.setLoadStateNoNotify(state);
+            mAdapter.notifyDataSetChanged();
+        }
 
     }
 

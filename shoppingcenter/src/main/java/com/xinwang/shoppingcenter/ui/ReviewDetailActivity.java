@@ -1,8 +1,10 @@
 package com.xinwang.shoppingcenter.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,10 +22,12 @@ import com.xinwang.bgqbaselib.utils.TimeUtil;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
+import com.xinwang.shoppingcenter.bean.MediaBean;
 import com.xinwang.shoppingcenter.bean.OrderGoodReviewDetailBean;
 import com.xinwang.shoppingcenter.bean.ReviewListBean;
 import com.xinwang.shoppingcenter.view.CircularImage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,8 +99,8 @@ public class ReviewDetailActivity extends BaseNetActivity {
         }
 
         showStart(llStart, mEntity);
-        List<String> mListPhotos = mEntity.getMediaList();
-        showPic(llPhoto,mListPhotos);
+
+        showPic(llPhoto,mEntity.getMediaList());
         if (!TextUtils.isEmpty(mEntity.getContent()))
             tvContent.setText(mEntity.getContent());
         tv_datetime.setText(TimeUtil.getYMDHMS1(mEntity.getReview_time()+""));
@@ -122,32 +126,62 @@ public class ReviewDetailActivity extends BaseNetActivity {
                 initRequest();
             });
     }
-    private void showPic(LinearLayout llPhoto, List<String> mListPhotos) {
+    private void showPic(LinearLayout llPhoto, List<MediaBean> mListPhotos) {
         llPhoto.removeAllViews();
         for (int i=0;i<mListPhotos.size();i++){
-            ImageView imageView =new ImageView(this);
-            imageView.setAdjustViewBounds(true);
-            LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(CommentUtils.getScreenWidth(this)-CommentUtils.dip2px(this,20), LinearLayout.LayoutParams.WRAP_CONTENT);
-            mLayoutParams.setMargins(0,0,0,CommentUtils.dip2px(this,10));
-            imageView.setLayoutParams(mLayoutParams);
+            if(mListPhotos.get(i).getType()==1){
+                View view =LayoutInflater.from(this).inflate(R.layout.item_review_detail_video_shoppingcenter,llPhoto,false);
+                GlideUtils.loadAvatarNoCenterCrop(mListPhotos.get(i).getPicPath(), R.color.BGPressedClassRoom, view.findViewById(R.id.ivContent));
+                int finalI = i;
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        jumpBigPic(mListPhotos, finalI);
+                    }
+                });
+                llPhoto.addView(view);
+            }else {
+                ImageView imageView = new ImageView(this);
+                imageView.setAdjustViewBounds(true);
+                LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(CommentUtils.getScreenWidth(this) - CommentUtils.dip2px(this, 20), LinearLayout.LayoutParams.WRAP_CONTENT);
+                mLayoutParams.setMargins(0, 0, 0, CommentUtils.dip2px(this, 10));
+                imageView.setLayoutParams(mLayoutParams);
 
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-            GlideUtils.loadAvatarNoCenterCrop(mListPhotos.get(i),R.color.BGPressedClassRoom,imageView);
-            int finalI = i;
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    jumpBigPic(mListPhotos, finalI);
-                }
-            });
-            llPhoto.addView(imageView);
+                GlideUtils.loadAvatarNoCenterCrop(mListPhotos.get(i).getPath(), R.color.BGPressedClassRoom, imageView);
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        jumpBigPic(mListPhotos, finalI);
+                    }
+                });
+                llPhoto.addView(imageView);
+            }
         }
     }
+    private void jumpBigPic(List<MediaBean> mLists, int pos ){
+        if (mLists.get(0).getType()==1){//有视频
+            if (pos==0){
+                startActivity(new Intent(this, SimplePlayerActivity.class).putExtra("url",mLists.get(0).getPath()));
+            }else {
+                ArrayList<String> mPics =new ArrayList<>();
+                for (int i=0;i<mLists.size()-1;i++){
+                    mPics.add(mLists.get(i+1).getPath());
+                }
+                BeautyDefine.getImagePreviewDefine(this).showImagePreview(mPics,pos-1);
+            }
+        }else {
+            ArrayList<String> mPics =new ArrayList<>();
+            for (int i=0;i<mLists.size();i++){
+                mPics.add(mLists.get(i).getPath());
+            }
+            BeautyDefine.getImagePreviewDefine(this).showImagePreview(mPics,pos);
+        }
 
-    private void jumpBigPic( List<String> mLists,int pos ){
-        BeautyDefine.getImagePreviewDefine(this).showImagePreview(mLists,pos);
     }
+
     private void showStart(LinearLayout llStart,ReviewListBean.DataBean mEntity) {
         llStart.removeAllViews();
         for (int i=0;i<mEntity.getScore();i++){

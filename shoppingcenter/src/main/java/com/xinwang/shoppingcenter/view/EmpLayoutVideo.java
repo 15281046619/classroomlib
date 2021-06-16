@@ -1,4 +1,4 @@
-package com.xingwang.classroom.view;
+package com.xinwang.shoppingcenter.view;
 
 
 import android.app.Activity;
@@ -10,82 +10,65 @@ import android.content.res.Configuration;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-
 
 import com.shuyu.gsyvideoplayer.utils.NetworkUtils;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
-import com.xingwang.classroom.R;
-import com.xingwang.classroom.ui.ClassRoomDetailActivity;
-import com.xinwang.bgqbaselib.utils.GlideUtils;
 
+import com.xinwang.shoppingcenter.R;
+import com.xinwang.shoppingcenter.ui.SimplePlayerActivity;
 
 
 /**
  * Created by shuyu on 2016/12/23.
  * CustomGSYVideoPlayer是试验中，建议使用的时�?�使用StandardGSYVideoPlayer
  */
-public class LandLayoutVideo extends StandardGSYVideoPlayer  {
+public class EmpLayoutVideo extends StandardGSYVideoPlayer  {
 
-    private ImageView ivShape,ivCollect;
-    private RelativeLayout rlAd;
+
+
 
     /**
      * 1.5.0�?始加入，如果�?要不同布�?区分功能，需要重�?
      */
-    public LandLayoutVideo(Context context, Boolean fullFlag) {
+    public EmpLayoutVideo(Context context, Boolean fullFlag) {
         super(context, fullFlag);
     }
 
-    public LandLayoutVideo(Context context) {
+    public EmpLayoutVideo(Context context) {
         super(context);
     }
 
-    public LandLayoutVideo(Context context, AttributeSet attrs) {
+    public EmpLayoutVideo(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-  /*  @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (v.getId()==R.id.progress){
-            return true;
-        }else
-            return super.onTouch(v, event);
-    }*/
 
     //这个必须配置�?上面的构造才能生�?
     @Override
     public int getLayoutId() {
         if (getContext()==null){
-            return R.layout.sample_video_normal_classroom;
+            return R.layout.sample_video_normal_shoppingcenter;
         }
-        if (getContext() instanceof ClassRoomDetailActivity) {
-            ClassRoomDetailActivity classRoomDetailActivity = (ClassRoomDetailActivity) getContext();
+        if (getContext() instanceof SimplePlayerActivity) {
+            SimplePlayerActivity classRoomDetailActivity = (SimplePlayerActivity) getContext();
 
             if (classRoomDetailActivity.orientationUtils == null) {
-                return R.layout.sample_video_normal_classroom;
+                return R.layout.sample_video_normal_shoppingcenter;
             }
             if (classRoomDetailActivity.orientationUtils.getScreenType() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-                return R.layout.sample_video_land_classroom;
+                return R.layout.sample_video_land_shoppingcenter;
             }
         }
-        return R.layout.sample_video_normal_classroom;
+        return R.layout.sample_video_normal_shoppingcenter;
     }
 
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
-    public void showThumbBg(String url){
-        findViewById(R.id.ivThumbBg).setVisibility(VISIBLE);
-        GlideUtils.loadAvatar(url,findViewById(R.id.ivThumbBg));
-    }
-    public void goneThumbBg(){
-        findViewById(R.id.ivThumbBg).setVisibility(GONE);
-    }
+
     @Override
     protected void init(Context context) {
         super.init(context);
@@ -120,11 +103,7 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
     @Override
     public void onConfigurationChanged(Activity activity, Configuration newConfig, OrientationUtils orientationUtils, boolean hideActionBar, boolean hideStatusBar) {
         super.onConfigurationChanged(activity, newConfig, orientationUtils, hideActionBar, hideStatusBar);
-        if (activity!=null&&ivCollect!=null){
-            ClassRoomDetailActivity classRoomDetailActivity = (ClassRoomDetailActivity) activity;
-            ivCollect.setSelected(classRoomDetailActivity.isCollect);
 
-        }
     }
    /* public ImageView getBgThumb(){
         return ivBgThumb;
@@ -137,41 +116,9 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
     public boolean isGetVideoSize(){
        return getCurrentVideoHeight()>0&&getCurrentVideoWidth()>0;
     }
-    @Override
-    protected void initInflate(Context context) {
-        super.initInflate(context);
-        if (context==null){
-            return;
-        }
-        if (getContext() instanceof  ClassRoomDetailActivity) {
-            ClassRoomDetailActivity classRoomDetailActivity = (ClassRoomDetailActivity) getContext();
-            ivShape = findViewById(R.id.iv_shape);
-            ivCollect = findViewById(R.id.iv_collect);
-            rlAd = findViewById(R.id.rl_ad);
-
-            ivCollect.setSelected(classRoomDetailActivity.isCollect);
-            ivShape.setOnClickListener(v -> {
-                classRoomDetailActivity.goShape(v);
-            });
-            ivCollect.setOnClickListener(v -> {
-                classRoomDetailActivity.goCollect(v);
-            });
-            if (mProgressBar != null)
-                mProgressBar.setEnabled(false);
-        }
-    }
-
-    /**
-     * 不使用滑动改变进度
-     */
 
 
-    public View getCollectView(){
-        return ivCollect;
-    }
-    public RelativeLayout getADViewRoot(){
-        return rlAd;
-    }
+
 
     @Override
     protected void showWifiDialog() {
@@ -180,7 +127,7 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer  {
             startPlayLogic();
             return;
         }
-        android.app.AlertDialog.Builder builder = new AlertDialog.Builder(getActivityContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivityContext());
         builder.setMessage(getResources().getString(R.string.tips_not_wifi));
         builder.setPositiveButton(getResources().getString(R.string.tips_not_wifi_confirm), (dialog, which) -> {
             dialog.dismiss();

@@ -11,7 +11,8 @@
         app:layout_scrollFlags="scroll|enterAlways"
         style="@style/ToolbarStyleClassRoom">
     </com.xinwang.bgqbaselib.view.CustomToolbar>
-    <include layout="@layout/layout_empty_classroom"/>
+    <include layout="@layout/layout_empty_classroom"
+        />
     <android.support.v4.widget.NestedScrollView
 
         android:layout_width="match_parent"

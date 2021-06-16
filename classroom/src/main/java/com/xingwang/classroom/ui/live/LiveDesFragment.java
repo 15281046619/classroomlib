@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.bean.LiveDetailBean;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
@@ -64,7 +65,7 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
 
                     @Override
                     public void onSuccess(LiveDetailBean liveDetailBean) {
-                        loadData(liveDetailBean.getData().getLive().getBody());
+                        webView.loadData(liveDetailBean.getData().getLive().getBody());
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });
@@ -72,13 +73,9 @@ public class LiveDesFragment extends BaseLazyLoadFragment {
     @Override
     public void initData() {
         htmlText=getArguments().getString(Constants.DATA);
-     //   setWebViewSetting();
-        //loadData(htmlText);
+
+
         webView.loadData(htmlText);
-    }
-    private void loadData(String content){
-        content = content.replace("<img", "<img style=\"max-width:100%;height:auto\"");
-        webView.loadData(content, "text/html;charset=utf-8", "utf-8");
     }
 
 

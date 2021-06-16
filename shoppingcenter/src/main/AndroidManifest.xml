@@ -84,7 +84,13 @@
                     android:host="${applicationId}.dddetail" />
             </intent-filter>-->
         </activity>
-
+        <activity android:name=".ui.SimplePlayerActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:hardwareAccelerated="true"
+            android:theme="@style/AppThemeClassRoom"/>
         <activity android:name=".ui.WaybillDetailActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:configChanges="orientation|screenSize|keyboardHidden"

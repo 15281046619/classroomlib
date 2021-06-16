@@ -1,7 +1,10 @@
 package com.xinwang.bgqbaselib.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
 
@@ -19,6 +22,7 @@ import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 
 import com.ycbjie.webviewlib.base.X5WebChromeClient;
@@ -36,6 +40,7 @@ import java.util.ArrayList;
  * Time;10:11
  * author:baiguiqiang
  */
+@SuppressLint("SetJavaScriptEnabled")
 public class CustomWebView extends X5WebView {
     private X5WebChromeClient x5WebChromeClient;
     private boolean isLoadUrl =false;
@@ -53,7 +58,7 @@ public class CustomWebView extends X5WebView {
         this.onWebListener =onWebListener;
     }
     private void init(){
-        if (getX5WebViewExtension()!=null){
+      if (getX5WebViewExtension()!=null){
             Bundle data = new Bundle();
             //data.putBoolean("standardFullScreen", false);// true表示标准全屏，false表示X5全屏；不设置默认false，
             data.putBoolean("supportLiteWnd", false);// false：关闭小窗；true：开启小窗；不设置默认true，
@@ -67,8 +72,6 @@ public class CustomWebView extends X5WebView {
         x5WebViewClient.setWebListener(interWebListener);
         setWebViewSetting();
         addJavascriptInterface(new JavaScriptInterface(getContext()),"javaInterFace");
-        x5WebChromeClient = getX5WebChromeClient();
-        x5WebChromeClient.setWebListener(interWebListener);
         if (x5WebChromeClient!=null)
             x5WebChromeClient.setVideoWebListener(new VideoWebListener() {
 
@@ -147,8 +150,17 @@ public class CustomWebView extends X5WebView {
             if (url.startsWith("http:") || url.startsWith("https:")) {
                 view.loadUrl(url);
                 return false;
+            }else {
+                try {
+                    Uri mRui = Uri.parse(url);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, mRui);
+                    getContext().startActivity(intent);
+                }catch (Exception e){
+                   e.printStackTrace();
+                }
+                return true;
             }
-            return true;
+
         }
 
         @Override
@@ -165,15 +177,19 @@ public class CustomWebView extends X5WebView {
         public void onPageFinished(WebView view, String url) {
             if (isLoadUrl)
                 addImageClickListner();
+            // html加载完成之后，添加监听图片的点击js函数
             super.onPageFinished(view, url);
         }
     }
+
+
+
     private InterWebListener interWebListener = new InterWebListener() {
         @Override
         public void hindProgressBar() {
             if (onWebListener!=null)
                 onWebListener.hindProgressBar();
-            //progress.hide();
+
         }
 
         @Override
@@ -238,9 +254,6 @@ public class CustomWebView extends X5WebView {
         //必须添加注解,否则无法响应
         @JavascriptInterface()
         public void openImage(String img) {//统一跳转图片浏览器
-          /*  if (onClickImgListener!=null){
-                onClickImgListener.onclickImg(img);
-            }*/
             ArrayList<String> mLists = new ArrayList<>();
             mLists.add(img);
             BeautyDefine.getImagePreviewDefine((Activity) context).showImagePreview(mLists, 0);
@@ -261,6 +274,7 @@ public class CustomWebView extends X5WebView {
             });
         }
     }
+
     private void setWebViewSetting(){
         WebSettings websettings = getSettings();
         websettings.setDomStorageEnabled(true);  // 开启 DOM storage 功能
@@ -274,8 +288,6 @@ public class CustomWebView extends X5WebView {
         websettings.setBuiltInZoomControls(false);
         websettings.setSupportZoom(false);
         websettings.setDisplayZoomControls(false);
-
-
     }
 
 
@@ -296,7 +308,7 @@ public class CustomWebView extends X5WebView {
             }
             removeAllViews();
             destroy();
-            removeJavascriptInterface("imagelistner");
+            removeJavascriptInterface("javaInterFace");
         }
     }
     public interface  OnWebListener{

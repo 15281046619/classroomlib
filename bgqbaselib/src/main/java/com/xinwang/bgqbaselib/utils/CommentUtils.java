@@ -264,18 +264,19 @@ public class CommentUtils {
                 "img{max-width: 100%; width:100%; height:auto;}" +
                 "video{max-width: 100%; width:100%; height:auto;}</style>" +
                 "</head>");
-        return "<html>"+head+"<body style='margin:0;padding:0'>"+bodyHTML+" <script>" +
-                "window.onload=function(){var objs = document.getElementsByTagName(\"img\"); " +
+        return "<html>"+head+"<body style='margin:0;padding:0'>"+bodyHTML+" <script type=\"text/javascript\">" +
+                "window.onload=function(){ var objs = document.getElementsByTagName(\"img\"); " +
                 "for(var i=0;i<objs.length;i++)  "+
-                "{"
+                "{ "
                 +"    objs[i].onclick=function()  "+
-                "    {  "
-                +"        window.javaInterFace.openImage(this.src);  "+
+                "    {window.alert(\"sometext\");"
+                +"       javaInterFace.openImage(this.src); "+
+
                 "    }  "+
                 "} "+
                 "javaInterFace.resize(document.body.getBoundingClientRect().height)"+
                 "}"+"</script></body></html>";
-       // return "<html>"+head+"<body>"+bodyHTML+"</body></html>";
+
     }
     public static String getPhone(String sParam) {
         if (sParam.length() <= 0)
