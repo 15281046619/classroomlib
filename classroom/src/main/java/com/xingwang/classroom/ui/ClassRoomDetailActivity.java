@@ -450,7 +450,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
     private void jumpPic(){
         imagePickerDefine = BeautyDefine.getImagePickerDefine(ClassRoomDetailActivity.this);
 
-        imagePickerDefine.showSinglePicker(false, new ImagePickerCallBack() {
+        imagePickerDefine.showSinglePicker(false,false, new ImagePickerCallBack() {
             @Override
             public void onResult(List<String> list, ImagePickerDefine.MediaType mediaType, List<String> list1) {
                 if (list!=null&&list.size()>0)

@@ -180,7 +180,7 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
     private void jumpPic(){
         imagePickerDefine = BeautyDefine.getImagePickerDefine(this);
         //先不加视频功能
-        imagePickerDefine.showMultiplePicker(maxSelectSum-mSelectMedia.size(),new ArrayList<>(),isAddVideo(), new ImagePickerCallBack() {
+        imagePickerDefine.showMultiplePicker(maxSelectSum-mSelectMedia.size(),new ArrayList<>(),isAddVideo(),false, new ImagePickerCallBack() {
             @Override
             public void onResult(List<String> list, ImagePickerDefine.MediaType mediaType, List<String> list1) {
                 if (list!=null&&list.size()>0) {
