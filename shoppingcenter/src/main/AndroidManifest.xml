@@ -38,6 +38,20 @@
             android:launchMode="singleTask"
             android:theme="@style/AppThemeClassRoom">
         </activity>
+        <activity android:name=".ui.ShoppingEditActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
+        <activity android:name=".ui.ShoppingAddActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeClassRoom">
+        </activity>
         <activity android:name=".ui.ShoppingOrderActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:configChanges="orientation|screenSize|keyboardHidden"

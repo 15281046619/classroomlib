@@ -13,24 +13,17 @@ import java.util.List;
 public class Sku implements Parcelable {
 
     private String id;
-
     private String mainImage;
     private int maxBugSum;//个人最大购买数目
-
     public int getMaxBugSum() {
         return maxBugSum==0?99999:maxBugSum;//最大数目三位数
     }
-
     public void setMaxBugSum(int maxBugSum) {
         this.maxBugSum = maxBugSum;
     }
-
     private int stockQuantity;
-
     private boolean inStock;
-
     private int originPrice;
-
     private int sellingPrice;
 
     private List<SkuAttribute> attributes;
@@ -55,12 +48,8 @@ public class Sku implements Parcelable {
     }
 
     private int goodId;//商品id
-
     private String goodTitle;
-
-
     private boolean isCheck;
-
     private int addSum;
 
 

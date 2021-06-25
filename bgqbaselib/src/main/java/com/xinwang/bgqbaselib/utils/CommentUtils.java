@@ -40,6 +40,9 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.regex.Matcher;
@@ -294,5 +297,13 @@ public class CommentUtils {
         return bf.toString();
 
     }
-
+    public static String bodyToItems(String body){
+        try {
+            JSONObject jsonObject =new JSONObject(body);
+            return jsonObject.getString("items");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 }

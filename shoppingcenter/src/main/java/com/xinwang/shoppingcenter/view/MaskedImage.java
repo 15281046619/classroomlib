@@ -32,10 +32,8 @@ public abstract class MaskedImage extends AppCompatImageView {
     public MaskedImage(Context paramContext, AttributeSet paramAttributeSet, int paramInt) {
         super(paramContext, paramAttributeSet, paramInt);
     }
-
     /**
      * 创建的图形
-     *
      * @return
      */
     public abstract Bitmap createMask();

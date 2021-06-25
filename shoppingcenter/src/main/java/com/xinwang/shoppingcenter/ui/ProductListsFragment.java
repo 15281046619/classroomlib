@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
@@ -34,6 +35,7 @@ import com.xinwang.shoppingcenter.dialog.BottomSkuDialog;
 import com.xinwang.shoppingcenter.interfaces.ActivitySendFragmentListener;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 import com.xinwang.shoppingcenter.interfaces.FragmentStateListener;
+import com.xinwang.shoppingcenter.interfaces.OnClickOkListener;
 import com.xinwang.shoppingcenter.view.WrapContentStaggeredGridLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,6 +60,8 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
     private List<GoodsBean.DataBean> mData = new ArrayList<>();
     private RecyclerView recyclerView;
     private  View view;
+    private boolean isEdit;
+
     private FragmentStateListener fragmentStateListener;
     /**
      * 获得单列
@@ -66,10 +70,14 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
      * @return
      */
     public static ProductListsFragment getInstance(String q,String category_id,boolean  isClipToPadding){
+        return getInstance(q,category_id,false,isClipToPadding);
+    }
+    public static ProductListsFragment getInstance(String q,String category_id,boolean isEdit,boolean  isClipToPadding){
         ProductListsFragment productListsFragment =new ProductListsFragment();
         Bundle bundle =new Bundle();
         if (q!=null)
             bundle.putString("q",q);
+        bundle.putBoolean("isedit",isEdit);
         if (category_id!=null)
             bundle.putString("category_id",category_id);
         bundle.putBoolean("isClipToPadding",isClipToPadding);
@@ -114,6 +122,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
     public void initData() {
         category_id = getArguments().getString("category_id");
         q =getArguments().getString("q");
+        isEdit =getArguments().getBoolean("isedit",false);
         initListener();
         goRequestData(Constants.LOAD_DATA_TYPE_INIT);
 
@@ -206,7 +215,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
 
                     @Override
                     public void add(int pos) {
-                        // ShoppingCenterLibUtils.addShoppingCenter(getActivity(),mData.get(pos));
+
                         requestSkuData(pos);
                     }
 
@@ -220,7 +229,17 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
 
                     }
                 });
-                mAdapter.setOnItemClickListener((view, position) -> jumpDetailActivity(mData.get(position),view));
+                mAdapter.setOnItemClickListener(new BaseLoadMoreAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        if (isEdit){
+                            requestSkuData(position);
+                        }else {
+                            jumpDetailActivity(mData.get(position),view);
+                        }
+                    }
+                });
+
                 mAdapter.setLoadStateNoNotify(state);
                 mAdapter.setStaggeredGridLayoutManager(true);
                 recyclerView.setAdapter(mAdapter);
@@ -255,10 +274,23 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
     }
     private void showSkuDialog(List<Sku> skuBean){
         if (skuBean!=null&&skuBean.size()>0&&skuBean.get(0).getId()!=null)
-            BottomSkuDialog.getInstance(skuBean,0).showDialog(getActivity().getSupportFragmentManager());
+            BottomSkuDialog.getInstance(skuBean,isEdit?2:0).setOnClickOkListener(new OnClickOkListener() {
+                @Override
+                public void onClickOk(Sku sku) {
+                    if (getActivity() instanceof ShoppingAddActivity){
+                        ((ShoppingAddActivity)getActivity()).selectSku(sku);
+                    }
+                }
+            }).showDialog(getActivity().getSupportFragmentManager());
         else {
-            if (skuBean.size()>0)
-            ShoppingCenterLibUtils.addShoppingCenter(getActivity(), skuBean.get(0));
+            if (skuBean.size()>0) {
+                if (isEdit){
+                    if (getActivity() instanceof ShoppingAddActivity){
+                        ((ShoppingAddActivity)getActivity()).selectSku(skuBean.get(0));
+                    }
+                }else
+                ShoppingCenterLibUtils.addShoppingCenter(getActivity(), skuBean.get(0));
+            }
         }
     }
     private void jumpDetailActivity(GoodsBean.DataBean mGoodsBean,View view){

@@ -3,6 +3,7 @@ package com.xinwang.shoppingcenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
@@ -20,7 +21,10 @@ import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.ui.OrderDetailActivity;
+import com.xinwang.shoppingcenter.ui.ShoppingCenterActivity;
 import com.xinwang.shoppingcenter.ui.ShoppingDetailActivity;
+import com.xinwang.shoppingcenter.ui.ShoppingEditActivity;
+import com.xinwang.shoppingcenter.ui.ShoppingOrderActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -232,12 +236,48 @@ public class ShoppingCenterLibUtils {
     }
 
     /**
+     * 跳转到聊天 商品类型
+     * @param activity
+     * @param userId
+     * @param text
+     */
+    public static void jumpShoppingChat(Activity activity,long userId, String text){
+        if (userId==-1){
+            MyToast.myLongToast(activity,"你还没有技术老师，请联系客服分配技术老师!");
+            CommentUtils.jumpWebBrowser(activity,HttpUrls.URL_CHAT);
+        }else
+            BeautyDefine.getOpenPageDefine(activity).toPersonalChatShoppingCart(userId,text);
+    }
+
+    /**
      * 跳转订单详情
      * @param activity
      * @param id
      */
     public static void startOrderDetailActivity(Activity activity,String id){
-
         activity.startActivity(new Intent(activity, OrderDetailActivity.class).putExtra("id",id));
     }
+
+    /***
+     * 跳转编辑购物车界面
+     * @param activity
+     * @param body
+     * @param requestCode
+     * @param resultCode
+     */
+    public static void startForResultShoppingEdit(FragmentActivity activity, String body, int requestCode, int resultCode){
+        activity.startActivityForResult(ShoppingEditActivity.getIntent(activity,CommentUtils.bodyToItems(body),resultCode),requestCode);
+    }
+
+    /**
+     * 跳转下单界面
+     * @param activity
+     * @param body
+     * @param requestCode
+     * @param resultCode
+     */
+    public static void startForResultShoppingOrder(FragmentActivity activity, String body, int requestCode, int resultCode){
+        activity.startActivityForResult(ShoppingOrderActivity.getIntent(activity,CommentUtils.bodyToItems(body),resultCode),requestCode);
+    }
+
 }

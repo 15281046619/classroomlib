@@ -11,14 +11,8 @@ import android.os.Parcelable;
 public class SkuAttribute implements Parcelable {
 
     private String key;
-
     private String value;
-
-
-
-    public SkuAttribute() {
-
-    }
+    public SkuAttribute() { }
 
 
 

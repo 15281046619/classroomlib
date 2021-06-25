@@ -25,14 +25,12 @@ import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
-import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
+
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
-import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
-import com.xinwang.shoppingcenter.adapter.ShoppingCenterAdapter;
+import com.xinwang.shoppingcenter.adapter.ShoppingEditAdapter;
 import com.xinwang.shoppingcenter.bean.CharBodyBean;
-import com.xinwang.shoppingcenter.bean.ErpBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
@@ -43,58 +41,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 商品编辑页面
  * Date:2021/3/31
  * Time;12:55
  * author:baiguiqiang
  */
-public class ShoppingCenterActivity extends BaseNetActivity {
+public class ShoppingEditActivity extends BaseNetActivity {
     private RecyclerView recyclerView;
-    private CheckBox rbCheck;
+
     private TextView tvSum;
     private TextView tvBuy;
     private ImageView ivDelete;
     private List<Sku> mData;
-    private ShoppingCenterAdapter mAdapter;
+    private ShoppingEditAdapter mAdapter;
     private int aDoublePrice;
     private int selectSum;
 
     @Override
     protected int layoutResId() {
-        return R.layout.activity_shopping_shoppingcenter;
+        return R.layout.activity_shopping_edit_shoppingcenter;
     }
-
+    public static Intent getIntent(Context context, String body, int resultCode){
+        Intent intent = new Intent(context, ShoppingEditActivity.class);
+        intent.putExtra("body", body);
+        intent.putExtra("resultCode",resultCode);
+        return intent;
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        initData();
         initListener();
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initData();
-    }
-
     private void initData() {
-        mData=GsonUtils.changeGsonToSafeList( SharedPreferenceUntils.getGoods(this), Sku.class);
+        mData=GsonUtils.changeGsonToSafeList(getIntent().getStringExtra("body"), Sku.class);
         if (mData.size()==0){
             requestFailureShow("暂未添加商品");
         }else {
             ivDelete.setVisibility(View.VISIBLE);
             findViewById(R.id.rl_empty).setVisibility(View.GONE);
             if (mAdapter==null) {
-                mAdapter = new ShoppingCenterAdapter(mData);
-                mAdapter.setOnItemClickListener((view, position) -> startActivity(new Intent(ShoppingCenterActivity.this, ShoppingDetailActivity.class).putExtra("id", mData.get(position).getGoodId())));
+                mAdapter = new ShoppingEditAdapter(mData);
                 mAdapter.setOnItemLongClickListener(new BaseLoadMoreAdapter.OnItemLongClickListener() {//不能用lamdbda表达式，主项目会崩溃
                     @Override
                     public void onItemLongClick(View view, int position) {
                         CenterDefineDialog.getInstance("确认删除"+mAdapter.mDatas.get(position).getGoodTitle()+"?").setCallback(integer -> {
+                            if (mAdapter.mDatas.get(position).getSellingPrice()!=0)
+                                aDoublePrice =aDoublePrice - mAdapter.mDatas.get(position).getSellingPrice()*mAdapter.mDatas.get(position).getAddSum();
+                            selectSum = selectSum - mAdapter.mDatas.get(position).getAddSum();
+                            showTotalPrice(aDoublePrice, selectSum);
                             mAdapter.mDatas.remove(position);
-                            rbCheck.setChecked(isAllCheck());
-                            mAdapter.saveUpdate(ShoppingCenterActivity.this);
-                            EventBus.getDefault().post(new NumberBean(-1));
+                            mAdapter.saveUpdate(ShoppingEditActivity.this);
                             if (mAdapter.mDatas.size()==0){
                                 requestFailureShow("暂未添加商品");
                             }
@@ -105,70 +105,51 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                 mAdapter.setOnClickListener(new AdapterItemClickListener() {
                     @Override
                     public void onClick(int pos, View view) {
-                        rbCheck.setChecked(isAllCheck());
+
                     }
 
                     @Override
                     public void add(int pos) {
-                        if (mAdapter.mDatas.get(pos).isCheck()) {
+
                             if (mAdapter.mDatas.get(pos).getSellingPrice()!=0)
                                 aDoublePrice = aDoublePrice +mAdapter.mDatas.get(pos).getSellingPrice();
                             selectSum = selectSum + 1;
                             showTotalPrice(aDoublePrice, selectSum);
-                        }
+
                     }
 
                     @Override
                     public void sub(int pos) {
-                        if (mAdapter.mDatas.get(pos).isCheck()) {
+
                             if (mAdapter.mDatas.get(pos).getSellingPrice()!=0)
                                 aDoublePrice =aDoublePrice - mAdapter.mDatas.get(pos).getSellingPrice();
                             selectSum = selectSum - 1;
                             showTotalPrice(aDoublePrice, selectSum);
-                        }
+
                     }
 
                     @Override
                     public void setNumber(int pos, int sum, int price) {
-                        if (mAdapter.mDatas.get(pos).isCheck()) {
                             aDoublePrice = aDoublePrice +price;
                             selectSum = selectSum + sum;
                             showTotalPrice(aDoublePrice, selectSum);
-                        }
+
                     }
 
 
                 });
 
                 recyclerView.setAdapter(mAdapter);
+                initPriceAndSum();
             }else {
                 mAdapter.mDatas =mData;
                 mAdapter.notifyDataSetChanged();
             }
-            rbCheck.setChecked(isAllCheck());
+
         }
     }
 
-    /*
-     *//**
-     * 全选获取取消
-     */
-    public void allCheck(boolean isCheck){
-        int price=0;
-        int selectSum=0;
-        for (int i=0;i<mAdapter.mDatas.size();i++){
-            mAdapter.mDatas.get(i).setCheck(isCheck);
-            if (isCheck) {
-                if (mAdapter.mDatas.get(i).getSellingPrice()!=0){
-                    price=price+mAdapter.mDatas.get(i).getAddSum()*mAdapter.mDatas.get(i).getSellingPrice();
-                }
 
-                selectSum+=mAdapter.mDatas.get(i).getAddSum();
-            }
-        }
-        showTotalPrice(price,selectSum);
-        mAdapter.saveUpdate(this);
-    }
     public void showTotalPrice(int price,int sum){
         this.aDoublePrice =price;
         this.selectSum =sum;
@@ -180,31 +161,25 @@ public class ShoppingCenterActivity extends BaseNetActivity {
         }
         tvSum.setText(spannableString);
         if (sum>0)
-            tvBuy.setText("结算("+sum+")");
+            tvBuy.setText("完成("+sum+")");
         else
-            tvBuy.setText("结算");
+            tvBuy.setText("完成");
     }
-
-    /**
-     * 是不是全选
-     * @return
-     */
-    public boolean isAllCheck(){
-        List<Sku> selectSku =new ArrayList<>();
+    public void initPriceAndSum(){
         int price=0;
         int selectSum=0;
         for (int i=0;i<mAdapter.mDatas.size();i++){
-            if (mAdapter.mDatas.get(i).isCheck()){
-                selectSku.add(mAdapter.mDatas.get(i));
-                if (mAdapter.mDatas.get(i).getSellingPrice()!=0){
-                    price= price+mAdapter.mDatas.get(i).getAddSum()*mAdapter.mDatas.get(i).getSellingPrice();
-                }
-                selectSum+=mAdapter.mDatas.get(i).getAddSum();
+
+            if (mAdapter.mDatas.get(i).getSellingPrice()!=0){
+                price=price+mAdapter.mDatas.get(i).getAddSum()*mAdapter.mDatas.get(i).getSellingPrice();
             }
+            selectSum+=mAdapter.mDatas.get(i).getAddSum();
+
         }
         showTotalPrice(price,selectSum);
-        return mAdapter.mDatas.size()==selectSku.size();
     }
+
+
 
     private void requestFailureShow(String error){
 
@@ -216,64 +191,35 @@ public class ShoppingCenterActivity extends BaseNetActivity {
         ivDelete.setVisibility(View.GONE);
     }
     private void initListener() {
-        rbCheck.setOnClickListener(v -> {
-            allCheck(rbCheck.isChecked());
-        });
+
         ivDelete.setOnClickListener(v -> {
-            CenterDefineDialog.getInstance("确认清空购物车?").setCallback(integer -> {
-                EventBus.getDefault().post(new NumberBean(-mAdapter.mDatas.size()));
-                mAdapter.mDatas.clear();
-                mAdapter.saveUpdate(this);
-
-                requestFailureShow("暂未添加商品");
-            }).showDialog(getSupportFragmentManager());
-
+            selectSum =0;
+            aDoublePrice=0;
+            showTotalPrice(aDoublePrice, selectSum);
+            mAdapter.mDatas.clear();
+            mAdapter.saveUpdate(this);
+            requestFailureShow("暂未添加商品");
         });
         tvBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (selectSum>0){
-                    CenterDefineDialog.getInstance("是否咨询技术老师",false).setCallback(new CenterDefineDialog.Callback1<Integer>() {
-                        @Override
-                        public void run(Integer integer) {
-                            if (integer==0){//是
-                                goRequestErp();
-                            }else {
-                                ArrayList<Sku> mSelectData = getSelectData();
-                                startActivity(new Intent(ShoppingCenterActivity.this,ShoppingOrderActivity.class)
-                                        .putParcelableArrayListExtra("data",mSelectData)
-                                        .putExtra("isShoppingCenter",true));
-                            }
-                        }
-                    }).showDialog(getSupportFragmentManager());
+                    setResult(getIntent().getIntExtra("resultCode",0),new Intent().putExtra("body",getChartBody()));
+                    finish();
                 }else {
-                    MyToast.myToast(ShoppingCenterActivity.this,"请选择后结算");
+                    MyToast.myToast(ShoppingEditActivity.this,"请选择后提交");
                 }
             }
         });
         ((CustomToolbar)findViewById(R.id.toolbar)).setNavigationOnClickListener(v -> finish());
-    }
-    /**
-     * 获取技术老师
-     */
-    private void goRequestErp() {
-        BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
-        requestGet(HttpUrls.URL_USER_MY_ERP(),new ApiParams(), ErpBean.class, new HttpCallBack<ErpBean>() {
-
+        findViewById(R.id.ivAdd).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(String message) {
-                MyToast.myToast(getApplicationContext(),message);
-                BeautyDefine.getOpenPageDefine(ShoppingCenterActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-            }
-
-            @Override
-            public void onSuccess(ErpBean erpBean) {
-                ShoppingCenterLibUtils.jumpShoppingChat(ShoppingCenterActivity.this, erpBean.getData() == null ? -1 : erpBean.getData().getId(),
-                        getChartBody());
-                BeautyDefine.getOpenPageDefine(ShoppingCenterActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
+            public void onClick(View v) {
+                startActivityForResult(new Intent(ShoppingEditActivity.this,ShoppingAddActivity.class),100);
             }
         });
     }
+
 
     private String getChartBody() {
         ArrayList<Sku> skus =getSelectData();
@@ -294,27 +240,68 @@ public class ShoppingCenterActivity extends BaseNetActivity {
                 }
             }
         }
-       return GsonUtils.createGsonString(new CharBodyBean(title+"共"+sum+"件商品",GsonUtils.createGsonString(skus)));
+        return GsonUtils.createGsonString(new CharBodyBean(title+"共"+sum+"件商品",GsonUtils.createGsonString(skus)));
 
     }
     private  ArrayList<Sku> getSelectData() {
-        ArrayList<Sku> skus =new ArrayList<>();
-        for (Sku sku :mAdapter.mDatas){
-            if (sku.isCheck()) {
-                skus.add(sku);
-            }
-        }
-       return skus;
-
-    }
+        return (ArrayList<Sku>) mAdapter.mDatas; }
 
     private void initView() {
         recyclerView =findViewById(R.id.recyclerView);
-        rbCheck =findViewById(R.id.rbCheck);
         tvSum =findViewById(R.id.tvSum);
         tvBuy = findViewById(R.id.tvBuy);
         ivDelete =findViewById(R.id.ivDelete);
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==100&&requestCode==100){
+            ArrayList<Sku> mSku = data.getParcelableArrayListExtra("data");
+            for (int j=0;j<mSku.size();j++){
+                Sku  mBean =mSku.get(j);
+                int lookPos= -1;//查找pos
+                for (int i=0;i<mAdapter.mDatas.size();i++){
+                    if (mAdapter.mDatas.get(i).getId()==null){//sku id为null 没有规格
+                        if (mBean.getId()==null&&(mAdapter.mDatas.get(i).getGoodId() == mBean.getGoodId())){
+                            lookPos = i;
+                            break;
+                        }
+                    }else {
+                        if ((mAdapter.mDatas.get(i).getId().equals(mBean.getId())) && (mAdapter.mDatas.get(i).getGoodId() == mBean.getGoodId())) {
+                            lookPos = i;
+                            break;
+                        }
+                    }
+                }
+                if (lookPos==-1) {
+                    if (mBean.getSellingPrice()!=0)
+                        aDoublePrice = aDoublePrice +mBean.getSellingPrice()*mBean.getAddSum();
+                    selectSum = selectSum + mBean.getAddSum();
+                    mAdapter.mDatas.add(0, mBean);
+                }else {
+                    if(mAdapter.mDatas.get(lookPos).getAddSum()+mBean.getAddSum()>mBean.getStockQuantity()) {
+                        return;
+                    }else {
+                        if (mAdapter.mDatas.get(lookPos).getAddSum() + mBean.getAddSum() >mAdapter.mDatas.get(lookPos).getMaxBugSum()) {
+
+                            return;
+                        }else {
+                            if (mBean.getSellingPrice()!=0)
+                                aDoublePrice = aDoublePrice +mBean.getSellingPrice()*mBean.getAddSum();
+                            selectSum = selectSum + mBean.getAddSum();
+                            mBean.setAddSum(mBean.getAddSum()+ mAdapter.mDatas.get(lookPos).getAddSum());
+                            mAdapter.mDatas.set(lookPos,mBean);
+                        }
+                    }
+                }
+            }
+            showTotalPrice(aDoublePrice, selectSum);
+            mAdapter.notifyDataSetChanged();
+            findViewById(R.id.rl_empty).setVisibility(View.GONE);
+            ivDelete.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

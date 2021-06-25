@@ -54,7 +54,7 @@ public class BottomSkuDialog extends BaseDialog {
     /**
      *
      * @param mData
-     * @param clickType 0 加入购物车 1 直接购买
+     * @param clickType 0 加入购物车 1 直接购买 2选择规格
      * @return
      */
     public static BottomSkuDialog getInstance(List<Sku> mData, int clickType){
@@ -149,6 +149,8 @@ public class BottomSkuDialog extends BaseDialog {
             tvOk.setText("加入购物车");
         }else if (type==1){
             tvOk.setText("立即购买");
+        }else if (type==2){
+            tvOk.setText("确定");
         }
         findViewById(R.id.ivClose).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +170,7 @@ public class BottomSkuDialog extends BaseDialog {
                     skuSelectScrollView.getSelectedSku().setAddSum(Integer.parseInt(tvSum.getText().toString()));
                     if (type==0){
                         ShoppingCenterLibUtils.addShoppingCenter(getActivity(),skuSelectScrollView.getSelectedSku());
-                    }else if (type==1){//进入确认页面
+                    }else if (type==1||type==2){//进入确认页面
                         if (onClickOkListener!=null){
                             onClickOkListener.onClickOk(skuSelectScrollView.getSelectedSku());
                         }

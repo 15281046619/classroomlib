@@ -24,6 +24,7 @@ import com.beautydefinelibrary.OpenPageDefine;
 import com.beautydefinelibrary.ShareResultCallBack;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
+import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
@@ -40,6 +41,7 @@ import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.adapter.ShoppingReviewAdapter;
 import com.xinwang.shoppingcenter.bean.CategoryBean;
+import com.xinwang.shoppingcenter.bean.CharBodyBean;
 import com.xinwang.shoppingcenter.bean.ErpBean;
 import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.bean.GoodsDetailBean;
@@ -191,7 +193,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
 
 
         findViewById(R.id.tvBuy).setOnClickListener(v -> showSkuDialog(1));
-        findViewById(R.id.llSeek).setOnClickListener(v -> goRequestErp());//咨询
+
+        findViewById(R.id.llSeek).setOnClickListener(v -> goRequestErp(mDate==null?"你好":mDate.getTitle(),false));//咨询
         findViewById(R.id.llShopping).setOnClickListener(v ->startActivity(new Intent(this,ShoppingCenterActivity.class)));//跳转购物车
         findViewById(R.id.tvAdd).setOnClickListener(v -> showSkuDialog(0));//加入购物车
         findViewById(R.id.ivShare).setOnClickListener(v -> goShape(v));
@@ -202,7 +205,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     /**
      * 获取技术老师
      */
-    private void goRequestErp() {
+    private void goRequestErp(String mContent,boolean isProducts) {
         BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
         requestGet(HttpUrls.URL_USER_MY_ERP(),new ApiParams(), ErpBean.class, new HttpCallBack<ErpBean>() {
 
@@ -215,8 +218,12 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             @Override
             public void onSuccess(ErpBean erpBean) {
                 BeautyDefine.getOpenPageDefine(ShoppingDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
+              if (isProducts){
+                  ShoppingCenterLibUtils.jumpShoppingChat(ShoppingDetailActivity.this,erpBean.getData()==null?-1:erpBean.getData().getId(),
+                          mContent);
+              }else
                 ShoppingCenterLibUtils.jumpChat(ShoppingDetailActivity.this,erpBean.getData()==null?-1:erpBean.getData().getId(),
-                        mDate.getTitle());
+                        mContent);
             }
         });
     }
@@ -391,7 +398,19 @@ public class ShoppingDetailActivity extends BaseNetActivity {
      * 跳转到确认页面
      */
     private void jumpOrderActivity(ArrayList<Sku> skuList) {
-        startActivity(new Intent(this,ShoppingOrderActivity.class).putParcelableArrayListExtra("data",  skuList));
+        CenterDefineDialog.getInstance("是否咨询技术老师",false).setCallback(new CenterDefineDialog.Callback1<Integer>() {
+            @Override
+            public void run(Integer integer) {
+                if (integer==0){//是
+                    skuList.get(0).setCheck(true);
+                    CharBodyBean charBodyBean =new CharBodyBean(skuList.get(0).getGoodTitle()+""+skuList.get(0).getAddSum()+"件商品",
+                            GsonUtils.createGsonString(skuList));
+                    goRequestErp(GsonUtils.createGsonString(charBodyBean),true);
+                }else {
+                    startActivity(new Intent(ShoppingDetailActivity.this,ShoppingOrderActivity.class).putParcelableArrayListExtra("data",  skuList));
+                }
+            }
+        }).showDialog(getSupportFragmentManager());
     }
 
     private void initRequest() {

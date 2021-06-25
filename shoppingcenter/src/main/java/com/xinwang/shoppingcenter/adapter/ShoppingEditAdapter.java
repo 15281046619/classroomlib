@@ -1,16 +1,11 @@
 package com.xinwang.shoppingcenter.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,10 +19,8 @@ import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
-import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.dialog.CenterEditNumberDialog;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
-
 
 import java.util.List;
 
@@ -36,10 +29,10 @@ import java.util.List;
  * Time;14:05
  * author:baiguiqiang
  */
-public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
+public class ShoppingEditAdapter extends BaseLoadMoreAdapter<Sku> {
     private AdapterItemClickListener adapterItemClickListener;
 
-    public ShoppingCenterAdapter(List<Sku> mDatas) {
+    public ShoppingEditAdapter(List<Sku> mDatas) {
         super(mDatas);
         setLoadState(2);//加载完成 不显示footer
     }
@@ -50,7 +43,6 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
      * @return
      */
     public void saveUpdate(Context context){
-        SharedPreferenceUntils.saveGoods(context, GsonUtils.createGsonString(mDatas));
         notifyDataSetChanged();
     }
 
@@ -58,7 +50,7 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
     protected void onBaseBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         if (viewHolder instanceof BaseViewHolder){
             BaseViewHolder baseViewHolder = (BaseViewHolder) viewHolder;
-            baseViewHolder.rbCheck .setChecked(mDatas.get(i).isCheck());
+
             baseViewHolder.tvTitle.setText(mDatas.get(i).getGoodTitle());
             baseViewHolder.tvAdd.setOnClickListener(v -> {
                 if (mDatas.get(i).getAddSum()<mDatas.get(i).getStockQuantity()) {
@@ -125,15 +117,7 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
                 }
             });
             GlideUtils.loadAvatar(mDatas.get(i).getMainImage(),R.color.BGPressedClassRoom,baseViewHolder.icCove);
-            baseViewHolder.rbCheck.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mDatas.get(i).setCheck(  baseViewHolder.rbCheck.isChecked());
-                    SharedPreferenceUntils.saveGoods(baseViewHolder.tvSub.getContext(),GsonUtils.createGsonString(mDatas));
-                    if (adapterItemClickListener!=null)
-                        adapterItemClickListener.onClick(i,v);
-                }
-            });
+
 
         }
     }
@@ -146,12 +130,11 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
         return new BaseViewHolder(view);
     }
     class BaseViewHolder extends RecyclerView.ViewHolder {
-        CheckBox rbCheck;
+
         ImageView icCove;
         TextView tvTitle,tvSub,tvSum,tvAdd,tvSku,tvPrice;
         BaseViewHolder(@NonNull View itemView) {
             super(itemView);
-            rbCheck =itemView.findViewById(R.id.rbCheck);
             icCove =itemView.findViewById(R.id.icCove);
             tvTitle =itemView.findViewById(R.id.tvTitle);
             tvSub =itemView.findViewById(R.id.tvSub);
@@ -163,7 +146,7 @@ public class ShoppingCenterAdapter extends BaseLoadMoreAdapter<Sku> {
     }
     @Override
     public int getViewLayout(int viewType) {
-        return R.layout.item_shopping_center_shoppingcenter;
+        return R.layout.item_shopping_edit_shoppingcenter;
     }
 
 

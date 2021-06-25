@@ -1,5 +1,6 @@
 package com.xinwang.shoppingcenter.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -83,6 +84,13 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private DeliveryaddrDefine mADDrDefine;
     private int expressPrice=0;//邮费价格
 
+    public static Intent getIntent(Context context, String body, int resultCode){
+        Intent intent = new Intent(context, ShoppingOrderActivity.class);
+        ArrayList<Sku> mData = (ArrayList<Sku>) GsonUtils.changeGsonToSafeList(body, Sku.class);
+        intent.putParcelableArrayListExtra("data",  mData);
+        intent.putExtra("resultCode",resultCode);
+        return intent;
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -215,12 +223,20 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     if (skuList.get(finalI).getSellingPrice()!=0)
                         aDoublePrice = aDoublePrice -skuList.get(finalI).getSellingPrice();
                     selectSum = selectSum - 1;
-
                     showTotalPrice();
-
                 }else {
-                    MyToast.myToast( this,"数值低于范围");
+                    MyToast.myToast(this, "数值低于范围");
+                 /*   if (isEdit) {
+                        if (couponsBean != null) {
+                            couponsBean = null;
+                            tvCoupon.setText(totalCoupon + "张未使用");
+                            couponPos = -1;
+                        }
+                        skuList.remove(finalI);
+                        initShowGoods();
+                    }else {
 
+                    }*/
                 }
             });
             GlideUtils.loadAvatar(skuList.get(i).getMainImage(),R.color.BGPressedClassRoom,icCove);
@@ -357,16 +373,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
             @Override
             public void onClick(View v) {
                 if (tvAdd.getVisibility()==View.GONE) {
-                    CenterDefineDialog.getInstance("是否咨询技术老师",false).setCallback(new CenterDefineDialog.Callback1<Integer>() {
-                        @Override
-                        public void run(Integer integer) {
-                            if (integer==0){//是
-                                goRequestErp();
-                            }else {
-                                createOrder(false,null);
-                            }
-                        }
-                    }).showDialog(getSupportFragmentManager());
+                    createOrder();
                 }else {
                     scrollview.smoothScrollTo(0,0);
                     MyToast.myToast(ShoppingOrderActivity.this,"请填写收货地址");
@@ -385,7 +392,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         findViewById(R.id.llExpress).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              CenterDefineDialog.getInstance("1.包邮条件：\n   海南  新疆 西藏  内蒙  青海 宁夏满500包邮 \n   其他地方满300包邮\n2.邮费价格：\n   四川重庆10元\n   其他地区全都15元").showDialog(getSupportFragmentManager());
+                CenterDefineDialog.getInstance("1.包邮条件：\n   海南  新疆 西藏  内蒙  青海 宁夏满500包邮 \n   其他地方满300包邮\n2.邮费价格：\n   四川重庆10元\n   其他地区全都15元").showDialog(getSupportFragmentManager());
             }
         });
     }
@@ -393,8 +400,8 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         try {
             JSONArray jsonArray =new JSONArray(regions);
             tvAddress.setText(jsonArray.getJSONObject(0).getString("name")+" "+jsonArray.getJSONObject(1).getString("name")
-            +" "+jsonArray.getJSONObject(2).getString("name")+" "+address);
-          //  apiParams.with("area_code", jsonArray.getJSONObject(2).getString("county_id").substring(0,6));
+                    +" "+jsonArray.getJSONObject(2).getString("name")+" "+address);
+            //  apiParams.with("area_code", jsonArray.getJSONObject(2).getString("county_id").substring(0,6));
         }catch (JSONException e) {
             e.printStackTrace();
         }
@@ -423,32 +430,14 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     }
 
 
-    /**
-     * 获取技术老师
-     */
-    private void goRequestErp() {
-        BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
-        requestGet(HttpUrls.URL_USER_MY_ERP(),new ApiParams(), ErpBean.class, new HttpCallBack<ErpBean>() {
 
-            @Override
-            public void onFailure(String message) {
-                MyToast.myToast(getApplicationContext(),message);
-                BeautyDefine.getOpenPageDefine(ShoppingOrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-            }
-
-            @Override
-            public void onSuccess(ErpBean erpBean) {
-                createOrder(true,erpBean);
-            }
-        });
-    }
 
     /**
      * 创建订单
      */
-    private void createOrder(boolean isChat,ErpBean erpBean){
-        if (!isChat)
-            BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
+    private void createOrder(){
+
+        BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
 
         ApiParams apiParams =new ApiParams();
         if (!TextUtils.isEmpty(etRemarks.getText().toString()))
@@ -479,14 +468,11 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                     removeOrderData();//只有购物车里面进入才移除
                 OrderLiveData.getInstance().notifyInfoChanged(new OrderInfo(orderSuccessBean.getData().getOrder_id(), Constants.PAY_STATE_NO));//广播
                 BeautyDefine.getOpenPageDefine(ShoppingOrderActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-                if (isChat) {//跳转聊天
-                    ShoppingCenterLibUtils.jumpChat(ShoppingOrderActivity.this, erpBean.getData() == null ? -1 : erpBean.getData().getId(),
-                            getContent());
-                }else {//跳转支付
-                    getTitle();
-                    BeautyDefine.getCashierDeskDefine(ShoppingOrderActivity.this).jumpCashierPage(mTotal>0?CountUtil.changeF2Y(mTotal):"0",
-                            getPayTitle(),orderSuccessBean.getData().getOrder_id()+"",null);
-                }
+                //跳转支付
+                getTitle();
+                BeautyDefine.getCashierDeskDefine(ShoppingOrderActivity.this).jumpCashierPage(mTotal>0?CountUtil.changeF2Y(mTotal):"0",
+                        getPayTitle(),orderSuccessBean.getData().getOrder_id()+"",null);
+
                 finish();
             }
         });
@@ -643,7 +629,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
     private boolean isContain(String[] strings,String s){
         for (int i=0;i<strings.length;i++){
             if (strings[i].equals(s)){
-             return true;
+                return true;
             }
         }
         return false;

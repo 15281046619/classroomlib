@@ -199,7 +199,6 @@ public class WaybillDetailActivity extends BaseNetActivity {
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new WayBillGoodListViewPagerAdapter(this,waybillDetailBean.getData().getItems()));
         setViewPagerPos();
-
     }
 
     private void setViewPagerPos() {
