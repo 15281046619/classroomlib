@@ -40,7 +40,7 @@ public class ShoppingAddActivity extends BaseActivity {
     private ArrayList<Sku> mSelectLists =new ArrayList<>();
     @Override
     protected int layoutResId() {
-        return R.layout.activity_shopping_search_shoppingcenter;
+        return R.layout.activity_shopping_add_shoppingcenter;
     }
 
     @Override

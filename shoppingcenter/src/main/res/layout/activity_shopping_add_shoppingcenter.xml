@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/toolbarBgClassRoom">
+    android:background="@color/toolbarBgClassRoom"
+    tools:ignore="MissingDefaultResource">
 
     <com.xinwang.bgqbaselib.view.CustomToolbar
         android:id="@+id/toolbar"
@@ -22,7 +24,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_marginRight="@dimen/dp_15_classroom"
+                android:layout_marginRight="@dimen/dp_5_classroom"
                 android:id="@+id/rlSearch"
                 android:transitionName="shoppingSearch"
                 android:background="@drawable/shape_search_bg_shoppingcenter"
@@ -53,7 +55,14 @@
                     android:layout_marginRight="@dimen/dp_10_classroom"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:text="确定(0)"
+                android:id="@+id/tvOk"
+                android:layout_marginEnd="10dp"
+                android:textColor="@android:color/white"
+                android:layout_height="48dp"/>
         </LinearLayout>
     </com.xinwang.bgqbaselib.view.CustomToolbar>
     <FrameLayout

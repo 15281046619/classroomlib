@@ -199,7 +199,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         findViewById(R.id.tvAdd).setOnClickListener(v -> showSkuDialog(0));//加入购物车
         findViewById(R.id.ivShare).setOnClickListener(v -> goShape(v));
         findViewById(R.id.tvAllReview).setOnClickListener(v -> startActivity(new Intent(ShoppingDetailActivity.this,ReviewListActivity.class)
-        .putExtra("id",mId+"").putExtra("data", (Serializable) mReviewList)));
+                .putExtra("id",mId+"").putExtra("data", (Serializable) mReviewList)));
     }
 
     /**
@@ -218,12 +218,12 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             @Override
             public void onSuccess(ErpBean erpBean) {
                 BeautyDefine.getOpenPageDefine(ShoppingDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-              if (isProducts){
-                  ShoppingCenterLibUtils.jumpShoppingChat(ShoppingDetailActivity.this,erpBean.getData()==null?-1:erpBean.getData().getId(),
-                          mContent);
-              }else
-                ShoppingCenterLibUtils.jumpChat(ShoppingDetailActivity.this,erpBean.getData()==null?-1:erpBean.getData().getId(),
-                        mContent);
+                if (isProducts){
+                    ShoppingCenterLibUtils.jumpShoppingChat(ShoppingDetailActivity.this,erpBean.getData()==null?-1:erpBean.getData().getId(),
+                            mContent);
+                }else
+                    ShoppingCenterLibUtils.jumpChat(ShoppingDetailActivity.this,erpBean.getData()==null?-1:erpBean.getData().getId(),
+                            mContent);
             }
         });
     }
@@ -309,34 +309,34 @@ public class ShoppingDetailActivity extends BaseNetActivity {
 
                     switch (categoryData.getData().get(i).getAttr().get(j).getField()){
                         case "attr0":
-                                addAttrView(mLayoutParams,mDate.getAttr0(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr0(), i, j);
                             break;
                         case "attr1":
-                                addAttrView(mLayoutParams,mDate.getAttr1(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr1(), i, j);
                             break;
                         case "attr2":
-                                addAttrView(mLayoutParams,mDate.getAttr2(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr2(), i, j);
                             break;
                         case "attr3":
-                                addAttrView(mLayoutParams,mDate.getAttr3(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr3(), i, j);
                             break;
                         case "attr4":
-                                addAttrView(mLayoutParams,mDate.getAttr4(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr4(), i, j);
                             break;
                         case "attr5":
-                                addAttrView(mLayoutParams,mDate.getAttr5(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr5(), i, j);
                             break;
                         case "attr6":
-                                addAttrView(mLayoutParams,mDate.getAttr6(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr6(), i, j);
                             break;
                         case "attr7":
-                                addAttrView(mLayoutParams,mDate.getAttr7(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr7(), i, j);
                             break;
                         case "attr8":
-                                addAttrView(mLayoutParams,mDate.getAttr8(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr8(), i, j);
                             break;
                         case "attr9":
-                                addAttrView(mLayoutParams,mDate.getAttr9(), i, j);
+                            addAttrView(mLayoutParams,mDate.getAttr9(), i, j);
                             break;
                     }
 
