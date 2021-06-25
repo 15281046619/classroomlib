@@ -29,13 +29,14 @@ import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
+import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.adapter.ShoppingEditAdapter;
 import com.xinwang.shoppingcenter.bean.CharBodyBean;
-import com.xinwang.shoppingcenter.bean.NumberBean;
+import com.xinwang.shoppingcenter.dialog.ShoppingEditChooseDialog;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
 
-import org.greenrobot.eventbus.EventBus;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,7 +180,7 @@ public class ShoppingEditActivity extends BaseNetActivity {
         showTotalPrice(price,selectSum);
     }
 
-
+    private String[] mItems={"结算","发送"};
 
     private void requestFailureShow(String error){
 
@@ -204,8 +205,18 @@ public class ShoppingEditActivity extends BaseNetActivity {
             @Override
             public void onClick(View v) {
                 if (selectSum>0){
-                    setResult(getIntent().getIntExtra("resultCode",0),new Intent().putExtra("body",getChartBody()));
-                    finish();
+                    ShoppingEditChooseDialog.getInstance(mItems).setCallback(new ShoppingEditChooseDialog.Callback1<Integer>() {
+                        @Override
+                        public void run(Integer integer) {
+                            if (integer==0){
+                                ShoppingCenterLibUtils.startForResultShoppingOrder(ShoppingEditActivity.this,getChartBody(),100,100);
+                            }else if (integer==1){
+                                setResult(getIntent().getIntExtra("resultCode",0),new Intent().putExtra("body",getChartBody()));
+                            }
+                            finish();
+                        }
+                    }).showDialog(getSupportFragmentManager());
+
                 }else {
                     MyToast.myToast(ShoppingEditActivity.this,"请选择后提交");
                 }

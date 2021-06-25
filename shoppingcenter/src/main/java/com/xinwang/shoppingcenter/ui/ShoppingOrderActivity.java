@@ -1,5 +1,6 @@
 package com.xinwang.shoppingcenter.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -346,7 +347,6 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                         }else {
                             initShowAddress();
                         }
-
                     }
                     @Override
                     public void selected(String s) {
@@ -472,7 +472,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 getTitle();
                 BeautyDefine.getCashierDeskDefine(ShoppingOrderActivity.this).jumpCashierPage(mTotal>0?CountUtil.changeF2Y(mTotal):"0",
                         getPayTitle(),orderSuccessBean.getData().getOrder_id()+"",null);
-
+                setResult(getIntent().getIntExtra("resultCode", Activity.RESULT_OK));
                 finish();
             }
         });
@@ -527,32 +527,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
         return GsonUtils.createGsonString(map);
     }
 
-    private String getContent() {
-        StringBuffer stringBuffer =new StringBuffer();
-        stringBuffer.append("姓名："+tvName.getText().toString()+"\n");
-        stringBuffer.append("电话："+tvPhone.getText().toString()+"\n");
-        stringBuffer.append("地址："+tvAddress.getText().toString()+"\n");
-        stringBuffer.append("注册手机号码："+BeautyDefine.getUserInfoDefine(this).getPhone()+"\n");
-        for (int i=0;i<skuList.size();i++) {
-            stringBuffer.append(skuList.get(i).getGoodTitle() + "：" );
-            if (skuList.get(i).getAttributes()!=null&&skuList.get(i).getAttributes().size()>0) {
-                for (SkuAttribute skuAttribute : skuList.get(i).getAttributes()) {
-                    stringBuffer.append(skuAttribute.getValue() + " ");
-                }
-            }
-            stringBuffer.append("×"+skuList.get(i).getAddSum());
-            if (i!=skuList.size()-1){
-                stringBuffer.append("\n");
-            }
-        }
-        if (!TextUtils.isEmpty(etRemarks.getText().toString())){
-            stringBuffer.append("\n备注："+etRemarks.getText().toString());
-        }
-        if (couponsBean!=null){
-            stringBuffer.append("\n优惠劵："+couponsBean.getName()+" id="+couponsBean.getId());
-        }
-        return stringBuffer.toString();
-    }
+
 
 
     @Override
@@ -632,6 +607,7 @@ public class ShoppingOrderActivity extends BaseNetActivity {
                 return true;
             }
         }
+
         return false;
     }
     @Override
