@@ -10,8 +10,8 @@ import android.text.style.RelativeSizeSpan;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.xinwang.bgqbaselib.http.HttpUrls;
-import com.xinwang.bgqbaselib.sku.bean.Sku;
-import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
+import com.xinwang.shoppingcenter.bean.Sku;
+import com.xinwang.shoppingcenter.bean.SkuAttribute;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
@@ -21,8 +21,6 @@ import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.ui.OrderDetailActivity;
-import com.xinwang.shoppingcenter.ui.ShoppingCenterActivity;
-import com.xinwang.shoppingcenter.ui.ShoppingDetailActivity;
 import com.xinwang.shoppingcenter.ui.ShoppingEditActivity;
 import com.xinwang.shoppingcenter.ui.ShoppingOrderActivity;
 

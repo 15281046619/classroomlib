@@ -1,4 +1,4 @@
-package com.xinwang.bgqbaselib.sku.view;
+package com.xinwang.shoppingcenter.bean.sku.view;
 
 /**
  * Date:2021/4/8

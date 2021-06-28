@@ -83,7 +83,6 @@
 -keep public class * extends android.view.View
 
 -keep class com.xinwang.bgqbaselib.http.* {*;}
--keep class com.xinwang.bgqbaselib.sku.bean.* {*;}
 
 #GSYVideoPlayer
 -keep class com.shuyu.gsyvideoplayer.video.*{ *; }

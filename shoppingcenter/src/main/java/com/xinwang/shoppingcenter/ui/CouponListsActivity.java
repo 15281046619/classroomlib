@@ -14,7 +14,7 @@ import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
-import com.xinwang.bgqbaselib.sku.bean.Sku;
+import com.xinwang.shoppingcenter.bean.Sku;
 import com.xinwang.bgqbaselib.utils.AsyncTaskUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.CountUtil;

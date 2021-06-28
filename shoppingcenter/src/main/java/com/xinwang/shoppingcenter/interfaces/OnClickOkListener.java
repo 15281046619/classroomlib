@@ -1,6 +1,6 @@
 package com.xinwang.shoppingcenter.interfaces;
 
-import com.xinwang.bgqbaselib.sku.bean.Sku;
+import com.xinwang.shoppingcenter.bean.Sku;
 
 /**
  * Date:2021/4/12

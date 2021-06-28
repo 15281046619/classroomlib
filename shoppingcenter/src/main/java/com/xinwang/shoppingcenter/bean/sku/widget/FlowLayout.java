@@ -1,4 +1,4 @@
-package com.xinwang.bgqbaselib.sku.widget;
+package com.xinwang.shoppingcenter.bean.sku.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xinwang.bgqbaselib.base.BaseActivity;
-import com.xinwang.bgqbaselib.sku.bean.Sku;
+import com.xinwang.shoppingcenter.bean.Sku;
 import com.xinwang.bgqbaselib.utils.FragmentUtils;
 import com.xinwang.bgqbaselib.utils.KeyBoardHelper;
 import com.xinwang.bgqbaselib.utils.MyToast;

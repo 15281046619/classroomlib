@@ -1,4 +1,4 @@
-package com.xinwang.bgqbaselib.sku.view;
+package com.xinwang.shoppingcenter.bean.sku.view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -10,8 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xinwang.bgqbaselib.R;
-import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
-import com.xinwang.bgqbaselib.sku.widget.FlowLayout;
+import com.xinwang.shoppingcenter.bean.SkuAttribute;
+import com.xinwang.shoppingcenter.bean.sku.widget.FlowLayout;
 import com.xinwang.bgqbaselib.utils.ScreenUtils;
 import com.xinwang.bgqbaselib.utils.ViewUtils;
 

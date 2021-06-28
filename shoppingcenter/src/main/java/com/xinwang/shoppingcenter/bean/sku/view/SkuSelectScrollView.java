@@ -1,13 +1,13 @@
-package com.xinwang.bgqbaselib.sku.view;
+package com.xinwang.shoppingcenter.bean.sku.view;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import com.xinwang.bgqbaselib.sku.bean.Sku;
-import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
-import com.xinwang.bgqbaselib.sku.widget.SkuMaxHeightScrollView;
+import com.xinwang.shoppingcenter.bean.Sku;
+import com.xinwang.shoppingcenter.bean.SkuAttribute;
+import com.xinwang.shoppingcenter.bean.sku.widget.SkuMaxHeightScrollView;
 import com.xinwang.bgqbaselib.utils.ViewUtils;
 
 import java.util.Iterator;

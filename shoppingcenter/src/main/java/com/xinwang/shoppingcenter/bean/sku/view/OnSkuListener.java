@@ -1,7 +1,7 @@
-package com.xinwang.bgqbaselib.sku.view;
+package com.xinwang.shoppingcenter.bean.sku.view;
 
-import com.xinwang.bgqbaselib.sku.bean.Sku;
-import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
+import com.xinwang.shoppingcenter.bean.Sku;
+import com.xinwang.shoppingcenter.bean.SkuAttribute;
 
 /**
  * Date:2021/4/8

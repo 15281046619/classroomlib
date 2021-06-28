@@ -5,24 +5,21 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 
 import com.xinwang.bgqbaselib.dialog.BaseDialog;
-import com.xinwang.bgqbaselib.sku.bean.Sku;
-import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
-import com.xinwang.bgqbaselib.sku.view.OnSkuListener;
-import com.xinwang.bgqbaselib.sku.view.SkuSelectScrollView;
+import com.xinwang.shoppingcenter.bean.Sku;
+import com.xinwang.shoppingcenter.bean.SkuAttribute;
+import com.xinwang.shoppingcenter.bean.sku.view.OnSkuListener;
+import com.xinwang.shoppingcenter.bean.sku.view.SkuSelectScrollView;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;

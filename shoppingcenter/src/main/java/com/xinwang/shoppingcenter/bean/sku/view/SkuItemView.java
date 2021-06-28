@@ -1,4 +1,4 @@
-package com.xinwang.bgqbaselib.sku.view;
+package com.xinwang.shoppingcenter.bean.sku.view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.xinwang.bgqbaselib.sku.bean;
+package com.xinwang.shoppingcenter.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;

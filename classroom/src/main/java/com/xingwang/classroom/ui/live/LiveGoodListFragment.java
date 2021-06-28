@@ -2,7 +2,6 @@ package com.xingwang.classroom.ui.live;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +9,10 @@ import android.view.ViewGroup;
 
 import com.xingwang.classroom.R;
 import com.xingwang.classroom.adapter.GoodListAdapter;
-import com.xingwreslib.beautyreslibrary.BeautyObserver;
-import com.xingwreslib.beautyreslibrary.OrderInfo;
-import com.xingwreslib.beautyreslibrary.OrderLiveData;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
-import com.xinwang.bgqbaselib.sku.bean.Sku;
+import com.xinwang.shoppingcenter.bean.Sku;
 import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;

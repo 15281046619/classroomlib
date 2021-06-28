@@ -57,7 +57,7 @@
                 android:id="@+id/viewLine"
                 android:layout_marginBottom="@dimen/dp_5_classroom"
                 android:background="@color/LineClassRoom"/>
-            <com.xinwang.bgqbaselib.sku.view.SkuSelectScrollView
+            <com.xinwang.shoppingcenter.bean.sku.view.SkuSelectScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"

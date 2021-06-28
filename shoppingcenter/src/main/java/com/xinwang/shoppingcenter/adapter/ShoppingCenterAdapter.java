@@ -1,22 +1,17 @@
 package com.xinwang.shoppingcenter.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
-import com.xinwang.bgqbaselib.sku.bean.Sku;
-import com.xinwang.bgqbaselib.sku.bean.SkuAttribute;
+import com.xinwang.shoppingcenter.bean.Sku;
+import com.xinwang.shoppingcenter.bean.SkuAttribute;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
@@ -24,7 +19,6 @@ import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.xinwang.shoppingcenter.R;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
-import com.xinwang.shoppingcenter.bean.GoodsBean;
 import com.xinwang.shoppingcenter.dialog.CenterEditNumberDialog;
 import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 
