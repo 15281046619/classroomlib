@@ -9,18 +9,11 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.beautydefinelibrary.BeautyDefine;
-import com.beautydefinelibrary.OpenPageDefine;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
-import com.xinwang.bgqbaselib.http.ApiParams;
-import com.xinwang.bgqbaselib.http.HttpCallBack;
-import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xinwang.bgqbaselib.sku.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GsonUtils;

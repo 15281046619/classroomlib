@@ -19,6 +19,7 @@ import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
+import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.ui.ShoppingHomeActivity;
 import com.xinwang.shoppingcenter.ui.SimplePlayerActivity;
 
@@ -70,6 +71,7 @@ public class MainActivity extends BaseNetActivity implements WebViewDelegate {
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
         // startActivity(intent);
         //getAuthStr("18285603081");
+
     }
     private void getAuthStr(String phone){
         requestGet(URL_HOST + URL_NAME + "user/base/auth/get-authstr", new ApiParams().with("phone", phone).with("code", "99889988"), CommonEntity.class, new HttpCallBack<CommonEntity>() {
