@@ -164,6 +164,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
         }
         mFragments =new ArrayList<>();
         tabLayout.removeAllTabs();
+
         ArrayList<String> mTitles =new ArrayList<>();
         for (int i=0;i<categoryBean.getData().size();i++) {
             if (!TextUtils.isEmpty(type)&& (categoryBean.getData().get(i).getId()+"").equals(type)&&initPos==0){

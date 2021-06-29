@@ -1,19 +1,23 @@
 package com.xinwang.shoppingcenter.ui;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -28,6 +32,7 @@ import com.xinwang.bgqbaselib.dialog.CenterDefineDialog;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.shoppingcenter.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
@@ -50,6 +55,7 @@ import com.xinwang.shoppingcenter.bean.ReviewListBean;
 import com.xinwang.shoppingcenter.bean.SkuBean;
 import com.xinwang.shoppingcenter.dialog.BottomSkuDialog;
 import com.xinwang.shoppingcenter.interfaces.OnClickOkListener;
+import com.xinwang.shoppingcenter.view.CustomNestedScrollView;
 import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -67,7 +73,10 @@ import java.util.List;
 public class ShoppingDetailActivity extends BaseNetActivity {
     private ViewPager viewPager;
     private CustomToolbar toolbar;
-    private RelativeLayout rlViewPager;
+    private TabLayout tabLayout;
+    private RelativeLayout rlViewPager,rlReview,rlDes;
+    private LinearLayout llScrollView;
+    private CustomNestedScrollView ntScrollView;
     private TextView tvSum,tvTitle,tvPrice,tvNumber,tvDes;
     private LinearLayout llContent;
     private RecyclerView rcvReview;
@@ -77,6 +86,8 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     private CustomWebView webView;
     private List<Sku> skuList =new ArrayList<>();
     long curTime =0;
+    private int number;
+    private int dp10;
     private List<ReviewListBean.DataBean> mReviewList =new ArrayList<>();
     private PagerAdapter mAdapter = new PagerAdapter() {
 
@@ -113,7 +124,7 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             container.removeView((View) object);
         }
     };
-    private int number;
+
 
     @Override
     protected int layoutResId() {
@@ -132,11 +143,13 @@ public class ShoppingDetailActivity extends BaseNetActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        dp10 =CommentUtils.dip2px(this,10);
         initIntent();
         initView();
         initRequest();
         initListener();
         initNumber();
+
 
     }
     @Subscribe()
@@ -200,6 +213,46 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         findViewById(R.id.ivShare).setOnClickListener(v -> goShape(v));
         findViewById(R.id.tvAllReview).setOnClickListener(v -> startActivity(new Intent(ShoppingDetailActivity.this,ReviewListActivity.class)
                 .putExtra("id",mId+"").putExtra("data", (Serializable) mReviewList)));
+
+        ntScrollView.setOnScrollChanged(new CustomNestedScrollView.OnCustomScrollChanged() {
+            @Override
+            public void onScroll(int left, int top, int oldLeft, int oldTop) {
+               if (tabLayout.getTabCount()>0) {//没添加不走
+                   if (top > oldTop) {
+                       if (top != 0) {
+                           tabLayout.setVisibility(View.VISIBLE);
+                       }
+                   } else if (top < oldTop) {
+                       if (top == 0) {
+                           tabLayout.setVisibility(View.GONE);
+                       }
+                   }
+                   int offset = Math.abs(top); //目的是将负数转换为绝对正数；
+                   offset = (int) Math.ceil(255 * offset / (rlViewPager.getLayoutParams().height / 2));
+                   if (offset < 255) {
+                       tabLayout.getBackground().mutate().setAlpha(offset);
+                   } else {
+                       tabLayout.getBackground().mutate().setAlpha(255);
+                   }
+                   LogUtil.i(top+","+rlViewPager.getMeasuredHeight()+","+rlDes.getMeasuredHeight()+","+rlReview.getMeasuredHeight()+","+dp10);
+                   if (top > 0 && top < (rlViewPager.getMeasuredHeight()-tabLayout.getMeasuredHeight()+2*dp10+rlDes.getMeasuredHeight())) {
+                       if (tabLayout.getSelectedTabPosition() != 0) {
+                           tabLayout.getTabAt(0).select();
+                       }
+                   } else if (top>=(rlViewPager.getMeasuredHeight()-tabLayout.getMeasuredHeight()+2*dp10+rlDes.getMeasuredHeight())&& top < (rlViewPager.getMeasuredHeight() + rlDes.getMeasuredHeight() + 3 * dp10 + rlReview.getMeasuredHeight()-tabLayout.getMeasuredHeight())) {
+                       if (tabLayout.getSelectedTabPosition() != 1) {
+                           tabLayout.getTabAt(1).select();
+                       }
+                   } else if (top >= rlViewPager.getMeasuredHeight() + rlDes.getMeasuredHeight() + 3 * dp10 + rlReview.getMeasuredHeight()-tabLayout.getMeasuredHeight()) {
+                       if (tabLayout.getSelectedTabPosition() != 2) {
+                           tabLayout.getTabAt(2).select();
+                       }
+                   }
+               }
+            }
+        });
+
+
     }
 
     /**
@@ -280,9 +333,45 @@ public class ShoppingDetailActivity extends BaseNetActivity {
             });
             mAdapter.setLoadState(2);
             rcvReview.setAdapter(mAdapter);
-            findViewById(R.id.rlReview).setVisibility(View.VISIBLE);
+            rcvReview.setVisibility(View.VISIBLE);
         }
+        llScrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                llScrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+              //  if (llScrollView.getMeasuredHeight()>CommentUtils.getScrrenHeight(ShoppingDetailActivity.this)){
+                    tabLayout.removeAllTabs();
+                    TabLayout.Tab tab1 = tabLayout.newTab().setText("宝贝");
 
+                    ((LinearLayout)tab1.view).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ntScrollView.scrollTo(0,0);
+                        }
+                    });
+                    tabLayout.addTab(tab1);
+                    TabLayout.Tab tab2 = tabLayout.newTab().setText("评价");
+                    ((LinearLayout)tab2.view).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ntScrollView.scrollTo(0,rlViewPager.getMeasuredHeight() + rlDes.getMeasuredHeight() + 2* dp10-tabLayout.getMeasuredHeight());
+                        }
+                    });
+                    tabLayout.addTab(tab2);
+                    TabLayout.Tab tab3 = tabLayout.newTab().setText("详情");
+
+                    ((LinearLayout)tab3.view).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ntScrollView.scrollTo(0,rlViewPager.getMeasuredHeight() + rlDes.getMeasuredHeight() + 3 * dp10 + rlReview.getMeasuredHeight()-tabLayout.getMeasuredHeight());
+
+                        }
+                    });
+                    tabLayout.addTab(tab3);
+
+              //  }
+            }
+        });
 
         rlViewPager.post(new Runnable() {
             @Override
@@ -524,6 +613,11 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         tvPrice = findViewById(R.id.tvPrice);
         tvDes = findViewById(R.id.tvDes);
         rcvReview = findViewById(R.id.rcvReview);
+        tabLayout = findViewById(R.id.tabLayout);
+        rlDes = findViewById(R.id.rlDes);
+        rlReview = findViewById(R.id.rlReview);
+        ntScrollView = findViewById(R.id.ntScrollView);
+        llScrollView = findViewById(R.id.llScrollView);
     }
 
     /**

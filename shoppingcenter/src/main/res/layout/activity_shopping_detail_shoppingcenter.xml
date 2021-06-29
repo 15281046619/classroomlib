@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@color/BGClassRoom"
     android:layout_height="match_parent"
@@ -32,17 +32,20 @@
                  android:layout_gravity="right|center_vertical"
                  />-->
     </com.xinwang.bgqbaselib.view.CustomToolbar>
-    <include
-        layout="@layout/layout_empty_classroom"/>
-    <android.support.v4.widget.NestedScrollView
+
+    <com.xinwang.shoppingcenter.view.CustomNestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/ntScrollView"
+        android:layout_above="@+id/rlBottom"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:descendantFocusability="blocksDescendants"
             android:animateLayoutChanges="true"
+            android:id="@+id/llScrollView"
             android:orientation="vertical">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -72,6 +75,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/rlDes"
                 android:layout_margin="@dimen/dp_10_classroom"
                 android:background="@drawable/shape_shopping_detail_label_bg_shoppingcenter"
                 android:padding="@dimen/dp_10_classroom"
@@ -106,8 +110,8 @@
                 android:layout_marginLeft="@dimen/dp_10_classroom"
                 android:layout_marginRight="@dimen/dp_10_classroom"
                 android:layout_marginBottom="@dimen/dp_10_classroom"
-                android:visibility="gone"
                 android:id="@+id/rlReview"
+
                 android:background="@drawable/shape_shopping_detail_label_bg_shoppingcenter"
                >
                 <TextView
@@ -136,6 +140,7 @@
                     android:layout_below="@+id/tvDes"
                     android:id="@+id/rcvReview"
                     android:paddingBottom="10dp"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
 
@@ -149,12 +154,14 @@
                 android:layout_height="100dp"
                 />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </com.xinwang.shoppingcenter.view.CustomNestedScrollView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:id="@+id/rlBottom"
         android:background="@android:color/white"
         android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/dp_1_classroom">
         <LinearLayout
             android:layout_width="match_parent"
@@ -242,4 +249,22 @@
             android:layout_alignParentRight="true"
             android:layout_height="35dp"/>
     </RelativeLayout>
-</LinearLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/toolbarBgClassRoom"
+        app:tabIndicatorColor="@color/themeClassRoom"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/themeClassRoom"
+        app:tabMode="fixed"
+        android:visibility="gone"
+        android:layout_below="@+id/toolbar"
+        app:tabTextColor="#fff"/>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+
+        layout="@layout/layout_empty_classroom"/>
+</RelativeLayout>
