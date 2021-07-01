@@ -99,8 +99,8 @@ public class LiveListActivity extends BaseNetActivity {
 
     private int categoryId =-1;
     private void getCategory() {
-
-        requestGet(HttpUrls.URL_LIVE_CATEGORY(),new ApiParams(), LiveCategoryBean.class, new HttpCallBack<LiveCategoryBean>() {
+        //不用分类
+      /*  requestGet(HttpUrls.URL_LIVE_CATEGORY(),new ApiParams(), LiveCategoryBean.class, new HttpCallBack<LiveCategoryBean>() {
 
             @Override
             public void onFailure(String message) {
@@ -123,12 +123,11 @@ public class LiveListActivity extends BaseNetActivity {
                     case ClassRoomLibUtils.TYPE_SC:
                         findCategoryId(liveCategoryBean.getData(),"水产");
                         break;
-
-
                 }
                 getRequestData(Constants.LOAD_DATA_TYPE_INIT);
             }
-        });
+        });*/
+        getRequestData(Constants.LOAD_DATA_TYPE_INIT);
     }
     private void findCategoryId(List<LiveCategoryBean.DataBean> data, String name){
         for(int i=0;i<data.size();i++){

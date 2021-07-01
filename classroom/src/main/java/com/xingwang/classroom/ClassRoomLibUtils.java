@@ -51,7 +51,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
  */
 public class ClassRoomLibUtils {
     public static final String TYPE_ZY ="zy";
-    public static final String TYPE_JQ ="jq";
+    public static final String TYPE_QY ="qy";
     public static final String TYPE_SC ="sc";
     public static final String TYPE_NY ="ny";
     public static final String TYPE_TEST="test";//测试域名
@@ -69,7 +69,11 @@ public class ClassRoomLibUtils {
                 HttpUrls.CHANNEL_WS_URL ="ws://zyapp.app.xw518.com/subscribe";
                 HttpUrls.LIVE_CHANNEL ="live.";
                 break;
-            case TYPE_JQ:
+            case TYPE_QY:
+                HttpUrls.URL_HOST ="http://qyapp.app.xw518.com/";
+                HttpUrls.CHANNEL ="lecture.lecture_";
+                HttpUrls.CHANNEL_WS_URL="ws://qyapp.app.xw518.com/subscribe";
+                HttpUrls.LIVE_CHANNEL ="live.";
                 break;
             case TYPE_SC:
                 HttpUrls.URL_HOST ="http://yyapp.app.xw518.com/";

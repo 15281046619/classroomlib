@@ -58,7 +58,7 @@
            android:layout_weight="1"
            android:gravity="center"
            android:text="强制进入"
-           android:background="@android:color/holo_red_dark"
+           android:background="@color/themeClassRoom"
            android:textColor="@android:color/white"
            android:layout_marginLeft="@dimen/dp_10_classroom"
            android:layout_height="wrap_content"/>

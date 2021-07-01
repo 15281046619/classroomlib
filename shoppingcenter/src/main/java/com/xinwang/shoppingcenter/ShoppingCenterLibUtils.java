@@ -41,7 +41,7 @@ public class ShoppingCenterLibUtils {
         switch (HttpUrls.URL_TYPE){
             case "zy":
                 return context.getResources().getStringArray(R.array.zy_hot_search_array_ShoppingCenter);
-            case "jq":
+            case "qy":
                 return context.getResources().getStringArray(R.array.jq_hot_search_array_ShoppingCenter);
             case "sc":
                 return context.getResources().getStringArray(R.array.sc_hot_search_array_ShoppingCenter);
