@@ -328,6 +328,9 @@ public class CouponListsActivity extends BaseNetActivity {
 
     private void initData() {
         mSKu = getIntent().getParcelableArrayListExtra("data");
+        if (mSKu==null){
+            mSKu =new ArrayList<>();
+        }
         countPrice();
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
         swipeRefreshLayout.setColorSchemeResources(R.color.SwipeRefreshLayoutClassRoom);

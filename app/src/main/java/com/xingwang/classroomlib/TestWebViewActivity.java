@@ -1,13 +1,10 @@
 package com.xingwang.classroomlib;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+
 
 import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
@@ -18,7 +15,6 @@ import com.ycbjie.webviewlib.view.X5WebView;
 
 import java.lang.annotation.Annotation;
 
-import static android.os.Build.VERSION_CODES.KITKAT;
 
 /**
  * Date:2021/6/10

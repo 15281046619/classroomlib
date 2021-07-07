@@ -78,13 +78,13 @@ public class ClassRoomLibUtils {
             case TYPE_SC:
                 HttpUrls.URL_HOST ="http://yyapp.app.xw518.com/";
                 HttpUrls.CHANNEL ="lecture.lecture_";
-                HttpUrls.CHANNEL_WS_URL ="ws://subscribe.app.xw518.com/server";
+                HttpUrls.CHANNEL_WS_URL ="ws://yyapp.app.xw518.com/subscribe";
                 HttpUrls.LIVE_CHANNEL ="live.";
                 break;
             case TYPE_NY:
                 HttpUrls.URL_HOST ="http://nyapp.app.xw518.com/";
                 HttpUrls.CHANNEL ="lecture.lecture_";
-                HttpUrls.CHANNEL_WS_URL="ws://subscribe.app.xw518.com/server";
+                HttpUrls.CHANNEL_WS_URL="ws://nyapp.app.xw518.com/subscribe";
                 HttpUrls.LIVE_CHANNEL ="live.";
                 break;
             case TYPE_TEST:
