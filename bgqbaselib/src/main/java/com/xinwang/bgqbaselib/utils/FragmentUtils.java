@@ -1,8 +1,6 @@
 package com.xinwang.bgqbaselib.utils;
 
-import android.app.Activity;
 import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 

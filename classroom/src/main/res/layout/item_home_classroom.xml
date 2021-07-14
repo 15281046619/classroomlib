@@ -6,12 +6,11 @@
     android:background="@android:color/white">
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="@dimen/dp_93_classroom"
-        android:layout_height="70dp"
-        android:layout_marginRight="@dimen/dp_10_classroom"
-        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-        android:background="@color/GrayClassRoom"/>
+        android:scaleType="centerCrop"
+/>
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -20,8 +19,10 @@
         android:textStyle="bold"
         android:textColor="@color/textColorClassRoom"
         android:textSize="@dimen/sp_16_classroom"
-        android:layout_toRightOf="@+id/iv_icon"/>
-    <TextView
+        android:layout_marginTop="@dimen/dp_10_classroom"
+        android:layout_below="@+id/iv_icon"
+       />
+<!--    <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,5 +45,5 @@
         android:textSize="@dimen/sp_13_classroom"
         android:lineSpacingExtra="@dimen/dp_5_classroom"
         android:layout_marginTop="@dimen/dp_10_classroom"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"/>-->
 </RelativeLayout>

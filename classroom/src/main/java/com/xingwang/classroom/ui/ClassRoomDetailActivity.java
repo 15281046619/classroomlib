@@ -247,7 +247,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
             return;
         }
         String actionData = uri.getQueryParameter("id");
-        if (actionData!=null)
+        if (!TextUtils.isEmpty(actionData))
             mId =Integer.parseInt(actionData);
 
     }

@@ -112,7 +112,7 @@ public class ClassRoomHomeFragment extends BaseLazyLoadFragment {
     }
     private void initAdapter(int state){
         if (mAdapter==null) {
-            mAdapter = new HomeAdapter(mData);
+            mAdapter = new HomeAdapter(mData,getActivity());
             mAdapter.setLoadStateNoNotify(state);
             mAdapter.setOnItemClickListener((view, position) -> ClassRoomLibUtils.startDetailActivityType(getActivity(), mData.get(position).getId(),mData.get(position).getType()));
             recyclerview.setAdapter(mAdapter);
