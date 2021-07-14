@@ -44,8 +44,8 @@ dependencies {
     api 'com.beautydefinelibrary:beautydefinelibrary:1.2.46'
    /* api 'com.beautyreslibrary:zy:1.0.27'*/
 /*    api 'com.beautyreslibrary:qy:1.0.1'*/
-    api 'com.beautyreslibrary:yy:1.0.12'
-     /* api 'com.beautyreslibrary:ny:1.0.3'*/
+    /*api 'com.beautyreslibrary:yy:1.0.12'*/
+      api 'com.beautyreslibrary:ny:1.0.3'
 
     api 'com.squareup.okhttp3:okhttp:3.8.1'
     api 'com.squareup.okhttp3:mockwebserver:3.8.1'
