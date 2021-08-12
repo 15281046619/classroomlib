@@ -22,7 +22,7 @@ import com.xinwang.bgqbaselib.utils.TimeUtil;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
-import com.xinwang.shoppingcenter.bean.MediaBean;
+import com.xinwang.shoppingcenter.bean.GoodsDetailBean;
 import com.xinwang.shoppingcenter.bean.OrderGoodReviewDetailBean;
 import com.xinwang.shoppingcenter.bean.ReviewListBean;
 import com.xinwang.shoppingcenter.view.CircularImage;
@@ -126,7 +126,7 @@ public class ReviewDetailActivity extends BaseNetActivity {
                 initRequest();
             });
     }
-    private void showPic(LinearLayout llPhoto, List<MediaBean> mListPhotos) {
+    private void showPic(LinearLayout llPhoto, List<GoodsDetailBean.MediaBean> mListPhotos) {
         llPhoto.removeAllViews();
         for (int i=0;i<mListPhotos.size();i++){
             if(mListPhotos.get(i).getType()==1){
@@ -161,7 +161,7 @@ public class ReviewDetailActivity extends BaseNetActivity {
             }
         }
     }
-    private void jumpBigPic(List<MediaBean> mLists, int pos ){
+    private void jumpBigPic(List<GoodsDetailBean.MediaBean> mLists, int pos ){
         if (mLists.get(0).getType()==1){//有视频
             if (pos==0){
                 startActivity(new Intent(this, SimplePlayerActivity.class).putExtra("url",mLists.get(0).getPath()));

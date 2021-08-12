@@ -16,7 +16,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ClassRoomLibUtils.initLib(this,ClassRoomLibUtils.TYPE_ZY);
+        ClassRoomLibUtils.initLib(this,ClassRoomLibUtils.TYPE_NY);
         //  X5WebUtils.init(this);
         //  X5LogUtils.setIsLog(true);
 

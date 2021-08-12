@@ -23,6 +23,7 @@ import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.LogUtil;
+import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 
 import com.ycbjie.webviewlib.base.X5WebChromeClient;
@@ -175,8 +176,8 @@ public class CustomWebView extends X5WebView {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            if (isLoadUrl)
-                addImageClickListner();
+        /*    if (isLoadUrl)
+                addImageClickListner();*/
             // html加载完成之后，添加监听图片的点击js函数
             super.onPageFinished(view, url);
         }
@@ -306,6 +307,7 @@ public class CustomWebView extends X5WebView {
             if (parent != null) {
                 parent.removeView(this);
             }
+
             removeAllViews();
             destroy();
             removeJavascriptInterface("javaInterFace");

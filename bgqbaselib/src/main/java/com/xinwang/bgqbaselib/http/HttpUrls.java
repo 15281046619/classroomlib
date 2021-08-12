@@ -127,6 +127,13 @@ public class HttpUrls {
     public static final String URL_GOODS_CATEGORY_LISTS(){
       return  URL_HOST+URL_NAME+"goods/home/category/lists";
     }
+    /**
+     * 商城分类
+     * @return
+     */
+    public static final String URL_GOODS_CASES_DETAIL(){
+      return  URL_HOST+URL_NAME+"goods/home/cases/detail";
+    }
 
     /**
      * 商品评论列表
@@ -134,6 +141,13 @@ public class HttpUrls {
      */
     public static final String URL_GOODS_REVIEW_LISTS(){
       return  URL_HOST+URL_NAME+"goods/home/review/lists";
+    }
+    /**
+     * 商品案例列表
+     * @return
+     */
+    public static final String URL_GOODS_CASES_LISTS(){
+      return  URL_HOST+URL_NAME+"goods/home/cases/lists";
     }
 
     /**
@@ -156,6 +170,14 @@ public class HttpUrls {
      */
     public static final String URL_USER_ORDER_LISTS(){
       return  URL_HOST+URL_NAME+"goods/user/order/lists";
+    }
+
+    /**
+     * 最近订单
+     * @return
+     */
+    public static final String URL_USER_ORDER_LATELY(){
+      return  URL_HOST+URL_NAME+"goods/home/order/lately";
     }
     /**
      *物流列表

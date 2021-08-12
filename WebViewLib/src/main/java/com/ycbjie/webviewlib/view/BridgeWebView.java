@@ -136,8 +136,8 @@ public class  BridgeWebView extends BaseWebView implements WebViewJavascriptBrid
 			String callbackStr = String.format(BridgeUtil.CALLBACK_ID_FORMAT,
 					++uniqueId + (BridgeUtil.UNDERLINE_STR + SystemClock.currentThreadTimeMillis()));
 			X5LogUtils.i("------BridgeWebView-----doSend------responseCallback--"+callbackStr);
-			responseCallbacks.put(callbackStr, responseCallback);
-			//m.setCallbackId(callbackStr)方法的作用？
+			//			responseCallbacks.put(callbackStr, responseCallback);
+			//			//m.setCallbackId(callbackStr)方法的作用？
 			//该方法设置的callbackId生成后不仅仅会被传到Js，
 			//而且会以key-value对的形式和responseCallback配对保存到responseCallbacks这个Map里面。
 			//它的目的，就是为了等Js把处理结果回调给Java层后，

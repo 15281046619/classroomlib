@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
+import com.gongwen.marqueen.MarqueeView;
 import com.xingwreslib.beautyreslibrary.BeautyObserver;
 import com.xingwreslib.beautyreslibrary.OrderInfo;
 import com.xingwreslib.beautyreslibrary.OrderLiveData;
@@ -28,6 +29,7 @@ import com.xinwang.bgqbaselib.base.BaseLazyLoadFragment;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpUrls;
+import com.xinwang.shoppingcenter.bean.LateLyOrderBean;
 import com.xinwang.shoppingcenter.bean.Sku;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
@@ -45,6 +47,7 @@ import com.xinwang.shoppingcenter.bean.FragmentUpdateBean;
 import com.xinwang.shoppingcenter.bean.NumberBean;
 import com.xinwang.shoppingcenter.bean.OrderListBean;
 import com.xinwang.shoppingcenter.interfaces.FragmentStateListener;
+import com.xinwang.shoppingcenter.view.ComplexViewMF;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -67,7 +70,7 @@ import java.util.Objects;
 public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
 
     private VpSwipeRefreshLayout swipeRefreshLayout;
-
+    private MarqueeView simpleMarqueeView;
     private RelativeLayout rlSearch;
     private AppBarLayout appBar;
     private Banner banner;
@@ -103,6 +106,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         swipeRefreshLayout =view.findViewById(R.id.swipeRefreshLayout);
 
         rlHot =view.findViewById(R.id.rlHot);
+        simpleMarqueeView =view.findViewById(R.id.simpleMarqueeView);
         tvNumber =view.findViewById(R.id.tvNumber);
         icOrderNumber =view.findViewById(R.id.icOrderNumber);
         appBar =view.findViewById(R.id.app_bar_layout);
@@ -162,10 +166,39 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         initSearchShow();
         initNumber();
         initOrderNumber();
+        initLateLyOrder();
     }
 
+    private void initLateLyOrder() {
+        requestGet(HttpUrls.URL_USER_ORDER_LATELY(), new ApiParams(), LateLyOrderBean.class, new HttpCallBack<LateLyOrderBean>() {
+            @Override
+            public void onFailure(String message) {
+                MyToast.myToast(getActivity(),message);
+            }
 
+            @Override
+            public void onSuccess(LateLyOrderBean lateLyOrderBean) {
 
+                ComplexViewMF marqueeFactory = new ComplexViewMF(getActivity());
+                marqueeFactory.setData(lateLyOrderBean.getData());
+                simpleMarqueeView.setMarqueeFactory(marqueeFactory);
+                simpleMarqueeView.startFlipping();
+
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        simpleMarqueeView.startFlipping();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        simpleMarqueeView.stopFlipping();
+    }
     private void initNumber() {
         number = GsonUtils.changeGsonToSafeList( SharedPreferenceUntils.getGoods(getActivity()), Sku.class).size();
         showNumber();

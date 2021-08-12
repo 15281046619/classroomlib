@@ -183,7 +183,7 @@ public class WaybillDetailActivity extends BaseNetActivity {
             public void onSuccess(WaybillInfoBean waybillInfoBean) {
                 if (!isFrist)
                     BeautyDefine.getOpenPageDefine(WaybillDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
-                if (waybillInfoBean.getData()!=null&&waybillInfoBean.getData().getData()!=null&&waybillInfoBean.getData().getData().size()>0){
+                if (waybillInfoBean.getData()!=null){
                     findViewById(R.id.rl_empty).setVisibility(View.GONE);
                     if (isFrist){
                         initDetail();
@@ -218,18 +218,22 @@ public class WaybillDetailActivity extends BaseNetActivity {
         tvWaybillName.setText(waybillInfoBean.getData().getExpTextName()+" "+waybillInfoBean.getData().getMailNo());
         GlideUtils.loadAvatar(waybillInfoBean.getData().getLogo(),ivWaybillSrc);
         llRoot.removeAllViews();
-        for (int i=0;i<waybillInfoBean.getData().getData().size();i++){
-            View view =LayoutInflater.from(this).inflate(R.layout.item_waybill_detail_shoppingcenter,llRoot,false);
-            TextView tvTime= view.findViewById(R.id.tvTime);
-            TextView tvContent = view.findViewById(R.id.tvContent);
-            tvTime.setText(waybillInfoBean.getData().getData().get(i).getTime());
-            setContent(waybillInfoBean.getData().getData().get(i).getContext(),tvContent);
-            if (i==0){
-                view.findViewById(R.id.view1).setVisibility(View.INVISIBLE);
-            }else if (i==waybillInfoBean.getData().getData().size()-1){
-                view.findViewById(R.id.view2).setVisibility(View.INVISIBLE);
+        if (waybillInfoBean.getData().getData()!=null&&waybillInfoBean.getData().getData().size()>0) {
+            for (int i = 0; i < waybillInfoBean.getData().getData().size(); i++) {
+                View view = LayoutInflater.from(this).inflate(R.layout.item_waybill_detail_shoppingcenter, llRoot, false);
+                TextView tvTime = view.findViewById(R.id.tvTime);
+                TextView tvContent = view.findViewById(R.id.tvContent);
+                tvTime.setText(waybillInfoBean.getData().getData().get(i).getTime());
+                setContent(waybillInfoBean.getData().getData().get(i).getContext(), tvContent);
+                if (i == 0) {
+                    view.findViewById(R.id.view1).setVisibility(View.INVISIBLE);
+                } else if (i == waybillInfoBean.getData().getData().size() - 1) {
+                    view.findViewById(R.id.view2).setVisibility(View.INVISIBLE);
+                }
+                llRoot.addView(view);
             }
-            llRoot.addView(view);
+        }else {
+            llRoot.addView( LayoutInflater.from(this).inflate(R.layout.layout_no_waybill_info, llRoot, false));
         }
         tvCall.setOnClickListener(new View.OnClickListener() {
             @Override

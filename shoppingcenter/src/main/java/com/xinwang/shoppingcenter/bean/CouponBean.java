@@ -74,6 +74,15 @@ public class CouponBean extends CommonEntity {
             private String instructions;
             private int fee;
             private long expire_at;
+            private int usable_app;
+
+            public int getUsable_app() {
+                return usable_app;
+            }
+
+            public void setUsable_app(int usable_app) {
+                this.usable_app = usable_app;
+            }
 
             private int is_verification;
             private int verification_time;

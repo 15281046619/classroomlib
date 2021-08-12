@@ -272,8 +272,8 @@ public class CommentUtils {
                 "for(var i=0;i<objs.length;i++)  "+
                 "{ "
                 +"    objs[i].onclick=function()  "+
-                "    {window.alert(\"sometext\");"
-                +"       javaInterFace.openImage(this.src); "+
+                "    {"+
+               "        window.javaInterFace.openImage(this.src);  "+
 
                 "    }  "+
                 "} "+

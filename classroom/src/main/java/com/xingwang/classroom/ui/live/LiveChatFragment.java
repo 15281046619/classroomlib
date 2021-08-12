@@ -149,9 +149,7 @@ public class LiveChatFragment extends BaseLazyLoadFragment implements KeyBoardHe
         giftView = view.findViewById(R.id.giftView);
 
         tvFixed = view.findViewById(R.id.tvFixed);
-      //  ivBug = view.findViewById(R.id.ivBug);
-      //  ivBug.setAlpha(0.7f);
-      //  GlideUtils.loadGif(R.mipmap.ic_qg_classroom,ivBug);
+
         setFixed(getArguments().getString("fixedStr"));
         etContent = view.findViewById(R.id.et_content);
         recyclerView = view.findViewById(R.id.recyclerView);

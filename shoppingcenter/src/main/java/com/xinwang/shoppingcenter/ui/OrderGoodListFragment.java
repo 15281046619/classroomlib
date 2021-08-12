@@ -36,6 +36,7 @@ import com.xinwang.shoppingcenter.view.WrapContentLinearLayoutManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 目前 全部 待发货 两个状态
@@ -132,7 +133,7 @@ public class OrderGoodListFragment extends BaseLazyLoadFragment {
         stringObjectHashMap.put("page",curPage);
         stringObjectHashMap.put("page_num",pageNum);
         isRequesting =true;
-        HttpUtil.cancelTag(this);
+        HttpUtil.cancelTag(Objects.requireNonNull(getActivity()).getApplicationContext(),this);
         requestGet(HttpUrls.URL_USER_ITEM_LISTS(),stringObjectHashMap, OrderGoodBean.class, new HttpCallBack<OrderGoodBean>() {
             @Override
             public void onFailure(String message) {

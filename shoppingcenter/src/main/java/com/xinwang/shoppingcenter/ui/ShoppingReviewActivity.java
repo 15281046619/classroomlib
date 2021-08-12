@@ -39,7 +39,7 @@ import com.xinwang.bgqbaselib.utils.GsonUtils;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
 import com.xinwang.shoppingcenter.R;
-import com.xinwang.shoppingcenter.bean.MediaBean;
+import com.xinwang.shoppingcenter.bean.GoodsDetailBean;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
     private CheckBox cbTrue;
     private int score=5;//评分
     private String[] scoreDess=new String[]{"非常差","差","一般","好","非常好"};
-    private List<MediaBean> mSelectMedia=new ArrayList<>();//选择的图片
+    private List<GoodsDetailBean.MediaBean> mSelectMedia=new ArrayList<>();//选择的图片
     private ImagePickerDefine imagePickerDefine;
     private int maxSelectSum =9;
     @Override
@@ -183,13 +183,13 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
                 if (list!=null&&list.size()>0) {
                     if (mediaType== ImagePickerDefine.MediaType.IMG) {
                         for (int i=0;i<list.size();i++) {
-                            mSelectMedia.add(new MediaBean(list.get(i),0,list.get(i)));
+                            mSelectMedia.add(new GoodsDetailBean.MediaBean(list.get(i),0,list.get(i)));
                         }
                     }else {
                         if (list.size()>1) {
                             MyToast.myToast(ShoppingReviewActivity.this,"只能选择一个视频");
                         }
-                        mSelectMedia.add(new MediaBean(list.get(0),1,(list1!=null&&list1.size()>0)?list1.get(0):""));
+                        mSelectMedia.add(new GoodsDetailBean.MediaBean(list.get(0),1,(list1!=null&&list1.size()>0)?list1.get(0):""));
                     }
                     showPicList(true);
                 }else {
@@ -301,7 +301,7 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
 
         }
     }
-    private void  submitData(ArrayList<MediaBean> mSelectPhoto){
+    private void  submitData(ArrayList<GoodsDetailBean.MediaBean> mSelectPhoto){
         ApiParams mApiParams = new ApiParams().with("item_id", getIntent().getStringExtra("id")).with("score", score + "").with("content", etContent.getText().toString())
                 .with("anonymous_state", cbTrue.isChecked() ? "1" : "2");
         if (mSelectPhoto!=null)
@@ -356,18 +356,18 @@ public class ShoppingReviewActivity extends BaseNetActivity implements View.OnCl
 
             @Override
             public void onSucceed(String[] strings) {
-                ArrayList<MediaBean> mSelectPhoto =new ArrayList<>();
+                ArrayList<GoodsDetailBean.MediaBean> mSelectPhoto =new ArrayList<>();
                 if (finalIsVideoPos ==-1) {
                     for(int i=0;i<strings.length;i++){
-                        mSelectPhoto.add(new MediaBean(strings[i],0,strings[i]));
+                        mSelectPhoto.add(new GoodsDetailBean.MediaBean(strings[i],0,strings[i]));
                     }
 
                 }else {
                     for(int i=0;i<strings.length-1;i++){
                         if (i==0){
-                            mSelectPhoto.add(new MediaBean(strings[0],1,strings[1]));
+                            mSelectPhoto.add(new GoodsDetailBean.MediaBean(strings[0],1,strings[1]));
                         }else {
-                            mSelectPhoto.add(new MediaBean(strings[i+1],0,strings[i+1]));
+                            mSelectPhoto.add(new GoodsDetailBean.MediaBean(strings[i+1],0,strings[i+1]));
                         }
                     }
                 }

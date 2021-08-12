@@ -51,6 +51,7 @@ import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -236,7 +237,7 @@ public class ClassRoomCommentDetailActivity extends BaseNetActivity implements K
             mApiParams.with("body",mContent);
         }
         mApiParams.with("pid", mComments.get((Integer) mPos).getId()+"");
-        HttpUtil.cancelTag(this);
+        HttpUtil.cancelTag(getApplicationContext(),this);
         requestPost(HttpUrls.URL_PUBLISH(),mApiParams, SendCommentBean.class,new HttpCallBack<SendCommentBean>() {
 
             @Override

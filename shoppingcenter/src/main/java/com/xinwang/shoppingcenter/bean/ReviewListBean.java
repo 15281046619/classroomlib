@@ -3,7 +3,6 @@ package com.xinwang.shoppingcenter.bean;
 import android.text.TextUtils;
 
 import com.xinwang.bgqbaselib.http.CommonEntity;
-import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.GsonUtils;
 
 import java.io.Serializable;
@@ -135,16 +134,16 @@ public class ReviewListBean extends CommonEntity {
         public String getMedia() {
             return media;
         }
-        public List<MediaBean> getMediaList(){
+        public List<GoodsDetailBean.MediaBean> getMediaList(){
             if (!TextUtils.isEmpty(media)){
                 try {
-                    return GsonUtils.changeGsonToSafeList(media,MediaBean.class);
+                    return GsonUtils.changeGsonToSafeList(media, GoodsDetailBean.MediaBean.class);
                 }catch (Exception e){
                     try {
                         List<String> mString =GsonUtils.changeGsonToSafeList(media,String.class);
-                        List<MediaBean> mediaBeans =new ArrayList<>();
+                        List<GoodsDetailBean.MediaBean> mediaBeans =new ArrayList<>();
                         for (int i=0;i<mString.size();i++)
-                            mediaBeans.add(new MediaBean(mString.get(i),0,mString.get(i)));
+                            mediaBeans.add(new GoodsDetailBean.MediaBean(mString.get(i),0,mString.get(i)));
                         return mediaBeans;
                     }catch (Exception e1){
                         e1.printStackTrace();

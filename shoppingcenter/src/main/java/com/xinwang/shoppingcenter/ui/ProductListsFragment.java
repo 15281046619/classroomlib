@@ -43,6 +43,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 公共产品
@@ -154,7 +155,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
         stringObjectHashMap.put("page",curPage);
         stringObjectHashMap.put("page_num",pageNum);
         isRequesting =true;
-        HttpUtil.cancelTag(this);
+        HttpUtil.cancelTag(Objects.requireNonNull(getActivity()).getApplicationContext(),this);
         requestGet(HttpUrls.URL_GOODS_HOME_LISTS(),stringObjectHashMap, GoodsBean.class, new HttpCallBack<GoodsBean>() {
             @Override
             public void onFailure(String message) {

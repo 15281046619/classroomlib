@@ -121,7 +121,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         stringObjectHashMap.put("page",curPage);
         stringObjectHashMap.put("page_num",pageNum);
         isRequesting =true;
-        HttpUtil.cancelTag(this);
+        HttpUtil.cancelTag(Objects.requireNonNull(getActivity()).getApplicationContext(),this);
         requestGet(HttpUrls.URL_USER_ORDER_LISTS(),stringObjectHashMap, OrderListBean.class, new HttpCallBack<OrderListBean>() {
             @Override
             public void onFailure(String message) {
@@ -163,7 +163,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         stringObjectHashMap.put("page",curPage);
         stringObjectHashMap.put("page_num",pageNum);
         isRequesting =true;
-        HttpUtil.cancelTag(this);
+        HttpUtil.cancelTag(Objects.requireNonNull(getActivity()).getApplicationContext(),this);
         requestGet(HttpUrls.URL_USER_WAYBILL_LISTS(),stringObjectHashMap, WaybillListBean.class, new HttpCallBack<WaybillListBean>() {
             @Override
             public void onFailure(String message) {

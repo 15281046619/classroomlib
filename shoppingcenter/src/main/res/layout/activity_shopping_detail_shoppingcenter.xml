@@ -12,6 +12,7 @@
         android:text="商品详情"
         app:layout_scrollFlags="scroll|enterAlways"
         style="@style/ToolbarStyleClassRoom"
+        android:animateLayoutChanges="true"
         >
         <ImageView
             android:layout_width="48dp"
@@ -23,14 +24,20 @@
             android:layout_gravity="right|center_vertical"
             android:layout_marginEnd="10dp"
             />
-        <!--     <ImageView
-                 android:layout_width="48dp"
-                 android:layout_height="48dp"
-                 android:paddingLeft="17dp"
-                 android:paddingRight="17dp"
-                 android:src="@mipmap/ic_fx_classroom"
-                 android:layout_gravity="right|center_vertical"
-                 />-->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/toolbarBgClassRoom"
+            app:tabIndicatorColor="@color/themeClassRoom"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/themeClassRoom"
+            app:tabMode="fixed"
+            android:visibility="gone"
+            android:animateLayoutChanges="true"
+            android:layout_gravity="center"
+            app:tabTextAppearance="@style/TabLayoutTextStyleClassRoom"
+            app:tabTextColor="#fff"/>
     </com.xinwang.bgqbaselib.view.CustomToolbar>
 
     <com.xinwang.shoppingcenter.view.CustomNestedScrollView
@@ -110,8 +117,46 @@
                 android:layout_marginLeft="@dimen/dp_10_classroom"
                 android:layout_marginRight="@dimen/dp_10_classroom"
                 android:layout_marginBottom="@dimen/dp_10_classroom"
-                android:id="@+id/rlReview"
+                android:id="@+id/rlCases"
+                android:background="@drawable/shape_shopping_detail_label_bg_shoppingcenter"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvCasesDes"
+                    android:padding="@dimen/dp_10_classroom"
+                    android:textColor="@color/toolbarBgClassRoom"
+                    android:text="商品案例(0)"/>
+               <!-- <TextView
+                    android:layout_width="wrap_content"
+                    android:text="查看全部"
+                    android:textSize="@dimen/sp_13_classroom"
+                    android:gravity="center"
+                    android:id="@+id/tvAllCases"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignBottom="@+id/tvCasesDes"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/dp_10_classroom"
+                    android:paddingLeft="@dimen/dp_5_classroom"
+                    android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24_shoppingcenter"
+                    android:textColor="@color/toolbarBgClassRoom"
+                    android:layout_height="wrap_content"/>-->
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/tvCasesDes"
+                    android:id="@+id/rcvCasesDes"
+                    android:paddingBottom="10dp"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10_classroom"
+                android:layout_marginRight="@dimen/dp_10_classroom"
+                android:layout_marginBottom="@dimen/dp_10_classroom"
+                android:id="@+id/rlReview"
                 android:background="@drawable/shape_shopping_detail_label_bg_shoppingcenter"
                >
                 <TextView
@@ -249,7 +294,7 @@
             android:layout_alignParentRight="true"
             android:layout_height="35dp"/>
     </RelativeLayout>
-    <android.support.design.widget.TabLayout
+<!--    <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -260,7 +305,7 @@
         app:tabMode="fixed"
         android:visibility="gone"
         android:layout_below="@+id/toolbar"
-        app:tabTextColor="#fff"/>
+        app:tabTextColor="#fff"/>-->
     <include
         android:layout_width="match_parent"
         android:layout_height="match_parent"

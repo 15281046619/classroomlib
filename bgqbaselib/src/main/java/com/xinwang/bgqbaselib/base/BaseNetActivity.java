@@ -17,15 +17,15 @@ import java.util.HashMap;
 public abstract class BaseNetActivity extends BaseActivity{
     public <T extends Serializable> void  requestGet(String url, HashMap<String, Object> params,Class<T> clas,  HttpCallBack<T> mHttpCallBack){
         LogUtil.i(url);
-        HttpUtil.get(url,params,clas,mHttpCallBack,this);
+        HttpUtil.get(getApplicationContext(),url,params,clas,mHttpCallBack,this);
     }
     public <T extends Serializable> void  requestPost(String url, HashMap<String, Object> params,Class<T> clas, HttpCallBack<T> mHttpCallBack){
-        HttpUtil.post(url,params,clas,mHttpCallBack,this);
+        HttpUtil.post(getApplicationContext(),url,params,clas,mHttpCallBack,this);
     }
 
     @Override
     protected void onDestroy() {
-        HttpUtil.cancelTag(this);
+        HttpUtil.cancelTag(getApplicationContext(),this);
         super.onDestroy();
     }
 }

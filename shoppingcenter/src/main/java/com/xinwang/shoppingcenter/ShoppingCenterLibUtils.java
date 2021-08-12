@@ -47,7 +47,7 @@ public class ShoppingCenterLibUtils {
                 return context.getResources().getStringArray(R.array.sc_hot_search_array_ShoppingCenter);
             case "ny":
                 return context.getResources().getStringArray(R.array.ny_hot_search_array_ShoppingCenter);
-        }
+         }
         return context.getResources().getStringArray(R.array.zy_hot_search_array_ShoppingCenter);
     }
 
@@ -59,7 +59,6 @@ public class ShoppingCenterLibUtils {
             mBean.setCheck(true);//默认选中
             String saveGoods = SharedPreferenceUntils.getGoods(activity);
             if (!TextUtils.isEmpty(saveGoods)) {
-
                 List<Sku> mLists = GsonUtils.changeGsonToSafeList(saveGoods, Sku.class);
                 int lookPos= -1;//查找pos
                 for (int i = 0; i < mLists.size(); i++) {

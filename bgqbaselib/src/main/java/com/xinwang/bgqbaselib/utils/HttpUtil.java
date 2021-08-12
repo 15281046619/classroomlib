@@ -1,27 +1,32 @@
 package com.xinwang.bgqbaselib.utils;
 
+import android.app.Application;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.beautydefinelibrary.BeautyDefine;
 import com.google.gson.Gson;
 import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
 import com.xinwang.bgqbaselib.http.HttpCallProgressBack;
+import com.xinwang.bgqbaselib.http.NetCacheInterceptor;
+import com.xinwang.bgqbaselib.http.OfflineCacheInterceptor;
 
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.SocketException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -40,16 +45,23 @@ public class HttpUtil {
     private static Handler mainHandler = new Handler(Looper.getMainLooper());
     private static OkHttpClient okHttpClient;
 
-    private static OkHttpClient getInstance() {
+
+
+    private static OkHttpClient getInstance(Context context) {
         if (okHttpClient == null) {
             synchronized (HttpUtil.class) {
                 if (okHttpClient == null) {
+                    File cacheFile = new File(context.getCacheDir(), "responses");
+                    Cache cache = new Cache(cacheFile, 1024 * 1024 * 20); // 缓存大小20M
+
                     okHttpClient = new OkHttpClient.Builder()
                             .connectTimeout(10, TimeUnit.SECONDS)//10秒连接超时
                             .writeTimeout(10, TimeUnit.SECONDS)//10m秒写入超时
                             .readTimeout(10, TimeUnit.SECONDS)//10秒读取超时
                             .addInterceptor(new HttpHeaderInterceptor())//头部信息统一处理
-                            //.addInterceptor(new CommonParamsInterceptor())//公共参数统一处理
+                            .addNetworkInterceptor(new NetCacheInterceptor())
+                            .addInterceptor(new OfflineCacheInterceptor(context))
+                            .cache(cache)
                             .build();
                 }
             }
@@ -57,12 +69,15 @@ public class HttpUtil {
         return okHttpClient;
     }
 
+
+
+
     /**
      * @param url      url地址
      * @param callBack 请求回调接口
      */
-    public static void get(String url, HttpCallBack callBack) {
-        commonGet(getRequestForGet(url, null, null), CommonEntity.class, callBack);
+    public static void get(Context context,String url, HttpCallBack callBack) {
+        commonGet(context,getRequestForGet(url, null, null), CommonEntity.class, callBack);
     }
 
     /**
@@ -70,8 +85,8 @@ public class HttpUtil {
      * @param cls      泛型返回参数
      * @param callBack 请求回调接口
      */
-    public static <T extends Serializable> void get(String url, Class<T> cls, HttpCallBack<T> callBack) {
-        commonGet(getRequestForGet(url, null, null), cls, callBack);
+    public static <T extends Serializable> void get(Context context,String url, Class<T> cls, HttpCallBack<T> callBack) {
+        commonGet(context,getRequestForGet(url, null, null), cls, callBack);
     }
 
     /**
@@ -79,8 +94,8 @@ public class HttpUtil {
      * @param params   HashMap<String, String> 参数
      * @param callBack 请求回调接口
      */
-    public static void get(String url, HashMap<String, Object> params, HttpCallBack callBack) {
-        commonGet(getRequestForGet(url, params, null), CommonEntity.class, callBack);
+    public static void get(Context context,String url, HashMap<String, Object> params, HttpCallBack callBack) {
+        commonGet(context,getRequestForGet(url, params, null), CommonEntity.class, callBack);
     }
 
     /**
@@ -89,8 +104,8 @@ public class HttpUtil {
      * @param cls      泛型返回参数
      * @param callBack 请求回调接口
      */
-    public static <T extends Serializable> void get(String url, HashMap<String, Object> params, Class<T> cls, HttpCallBack<T> callBack) {
-        commonGet(getRequestForGet(url, params, null), cls, callBack);
+    public static <T extends Serializable> void get(Context context,String url, HashMap<String, Object> params, Class<T> cls, HttpCallBack<T> callBack) {
+        commonGet(context,getRequestForGet(url, params, null), cls, callBack);
     }
 
     /**
@@ -99,8 +114,8 @@ public class HttpUtil {
      * @param callBack 请求回调接口
      * @param tag      网络请求tag
      */
-    public static void get(String url, HashMap<String, Object> params, HttpCallBack callBack, Object tag) {
-        commonGet(getRequestForGet(url, params, tag), CommonEntity.class, callBack);
+    public static void get(Context context,String url, HashMap<String, Object> params, HttpCallBack callBack, Object tag) {
+        commonGet(context,getRequestForGet(url, params, tag), CommonEntity.class, callBack);
     }
 
     /**
@@ -110,8 +125,8 @@ public class HttpUtil {
      * @param cls      泛型返回参数
      * @param tag      网络请求tag
      */
-    public static <T extends Serializable> void get(String url, HashMap<String, Object> params, Class<T> cls, HttpCallBack<T> callBack, Object tag) {
-        commonGet(getRequestForGet(url, params, tag), cls, callBack);
+    public static <T extends Serializable> void get(Context context,String url, HashMap<String, Object> params, Class<T> cls, HttpCallBack<T> callBack, Object tag) {
+        commonGet(context,getRequestForGet(url, params, tag), cls, callBack);
     }
 
     /**
@@ -119,8 +134,8 @@ public class HttpUtil {
      * @param cls      泛型返回参数
      * @param callBack 请求回调接口
      */
-    public static <T extends Serializable> void post(String url, Class<T> cls, HttpCallBack<T> callBack) {
-        commonPost(getRequestForPost(url, null, null), cls, callBack);
+    public static <T extends Serializable> void post(Context context,String url, Class<T> cls, HttpCallBack<T> callBack) {
+        commonPost(context,getRequestForPost(url, null, null), cls, callBack);
     }
 
 
@@ -131,8 +146,8 @@ public class HttpUtil {
      * @param params   HashMap<String, Object> 参数
      * @param callBack 请求回调接口
      */
-    public static void post(String url, HashMap<String, Object> params, HttpCallBack callBack) {
-        commonPost(getRequestForPost(url, params, null), CommonEntity.class, callBack);
+    public static void post(Context context,String url, HashMap<String, Object> params, HttpCallBack callBack) {
+        commonPost(context,getRequestForPost(url, params, null), CommonEntity.class, callBack);
     }
 
     /**
@@ -141,8 +156,8 @@ public class HttpUtil {
      * @param callBack 请求回调接口
      * @param tag      网络请求tag
      */
-    public static void post(String url, HashMap<String, Object> params, HttpCallBack callBack, Object tag) {
-        commonPost(getRequestForPost(url, params, tag), CommonEntity.class, callBack);
+    public static void post(Context context,String url, HashMap<String, Object> params, HttpCallBack callBack, Object tag) {
+        commonPost(context,getRequestForPost(url, params, tag), CommonEntity.class, callBack);
     }
 
     /**
@@ -154,11 +169,11 @@ public class HttpUtil {
      * @param callBack 返回
      * @param <T>
      */
-    public static<T extends Serializable> void  upLoadFile(String actionUrl,Object tag, HashMap<String, Object> paramsMap,Class<T> cls ,final HttpCallBack<T> callBack){
-        commonPost(getRequestForPostFile(actionUrl,paramsMap,tag),cls,callBack);
+    public static<T extends Serializable> void  upLoadFile(Context context,String actionUrl,Object tag, HashMap<String, Object> paramsMap,Class<T> cls ,final HttpCallBack<T> callBack){
+        commonPost(context,getRequestForPostFile(actionUrl,paramsMap,tag),cls,callBack);
     }
-    public static<T extends Serializable> void  upLoadFile(String actionUrl, HashMap<String, Object> paramsMap,Class<T> cls ,final HttpCallBack<T> callBack){
-        commonPost(getRequestForPostFile(actionUrl,paramsMap,null),cls,callBack);
+    public static<T extends Serializable> void  upLoadFile(Context context,String actionUrl, HashMap<String, Object> paramsMap,Class<T> cls ,final HttpCallBack<T> callBack){
+        commonPost(context,getRequestForPostFile(actionUrl,paramsMap,null),cls,callBack);
     }
     /**
      * @param url      url地址
@@ -166,19 +181,19 @@ public class HttpUtil {
      * @param cls      泛型返回参数
      * @param callBack 请求回调接口
      */
-    public static <T extends Serializable> void post(String url, HashMap<String, Object> params, Class<T> cls, final HttpCallBack<T> callBack) {
-        commonPost(getRequestForPost(url, params, null), cls, callBack);
+    public static <T extends Serializable> void post(Context context,String url, HashMap<String, Object> params, Class<T> cls, final HttpCallBack<T> callBack) {
+        commonPost(context,getRequestForPost(url, params, null), cls, callBack);
     }
-    public static <T extends Serializable> void post(String url, HashMap<String, Object> params, Class<T> cls, final HttpCallBack<T> callBack,Object object) {
-        commonPost(getRequestForPost(url, params, object), cls, callBack);
+    public static <T extends Serializable> void post(Context context,String url, HashMap<String, Object> params, Class<T> cls, final HttpCallBack<T> callBack,Object object) {
+        commonPost(context,getRequestForPost(url, params, object), cls, callBack);
     }
 
     /**
      * GET请求 公共请求部分
      */
-    private static <T extends Serializable> void commonGet(Request request, final Class<T> cls, final HttpCallBack<T> callBack) {
+    private static <T extends Serializable> void commonGet(Context context,Request request, final Class<T> cls, final HttpCallBack<T> callBack) {
         if (request == null) return;
-        Call call = getInstance().newCall(request);
+        Call call = getInstance(context).newCall(request);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull final IOException e) {
@@ -234,9 +249,9 @@ public class HttpUtil {
     /**
      * POST请求 公共请求部分
      */
-    private static <T extends Serializable> void commonPost(Request request, final Class<T> cls, final HttpCallBack<T> callBack) {
+    private static <T extends Serializable> void commonPost(Context context,Request request, final Class<T> cls, final HttpCallBack<T> callBack) {
         if (request == null) return;
-        Call call = getInstance().newCall(request);
+        Call call = getInstance(context).newCall(request);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull final IOException e) {
@@ -414,14 +429,14 @@ public class HttpUtil {
     /**
      * 根据tag标签取消网络请求
      */
-    public static void cancelTag(Object tag) {
+    public static void cancelTag(Context context,Object tag) {
         if (tag == null) return;
-        for (Call call : getInstance().dispatcher().queuedCalls()) {
+        for (Call call : getInstance(context).dispatcher().queuedCalls()) {
             if (tag.equals(call.request().tag())) {
                 call.cancel();
             }
         }
-        for (Call call : getInstance().dispatcher().runningCalls()) {
+        for (Call call : getInstance(context).dispatcher().runningCalls()) {
             if (tag.equals(call.request().tag())) {
 
                 call.cancel();
@@ -433,11 +448,11 @@ public class HttpUtil {
     /**
      * 取消所有请求请求
      */
-    public static void cancelAll() {
-        for (Call call : getInstance().dispatcher().queuedCalls()) {
+    public static void cancelAll(Context context) {
+        for (Call call : getInstance(context).dispatcher().queuedCalls()) {
             call.cancel();
         }
-        for (Call call : getInstance().dispatcher().runningCalls()) {
+        for (Call call : getInstance(context).dispatcher().runningCalls()) {
             call.cancel();
         }
     }

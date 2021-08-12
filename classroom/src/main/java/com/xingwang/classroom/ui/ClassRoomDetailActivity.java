@@ -517,7 +517,7 @@ public class ClassRoomDetailActivity extends BaseNetActivity implements KeyBoard
                 mApiParams.with("lecture_id", mId + "");
             }
         }
-        HttpUtil.cancelTag(this);
+        HttpUtil.cancelTag(getApplicationContext(),this);
         requestPost(HttpUrls.URL_PUBLISH(),mApiParams, SendCommentBean.class,new HttpCallBack<SendCommentBean>() {
 
             @Override

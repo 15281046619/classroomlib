@@ -163,6 +163,8 @@ public class CouponListsActivity extends BaseNetActivity {
             String[] str =getCouponPrice(commonEntity.get(i));
             if (mPrice==0) {
                 commonEntity.get(i).setNoUseCause("该订单中所有商品不能使用优惠劵");
+            }else if (commonEntity.get(i).getUsable_app()!=1){
+                commonEntity.get(i).setNoUseCause("无法用于app使用");
             }else {
                 if (str[0].equals("限定商品使用")){
                     commonEntity.get(i).setNoUseCause("限定商品使用");

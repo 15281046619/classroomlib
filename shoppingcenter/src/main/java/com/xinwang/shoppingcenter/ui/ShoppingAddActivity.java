@@ -59,7 +59,7 @@ public class ShoppingAddActivity extends BaseActivity {
         String search = getIntent().getStringExtra("search");
        if (search!=null) {
             showFragment(1,search);
-        }else {
+        } else {
             showFragment(0, null);
         }
 

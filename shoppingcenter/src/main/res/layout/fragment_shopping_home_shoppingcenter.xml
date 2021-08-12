@@ -162,6 +162,7 @@
                                 android:drawableLeft="@drawable/ic_baseline_search_24_shoppingcenter"
                                 android:layout_height="wrap_content"/>
                         </RelativeLayout>
+
                         <android.support.design.internal.FlowLayout
                             android:layout_width="match_parent"
                             android:id="@+id/flowLayout"
@@ -170,8 +171,8 @@
                             app:lineSpacing="0dp"
                             android:layout_marginLeft="15dp"
                             android:layout_marginBottom="@dimen/dp_10_classroom"
-
                             android:layout_height="wrap_content"/>
+
 
                     </LinearLayout>
                 </android.support.design.widget.CollapsingToolbarLayout>
@@ -198,17 +199,39 @@
                         android:id="@+id/rlHot"
                         android:visibility="invisible"
                         android:layout_height="wrap_content">
-                        <TextView
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:id="@+id/ivmsg"
+                            android:src="@mipmap/ic_order_msg_shoppingcenter"/>
+                        <com.gongwen.marqueen.MarqueeView
+                            android:id="@+id/simpleMarqueeView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:flipInterval="4000"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/tvAllShopping"
+                            android:layout_toRightOf="@+id/ivmsg"
+                            android:layout_marginLeft="4dp"
+                            android:inAnimation="@anim/in_right"
+                            android:outAnimation="@anim/out_left"
+                            app:marqueeAnimDuration="3000"
+                            app:smvTextColor="@color/backgroundClassRoom"
+                            app:smvTextEllipsize="end"
+                            app:smvTextGravity="center_vertical"
+                            app:smvTextSingleLine="true" />
+                   <!--     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/tvDes"
                             android:textColor="@color/toolbarBgClassRoom"
-                            android:text="热门推荐"/>
+                            android:text="热门推荐"/>-->
                         <TextView
                             android:layout_width="wrap_content"
                             android:text="查看全部"
                             android:textSize="@dimen/sp_13_classroom"
                             android:gravity="center"
+                            android:layout_centerVertical="true"
                             android:id="@+id/tvAllShopping"
                             android:layout_alignParentTop="true"
                             android:layout_alignBottom="@+id/tvDes"

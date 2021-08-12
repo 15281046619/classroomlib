@@ -17,6 +17,7 @@ import com.xinwang.bgqbaselib.utils.HttpUtil;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -63,15 +64,15 @@ public abstract class BaseLazyLoadFragment extends Fragment {
         return mRootView;
     }
     public <T extends Serializable> void  requestGet(String url, HashMap<String, Object> params, Class<T> clas, HttpCallBack<T> mHttpCallBack){
-        HttpUtil.get(url,params,clas,mHttpCallBack,this);
+        HttpUtil.get(Objects.requireNonNull(getActivity()).getApplicationContext(), url,params,clas,mHttpCallBack,this);
     }
     public <T extends Serializable> void  requestPost(String url, HashMap<String, Object> params,Class<T> clas, HttpCallBack<T> mHttpCallBack){
-        HttpUtil.post(url,params,clas,mHttpCallBack,this);
+        HttpUtil.post(Objects.requireNonNull(getActivity()).getApplicationContext(),url,params,clas,mHttpCallBack,this);
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
-        HttpUtil.cancelTag(this);
+        HttpUtil.cancelTag(Objects.requireNonNull(getActivity()).getApplicationContext(),this);
     }
 
     @Override

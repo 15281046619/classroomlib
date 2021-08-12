@@ -61,7 +61,7 @@ public class X5WebView extends BridgeWebView {
     private X5WebChromeClient x5WebChromeClient;
     private volatile boolean mInitialized;
     private HttpDnsService httpDns;
-    public static boolean isLongClick = true;
+    public static boolean isLongClick = false;
 
     @Override
     protected void onDetachedFromWindow() {
@@ -90,7 +90,7 @@ public class X5WebView extends BridgeWebView {
             this.setWebChromeClient(getCustomWebChromeClient());
         }
         //设置可以点击
-        this.getView().setClickable(true);
+      //  this.getView().setClickable(true);
         mInitialized = true;
         //初始化https+dns域名解析功能，如果没有初始化，则默认不使用
         initSetHttpDns();

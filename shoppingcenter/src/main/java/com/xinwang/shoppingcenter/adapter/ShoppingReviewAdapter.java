@@ -7,26 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautydefinelibrary.BeautyDefine;
-import com.beautydefinelibrary.LabelUiFactoryDefine;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
-import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
 import com.xinwang.bgqbaselib.utils.TimeUtil;
 import com.xinwang.shoppingcenter.R;
-import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
-import com.xinwang.shoppingcenter.bean.GoodsBean;
-import com.xinwang.shoppingcenter.bean.MediaBean;
+import com.xinwang.shoppingcenter.bean.GoodsDetailBean;
 import com.xinwang.shoppingcenter.bean.ReviewListBean;
-import com.xinwang.shoppingcenter.interfaces.AdapterItemClickListener;
 import com.xinwang.shoppingcenter.ui.SimplePlayerActivity;
 import com.xinwang.shoppingcenter.view.CircularImage;
 
@@ -93,7 +86,7 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
     }
 
 
-    private void showPic(LinearLayout llPhoto, List<MediaBean> mListPhotos) {
+    private void showPic(LinearLayout llPhoto, List<GoodsDetailBean.MediaBean> mListPhotos) {
         llPhoto.removeAllViews();
         if (mListPhotos.size()>0)
             switch (mListPhotos.size()) {
@@ -277,7 +270,7 @@ public class ShoppingReviewAdapter extends BaseLoadMoreAdapter<ReviewListBean.Da
      * @param mLists
      * @param pos
      */
-    private void jumpBigPic(List<MediaBean> mLists,int pos ){
+    private void jumpBigPic(List<GoodsDetailBean.MediaBean> mLists, int pos ){
         if (mLists.get(0).getType()==1){//有视频
             if (pos==0){
                 activity.startActivity(new Intent(activity, SimplePlayerActivity.class).putExtra("url",mLists.get(0).getPath()));
