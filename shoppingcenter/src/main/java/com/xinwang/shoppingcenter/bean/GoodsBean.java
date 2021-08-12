@@ -55,6 +55,15 @@ public class GoodsBean  extends CommonEntity {
         private String cover;
         private int min_price;//最小价格
         private int review_count;
+        private String video;
+
+        public String getVideo() {
+            return video;
+        }
+
+        public void setVideo(String video) {
+            this.video = video;
+        }
 
         public int getReview_count() {
             return review_count;

@@ -109,17 +109,25 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            ImageView imageView =new ImageView(container.getContext());
-
+            //   ImageView imageView =new ImageView(container.getContext());
+            View mRootView = LayoutInflater.from(ShoppingDetailActivity.this).inflate(R.layout.item_detail_viewpager_shoppingcenter, container, false);
+            ImageView imageView =mRootView.findViewById(R.id.iv1);
+            ImageView ivVideoIcon =mRootView.findViewById(R.id.ivVideoIcon);
+            boolean isShowVideo = position==0&&!TextUtils.isEmpty(mDate.getVideo());
+            ivVideoIcon.setVisibility(isShowVideo?View.VISIBLE:View.GONE);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setBackgroundResource(R.color.black);
             GlideUtils.loadAvatar(mDate!=null?mDate.getPicBeans().get(position):"",R.color.BGPressedClassRoom,imageView);
-            container.addView(imageView);
-            imageView.setOnClickListener(v -> {
-                ArrayList<String> mLists = new ArrayList<>(mDate.getPicBeans());
-                jumpBigPic(mLists,position);
+            container.addView(mRootView);
+            mRootView.setOnClickListener(v -> {
+                if (isShowVideo){
+                    startActivity(new Intent(ShoppingDetailActivity.this, SimplePlayerActivity.class).putExtra("url",mDate.getVideo()));
+                }else {
+                    ArrayList<String> mLists = new ArrayList<>(mDate.getPicBeans());
+                    jumpBigPic(mLists, position);
+                }
             });
-            return imageView;
+            return mRootView;
         }
 
         @Override
@@ -153,8 +161,6 @@ public class ShoppingDetailActivity extends BaseNetActivity {
         initRequest();
         initListener();
         initNumber();
-
-
     }
     @Subscribe()
     public void updateNumber(NumberBean numberBean){
