@@ -17,7 +17,6 @@ import com.xinwang.bgqbaselib.utils.Constants;
 import com.xinwang.bgqbaselib.utils.MyToast;
 import com.xinwang.bgqbaselib.view.CustomProgressBar;
 import com.xinwang.bgqbaselib.view.CustomToolbar;
-import com.xinwang.bgqbaselib.view.DividerItemDecoration;
 import com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout;
 import com.xinwang.bgqbaselib.view.loadmore.EndlessRecyclerOnScrollListener;
 import com.xinwang.shoppingcenter.R;

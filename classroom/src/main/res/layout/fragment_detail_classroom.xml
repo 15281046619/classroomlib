@@ -13,7 +13,6 @@
         android:paddingBottom="@dimen/dp_5_classroom"
         android:gravity="center_vertical"
         android:id="@+id/tv_title"
-        android:text="233232433333333333333333333333333333333444444444444443"
         android:textColor="@android:color/black"
         android:textStyle="bold"/>
     <View
@@ -30,7 +29,6 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="201223次学习"
                 android:textColor="@color/textColor1ClassRoom"
                 android:layout_gravity="center_vertical"
                 android:textSize="14sp"

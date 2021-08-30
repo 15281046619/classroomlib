@@ -36,7 +36,7 @@ public class WebFileUtils {
 
     public static void copy(InputStream inputStream, OutputStream out) throws IOException {
         byte[] buf =new byte[512];
-        int len = -1;
+        int len ;
         while ((len = inputStream.read(buf))!=-1){
             out.write(buf,0,len);
         }

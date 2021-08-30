@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:id="@+id/rlVideoRoot"
         android:background="@android:color/black"
-
         android:layout_height="wrap_content">
         <com.xingwang.classroom.view.EmptyControlVideo
             android:id="@+id/video_track"
@@ -73,22 +72,6 @@
     <include layout="@layout/layout_empty_classroom"
         android:layout_below="@+id/rlVideoRoot"
         android:layout_height="match_parent"
-
         android:layout_width="match_parent"/>
-   <!-- <RelativeLayout
-        android:layout_width="match_parent"
-        android:id="@+id/rlTime"
-        android:animateLayoutChanges="true"
-        android:layout_height="match_parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="10"
-            android:id="@+id/tvTime"
-            android:textSize="300sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
--->
+
 </RelativeLayout>

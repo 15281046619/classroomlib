@@ -265,7 +265,8 @@ public class CommentUtils {
                 + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> "
                 + "<style>" +
                 "img{max-width: 100%; width:100%; height:auto;}" +
-                "video{max-width: 100%; width:100%; height:auto;}</style>" +
+                "video{max-width: 100%; width:100%; height:auto;}" +
+                "*{margin:0;}</style>" +
                 "</head>");
         return "<html>"+head+"<body style='margin:0;padding:0'>"+bodyHTML+" <script type=\"text/javascript\">" +
                 "window.onload=function(){ var objs = document.getElementsByTagName(\"img\"); " +

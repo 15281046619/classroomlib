@@ -326,6 +326,7 @@ public class ProductListsFragment extends BaseLazyLoadFragment implements Activi
     }
     //滑动到顶部
     public void scrollTop(){
+        if (recyclerView!=null)
         recyclerView.scrollToPosition(0);
     }
     public void setFragmentStateListener(FragmentStateListener fragmentStateListener){

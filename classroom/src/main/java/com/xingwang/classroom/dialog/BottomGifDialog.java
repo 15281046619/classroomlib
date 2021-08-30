@@ -37,7 +37,7 @@ public class BottomGifDialog extends BaseDialog {
     private int curPos =0;
     @Override
     protected int layoutResId() {
-        return R.layout.dialog_bottom_gif;
+        return R.layout.dialog_bottom_gif_classroom;
     }
     public static BottomGifDialog getInstance(List<GiftBean> mData,int curJF){
         BottomGifDialog instance = new BottomGifDialog();

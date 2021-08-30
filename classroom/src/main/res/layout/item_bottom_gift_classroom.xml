@@ -4,10 +4,8 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:id="@+id/rlRoot"
-
     android:paddingTop="@dimen/dp_5_classroom"
     android:paddingBottom="@dimen/dp_5_classroom"
-
     android:layout_gravity="center"
     android:background="@drawable/select_gift_select_bg_classroom"
     android:orientation="vertical">

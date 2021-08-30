@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:text="右边"
                 android:layout_marginRight="5dp"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -57,7 +56,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp"
-                android:text="32434343434"
                 android:textColor="@android:color/black"
                 android:textSize="12sp" />
             <ImageView
@@ -82,7 +80,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp"
-                android:text="这是一个实践反思积分"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
             <ImageView

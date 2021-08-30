@@ -52,7 +52,7 @@ public class GiftView extends LinearLayout{
     public GiftView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setOrientation(LinearLayout.VERTICAL);
-        inflate(context,R.layout.item_gift_view, this);
+        inflate(context,R.layout.item_gift_view_classroom, this);
         rlRoot2 =findViewById(R.id.rlRoot2);
         rlRoot1 =findViewById(R.id.rlRoot1);
         ivHead1 =findViewById(R.id.ivHead1);

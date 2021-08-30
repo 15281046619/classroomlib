@@ -40,7 +40,7 @@ public class StatisticPriceActivity extends BaseNetActivity {
     public HistoryPriceBean.DataBean mData;
     @Override
     protected int layoutResId() {
-        return R.layout.activity_statistic_price;
+        return R.layout.activity_statistic_price_classroom;
     }
 
     @Override

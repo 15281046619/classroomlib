@@ -67,25 +67,24 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
 
 
 
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initViews();
+        initSettingToolBarHeight();
+        initBannerHeight();
+        initSettingAppBarListener();
+        initBannerListener();
+        goRequestData(Constants.LOAD_DATA_TYPE_INIT);
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         banner.startAutoPlay();
     }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-     //   if (!isStartLaunch()) {
-            initViews();
-            initSettingToolBarHeight();
-            initBannerHeight();
-            initSettingAppBarListener();
-            initBannerListener();
-            goRequestData(Constants.LOAD_DATA_TYPE_INIT);
-         //  }
-    }
-
     private void initBannerHeight() {
 
         appBarLayoutHeight = CommentUtils.getScreenWidth(this)*18/43;
@@ -150,7 +149,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
     private List<String> getTitleDes() {
         List<String> mLists =new ArrayList<>();
         for (ADGroupBean.DataBean mBean:mTitleImages){
-          //  mLists.add(mBean.getTitle()); 2020/11/10 去掉标题
+            //  mLists.add(mBean.getTitle()); 2020/11/10 去掉标题
             mLists.add("");
         }
         return mLists;
@@ -201,7 +200,7 @@ public class ClassRoomHomeActivity extends BaseNetActivity {
     }
 
     private void initSettingAppBarListener() {
-       // appBarLayoutHeight= getResources().getDimension(R.dimen.dp_200_classroom);
+        // appBarLayoutHeight= getResources().getDimension(R.dimen.dp_200_classroom);
         appBarLayout.addOnOffsetChangedListener((AppBarLayout.BaseOnOffsetChangedListener<AppBarLayout>) (appBarLayout, verticalOffset) -> {
             int offset = Math.abs(verticalOffset); //目的是将负数转换为绝对正数；
             //标题栏的渐变

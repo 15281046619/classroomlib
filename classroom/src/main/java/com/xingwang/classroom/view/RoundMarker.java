@@ -24,7 +24,7 @@ public class RoundMarker extends MarkerView {
 
     public RoundMarker(Context context) {
 
-        super(context, R.layout.item_chart_round);
+        super(context, R.layout.item_chart_round_classroom);
 
     }
 

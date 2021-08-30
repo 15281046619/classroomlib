@@ -26,7 +26,7 @@ public class PositionMarker extends MarkerView {
 
     public PositionMarker(Context context) {
 
-        super(context, R.layout.item_chart_post);
+        super(context, R.layout.item_chart_post_classroom);
 
     }
 
