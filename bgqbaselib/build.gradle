@@ -42,8 +42,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //implementation 不能引用到库里面得
     api 'com.beautydefinelibrary:beautydefinelibrary:1.2.46'
-    api 'com.beautyreslibrary:zy:1.0.27'
-/*    api 'com.beautyreslibrary:qy:1.0.2'*/
+  /*  api 'com.beautyreslibrary:zy:1.0.27'*/
+    api 'com.beautyreslibrary:qy:1.0.2'
     /*api 'com.beautyreslibrary:yy:1.0.12'*/
     /*  api 'com.beautyreslibrary:ny:1.0.3'*/
 
