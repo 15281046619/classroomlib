@@ -27,7 +27,7 @@
         android:lineSpacingExtra="@dimen/dp_5_classroom"
         android:paddingBottom="@dimen/dp_15_classroom"
         android:text="请填写你的内容"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@color/themeClassRoom"
         android:layout_height="wrap_content"/>
 
     <EditText
@@ -62,7 +62,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="确定"
-            android:background="@android:color/holo_red_dark"
+            android:background="@color/themeClassRoom"
             android:textColor="@android:color/white"
             android:layout_marginLeft="@dimen/dp_10_classroom"
             android:layout_height="wrap_content"/>

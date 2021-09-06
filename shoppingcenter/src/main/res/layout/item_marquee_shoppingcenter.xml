@@ -20,6 +20,7 @@
             android:maxLines="1"
             android:text="未来"
             android:ellipsize="end"
+            android:textColor="@color/textColorClassRoom"
             android:textSize="@dimen/sp_13_classroom"
             android:layout_toRightOf="@+id/circularImage"
             android:id="@+id/tvName"/>
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvTime"
             android:text="2分前"
-
+            android:textColor="@color/textColorClassRoom"
             android:textSize="@dimen/sp_13_classroom"
             android:layout_marginLeft="6dp"/>
         <TextView
@@ -36,12 +37,13 @@
             android:layout_height="wrap_content"
             android:text="购买了"
             android:textSize="@dimen/sp_13_classroom"
+            android:textColor="@color/textColorClassRoom"
             android:layout_marginLeft="6dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-
+            android:textColor="@color/textColorClassRoom"
             android:layout_height="wrap_content"
             android:id="@+id/tvGood"
             android:textSize="@dimen/sp_13_classroom"

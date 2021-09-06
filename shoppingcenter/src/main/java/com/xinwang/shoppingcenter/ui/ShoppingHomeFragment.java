@@ -184,6 +184,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
                 simpleMarqueeView.setMarqueeFactory(marqueeFactory);
                 simpleMarqueeView.startFlipping();
 
+
             }
         });
     }
@@ -191,6 +192,7 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
     @Override
     public void onStart() {
         super.onStart();
+        if(!simpleMarqueeView.isAutoStart())
         simpleMarqueeView.startFlipping();
     }
 
