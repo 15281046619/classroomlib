@@ -14,6 +14,7 @@ buildscript {
         //添加下面两句，进行配置
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+
     }
 }
 
