@@ -189,18 +189,26 @@ public class ShoppingHomeFragment  extends BaseLazyLoadFragment {
         });
     }
 
-    @Override
+/*    @Override
     public void onStart() {
         super.onStart();
         if(!simpleMarqueeView.isAutoStart())
         simpleMarqueeView.startFlipping();
-    }
-
+    }*/
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            simpleMarqueeView.stopFlipping();
+        }else{
+            simpleMarqueeView.startFlipping();
+        }
+    }
+/*    @Override
     public void onStop() {
         super.onStop();
         simpleMarqueeView.stopFlipping();
-    }
+    }*/
     private void initNumber() {
         number = GsonUtils.changeGsonToSafeList( SharedPreferenceUntils.getGoods(getActivity()), Sku.class).size();
         showNumber();
