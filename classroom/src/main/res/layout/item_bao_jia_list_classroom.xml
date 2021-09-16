@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:gravity="center_vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp">
+    <com.xingwang.classroom.view.CircularImage
+        android:id="@+id/ivAvatar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        style="@style/chatAvatarClassRoom" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivAvatar"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:text="小米显dgfgdg示"
+        android:id="@+id/tvName"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTime"
+        android:layout_toRightOf="@+id/tvName"
+        android:layout_marginLeft="8dp"
+        android:layout_centerVertical="true"
+        android:text="2012-12-12"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvTime"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/themeClassRoom"
+        android:layout_centerVertical="true"
+        android:id="@+id/tvPrice"
+        android:text="15.55"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvPrice"
+        android:layout_marginLeft="2dp"
+
+        android:layout_centerVertical="true"
+        android:id="@+id/tvUnit"
+        android:text="元/吨"/>
+</RelativeLayout>

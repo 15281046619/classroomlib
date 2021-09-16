@@ -121,32 +121,31 @@ public class MyLineChart extends LineChart {
 
     }
 
- //   PointF downPoint = new PointF();
+    PointF downPoint = new PointF();
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent evt) {
-
         switch (evt.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
 
-               // downPoint.x = evt.getX();
+                downPoint.x = evt.getX();
 
-              //  downPoint.y = evt.getY();
+                downPoint.y = evt.getY();
 
                 break;
 
             case MotionEvent.ACTION_MOVE:
 
 
-              /*  if (getScaleX() > 1 && Math.abs(evt.getX() - downPoint.x) > 5) {
+                if (getScaleX() > 1 && Math.abs(evt.getX() - downPoint.x) > 5) {
 
                     getParent().requestDisallowInterceptTouchEvent(true);
 
-                }else*/
-              //  if (evt.getY()-downPoint.y>=0){
+                }/*else
+                if (evt.getY()-downPoint.y>=0){
                     getParent().requestDisallowInterceptTouchEvent(true);
-              //  }
+                }*/
 
                 break;
 

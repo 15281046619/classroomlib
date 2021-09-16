@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.beautydefinelibrary.BeautyDefine;
 import com.xinwang.bgqbaselib.adapter.BaseLoadMoreAdapter;
 import com.xinwang.bgqbaselib.utils.CountUtil;
 import com.xinwang.bgqbaselib.utils.GlideUtils;
@@ -50,7 +51,7 @@ public class ShoppingHomeAdapter extends BaseLoadMoreAdapter<GoodsBean.DataBean>
                 }
             });
             if (layoutParams.height>0)
-                GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.ivContent,itemWidth,layoutParams.height);//必须设置宽高防止反复滑动图片显示问题
+                GlideUtils.loadAvatar(BeautyDefine.getThumbUrlDefine().createThumbUrl(itemWidth,layoutParams.height,mDatas.get(i).getCover()),R.color.BGPressedClassRoom,baseViewHolder.ivContent,itemWidth,layoutParams.height);//必须设置宽高防止反复滑动图片显示问题
             else
                 GlideUtils.loadAvatar(mDatas.get(i).getCover(),R.color.BGPressedClassRoom,baseViewHolder.ivContent);
             if (mDatas.get(i).getMin_price()==0){

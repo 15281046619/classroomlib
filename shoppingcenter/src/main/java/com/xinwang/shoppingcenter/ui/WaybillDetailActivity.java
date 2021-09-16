@@ -158,8 +158,12 @@ public class WaybillDetailActivity extends BaseNetActivity {
                         });
                         llWaybillSum.addView(textView);
                     }
+
                 }
-                requestWaybillList(true);
+                if (mWaybillNos==null||(mWaybillNos.length==1&&mWaybillNos[0].equals("")))
+                    requestFailureShow("没有相关物流信息");
+                else
+                    requestWaybillList(true);
             }
         });
     }
@@ -170,13 +174,13 @@ public class WaybillDetailActivity extends BaseNetActivity {
             mApiParams.with("type", waybillDetailBean.getData().getType());
         }
         if (!isFrist)
-        BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
+            BeautyDefine.getOpenPageDefine(this).progressControl(new OpenPageDefine.ProgressController.Showder("加载中",false));
         requestGet(HttpUrls.URL_WAYBILL_INFO(),mApiParams , WaybillInfoBean.class, new HttpCallBack<WaybillInfoBean>() {
             @Override
             public void onFailure(String message) {
                 requestFailureShow(message);
                 if (!isFrist)
-                BeautyDefine.getOpenPageDefine(WaybillDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
+                    BeautyDefine.getOpenPageDefine(WaybillDetailActivity.this).progressControl(new OpenPageDefine.ProgressController.Hider());
             }
 
             @Override

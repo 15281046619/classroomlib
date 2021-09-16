@@ -19,6 +19,7 @@ import com.xinwang.bgqbaselib.base.BaseNetActivity;
 import com.xinwang.bgqbaselib.http.ApiParams;
 import com.xinwang.bgqbaselib.http.CommonEntity;
 import com.xinwang.bgqbaselib.http.HttpCallBack;
+import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.shoppingcenter.ShoppingCenterLibUtils;
 import com.xinwang.shoppingcenter.ui.ShoppingHomeActivity;
 import com.xinwang.shoppingcenter.ui.SimplePlayerActivity;
@@ -38,6 +39,7 @@ public class MainActivity extends BaseNetActivity implements WebViewDelegate {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //   Log.d("TAG","ArrayList："+(System.currentTimeMillis()-cur));
         // ClassRoomLibUtils.startListActivity(this,"栏目");
 
@@ -70,7 +72,7 @@ public class MainActivity extends BaseNetActivity implements WebViewDelegate {
         Uri uri = Uri.parse("classroom://com.xingw.zyapp.dddetail?id=2");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
         // startActivity(intent);
-        // getAuthStr("15281046619");
+        getAuthStr("17760556910");
        /* ShoppingCenterLibUtils.startForResultShoppingEdit(this,"[{\"addSum\":1,\"allow_coupon\":1,\"attributes\":[{\"key\":\"规格\",\"value\":\"2ml*10支*60盒/件\"}],\"goodId\":57,\"goodTitle\":\"雌二醇（雌二醇注射液）\",\"id\":\"121\",\"inStock\":true,\"isCheck\":false,\"mainImage\":\"http://oss.xw518app.xw518.com/default/2021/05/15/112924_苯甲酸雌二醇注射液_盒无背景.png\",\"maxBugSum\":0,\"originPrice\":48000,\"sellingPrice\":48000,\"stockQuantity\":999999,\"totalStock\":0},{\"addSum\":1,\"allow_coupon\":1,\"attributes\":[{\"key\":\"规格\",\"value\":\"500g*20袋/件\"}],\"goodId\":56,\"goodTitle\":\"瘟热毒消（荆防败毒散）\",\"id\":\"119\",\"inStock\":true,\"isCheck\":false,\"mainImage\":\"http://oss.xw518app.xw518.com/default/2021/05/15/111936_瘟热毒消无背景.png\",\"maxBugSum\":0,\"originPrice\":64000,\"sellingPrice\":64000,\"stockQuantity\":99999,\"totalStock\":0},{\"addSum\":1,\"allow_coupon\":1,\"attributes\":[{\"key\":\"规格\",\"value\":\"10ml*10支*40盒/件\"}],\"goodId\":60,\"goodTitle\":\"高热风暴（氟尼辛葡甲胺注射液）\",\"id\":\"127\",\"inStock\":true,\"isCheck\":false,\"mainImage\":\"http://oss.xw518app.xw518.com/default/2021/05/15/120108_微信图片_20210515120056.jpg\",\"maxBugSum\":0,\"originPrice\":140000,\"sellingPrice\":140000,\"stockQuantity\":999999,\"totalStock\":0},{\"addSum\":1,\"allow_coupon\":1,\"attributes\":[{\"key\":\"规格\",\"value\":\"500g*20袋/件\"}],\"goodId\":64,\"goodTitle\":\"维康舒(维生素c可溶性粉)\",\"id\":\"139\",\"inStock\":true,\"isCheck\":false,\"mainImage\":\"http://oss.xw518app.xw518.com/default/2021/05/20/152914_维康舒.png\",\"maxBugSum\":0,\"originPrice\":46000,\"sellingPrice\":46000,\"stockQuantity\":99999,\"totalStock\":0},{\"addSum\":2,\"allow_coupon\":1,\"attributes\":[{\"key\":\"规格\",\"value\":\"1kg/袋\"}],\"goodId\":63,\"goodTitle\":\"乳司令（仔猪专用配方奶粉）\",\"id\":\"134\",\"inStock\":true,\"isCheck\":true,\"mainImage\":\"http://oss.xw518app.xw518.com/default/2021/05/17/180637_QQ图片20210517180527.jpg\",\"maxBugSum\":0,\"originPrice\":3800,\"sellingPrice\":3800,\"showPrice\":\"38-760\",\"stockQuantity\":99974,\"totalStock\":199962}]",
                 100,100);*/
         //  getAuthStr("18482131033");
@@ -94,7 +96,7 @@ public class MainActivity extends BaseNetActivity implements WebViewDelegate {
         switch (tag){
             case "1":
                 // startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("circle://"+getPackageName()+".host.card?id=56")));
-                ClassRoomLibUtils.startHistoryPriceActivity(this,"1");
+                ClassRoomLibUtils.startBaoJiaActivity(this,"四川","玉米");
                 break;
             case "2":
                 startActivity( new Intent(Intent.ACTION_VIEW,Uri.parse("essay://"+getPackageName()+".host.adessay?url=http://zyapp.test.xw518.com/article/859")));

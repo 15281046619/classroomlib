@@ -53,7 +53,7 @@ public class StatisticPriceFragment extends BaseLazyLoadFragment {
 
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_statistic_price,container,false);
+        View view =  inflater.inflate(R.layout.fragment_statistic_price_classroom,container,false);
         mLineChar =view.findViewById(R.id.mLineChar);
         radioGroup =view.findViewById(R.id.radioGroup);
         tvPercentage =view.findViewById(R.id.tvPercentage);

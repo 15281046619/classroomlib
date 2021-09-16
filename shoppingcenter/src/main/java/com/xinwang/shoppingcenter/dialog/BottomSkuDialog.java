@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-
+import com.beautydefinelibrary.BeautyDefine;
 import com.xinwang.bgqbaselib.dialog.BaseDialog;
 import com.xinwang.shoppingcenter.bean.Sku;
 import com.xinwang.shoppingcenter.bean.SkuAttribute;
@@ -132,9 +132,9 @@ public class BottomSkuDialog extends BaseDialog {
                 }).showDialog(getFragmentManager());
             }
         });
-
+        int dp80 =CommentUtils.dip2px(getContext(),80);
         if (skuList.size()>0&&!TextUtils.isEmpty(skuList.get(0).getShowPrice())) {
-            GlideUtils.loadAvatarNoPlaceholder(skuList.get(0).getMainImage(),ivImg);
+            GlideUtils.loadAvatarNoPlaceholder(BeautyDefine.getThumbUrlDefine().createThumbUrl(dp80,dp80,skuList.get(0).getMainImage()),ivImg);
             textView.setText(ShoppingCenterLibUtils.getPriceSpannable("￥" + CountUtil.doubleToString(skuList.get(0).getShowPrice())));
         }
         if (skuList.size()>0){

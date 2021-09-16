@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/classroom" />
             <option value="$PROJECT_DIR$/classroom-release" />
             <option value="$PROJECT_DIR$/shoppingcenter" />
+            <option value="$PROJECT_DIR$/wheelview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

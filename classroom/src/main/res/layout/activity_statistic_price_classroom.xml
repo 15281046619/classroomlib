@@ -23,9 +23,9 @@
         android:id="@+id/swipeRefreshLayout"
         android:addStatesFromChildren="true"
         >
+
     <com.xingwang.classroom.view.NoScrollViewPager
         android:id="@+id/viewpager"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     </com.xinwang.bgqbaselib.view.VpSwipeRefreshLayout>

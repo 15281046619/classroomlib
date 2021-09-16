@@ -16,6 +16,11 @@ public class CountUtil {
         BigDecimal b = new BigDecimal(String.valueOf(dmDouble));
         return a.multiply(b).doubleValue();
     }
+    public static  Integer multiplyByInt(int mInt,Float dmDouble){
+        BigDecimal a = new BigDecimal(String.valueOf(mInt));
+        BigDecimal b = new BigDecimal(String.valueOf(dmDouble));
+        return a.multiply(b).intValue();
+    }
     public static Double  add(Double a, Double b){
         BigDecimal c = new BigDecimal(String.valueOf(a));
         BigDecimal d = new BigDecimal(String.valueOf(b));
@@ -26,10 +31,20 @@ public class CountUtil {
         BigDecimal d = new BigDecimal(String.valueOf(b));
         return  c.subtract(d).doubleValue();
     }
+    public static Float  sub(Float a, Float b){
+        BigDecimal c = new BigDecimal(String.valueOf(a));
+        BigDecimal d = new BigDecimal(String.valueOf(b));
+        return  c.subtract(d).floatValue();
+    }
     public static Double  divide(Double a, Double b){
         BigDecimal c = new BigDecimal(String.valueOf(a));
         BigDecimal d = new BigDecimal(String.valueOf(b));
-        return  c.divide(d).doubleValue();
+        return  c.divide(d,4,BigDecimal.ROUND_HALF_UP).doubleValue();//除发要精确位数 否则会崩溃
+    }
+    public static Float  divide(Float a, Float b){
+        BigDecimal c = new BigDecimal(String.valueOf(a));
+        BigDecimal d = new BigDecimal(String.valueOf(b));
+        return  c.divide(d,4,BigDecimal.ROUND_HALF_UP).floatValue();
     }
 
     /**

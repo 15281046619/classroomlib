@@ -1,3 +1,4 @@
+include ':wheelview'
 include ':WebViewLib'
 include ':shoppingcenter'
 include ':bgqbaselib'

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <com.xinwang.bgqbaselib.view.CustomToolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarStyleClassRoom"
+        android:text="五花肉"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="?actionBarSize"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:id="@+id/tvBaoJia"
+            android:text="报价"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_gravity="right|center_vertical"
+
+            />
+    </com.xinwang.bgqbaselib.view.CustomToolbar>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:background="@color/toolbarBgClassRoom"
+        />
+
+
+    <com.xingwang.classroom.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

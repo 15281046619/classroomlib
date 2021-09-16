@@ -17,7 +17,9 @@ public class NoScrollViewPager extends ViewPager {
     public NoScrollViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
+    public void setIsNoScroll(boolean noScroll){
+        this.noScroll =noScroll;
+    }
     @Override
     public boolean onTouchEvent(MotionEvent arg0) {
         if (noScroll){

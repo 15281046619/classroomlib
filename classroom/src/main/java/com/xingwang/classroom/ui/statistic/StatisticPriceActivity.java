@@ -151,7 +151,6 @@ public class StatisticPriceActivity extends BaseNetActivity {
         switch (i){
             case 0:
                 return "大豆";
-
             case 1:
                 return  "玉米";
             case 2:

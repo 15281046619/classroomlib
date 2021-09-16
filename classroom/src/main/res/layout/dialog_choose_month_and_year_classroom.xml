@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textColor="@color/textColorClassRoom"
+        android:id="@+id/tv_cancel"
+        android:text="取消"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:id="@+id/tv_ok"
+
+        android:textColor="@color/themeClassRoom"
+        android:layout_alignParentRight="true"
+        android:text="确定"/>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/tv_cancel">
+
+        <com.contrarywind.view.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+
+            android:layout_height="wrap_content"
+            app:wheelview_textSize="14sp"
+            app:wheelview_textColorCenter="@color/themeClassRoom"
+            app:wheelview_textColorOut="@color/textColorClassRoom"
+            android:id="@+id/wheel_view"
+            />
+
+        <com.contrarywind.view.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            app:wheelview_textSize="14sp"
+            app:wheelview_textColorCenter="@color/themeClassRoom"
+            app:wheelview_textColorOut="@color/textColorClassRoom"
+            android:id="@+id/wheel_view1"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

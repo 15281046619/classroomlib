@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:drawable="@drawable/ic_baseline_keyboard_arrow_down_24_true_classroom"/>
+    <item  android:drawable="@drawable/ic_baseline_keyboard_arrow_down_24_false_classroom"/>
+</selector>

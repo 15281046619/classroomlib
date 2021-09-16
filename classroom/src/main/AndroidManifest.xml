@@ -97,6 +97,7 @@
             android:theme="@style/AppThemeClassRoom">
 
         </activity>
+
         <activity android:name="com.xingwang.classroom.ui.statistic.StatisticPriceActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:hardwareAccelerated="true"
@@ -106,6 +107,13 @@
             android:theme="@style/AppThemeClassRoom" >
 
         </activity>
+        <activity android:name="com.xingwang.classroom.ui.offer.OfferDetailActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:hardwareAccelerated="true"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/AppThemeClassRoom" />
         <activity android:name="com.xingwang.classroom.ui.live.LiveListActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
             android:hardwareAccelerated="true"

@@ -32,6 +32,7 @@ public class HttpUrls {
     public static final String URL_AD_LISTS(){
         return URL_HOST+URL_NAME+"ad/general/ad/lists";
     }
+
     public static final String URL_LISTS(){
         return URL_HOST+URL_NAME+"lecture/general/lecture/lists";
     }
@@ -237,6 +238,18 @@ public class HttpUrls {
     }
     public static final String URL_PRICE_HISTORY(){
       return  URL_HOST+URL_NAME+"price/general/api/history";
+    }
+    public static final String URL_BAOJIA_MONTH(){
+      return  URL_HOST+URL_NAME+"baojia/general/api/month";
+    }
+    public static final String URL_BAOJIA_YEAR(){
+      return  URL_HOST+URL_NAME+"baojia/general/api/year";
+    }
+    public static final String URL_BAOJIA_BAOJIA(){
+      return  URL_HOST+URL_NAME+"baojia/general/api/baojia";
+    }
+    public static final String URL_BAOJIA_PUBLISH(){
+        return URL_HOST+URL_NAME+"baojia/user/baojia/publish";
     }
     public static final String URL_LIVE_CHAT_SEND(){
       return  URL_HOST+URL_NAME+"live/user/chat/send";

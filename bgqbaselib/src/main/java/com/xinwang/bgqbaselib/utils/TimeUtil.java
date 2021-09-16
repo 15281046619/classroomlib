@@ -124,6 +124,10 @@ public class TimeUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(new Date());
     }
+    public static  String getCurTimeYM(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        return sdf.format(new Date());
+    }
 
     /**
      * 某个时间点 加上多少天

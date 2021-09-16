@@ -17,6 +17,7 @@ import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsListener;
 import com.xingwang.classroom.bean.X5InstallSuccessBean;
 import com.xingwang.classroom.dialog.CenterQuiteDialog;
+import com.xingwang.classroom.ui.offer.OfferDetailActivity;
 import com.xinwang.bgqbaselib.http.HttpUrls;
 import com.xingwang.classroom.ui.ClassRoomDetailActivity;
 import com.xingwang.classroom.ui.ClassRoomHomeActivity;
@@ -25,11 +26,9 @@ import com.xingwang.classroom.ui.live.LiveWebActivity;
 import com.xingwang.classroom.ui.statistic.StatisticPriceActivity;
 import com.xinwang.bgqbaselib.utils.CommentUtils;
 import com.xinwang.bgqbaselib.utils.Constants;
-import com.xinwang.bgqbaselib.utils.LogUtil;
 import com.xinwang.bgqbaselib.utils.SharedPreferenceUntils;
 import com.ycbjie.webviewlib.utils.X5LogUtils;
 import com.ycbjie.webviewlib.utils.X5WebUtils;
-import com.ycbjie.webviewlib.wv.X5WvWebView;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -289,9 +288,20 @@ public class ClassRoomLibUtils {
         context.startActivity(new Intent(context,ClassRoomHomeActivity.class).putExtra("type",type));
     }
 
-
+    /**
+     * 猪药线路历史统计
+     * @param context
+     */
     public static void startHistoryPriceActivity(Context context){
         context.startActivity(new Intent(context, StatisticPriceActivity.class));
+    }
+
+    /**
+     * 禽药线报价
+     * @param context
+     */
+    public static void startBaoJiaActivity(Context context,String proVice,String type){
+        context.startActivity(new Intent(context, OfferDetailActivity.class).putExtra("provice",proVice).putExtra("type",type));
     }
     /**
      *统计猪历史价格
