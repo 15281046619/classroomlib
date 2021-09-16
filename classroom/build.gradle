@@ -61,13 +61,14 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api project(path: ':shoppingcenter')
-    api project(path: ':wheelview')
+    implementation project(path: ':shoppingcenter')
+    implementation project(path: ':wheelview')
     // implementation project(path: ':swiplib')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
 
 
 
