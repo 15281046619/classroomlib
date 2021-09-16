@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.gitee.bgqbgq'
+/*apply plugin: 'com.github.dcendents.android-maven'
+group='com.gitee.bgqbgq'*/
 
 android {
     compileSdkVersion 28
@@ -62,7 +62,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     api project(path: ':shoppingcenter')
-    implementation project(path: ':wheelview')
+    api project(path: ':wheelview')
     // implementation project(path: ':swiplib')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -81,8 +81,7 @@ dependencies {
      implementation 'com.shuyu:gsyVideoPlayer-x86:6.0.2'*/
 
 
-    //implementation 'com.beautyreslibrary:beautyreslibrary:1.1.9'//有implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'库
-    //implementation 'com.beautyreslibra ry:zy:1.0.4'//有implementation 'com.shuyu:gsyVideoPlayer-java:6.0.2'库
+
 
     implementation 'com.zzhoujay.richtext:richtext:3.0.8'
 
